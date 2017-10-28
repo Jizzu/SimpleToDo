@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import apps.jizzu.simpletodo.R;
@@ -45,6 +46,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     public Item getItem(int position) {
         return mItems.get(position);
+    }
+
+    /**
+     * Removes an item from the list.
+     */
+    public void removeItem(int position) {
+        mItems.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    /**
+     * Moves an item in the list.
+     */
+    public boolean moveItem(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mItems, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mItems, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
     }
 
     /**
