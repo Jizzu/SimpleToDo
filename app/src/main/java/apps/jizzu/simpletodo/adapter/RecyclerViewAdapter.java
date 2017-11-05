@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import apps.jizzu.simpletodo.MainActivity;
 import apps.jizzu.simpletodo.R;
 import apps.jizzu.simpletodo.Utils;
-import apps.jizzu.simpletodo.model.Item;
+import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
 
 /**
@@ -20,38 +21,22 @@ import apps.jizzu.simpletodo.model.ModelTask;
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Item> mItems = new ArrayList<>();
-
-    private static final int TYPE_TASK = 0;
-    private static final int TYPE_SEPARATOR = 1;
+    public List<ModelTask> mItems = new ArrayList<>();
 
     /**
      * Adds a new item to the end of the list.
      */
-    public void addItem(Item item) {
+    public void addItem(ModelTask item) {
         mItems.add(item);
         notifyItemInserted(getItemCount() - 1);
     }
 
     /**
-     * Adds a new item to specific position of the list.
-     */
-    public void addItem(int location, Item item) {
-        mItems.add(location, item);
-        notifyItemInserted(location);
-    }
-
-    /**
-     * Returns the specific item depending on the position in the list.
-     */
-    public Item getItem(int position) {
-        return mItems.get(position);
-    }
-
-    /**
      * Removes an item from the list.
      */
-    public void removeItem(int position) {
+    public void removeItem(final int position) {
+        DBHelper dbHelper = new DBHelper(MainActivity.mContext);
+        dbHelper.deleteTask(mItems.get(position).getId());
         mItems.remove(position);
         notifyItemRemoved(position);
     }
@@ -59,7 +44,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     /**
      * Moves an item in the list.
      */
-    public boolean moveItem(int fromPosition, int toPosition) {
+    public void moveItem(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(mItems, i, i + 1);
@@ -70,7 +55,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         }
         notifyItemMoved(fromPosition, toPosition);
-        return true;
     }
 
     /**
@@ -81,17 +65,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        switch (viewType) {
-            case TYPE_TASK:
-                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.model_task, parent, false);
-                TextView title = v.findViewById(R.id.tvTaskTitle);
-                TextView date = v.findViewById(R.id.tvTaskDate);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.model_task, parent, false);
+        TextView title = v.findViewById(R.id.tvTaskTitle);
+        TextView date = v.findViewById(R.id.tvTaskDate);
 
-                return new TaskViewHolder(v, title, date);
-
-            default:
-                return null;
-        }
+        return new TaskViewHolder(v, title, date);
     }
 
     /**
@@ -101,18 +79,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Item item = mItems.get(position);
+        ModelTask task = mItems.get(position);
 
-        if (item.isTask()) {
-            holder.itemView.setEnabled(true);
-            ModelTask task = (ModelTask) item;
-            TaskViewHolder taskViewHolder = (TaskViewHolder) holder;
+        holder.itemView.setEnabled(true);
+        TaskViewHolder taskViewHolder = (TaskViewHolder) holder;
 
-            taskViewHolder.title.setText(task.getTitle());
+        taskViewHolder.title.setText(task.getTitle());
 
-            if (task.getDate() != 0) {
-                taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
-            }
+        if (task.getDate() != 0) {
+            taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
         }
     }
 
@@ -122,18 +97,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemCount() {
         return mItems.size();
-    }
-
-    /**
-     * Returns the type View (task or separator) depending on the position of the item.
-     */
-    @Override
-    public int getItemViewType(int position) {
-        if (getItem(position).isTask()) {
-            return TYPE_TASK;
-        } else {
-            return TYPE_SEPARATOR;
-        }
     }
 
     /**

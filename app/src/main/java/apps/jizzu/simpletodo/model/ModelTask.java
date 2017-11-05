@@ -1,20 +1,23 @@
 package apps.jizzu.simpletodo.model;
 
+
 /**
  * Class for representing a specific task.
  */
-public class ModelTask implements Item {
+public class ModelTask {
 
     private String title;
     private long date;
+    private int id;
 
     public ModelTask() {
 
     }
 
-    public ModelTask(String title, long date) {
+    public ModelTask(String title, long date, int id) {
         this.title = title;
         this.date = date;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -33,8 +36,11 @@ public class ModelTask implements Item {
         this.date = date;
     }
 
-    @Override
-    public boolean isTask() {
-        return true;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

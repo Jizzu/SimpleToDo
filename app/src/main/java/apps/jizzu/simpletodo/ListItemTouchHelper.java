@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter;
+import apps.jizzu.simpletodo.database.DBHelper;
+import apps.jizzu.simpletodo.model.ModelTask;
 
 /**
  * Enables basic drag & drop and swipe-to-dismiss. Drag events are automatically started by an item long-press.
@@ -63,5 +65,21 @@ public class ListItemTouchHelper extends ItemTouchHelper.Callback {
     @Override
     public boolean isItemViewSwipeEnabled() {
         return true;
+    }
+
+    /**
+     * Called by the ItemTouchHelper when the user interaction with an element is over and it also completed its animation.
+     * Adds all tasks to the database after drag & drop any RecyclerView item to save its new position in the list.
+     */
+    @Override
+    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        super.clearView(recyclerView, viewHolder);
+
+        DBHelper helper = new DBHelper(MainActivity.mContext);
+        helper.deleteAllTasks();
+
+        for (ModelTask task : mAdapter.mItems) {
+            helper.saveTask(task);
+        }
     }
 }

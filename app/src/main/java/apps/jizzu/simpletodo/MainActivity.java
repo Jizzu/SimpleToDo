@@ -1,5 +1,6 @@
 package apps.jizzu.simpletodo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
+import java.util.List;
+
 import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter;
+import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
 
 
@@ -20,10 +24,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    // TODO: Find better way to get the MainActivity context.
+    public static Context mContext;
+
+    public DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mContext = MainActivity.this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -43,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
 
+        dbHelper = new DBHelper(this);
+        addTasksFromDB();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,24 +71,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Adds a new task to the RecyclerView.
+     * Reads all tasks from the database and adds them to the RecyclerView list.
      */
-    public void addTask(ModelTask newTask) {
-        int position = -1;
+    public void addTasksFromDB() {
+        List<ModelTask> taskList = dbHelper.getAllTasks();
 
-        for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            if (mAdapter.getItem(i).isTask()) {
-                ModelTask task = (ModelTask) mAdapter.getItem(i);
-                if (newTask.getDate() < task.getDate()) {
-                    position = i;
-                }
-            }
-        }
-
-        if (position != -1) {
-            mAdapter.addItem(position, newTask);
-        } else {
-            mAdapter.addItem(newTask);
+        for (ModelTask task : taskList) {
+            mAdapter.addItem(task);
         }
     }
 
@@ -87,11 +90,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) return;
-        ModelTask task = new ModelTask();
+
         String taskTitle = data.getStringExtra("title");
         long taskDate = data.getLongExtra("date", 0);
+
+        ModelTask task = new ModelTask();
         task.setTitle(taskTitle);
         task.setDate(taskDate);
-        addTask(task);
+
+        mAdapter.addItem(task);
+        dbHelper.saveTask(task);
     }
 }

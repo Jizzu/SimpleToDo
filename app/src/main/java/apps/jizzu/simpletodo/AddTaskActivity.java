@@ -3,6 +3,7 @@ package apps.jizzu.simpletodo;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import apps.jizzu.simpletodo.fragment.TimePickerFragment;
 public class AddTaskActivity extends AppCompatActivity {
 
     EditText mTitle;
+    TextInputLayout mTaskTitleLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class AddTaskActivity extends AppCompatActivity {
         }
 
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.container);
+        mTaskTitleLayout = (TextInputLayout) findViewById(R.id.taskTitleLayout);
         mTitle = (EditText) findViewById(R.id.taskTitle);
         final EditText date = (EditText) findViewById(R.id.taskDate);
         final EditText time = (EditText) findViewById(R.id.taskTime);
