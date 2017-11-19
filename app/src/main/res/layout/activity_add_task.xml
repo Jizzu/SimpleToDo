@@ -4,7 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="apps.jizzu.simpletodo.AddTaskActivity">
+    tools:context="apps.jizzu.simpletodo.activity.AddTaskActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

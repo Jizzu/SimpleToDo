@@ -1,6 +1,7 @@
 package apps.jizzu.simpletodo.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import apps.jizzu.simpletodo.MainActivity;
+import apps.jizzu.simpletodo.activity.MainActivity;
 import apps.jizzu.simpletodo.R;
-import apps.jizzu.simpletodo.Utils;
+import apps.jizzu.simpletodo.utils.Utils;
 import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Adapters connect the list views (RecyclerView for example) to it's contents.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
 
     public List<ModelTask> mItems = new ArrayList<>();
 
@@ -32,11 +35,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     /**
+     * Adds a new item to the specific position of the list.
+     */
+    public void addItem(ModelTask item, int position) {
+        mItems.add(position, item);
+        notifyItemInserted(position);
+
+        Log.d(TAG, "Task with title " + mItems.get(position).getTitle() + " and position = " + position + " added from db to RecyclerView!");
+    }
+
+    /**
      * Removes an item from the list.
      */
-    public void removeItem(final int position) {
+    public void removeItem(int position) {
         DBHelper dbHelper = new DBHelper(MainActivity.mContext);
-        dbHelper.deleteTask(mItems.get(position).getId());
+        dbHelper.deleteTask(mItems.get(position));
         mItems.remove(position);
         notifyItemRemoved(position);
     }
@@ -45,16 +58,42 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * Moves an item in the list.
      */
     public void moveItem(int fromPosition, int toPosition) {
+        Log.d(TAG, "fromPosition: " + fromPosition + " toPosition: " + toPosition);
+
         if (fromPosition < toPosition) {
+            // Move down
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(mItems, i, i + 1);
+                mItems.get(i).setPosition(i);
+                mItems.get(i + 1).setPosition(i + 1);
+
+                Log.d(TAG, "Task with title " + mItems.get(i).getTitle() + " new position = " + mItems.get(i).getPosition());
+                Log.d(TAG, "Task with title " + mItems.get(i + 1).getTitle() + " new position = " + mItems.get(i + 1).getPosition());
             }
         } else {
+            // Move up
             for (int i = fromPosition; i > toPosition; i--) {
                 Collections.swap(mItems, i, i - 1);
+                mItems.get(i).setPosition(i);
+                mItems.get(i - 1).setPosition(i - 1);
+
+                Log.d(TAG, "Task with title " + mItems.get(i).getTitle() + " new position = " + mItems.get(i).getPosition());
+                Log.d(TAG, "Task with title " + mItems.get(i - 1).getTitle() + " new position = " + mItems.get(i - 1).getPosition());
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+    }
+
+    /**
+     * Saves the tasks order to the database.
+     */
+    public void saveTasksOrder() {
+        for (ModelTask task : mItems) {
+            task.setPosition(mItems.indexOf(task));
+
+            DBHelper dbHelper = new DBHelper(MainActivity.mContext);
+            dbHelper.updateTask(task);
+        }
     }
 
     /**
@@ -108,6 +147,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public TaskViewHolder(View itemView, TextView title, TextView date) {
             super(itemView);
+
             this.title = title;
             this.date = date;
         }

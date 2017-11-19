@@ -4,7 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="apps.jizzu.simpletodo.MainActivity">
+    tools:context="apps.jizzu.simpletodo.activity.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary" />
 
-    <android.support.v7.widget.RecyclerView
+    <apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
         android:id="@+id/tasksList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,6 +20,31 @@
         android:clipToPadding="false"
         android:paddingBottom="88dp"
         android:scrollbars="vertical" />
+
+    <RelativeLayout
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="No tasks"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/additionalText"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="75dp"
+            android:gravity="center"
+            android:text="You can create new tasks \n using the + button"
+            android:textSize="15sp" />
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
