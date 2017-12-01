@@ -5,18 +5,27 @@ package apps.jizzu.simpletodo.model;
  */
 public class ModelTask {
 
+    private long id;
     private String title;
     private long date;
-    private long id;
     private int position;
 
     public ModelTask() {
 
     }
 
-    public ModelTask(String title, long date, long id) {
+    public ModelTask(long id, String title, long date, int position) {
+        this.id = id;
         this.title = title;
         this.date = date;
+        this.position = position;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -34,14 +43,6 @@ public class ModelTask {
 
     public void setDate(long date) {
         this.date = date;
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public int getPosition() {

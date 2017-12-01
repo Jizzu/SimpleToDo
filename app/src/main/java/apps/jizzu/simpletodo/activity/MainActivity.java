@@ -2,9 +2,9 @@ package apps.jizzu.simpletodo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private RelativeLayout mEmptyView;
 
+    private DBHelper mHelper;
+
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
 
-    public DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +42,15 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = MainActivity.this;
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolbar);
         }
 
-        mEmptyView = (RelativeLayout) findViewById(R.id.empty);
+        mEmptyView = findViewById(R.id.empty);
 
-        mRecyclerView = (RecyclerViewEmptySupport) findViewById(R.id.tasksList);
+        mRecyclerView = findViewById(R.id.tasksList);
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(this);
@@ -58,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setEmptyView(mEmptyView);
 
-        ItemTouchHelper.Callback callback = new ListItemTouchHelper(mAdapter);
+        ItemTouchHelper.Callback callback = new ListItemTouchHelper(mAdapter, mRecyclerView);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
 
-        dbHelper = new DBHelper(this);
+        mHelper = DBHelper.getInstance(mContext);
         addTasksFromDB();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,10 +80,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Reads all tasks from the database and compares them with mItems in RecyclerView.
+     * If the tasks count in the database doesn't coincide with the number of tasks in RecyclerView,
+     * all the tasks in the database are replaced with tasks from the mItems.
+     * For example, this happens when the user removes the task from the RecyclerView list and hide/close app until the snackbar has disappeared.
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        List<ModelTask> taskList = mHelper.getAllTasks();
+
+        if (taskList.size() != mAdapter.mItems.size()) {
+
+            mHelper.deleteAllTasks();
+
+            for (ModelTask task : mAdapter.mItems) {
+                mHelper.saveTask(task);
+            }
+        }
+    }
+
+    /**
      * Reads all tasks from the database and adds them to the RecyclerView list.
      */
     public void addTasksFromDB() {
-        List<ModelTask> taskList = dbHelper.getAllTasks();
+        List<ModelTask> taskList = mHelper.getAllTasks();
 
         for (ModelTask task : taskList) {
             mAdapter.addItem(task, task.getPosition());
@@ -107,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         task.setDate(taskDate);
         task.setPosition(mAdapter.getItemCount());
 
-        long id = dbHelper.saveTask(task);
+        long id = mHelper.saveTask(task);
         task.setId(id);
         mAdapter.addItem(task);
     }

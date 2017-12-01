@@ -2,9 +2,6 @@ package apps.jizzu.simpletodo.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Enables basic drag & drop and swipe-to-dismiss. Drag events are automatically started by an item long-press.
@@ -12,12 +9,14 @@ import static android.content.ContentValues.TAG;
 public class ListItemTouchHelper extends ItemTouchHelper.Callback {
 
     private final RecyclerViewAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     /**
      * Constructor for mAdapter initialization.
      */
-    public ListItemTouchHelper(RecyclerViewAdapter adapter) {
+    public ListItemTouchHelper(RecyclerViewAdapter adapter, RecyclerView recyclerView) {
         mAdapter = adapter;
+        mRecyclerView = recyclerView;
     }
 
     /**
@@ -45,7 +44,7 @@ public class ListItemTouchHelper extends ItemTouchHelper.Callback {
      */
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        mAdapter.removeItem(viewHolder.getAdapterPosition());
+        mAdapter.removeItem(viewHolder.getAdapterPosition(), mRecyclerView);
     }
 
     /**
@@ -64,17 +63,5 @@ public class ListItemTouchHelper extends ItemTouchHelper.Callback {
     @Override
     public boolean isItemViewSwipeEnabled() {
         return true;
-    }
-
-    /**
-     * Called by the ItemTouchHelper when the user interaction with an element is over and it also completed its animation.
-     * Saves new tasks order to the database after drag & drop any RecyclerView item.
-     */
-    @Override
-    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        super.clearView(recyclerView, viewHolder);
-
-        Log.d(TAG, "clearView call!!!");
-        mAdapter.saveTasksOrder();
     }
 }

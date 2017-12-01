@@ -38,7 +38,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         setTitle("NEW TASK");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,12 +46,12 @@ public class AddTaskActivity extends AppCompatActivity {
             toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         }
 
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.container);
-        mTaskTitleLayout = (TextInputLayout) findViewById(R.id.taskTitleLayout);
-        mTitle = (EditText) findViewById(R.id.taskTitle);
-        final EditText date = (EditText) findViewById(R.id.taskDate);
-        final EditText time = (EditText) findViewById(R.id.taskTime);
-        Button addTaskButton = (Button) findViewById(R.id.addTaskButton);
+        RelativeLayout relativeLayout = findViewById(R.id.container);
+        mTaskTitleLayout = findViewById(R.id.taskTitleLayout);
+        mTitle = findViewById(R.id.taskTitle);
+        final EditText date = findViewById(R.id.taskDate);
+        final EditText time = findViewById(R.id.taskTime);
+        Button addTaskButton = findViewById(R.id.addTaskButton);
 
         InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);

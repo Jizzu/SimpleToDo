@@ -1,5 +1,6 @@
 package apps.jizzu.simpletodo.adapter;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import apps.jizzu.simpletodo.activity.MainActivity;
 import apps.jizzu.simpletodo.R;
+import apps.jizzu.simpletodo.database.TasksOrderUpdate;
 import apps.jizzu.simpletodo.utils.Utils;
 import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
@@ -25,6 +27,23 @@ import static android.content.ContentValues.TAG;
 public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
 
     public List<ModelTask> mItems = new ArrayList<>();
+    private DBHelper mHelper = DBHelper.getInstance(MainActivity.mContext);
+
+    /**
+     * Custom OnClickListener which is needed to pass task id for the Snackbar onClick() method.
+     */
+    class CustomOnClickListener implements View.OnClickListener {
+        long taskID;
+
+        public CustomOnClickListener(long taskID) {
+            this.taskID = taskID;
+        }
+
+        @Override
+        public void onClick(View view) {
+
+        }
+    }
 
     /**
      * Adds a new item to the end of the list.
@@ -47,11 +66,41 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     /**
      * Removes an item from the list.
      */
-    public void removeItem(int position) {
-        DBHelper dbHelper = new DBHelper(MainActivity.mContext);
-        dbHelper.deleteTask(mItems.get(position));
+    public void removeItem(int position, RecyclerView recyclerView) {
+        final long taskID = mItems.get(position).getId();
+        final boolean[] isRemoved = {true};
+
         mItems.remove(position);
         notifyItemRemoved(position);
+
+        Snackbar snackbar = Snackbar.make(recyclerView, "Task is removed!", Snackbar.LENGTH_LONG);
+        snackbar.setAction("Cancel", new CustomOnClickListener(taskID) {
+
+            public void onClick(View view) {
+                ModelTask task = mHelper.getTask(taskID);
+                addItem(task, task.getPosition());
+
+                isRemoved[0] = false;
+            }
+        });
+
+        snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            // Called when Snackbar appears on the screen.
+            @Override
+            public void onViewAttachedToWindow(View view) {
+
+            }
+
+            // Called when Snackbar disappears from the screen.
+            @Override
+            public void onViewDetachedFromWindow(View view) {
+                if (isRemoved[0]) {
+                    mHelper.deleteTask(taskID);
+                    saveTasksOrderFromDB();
+                }
+            }
+        });
+        snackbar.show();
     }
 
     /**
@@ -82,17 +131,32 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+        saveTasksOrderFromRV();
     }
 
     /**
-     * Saves the tasks order to the database.
+     * Saves the new tasks order from RecyclerView list to the database.
      */
-    public void saveTasksOrder() {
+    public void saveTasksOrderFromRV() {
         for (ModelTask task : mItems) {
             task.setPosition(mItems.indexOf(task));
 
-            DBHelper dbHelper = new DBHelper(MainActivity.mContext);
-            dbHelper.updateTask(task);
+            TasksOrderUpdate order = new TasksOrderUpdate();
+            order.execute(task);
+        }
+    }
+
+    /**
+     * Saves the new tasks order to the database.
+     */
+    public void saveTasksOrderFromDB() {
+        List<ModelTask> taskList = mHelper.getAllTasks();
+
+        for (ModelTask task : taskList) {
+            task.setPosition(taskList.indexOf(task));
+
+            TasksOrderUpdate order = new TasksOrderUpdate();
+            order.execute(task);
         }
     }
 
@@ -141,7 +205,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     /**
      * This class helps to get a reference to each element of a particular list item.
      */
-    private class TaskViewHolder extends RecyclerView.ViewHolder {
+    public class TaskViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView date;
 

@@ -1,6 +1,5 @@
 package apps.jizzu.simpletodo.database;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,9 +16,11 @@ import apps.jizzu.simpletodo.model.ModelTask;
 import static android.content.ContentValues.TAG;
 
 /**
- * Class for managing the SQLite database.
+ * Class for managing the SQLite database (uses the Singleton pattern).
  */
 public class DBHelper extends SQLiteOpenHelper {
+
+    private static DBHelper mInstance;
 
     public static final int DATABASE_VERSION = 1;
 
@@ -37,10 +38,6 @@ public class DBHelper extends SQLiteOpenHelper {
             + TASK_TITLE_COLUMN + " TEXT NOT NULL, " + TASK_DATE_COLUMN + " LONG, " + TASK_POSITION_COLUMN + " INTEGER);";
 
 
-    public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(TASKS_TABLE_CREATE_SCRIPT);
@@ -50,6 +47,26 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE " + TASKS_TABLE);
         onCreate(sqLiteDatabase);
+    }
+
+    /**
+     * Constructor is private to prevent direct instantiation.
+     */
+    private DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    /**
+     * This static method ensures that only one DBHelper will ever exist at any given time.
+     * If the mInstance object has not been initialized, one will be created.
+     * If one has already been created then it will simply be returned.
+     */
+    public static synchronized DBHelper getInstance(Context context) {
+
+        if (mInstance == null) {
+            mInstance = new DBHelper(context.getApplicationContext());
+        }
+        return mInstance;
     }
 
     /**
@@ -67,7 +84,7 @@ public class DBHelper extends SQLiteOpenHelper {
         long id = db.insert(TASKS_TABLE, null, newValues);
         db.close();
 
-        Log.d(TAG, "Task with ID (" + id + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + ") Position (" + task.getPosition() + ") saved to DB!");
+        Log.d(TAG, "Task with ID (" + id + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + "), Position (" + task.getPosition() + ") saved to DB!");
         return id;
     }
 
@@ -77,20 +94,54 @@ public class DBHelper extends SQLiteOpenHelper {
     public void updateTask(ModelTask task) {
         ContentValues updatedValues = new ContentValues();
         updatedValues.put(TASK_POSITION_COLUMN, task.getPosition());
-        getWritableDatabase().update(TASKS_TABLE, updatedValues, TASK_ID_COLUMN + " = ?", new String[]{String.valueOf(task.getId())});
+        this.getWritableDatabase().update(TASKS_TABLE, updatedValues, TASK_ID_COLUMN + " = ?", new String[]{String.valueOf(task.getId())});
 
-        Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + ") Position (" + task.getPosition() + ") updated in DB!");
+        Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + "), Position (" + task.getPosition() + ") updated in DB!");
     }
 
     /**
      * Removes a specific task from the database.
      */
-    public void deleteTask(ModelTask task) {
+    public void deleteTask(long id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TASKS_TABLE, TASK_ID_COLUMN + " = ?", new String[]{String.valueOf(task.getId())});
+        db.delete(TASKS_TABLE, TASK_ID_COLUMN + " = ?", new String[]{String.valueOf(id)});
         db.close();
 
-        Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + ") Position (" + task.getPosition() + ") deleted from DB!");
+        Log.d(TAG, "Task with ID (" + id + ") deleted from DB!");
+    }
+
+    /**
+     * Removes all tasks from the database.
+     */
+    public void deleteAllTasks() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TASKS_TABLE, null, null);
+        db.close();
+    }
+
+    /**
+     * Gets a specific task from the database.
+     */
+    public ModelTask getTask(long id) {
+        ModelTask task = null;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TASKS_TABLE, new String[]{TASK_ID_COLUMN,
+                        TASK_TITLE_COLUMN, TASK_DATE_COLUMN, TASK_POSITION_COLUMN}, TASK_ID_COLUMN + " = ?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            String title = cursor.getString(1);
+            long date = Long.parseLong(cursor.getString(2));
+            int position = Integer.parseInt(cursor.getString(3));
+
+            task = new ModelTask(id, title, date, position);
+            Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + "), Position (" + task.getPosition() + ") get from DB!");
+        }
+        cursor.close();
+
+        return task;
     }
 
     /**
@@ -111,7 +162,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 task.setDate(Long.parseLong(cursor.getString(2)));
                 task.setPosition(Integer.parseInt(cursor.getString(3)));
 
-                Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + ") Position (" + task.getPosition() + ") extracted from DB!");
+                Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + "), Position (" + task.getPosition() + ") extracted from DB!");
                 tasksList.add(task);
             } while (cursor.moveToNext());
         }
