@@ -1,5 +1,7 @@
 package apps.jizzu.simpletodo.model;
 
+import java.util.Date;
+
 /**
  * Class for representing a specific task.
  */
@@ -9,16 +11,18 @@ public class ModelTask {
     private String title;
     private long date;
     private int position;
+    private long timeStamp;
 
     public ModelTask() {
-
+        this.timeStamp = new Date().getTime();
     }
 
-    public ModelTask(long id, String title, long date, int position) {
+    public ModelTask(long id, String title, long date, int position, long timeStamp) {
         this.id = id;
         this.title = title;
         this.date = date;
         this.position = position;
+        this.timeStamp = timeStamp;
     }
 
     public long getId() {
@@ -51,5 +55,13 @@ public class ModelTask {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }

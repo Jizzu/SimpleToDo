@@ -11,7 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.List;
 
 import apps.jizzu.simpletodo.R;
@@ -20,15 +22,16 @@ import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter;
 import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport;
 import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
+import apps.jizzu.simpletodo.alarm.AlarmHelper;
+import apps.jizzu.simpletodo.utils.MyApplication;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerViewEmptySupport mRecyclerView;
-    private RecyclerViewAdapter mAdapter;
+    public static RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RelativeLayout mEmptyView;
-
     private DBHelper mHelper;
 
     // TODO: Find better way to get the MainActivity context.
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mContext = MainActivity.this;
+
+        // Initialize ALARM_SERVICE
+        AlarmHelper.getInstance().init(getApplicationContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -101,6 +107,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MyApplication.activityPaused();
+    }
+
     /**
      * Reads all tasks from the database and adds them to the RecyclerView list.
      */
@@ -129,6 +147,15 @@ public class MainActivity extends AppCompatActivity {
         task.setTitle(taskTitle);
         task.setDate(taskDate);
         task.setPosition(mAdapter.getItemCount());
+
+        // Set notification to the current task
+        if (task.getDate() != 0 && task.getDate() <= Calendar.getInstance().getTimeInMillis()) {
+            Toast.makeText(this, "Error! You have selected an incorrect time!", Toast.LENGTH_SHORT).show();
+            task.setDate(0);
+        } else if (task.getDate() != 0) {
+            AlarmHelper alarmHelper = AlarmHelper.getInstance();
+            alarmHelper.setAlarm(task);
+        }
 
         long id = mHelper.saveTask(task);
         task.setId(id);

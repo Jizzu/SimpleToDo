@@ -1,11 +1,14 @@
 package apps.jizzu.simpletodo.activity;
 
+import android.animation.Animator;
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,17 +22,22 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 import apps.jizzu.simpletodo.R;
-import apps.jizzu.simpletodo.utils.Utils;
 import apps.jizzu.simpletodo.fragment.DatePickerFragment;
 import apps.jizzu.simpletodo.fragment.TimePickerFragment;
+import apps.jizzu.simpletodo.utils.Utils;
 
 /**
  * Activity for adding a new task to RecyclerView.
  */
-public class AddTaskActivity extends AppCompatActivity {
+public class AddTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     EditText mTitle;
     TextInputLayout mTaskTitleLayout;
+    RelativeLayout reminderLayout;
+    Calendar mCalendar;
+    EditText mDate;
+    EditText mTime;
+    SwitchCompat mReminderSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +55,71 @@ public class AddTaskActivity extends AppCompatActivity {
         }
 
         RelativeLayout relativeLayout = findViewById(R.id.container);
+        mDate = findViewById(R.id.taskDate);
         mTaskTitleLayout = findViewById(R.id.taskTitleLayout);
+        reminderLayout = findViewById(R.id.reminderContainer);
         mTitle = findViewById(R.id.taskTitle);
-        final EditText date = findViewById(R.id.taskDate);
-        final EditText time = findViewById(R.id.taskTime);
+        mTime = findViewById(R.id.taskTime);
         Button addTaskButton = findViewById(R.id.addTaskButton);
+        mReminderSwitch = findViewById(R.id.reminderSwitch);
+
+
+        reminderLayout.setVisibility(View.INVISIBLE);
+
+        mReminderSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mReminderSwitch.isChecked()) {
+                    hideKeyboard(mTitle);
+                    reminderLayout.animate().alpha(1.0f).setDuration(500).setListener(
+                            new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                    reminderLayout.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+                                }
+                            }
+                    );
+                } else {
+                    reminderLayout.animate().alpha(0.0f).setDuration(500).setListener(
+                            new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    reminderLayout.setVisibility(View.INVISIBLE);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }
+                    );
+                    mDate.setText(null);
+                    mTime.setText(null);
+                }
+            }
+        });
 
         InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -63,51 +131,25 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
 
-        final Calendar calendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance();
         // If the user specified only the date (without time), then the notification of the event will appear in an hour.
-        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + 1);
+        mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1);
 
 
-        date.setOnClickListener(new View.OnClickListener() {
+        mDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                DialogFragment datePickerFragment = new DatePickerFragment() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, monthOfYear);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        date.setText(Utils.getDate(calendar.getTimeInMillis()));
-                    }
-
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        date.setText(null);
-                    }
-                };
+                mDate.setText(null);
+                DialogFragment datePickerFragment = new DatePickerFragment();
                 datePickerFragment.show(getFragmentManager(), "DatePickerFragment");
             }
         });
 
-        time.setOnClickListener(new View.OnClickListener() {
+        mTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                DialogFragment timePickerFragment = new TimePickerFragment() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-                        calendar.set(Calendar.SECOND, 0);
-                        time.setText(Utils.getTime(calendar.getTimeInMillis()));
-                    }
-
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        time.setText(null);
-                    }
-                };
+                mTime.setText(null);
+                DialogFragment timePickerFragment = new TimePickerFragment();
                 timePickerFragment.show(getFragmentManager(), "TimePickerFragment");
             }
         });
@@ -121,8 +163,8 @@ public class AddTaskActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.putExtra("title", mTitle.getText().toString());
 
-                    if (date.length() != 0 || time.length() != 0) {
-                        intent.putExtra("date", calendar.getTimeInMillis());
+                    if (mDate.length() != 0 || mTime.length() != 0) {
+                        intent.putExtra("date", mCalendar.getTimeInMillis());
                     }
                     setResult(RESULT_OK, intent);
                     finish();
@@ -159,5 +201,27 @@ public class AddTaskActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Sets the date selected in the DatePickerFragment.
+     */
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+        mCalendar.set(Calendar.YEAR, year);
+        mCalendar.set(Calendar.MONTH, monthOfYear);
+        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        mDate.setText(Utils.getDate(mCalendar.getTimeInMillis()));
+    }
+
+    /**
+     * Sets the time selected in the TimePickerFragment.
+     */
+    @Override
+    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+        mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        mCalendar.set(Calendar.MINUTE, minute);
+        mCalendar.set(Calendar.SECOND, 0);
+        mTime.setText(Utils.getTime(mCalendar.getTimeInMillis()));
     }
 }

@@ -14,27 +14,24 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvTaskTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="3dp"
-            android:text="Task title"
-            android:textColor="#616161"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvTaskDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_below="@id/tvTaskTitle"
             android:layout_marginBottom="3dp"
             android:text="No reminder"
-            android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

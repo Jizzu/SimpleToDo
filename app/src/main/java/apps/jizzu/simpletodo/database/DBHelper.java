@@ -32,10 +32,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TASK_TITLE_COLUMN = "task_title";
     public static final String TASK_DATE_COLUMN = "task_date";
     public static final String TASK_POSITION_COLUMN = "task_position";
+    public static final String TASK_TIME_STAMP_COLUMN = "task_time_stamp";
 
     private static final String TASKS_TABLE_CREATE_SCRIPT = "CREATE TABLE "
-            + TASKS_TABLE + " (" + TASK_ID_COLUMN + " INTEGER PRIMARY KEY, "
-            + TASK_TITLE_COLUMN + " TEXT NOT NULL, " + TASK_DATE_COLUMN + " LONG, " + TASK_POSITION_COLUMN + " INTEGER);";
+            + TASKS_TABLE + " (" + TASK_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TASK_TITLE_COLUMN + " TEXT NOT NULL, " + TASK_DATE_COLUMN + " LONG, " + TASK_POSITION_COLUMN + " INTEGER, " + TASK_TIME_STAMP_COLUMN + " LONG);";
 
 
     @Override
@@ -80,6 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
         newValues.put(TASK_TITLE_COLUMN, task.getTitle());
         newValues.put(TASK_DATE_COLUMN, task.getDate());
         newValues.put(TASK_POSITION_COLUMN, task.getPosition());
+        newValues.put(TASK_TIME_STAMP_COLUMN, task.getTimeStamp());
 
         long id = db.insert(TASKS_TABLE, null, newValues);
         db.close();
@@ -128,15 +130,16 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TASKS_TABLE, new String[]{TASK_ID_COLUMN,
-                        TASK_TITLE_COLUMN, TASK_DATE_COLUMN, TASK_POSITION_COLUMN}, TASK_ID_COLUMN + " = ?",
+                        TASK_TITLE_COLUMN, TASK_DATE_COLUMN, TASK_POSITION_COLUMN, TASK_TIME_STAMP_COLUMN}, TASK_ID_COLUMN + " = ?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             String title = cursor.getString(1);
             long date = Long.parseLong(cursor.getString(2));
             int position = Integer.parseInt(cursor.getString(3));
+            long timeStamp = Long.parseLong(cursor.getString(4));
 
-            task = new ModelTask(id, title, date, position);
+            task = new ModelTask(id, title, date, position, timeStamp);
             Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + "), Position (" + task.getPosition() + ") get from DB!");
         }
         cursor.close();
@@ -161,6 +164,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 task.setTitle(cursor.getString(1));
                 task.setDate(Long.parseLong(cursor.getString(2)));
                 task.setPosition(Integer.parseInt(cursor.getString(3)));
+                task.setTimeStamp(Long.parseLong(cursor.getString(4)));
 
                 Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + "), Position (" + task.getPosition() + ") extracted from DB!");
                 tasksList.add(task);

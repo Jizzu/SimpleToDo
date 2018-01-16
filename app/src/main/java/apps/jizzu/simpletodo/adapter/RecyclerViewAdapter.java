@@ -14,6 +14,7 @@ import java.util.List;
 
 import apps.jizzu.simpletodo.activity.MainActivity;
 import apps.jizzu.simpletodo.R;
+import apps.jizzu.simpletodo.alarm.AlarmHelper;
 import apps.jizzu.simpletodo.database.TasksOrderUpdate;
 import apps.jizzu.simpletodo.utils.Utils;
 import apps.jizzu.simpletodo.database.DBHelper;
@@ -28,6 +29,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
 
     public List<ModelTask> mItems = new ArrayList<>();
     private DBHelper mHelper = DBHelper.getInstance(MainActivity.mContext);
+    private AlarmHelper mAlarmHelper = AlarmHelper.getInstance();
 
     /**
      * Custom OnClickListener which is needed to pass task id for the Snackbar onClick() method.
@@ -69,6 +71,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     public void removeItem(int position, RecyclerView recyclerView) {
         final long taskID = mItems.get(position).getId();
         final boolean[] isRemoved = {true};
+        final long timeStamp = mItems.get(position).getTimeStamp();
 
         mItems.remove(position);
         notifyItemRemoved(position);
@@ -95,6 +98,10 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             @Override
             public void onViewDetachedFromWindow(View view) {
                 if (isRemoved[0]) {
+                    // Removes a notification
+                    mAlarmHelper.removeAlarm(timeStamp, MainActivity.mContext);
+
+                    // Removes a task
                     mHelper.deleteTask(taskID);
                     saveTasksOrderFromDB();
                 }
