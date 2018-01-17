@@ -111,6 +111,16 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     }
 
     /**
+     * Removes all items from the list.
+     */
+    public void removeAllItems() {
+        if (getItemCount() != 0) {
+            mItems = new ArrayList<>();
+            notifyDataSetChanged();
+        }
+    }
+
+    /**
      * Moves an item in the list.
      */
     public void moveItem(int fromPosition, int toPosition) {

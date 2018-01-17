@@ -9,10 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private RelativeLayout mEmptyView;
     private DBHelper mHelper;
+    private MaterialSearchView mSearchView;
 
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new RecyclerViewAdapter();
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setEmptyView(mEmptyView);
+        mSearchView = findViewById(R.id.search_view);
 
         ItemTouchHelper.Callback callback = new ListItemTouchHelper(mAdapter, mRecyclerView);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -71,6 +78,31 @@ public class MainActivity extends AppCompatActivity {
 
         mHelper = DBHelper.getInstance(mContext);
         addTasksFromDB();
+
+        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                findTasks(newText);
+                return false;
+            }
+        });
+
+        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                addTasksFromDB();
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +115,42 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+    }
+
+    /**
+     * Finds tasks by the title in the database.
+     */
+    public void findTasks(String title) {
+        mAdapter.removeAllItems();
+        List<ModelTask> tasks = new ArrayList<>();
+
+        tasks.addAll(mHelper.getTasks(mHelper.SELECTION_LIKE_TITLE, new String[]{"%" + title + "%"}, mHelper.TASK_DATE_COLUMN));
+
+        for (int i = 0; i < tasks.size(); i++) {
+            mAdapter.addItem(tasks.get(i));
+        }
+    }
+
+    /**
+     * Reads all tasks from the database and adds them to the RecyclerView list.
+     */
+    public void addTasksFromDB() {
+        mAdapter.removeAllItems();
+        List<ModelTask> taskList = mHelper.getAllTasks();
+
+        for (ModelTask task : taskList) {
+            mAdapter.addItem(task, task.getPosition());
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_icon, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        mSearchView.setMenuItem(item);
+
+        return true;
     }
 
     /**
@@ -120,17 +188,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Reads all tasks from the database and adds them to the RecyclerView list.
-     */
-    public void addTasksFromDB() {
-        List<ModelTask> taskList = mHelper.getAllTasks();
-
-        for (ModelTask task : taskList) {
-            mAdapter.addItem(task, task.getPosition());
-        }
-    }
-
-    /**
      * Called when an activity you launched exits, giving you the requestCode you started it with, the resultCode it returned, and any additional data from it.
      * requestCode: The integer request code originally supplied to startActivityForResult(), allowing you to identify who this result came from.
      * resultCode: The integer result code returned by the child activity through its setResult().
@@ -160,5 +217,15 @@ public class MainActivity extends AppCompatActivity {
         long id = mHelper.saveTask(task);
         task.setId(id);
         mAdapter.addItem(task);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (mSearchView.isSearchOpen()) {
+            mSearchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
