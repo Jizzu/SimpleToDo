@@ -94,11 +94,23 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Updates the task position in the database.
      */
-    public void updateTask(ModelTask task) {
+    public void updateTaskPosition(ModelTask task) {
         ContentValues updatedValues = new ContentValues();
         updatedValues.put(TASK_POSITION_COLUMN, task.getPosition());
         this.getWritableDatabase().update(TASKS_TABLE, updatedValues, TASK_ID_COLUMN + " = ?", new String[]{String.valueOf(task.getId())});
 
+        Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + "), Position (" + task.getPosition() + ") updated in DB!");
+    }
+
+    /**
+     * Updates the task title and date in the database.
+     */
+    public void updateTask(ModelTask task) {
+        ContentValues updatedValues = new ContentValues();
+        updatedValues.put(TASK_TITLE_COLUMN, task.getTitle());
+        updatedValues.put(TASK_DATE_COLUMN, task.getDate());
+
+        this.getWritableDatabase().update(TASKS_TABLE, updatedValues, TASK_ID_COLUMN + " = ?", new String[]{String.valueOf(task.getId())});
         Log.d(TAG, "Task with ID (" + task.getId() + "), Title (" + task.getTitle() + "), Date (" + task.getDate() + "), Position (" + task.getPosition() + ") updated in DB!");
     }
 

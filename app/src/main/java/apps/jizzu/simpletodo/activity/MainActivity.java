@@ -34,7 +34,7 @@ import apps.jizzu.simpletodo.utils.MyApplication;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerViewEmptySupport mRecyclerView;
-    public static RecyclerViewAdapter mAdapter;
+    public RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RelativeLayout mEmptyView;
     private DBHelper mHelper;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new RecyclerViewAdapter();
+        mAdapter = RecyclerViewAdapter.getInstance();
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setEmptyView(mEmptyView);
         mSearchView = findViewById(R.id.search_view);

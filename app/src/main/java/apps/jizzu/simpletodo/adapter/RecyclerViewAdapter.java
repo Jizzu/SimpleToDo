@@ -1,5 +1,7 @@
 package apps.jizzu.simpletodo.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import apps.jizzu.simpletodo.activity.EditTaskActivity;
 import apps.jizzu.simpletodo.activity.MainActivity;
 import apps.jizzu.simpletodo.R;
 import apps.jizzu.simpletodo.alarm.AlarmHelper;
@@ -23,13 +26,32 @@ import apps.jizzu.simpletodo.model.ModelTask;
 import static android.content.ContentValues.TAG;
 
 /**
- * Adapters connect the list views (RecyclerView for example) to it's contents.
+ * Adapters connect the list views (RecyclerView for example) to it's contents (uses the Singleton pattern).
  */
 public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
 
     public List<ModelTask> mItems = new ArrayList<>();
     private DBHelper mHelper = DBHelper.getInstance(MainActivity.mContext);
     private AlarmHelper mAlarmHelper = AlarmHelper.getInstance();
+    private Context mContext;
+    private static RecyclerViewAdapter mInstance;
+
+    /**
+     * Constructor is private to prevent direct instantiation.
+     */
+    private RecyclerViewAdapter() {
+
+    }
+
+    /**
+     * This static method ensures that only one RecyclerViewAdapter will ever exist at any given time.
+     */
+    public static RecyclerViewAdapter getInstance() {
+        if (mInstance == null) {
+            mInstance = new RecyclerViewAdapter();
+        }
+        return mInstance;
+    }
 
     /**
      * Custom OnClickListener which is needed to pass task id for the Snackbar onClick() method.
@@ -66,6 +88,16 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     }
 
     /**
+     * Updates the data of the specific item in the list.
+     */
+    public void updateItem(ModelTask updatedTask, int position) {
+        mItems.set(position, updatedTask);
+        notifyItemChanged(position);
+
+        Log.d(TAG, "Task with title " + mItems.get(position).getTitle() + " and position = " + position + " updated in RecyclerView!");
+    }
+
+    /**
      * Removes an item from the list.
      */
     public void removeItem(int position, RecyclerView recyclerView) {
@@ -99,7 +131,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             public void onViewDetachedFromWindow(View view) {
                 if (isRemoved[0]) {
                     // Removes a notification
-                    mAlarmHelper.removeAlarm(timeStamp, MainActivity.mContext);
+                    mAlarmHelper.removeNotification(timeStamp, MainActivity.mContext);
 
                     // Removes a task
                     mHelper.deleteTask(taskID);
@@ -189,6 +221,8 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         TextView title = v.findViewById(R.id.tvTaskTitle);
         TextView date = v.findViewById(R.id.tvTaskDate);
 
+        mContext = parent.getContext();
+
         return new TaskViewHolder(v, title, date);
     }
 
@@ -198,16 +232,37 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
      * position: The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ModelTask task = mItems.get(position);
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        final ModelTask task = mItems.get(position);
+
+        TaskViewHolder taskViewHolder = (TaskViewHolder) holder;
+        View itemView = taskViewHolder.itemView;
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(mContext, EditTaskActivity.class);
+
+                intent.putExtra("id", task.getId());
+                intent.putExtra("title", task.getTitle());
+                intent.putExtra("position", task.getPosition());
+                intent.putExtra("time_stamp", task.getTimeStamp());
+
+                if (task.getDate() != 0) {
+                    intent.putExtra("date", task.getDate());
+                }
+                mContext.startActivity(intent);
+            }
+        });
 
         holder.itemView.setEnabled(true);
-        TaskViewHolder taskViewHolder = (TaskViewHolder) holder;
 
         taskViewHolder.title.setText(task.getTitle());
 
         if (task.getDate() != 0) {
             taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
+        } else {
+            taskViewHolder.date.setText("No reminder");
         }
     }
 

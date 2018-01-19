@@ -20,6 +20,13 @@ public class AlarmHelper {
     private AlarmManager mAlarmManager;
 
     /**
+     * Constructor is private to prevent direct instantiation.
+     */
+    private AlarmHelper() {
+
+    }
+
+    /**
      * This static method ensures that only one AlarmHelper will ever exist at any given time.
      */
     public static AlarmHelper getInstance() {
@@ -53,9 +60,21 @@ public class AlarmHelper {
     /**
      * Removes a notification by id (timeStamp).
      */
-    public void removeAlarm(long taskTimeStamp, Context context) {
+    public void removeNotification(long taskTimeStamp, Context context) {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel((int) taskTimeStamp);
+    }
+
+    /**
+     * Removes a alarm by id (timeStamp).
+     */
+    public void removeAlarm(long taskTimeStamp) {
+        Intent intent = new Intent(mContext, AlarmReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, (int) taskTimeStamp,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mAlarmManager.cancel(pendingIntent);
     }
 }

@@ -14,7 +14,7 @@ public class TasksOrderUpdate extends AsyncTask<ModelTask, Void, Void> {
     @Override
     protected Void doInBackground(ModelTask... modelTasks) {
         for (ModelTask task : modelTasks) {
-            mHelper.updateTask(task);
+            mHelper.updateTaskPosition(task);
         }
         return null;
     }
