@@ -186,34 +186,45 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DBHelper dbHelper = DBHelper.getInstance(MainActivity.mContext);
-                RecyclerViewAdapter adapter = RecyclerViewAdapter.getInstance();
+                if (mTitle.length() == 0) {
+                    mTitle.setError("Please, input some text!");
+                } else if (mTitle.getText().toString().trim().length() == 0) {
+                    mTitle.setError("Error! The entered text consists only of spaces!");
+                } else {
+                    DBHelper dbHelper = DBHelper.getInstance(MainActivity.mContext);
+                    RecyclerViewAdapter adapter = RecyclerViewAdapter.getInstance();
 
-                final ModelTask task = new ModelTask(id, mTitle.getText().toString(), date, position, timeStamp);
+                    final ModelTask task = new ModelTask(id, mTitle.getText().toString(), date, position, timeStamp);
 
-                if (mDate.length() != 0 || mTime.length() != 0) {
-                    task.setDate(mCalendar.getTimeInMillis());
+                    if (mDate.length() != 0 || mTime.length() != 0) {
+                        task.setDate(mCalendar.getTimeInMillis());
+                    }
+
+                    if (!mReminderSwitch.isChecked() || (mDate.length() == 0 && mTime.length() == 0)) {
+                        task.setDate(0);
+                    }
+                    Log.d(TAG, "Title = " + task.getTitle() + ", date = " + task.getDate() + ", position = " + task.getPosition());
+
+                    if (!MainActivity.mIsSearchOpen) {
+                        dbHelper.updateTask(task);
+                        adapter.updateItem(task, task.getPosition());
+                    } else {
+                        dbHelper.updateTask(task);
+                        MainActivity.mSearchView.closeSearch();
+                    }
+
+                    if (task.getDate() != 0 && task.getDate() <= Calendar.getInstance().getTimeInMillis()) {
+                        Toast.makeText(MainActivity.mContext, "Error! You have selected an incorrect time!", Toast.LENGTH_SHORT).show();
+                        task.setDate(0);
+                    } else if (task.getDate() != 0) {
+                        AlarmHelper alarmHelper = AlarmHelper.getInstance();
+                        alarmHelper.setAlarm(task);
+                    } else if (task.getDate() == 0) {
+                        AlarmHelper mAlarmHelper = AlarmHelper.getInstance();
+                        mAlarmHelper.removeAlarm(task.getTimeStamp());
+                    }
+                    finish();
                 }
-
-                if (!mReminderSwitch.isChecked() || (mDate.length() == 0 && mTime.length() == 0)) {
-                    task.setDate(0);
-                }
-                Log.d(TAG, "Title = " + task.getTitle() + ", date = " + task.getDate() + ", position = " + task.getPosition());
-
-                dbHelper.updateTask(task);
-                adapter.updateItem(task, task.getPosition());
-
-                if (task.getDate() != 0 && task.getDate() <= Calendar.getInstance().getTimeInMillis()) {
-                    Toast.makeText(MainActivity.mContext, "Error! You have selected an incorrect time!", Toast.LENGTH_SHORT).show();
-                    task.setDate(0);
-                } else if (task.getDate() != 0) {
-                    AlarmHelper alarmHelper = AlarmHelper.getInstance();
-                    alarmHelper.setAlarm(task);
-                } else if (task.getDate() == 0) {
-                    AlarmHelper mAlarmHelper = AlarmHelper.getInstance();
-                    mAlarmHelper.removeAlarm(task.getTimeStamp());
-                }
-                finish();
             }
         });
     }

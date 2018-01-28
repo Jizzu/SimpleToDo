@@ -4,13 +4,14 @@
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="apps.jizzu.simpletodo.activity.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
+        android:background="@null" />
 
     <com.miguelcatalan.materialsearchview.MaterialSearchView
         android:id="@+id/search_view"
@@ -22,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="62dp"
         android:scrollbars="vertical" />
 
     <RelativeLayout
@@ -37,6 +38,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="No tasks"
+            android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -47,6 +49,7 @@
             android:layout_marginTop="75dp"
             android:gravity="center"
             android:text="You can create new tasks \n using the + button"
+            android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>
 

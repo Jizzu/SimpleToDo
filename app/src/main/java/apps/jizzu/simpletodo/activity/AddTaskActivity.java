@@ -159,6 +159,8 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View view) {
                 if (mTitle.length() == 0) {
                     mTitle.setError("Please, input some text!");
+                } else if (mTitle.getText().toString().trim().length() == 0) {
+                    mTitle.setError("Error! The entered text consists only of spaces!");
                 } else {
                     Intent intent = new Intent();
                     intent.putExtra("title", mTitle.getText().toString());

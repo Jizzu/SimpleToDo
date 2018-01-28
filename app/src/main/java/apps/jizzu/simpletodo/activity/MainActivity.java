@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,8 @@ import apps.jizzu.simpletodo.model.ModelTask;
 import apps.jizzu.simpletodo.alarm.AlarmHelper;
 import apps.jizzu.simpletodo.utils.MyApplication;
 
+import static android.content.ContentValues.TAG;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private RelativeLayout mEmptyView;
     private DBHelper mHelper;
-    private MaterialSearchView mSearchView;
+    public static MaterialSearchView mSearchView;
+    public static boolean mIsSearchOpen;
 
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
@@ -95,12 +99,15 @@ public class MainActivity extends AppCompatActivity {
         mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-
+                mIsSearchOpen = true;
+                Log.d(TAG, "isSearchOpen = " + mIsSearchOpen);
             }
 
             @Override
             public void onSearchViewClosed() {
                 addTasksFromDB();
+                mIsSearchOpen = false;
+                Log.d(TAG, "isSearchOpen = " + mIsSearchOpen);
             }
         });
 
@@ -163,9 +170,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
+        Log.d(TAG, "onStop call!!!");
         List<ModelTask> taskList = mHelper.getAllTasks();
 
-        if (taskList.size() != mAdapter.mItems.size()) {
+        Log.d(TAG, "dbSize = " + taskList.size() + ", adapterSize = " + mAdapter.mItems.size());
+        if (taskList.size() < mAdapter.mItems.size()) {
 
             mHelper.deleteAllTasks();
 
@@ -184,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d(TAG, "onPause call!!!");
         MyApplication.activityPaused();
     }
 

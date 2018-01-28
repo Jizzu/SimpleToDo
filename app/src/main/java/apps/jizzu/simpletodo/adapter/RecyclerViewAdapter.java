@@ -108,38 +108,47 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         mItems.remove(position);
         notifyItemRemoved(position);
 
-        Snackbar snackbar = Snackbar.make(recyclerView, "Task is removed!", Snackbar.LENGTH_LONG);
-        snackbar.setAction("Cancel", new CustomOnClickListener(taskID) {
+        if (!MainActivity.mIsSearchOpen) {
+            Snackbar snackbar = Snackbar.make(recyclerView, "Task is removed!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("Cancel", new CustomOnClickListener(taskID) {
 
-            public void onClick(View view) {
-                ModelTask task = mHelper.getTask(taskID);
-                addItem(task, task.getPosition());
+                public void onClick(View view) {
+                    ModelTask task = mHelper.getTask(taskID);
+                    addItem(task, task.getPosition());
 
-                isRemoved[0] = false;
-            }
-        });
-
-        snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-            // Called when Snackbar appears on the screen.
-            @Override
-            public void onViewAttachedToWindow(View view) {
-
-            }
-
-            // Called when Snackbar disappears from the screen.
-            @Override
-            public void onViewDetachedFromWindow(View view) {
-                if (isRemoved[0]) {
-                    // Removes a notification
-                    mAlarmHelper.removeNotification(timeStamp, MainActivity.mContext);
-
-                    // Removes a task
-                    mHelper.deleteTask(taskID);
-                    saveTasksOrderFromDB();
+                    isRemoved[0] = false;
                 }
-            }
-        });
-        snackbar.show();
+            });
+
+            snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                // Called when Snackbar appears on the screen.
+                @Override
+                public void onViewAttachedToWindow(View view) {
+
+                }
+
+                // Called when Snackbar disappears from the screen.
+                @Override
+                public void onViewDetachedFromWindow(View view) {
+                    if (isRemoved[0]) {
+                        // Removes a notification
+                        mAlarmHelper.removeNotification(timeStamp, MainActivity.mContext);
+
+                        // Removes a task
+                        mHelper.deleteTask(taskID);
+                        saveTasksOrderFromDB();
+                    }
+                }
+            });
+            snackbar.show();
+        } else {
+            // Removes a notification
+            mAlarmHelper.removeNotification(timeStamp, MainActivity.mContext);
+
+            // Removes a task
+            mHelper.deleteTask(taskID);
+            saveTasksOrderFromDB();
+        }
     }
 
     /**

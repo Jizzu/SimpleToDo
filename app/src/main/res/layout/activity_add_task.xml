@@ -46,8 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/taskTitleLayout"
-        android:layout_marginTop="34dp"
-        android:layout_marginRight="32dp"/>
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="34dp" />
 
     <RelativeLayout
         android:id="@+id/reminderContainer"
@@ -76,9 +76,9 @@
             android:id="@+id/taskTimeLayout"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_alignParentRight="true">
+            android:layout_marginTop="16dp">
 
             <EditText
                 android:id="@+id/taskTime"
