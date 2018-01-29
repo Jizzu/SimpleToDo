@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -122,6 +124,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
+        // Starts the RecyclerView items animation
+        int resId = R.anim.layout_animation;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
+        mRecyclerView.setLayoutAnimation(animation);
     }
 
     /**
