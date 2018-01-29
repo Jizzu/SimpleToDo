@@ -28,9 +28,9 @@ import apps.jizzu.simpletodo.R;
 import apps.jizzu.simpletodo.adapter.ListItemTouchHelper;
 import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter;
 import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport;
+import apps.jizzu.simpletodo.alarm.AlarmHelper;
 import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
-import apps.jizzu.simpletodo.alarm.AlarmHelper;
 import apps.jizzu.simpletodo.utils.MyApplication;
 
 import static android.content.ContentValues.TAG;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private DBHelper mHelper;
     public static MaterialSearchView mSearchView;
     public static boolean mIsSearchOpen;
+    private FloatingActionButton mFab;
 
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setEmptyView(mEmptyView);
         mSearchView = findViewById(R.id.search_view);
+        mFab = findViewById(R.id.fab);
 
         ItemTouchHelper.Callback callback = new ListItemTouchHelper(mAdapter, mRecyclerView);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -113,8 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
@@ -122,6 +123,18 @@ public class MainActivity extends AppCompatActivity {
                 // Method startActivityForResult(Intent, int) allows to get the right data (Title for RecyclerView item for example) from another activity.
                 // To obtain data from the activity used onActivityResult(int, int, Intent) method that is called when the AddTaskActivity completes it's work.
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && mFab.getVisibility() == View.VISIBLE) {
+                    mFab.hide();
+                } else if (dy < 0 && mFab.getVisibility() != View.VISIBLE) {
+                    mFab.show();
+                }
             }
         });
 
