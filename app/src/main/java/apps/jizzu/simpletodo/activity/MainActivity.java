@@ -3,6 +3,7 @@ package apps.jizzu.simpletodo.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.RelativeLayout;
@@ -31,6 +33,7 @@ import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport;
 import apps.jizzu.simpletodo.alarm.AlarmHelper;
 import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
+import apps.jizzu.simpletodo.utils.Interpolator;
 import apps.jizzu.simpletodo.utils.MyApplication;
 
 import static android.content.ContentValues.TAG;
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private DBHelper mHelper;
     public static MaterialSearchView mSearchView;
     public static boolean mIsSearchOpen;
-    private FloatingActionButton mFab;
+    public static FloatingActionButton mFab;
 
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
@@ -137,11 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Starts the RecyclerView items animation
-        int resId = R.anim.layout_animation;
-        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        mRecyclerView.setLayoutAnimation(animation);
     }
 
     /**
@@ -207,6 +205,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        mFab.setVisibility(View.GONE);
+
+        // Starts the RecyclerView items animation
+        int resId = R.anim.layout_animation;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
+        mRecyclerView.setLayoutAnimation(animation);
+
+        // Starts the FAB animation
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mFab.setVisibility(View.VISIBLE);
+                final Animation myAnim = AnimationUtils.loadAnimation(mContext, R.anim.fab_animation);
+                Interpolator interpolator = new Interpolator(0.2, 20);
+                myAnim.setInterpolator(interpolator);
+                mFab.startAnimation(myAnim);
+            }
+        }, 500);
         MyApplication.activityResumed();
     }
 

@@ -124,7 +124,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
                 // Called when Snackbar appears on the screen.
                 @Override
                 public void onViewAttachedToWindow(View view) {
-
+                    MainActivity.mFab.show();
                 }
 
                 // Called when Snackbar disappears from the screen.
