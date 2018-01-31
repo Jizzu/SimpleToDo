@@ -4,7 +4,6 @@
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
     tools:context="apps.jizzu.simpletodo.activity.MainActivity">
 
     <android.support.v7.widget.Toolbar

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#212121"
     tools:context="apps.jizzu.simpletodo.activity.AddTaskActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
+        android:background="@null" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/taskTitleLayout"
@@ -28,17 +30,32 @@
             android:hint="Title"
             android:inputType="textAutoCorrect|textCapSentences"
             android:lines="2"
-            android:maxLines="3" />
+            android:maxLines="3"
+            android:textColor="@color/white" />
     </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/addAlarmIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/reminderContainer"
+        android:layout_alignLeft="@+id/taskTitleLayout"
+        android:layout_alignStart="@+id/taskTitleLayout"
+        android:layout_marginLeft="10dp"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:src="@drawable/ic_alarm_add_white_24dp" />
 
     <TextView
         android:id="@+id/tvSetReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/taskTitleLayout"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="34dp"
-        android:text="Set reminder" />
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="32dp"
+        android:text="Set reminder"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/reminderSwitch"
@@ -60,7 +77,8 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="32dp"
+            android:theme="@style/EditTextHint">
 
             <EditText
                 android:id="@+id/taskDate"
@@ -69,7 +87,9 @@
                 android:cursorVisible="false"
                 android:focusableInTouchMode="false"
                 android:hint="Date"
-                android:inputType="none" />
+                android:inputType="none"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/colorAccent" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -78,7 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="32dp"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="32dp"
+            android:theme="@style/EditTextHint">
 
             <EditText
                 android:id="@+id/taskTime"
@@ -87,7 +108,9 @@
                 android:cursorVisible="false"
                 android:focusableInTouchMode="false"
                 android:hint="Time"
-                android:inputType="none" />
+                android:inputType="none"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/colorAccent" />
         </android.support.design.widget.TextInputLayout>
     </RelativeLayout>
 

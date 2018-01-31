@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -269,9 +270,14 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         taskViewHolder.title.setText(task.getTitle());
 
         if (task.getDate() != 0) {
+            taskViewHolder.title.setMaxLines(1);
+            taskViewHolder.date.setVisibility(View.VISIBLE);
             taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
         } else {
-            taskViewHolder.date.setText("No reminder");
+            taskViewHolder.date.setVisibility(View.GONE);
+            taskViewHolder.title.setMaxLines(2);
+            taskViewHolder.title.setPadding(0, 28, 0, 28);
+            taskViewHolder.title.setGravity(Gravity.CENTER_VERTICAL);
         }
     }
 

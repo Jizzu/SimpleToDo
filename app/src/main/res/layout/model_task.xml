@@ -5,15 +5,15 @@
     android:id="@+id/cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardUseCompatPadding="true"
     card_view:cardBackgroundColor="#FFFFFF"
-    card_view:cardElevation="3dp"
-    card_view:contentPadding="5dp"
     card_view:cardCornerRadius="4dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginLeft="5dp">
+    card_view:cardElevation="3dp"
+    card_view:contentPadding="5dp">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -34,6 +34,7 @@
             android:layout_below="@id/tvTaskTitle"
             android:layout_marginBottom="3dp"
             android:text="No reminder"
+            android:textColor="@color/colorAccent"
             android:textSize="12sp" />
 
     </RelativeLayout>
