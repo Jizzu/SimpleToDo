@@ -38,8 +38,6 @@ public class DBHelper extends SQLiteOpenHelper {
             + TASKS_TABLE + " (" + TASK_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TASK_TITLE_COLUMN + " TEXT NOT NULL, " + TASK_DATE_COLUMN + " LONG, " + TASK_POSITION_COLUMN + " INTEGER, " + TASK_TIME_STAMP_COLUMN + " LONG);";
 
-    public static final String SELECTION_LIKE_TITLE = TASK_TITLE_COLUMN + " LIKE ?";
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(TASKS_TABLE_CREATE_SCRIPT);
@@ -158,33 +156,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
 
         return task;
-    }
-
-    /**
-     * Gets a specific tasks for searching by title.
-     */
-    public List<ModelTask> getTasks(String selection, String[] selectionArgs, String orderBy) {
-        List<ModelTask> tasks = new ArrayList<>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor c = db.query(DBHelper.TASKS_TABLE, null, selection, selectionArgs, null, null, orderBy);
-
-        if (c.moveToFirst()) {
-            do {
-                int id = c.getInt(c.getColumnIndex(DBHelper.TASK_ID_COLUMN));
-                String title = c.getString(c.getColumnIndex(DBHelper.TASK_TITLE_COLUMN));
-                long date = c.getLong(c.getColumnIndex(DBHelper.TASK_DATE_COLUMN));
-                int position = c.getInt(c.getColumnIndex(DBHelper.TASK_POSITION_COLUMN));
-                long timeStamp = c.getLong(c.getColumnIndex(DBHelper.TASK_TIME_STAMP_COLUMN));
-
-                ModelTask modelTask = new ModelTask(id, title, date, position, timeStamp);
-                tasks.add(modelTask);
-            } while (c.moveToNext());
-        }
-        c.close();
-
-        return tasks;
     }
 
     /**

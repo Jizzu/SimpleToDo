@@ -12,10 +12,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@null" />
 
-    <com.miguelcatalan.materialsearchview.MaterialSearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
         android:id="@+id/tasksList"
@@ -23,7 +19,6 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:layout_marginTop="64dp"
-        android:layoutAnimation="@anim/layout_animation"
         android:scrollbars="vertical" />
 
     <RelativeLayout

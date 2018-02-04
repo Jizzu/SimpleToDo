@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -20,9 +19,8 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.stone.vega.library.VegaLayoutManager;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,8 +31,11 @@ import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport;
 import apps.jizzu.simpletodo.alarm.AlarmHelper;
 import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
+import apps.jizzu.simpletodo.settings.SettingsActivity;
 import apps.jizzu.simpletodo.utils.Interpolator;
 import apps.jizzu.simpletodo.utils.MyApplication;
+import apps.jizzu.simpletodo.utils.PreferenceHelper;
+import top.wefor.circularanim.CircularAnim;
 
 import static android.content.ContentValues.TAG;
 
@@ -43,12 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerViewEmptySupport mRecyclerView;
     public RecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private RelativeLayout mEmptyView;
     private DBHelper mHelper;
-    public static MaterialSearchView mSearchView;
-    public static boolean mIsSearchOpen;
     public static FloatingActionButton mFab;
+    private PreferenceHelper preferenceHelper;
 
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
@@ -70,17 +69,18 @@ public class MainActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }
 
+        PreferenceHelper.getInstance().init(getApplicationContext());
+        preferenceHelper = PreferenceHelper.getInstance();
+
         mEmptyView = findViewById(R.id.empty);
 
         mRecyclerView = findViewById(R.id.tasksList);
         mRecyclerView.setHasFixedSize(true);
 
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(new VegaLayoutManager());
         mAdapter = RecyclerViewAdapter.getInstance();
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setEmptyView(mEmptyView);
-        mSearchView = findViewById(R.id.search_view);
         mFab = findViewById(R.id.fab);
 
         ItemTouchHelper.Callback callback = new ListItemTouchHelper(mAdapter, mRecyclerView);
@@ -90,42 +90,27 @@ public class MainActivity extends AppCompatActivity {
         mHelper = DBHelper.getInstance(mContext);
         addTasksFromDB();
 
-        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                findTasks(newText);
-                return false;
-            }
-        });
-
-        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                mIsSearchOpen = true;
-                Log.d(TAG, "isSearchOpen = " + mIsSearchOpen);
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                addTasksFromDB();
-                mIsSearchOpen = false;
-                Log.d(TAG, "isSearchOpen = " + mIsSearchOpen);
-            }
-        });
-
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                if (preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+                    CircularAnim.fullActivity(MainActivity.this, view)
+                            .colorOrImageRes(R.color.colorPrimary)
+                            .duration(300)
+                            .go(new CircularAnim.OnAnimationEndListener() {
+                                @Override
+                                public void onAnimationEnd() {
+                                    Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
 
-                // Method startActivityForResult(Intent, int) allows to get the right data (Title for RecyclerView item for example) from another activity.
-                // To obtain data from the activity used onActivityResult(int, int, Intent) method that is called when the AddTaskActivity completes it's work.
-                startActivityForResult(intent, 1);
+                                    // Method startActivityForResult(Intent, int) allows to get the right data (Title for RecyclerView item for example) from another activity.
+                                    // To obtain data from the activity used onActivityResult(int, int, Intent) method that is called when the AddTaskActivity completes it's work.
+                                    startActivityForResult(intent, 1);
+                                }
+                            });
+                } else {
+                    Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                    startActivityForResult(intent, 1);
+                }
             }
         });
 
@@ -140,19 +125,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    /**
-     * Finds tasks by the title in the database.
-     */
-    public void findTasks(String title) {
-        mAdapter.removeAllItems();
-        List<ModelTask> tasks = new ArrayList<>();
+        if (preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+            mFab.setVisibility(View.GONE);
 
-        tasks.addAll(mHelper.getTasks(mHelper.SELECTION_LIKE_TITLE, new String[]{"%" + title + "%"}, mHelper.TASK_DATE_COLUMN));
-
-        for (int i = 0; i < tasks.size(); i++) {
-            mAdapter.addItem(tasks.get(i));
+            // Starts the RecyclerView items animation
+            int resId = R.anim.layout_animation;
+            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
+            mRecyclerView.setLayoutAnimation(animation);
         }
     }
 
@@ -170,12 +150,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_icon, menu);
-
-        MenuItem item = menu.findItem(R.id.action_search);
-        mSearchView.setMenuItem(item);
+        getMenuInflater().inflate(R.menu.menu, menu);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings: {
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -188,11 +177,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-        Log.d(TAG, "onStop call!!!");
         List<ModelTask> taskList = mHelper.getAllTasks();
 
         Log.d(TAG, "dbSize = " + taskList.size() + ", adapterSize = " + mAdapter.mItems.size());
-        if (taskList.size() < mAdapter.mItems.size()) {
+        if (taskList.size() != mAdapter.mItems.size()) {
 
             mHelper.deleteAllTasks();
 
@@ -205,33 +193,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         mFab.setVisibility(View.GONE);
 
-        // Starts the RecyclerView items animation
-        int resId = R.anim.layout_animation;
-        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
-        mRecyclerView.setLayoutAnimation(animation);
-
-        // Starts the FAB animation
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mFab.setVisibility(View.VISIBLE);
-                final Animation myAnim = AnimationUtils.loadAnimation(mContext, R.anim.fab_animation);
-                Interpolator interpolator = new Interpolator(0.2, 20);
-                myAnim.setInterpolator(interpolator);
-                mFab.startAnimation(myAnim);
-            }
-        }, 500);
+        if (preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+            // Starts the FAB animation
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mFab.setVisibility(View.VISIBLE);
+                    final Animation myAnim = AnimationUtils.loadAnimation(mContext, R.anim.fab_animation);
+                    Interpolator interpolator = new Interpolator(0.2, 20);
+                    myAnim.setInterpolator(interpolator);
+                    mFab.startAnimation(myAnim);
+                }
+            }, 300);
+        }
         MyApplication.activityResumed();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause call!!!");
         MyApplication.activityPaused();
     }
 
@@ -265,15 +248,5 @@ public class MainActivity extends AppCompatActivity {
         long id = mHelper.saveTask(task);
         task.setId(id);
         mAdapter.addItem(task);
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        if (mSearchView.isSearchOpen()) {
-            mSearchView.closeSearch();
-        } else {
-            super.onBackPressed();
-        }
     }
 }

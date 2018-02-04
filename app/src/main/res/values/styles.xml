@@ -7,10 +7,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="EditTextHint"  parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="PreferenceScreen" parent="AppTheme">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorSecondary">@color/grey_white</item>
     </style>
 
 </resources>

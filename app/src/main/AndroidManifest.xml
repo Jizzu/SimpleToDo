@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"
+        <activity
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AddTaskActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.AddTaskActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".alarm.AlarmReceiver"
@@ -31,7 +33,13 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.EditTaskActivity"></activity>
+        <activity android:name=".activity.EditTaskActivity" />
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:theme="@style/PreferenceScreen" />
+        <activity
+            android:name=".settings.LicensesActivity"
+            android:theme="@style/PreferenceScreen" />
     </application>
 
 </manifest>

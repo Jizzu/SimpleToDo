@@ -63,7 +63,6 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         Button addTaskButton = findViewById(R.id.addTaskButton);
         mReminderSwitch = findViewById(R.id.reminderSwitch);
 
-
         reminderLayout.setVisibility(View.INVISIBLE);
 
         mReminderSwitch.setOnClickListener(new View.OnClickListener() {

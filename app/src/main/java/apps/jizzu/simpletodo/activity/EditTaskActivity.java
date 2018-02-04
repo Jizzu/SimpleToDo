@@ -205,13 +205,8 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
                     }
                     Log.d(TAG, "Title = " + task.getTitle() + ", date = " + task.getDate() + ", position = " + task.getPosition());
 
-                    if (!MainActivity.mIsSearchOpen) {
-                        dbHelper.updateTask(task);
-                        adapter.updateItem(task, task.getPosition());
-                    } else {
-                        dbHelper.updateTask(task);
-                        MainActivity.mSearchView.closeSearch();
-                    }
+                    dbHelper.updateTask(task);
+                    adapter.updateItem(task, task.getPosition());
 
                     if (task.getDate() != 0 && task.getDate() <= Calendar.getInstance().getTimeInMillis()) {
                         Toast.makeText(MainActivity.mContext, "Error! You have selected an incorrect time!", Toast.LENGTH_SHORT).show();

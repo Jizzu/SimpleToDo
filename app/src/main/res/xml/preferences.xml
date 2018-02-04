@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General settings" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="animation"
+        android:summary="Enable animations for UI elements"
+        android:title="Enable animations" />
+    <PreferenceCategory android:title="Additional" />
+    <Preference
+        android:key="rate_app"
+        android:onClick="onMultipleIncludeOwnClick"
+        android:summary="Rate this app on Google Play store"
+        android:title="Rate this app" />
+    <Preference
+        android:key="send_feedback"
+        android:onClick="onMultipleIncludeOwnClick"
+        android:summary="Suggest ideas or tell about bugs"
+        android:title="Send feedback" />
+    <PreferenceCategory android:title="About" />
+    <Preference
+        android:key="about_version"
+        android:summary="0.5 Public Beta Version"
+        android:title="Version" />
+    <Preference
+        android:key="about_licenses"
+        android:onClick="onMultipleIncludeOwnClick"
+        android:summary="License details for open source software"
+        android:title="Open source licenses" />
+</PreferenceScreen>

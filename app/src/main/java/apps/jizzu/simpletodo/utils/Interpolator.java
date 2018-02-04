@@ -1,6 +1,8 @@
 package apps.jizzu.simpletodo.utils;
 
-
+/**
+ * Class for getting interpolation for FAB animation.
+ */
 public class Interpolator implements android.view.animation.Interpolator {
 
     private double mAmplitude = 1;
