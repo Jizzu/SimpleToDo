@@ -17,7 +17,7 @@ public class LicensesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        setTitle("Licenses");
+        setTitle(getString(R.string.licenses));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {

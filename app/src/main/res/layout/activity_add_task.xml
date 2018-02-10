@@ -27,7 +27,7 @@
             android:id="@+id/taskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
+            android:hint="@string/hint_title"
             android:inputType="textAutoCorrect|textCapSentences"
             android:lines="2"
             android:maxLines="3"
@@ -53,7 +53,7 @@
         android:layout_below="@id/taskTitleLayout"
         android:layout_marginLeft="66dp"
         android:layout_marginTop="32dp"
-        android:text="Set reminder"
+        android:text="@string/set_reminder"
         android:textColor="@color/white"
         android:textSize="15sp" />
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:cursorVisible="false"
                 android:focusableInTouchMode="false"
-                android:hint="Date"
+                android:hint="@string/hint_date"
                 android:inputType="none"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/colorAccent" />
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:cursorVisible="false"
                 android:focusableInTouchMode="false"
-                android:hint="Time"
+                android:hint="@string/hint_time"
                 android:inputType="none"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/colorAccent" />
@@ -124,8 +124,9 @@
         android:layout_marginRight="16dp"
         android:background="@color/colorPrimary"
         android:foreground="?android:attr/selectableItemBackground"
-        android:text="ADD TASK"
+        android:text="@string/add_task"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

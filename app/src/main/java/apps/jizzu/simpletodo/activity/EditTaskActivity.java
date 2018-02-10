@@ -41,7 +41,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
 
     EditText mTitle;
     TextInputLayout mTaskTitleLayout;
-    RelativeLayout reminderLayout;
+    RelativeLayout mReminderLayout;
     Calendar mCalendar;
     EditText mDate;
     EditText mTime;
@@ -52,7 +52,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        setTitle("EDIT TASK");
+        setTitle(getString(R.string.edit_task));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -65,7 +65,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         RelativeLayout relativeLayout = findViewById(R.id.container);
         mDate = findViewById(R.id.taskDate);
         mTaskTitleLayout = findViewById(R.id.taskTitleLayout);
-        reminderLayout = findViewById(R.id.reminderContainer);
+        mReminderLayout = findViewById(R.id.reminderContainer);
         mTitle = findViewById(R.id.taskTitle);
         mTime = findViewById(R.id.taskTime);
         Button addTaskButton = findViewById(R.id.addTaskButton);
@@ -79,31 +79,36 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         final int position = intent.getIntExtra("position", 0);
         final long timeStamp = intent.getLongExtra("time_stamp", 0);
 
+        Log.d(TAG, "TASK DATE = " + date);
+
         mTitle.setText(title);
         mTitle.setSelection(mTitle.getText().length());
-        mDate.setText(Utils.getDate(date));
-        mTime.setText(Utils.getTime(date));
-        addTaskButton.setText("UPDATE TASK");
+        if (date != 0) {
+            mDate.setText(Utils.getDate(date));
+            mTime.setText(Utils.getTime(date));
+        }
+        addTaskButton.setText(getString(R.string.update_task));
 
         if (date == 0) {
-            reminderLayout.setVisibility(View.INVISIBLE);
+            mReminderLayout.setVisibility(View.INVISIBLE);
             mReminderSwitch.setChecked(false);
             mDate.setText(null);
             mTime.setText(null);
         } else {
-            reminderLayout.setVisibility(View.VISIBLE);
+            mReminderLayout.setVisibility(View.VISIBLE);
             mReminderSwitch.setChecked(true);
         }
+
         mReminderSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mReminderSwitch.isChecked()) {
                     hideKeyboard(mTitle);
-                    reminderLayout.animate().alpha(1.0f).setDuration(500).setListener(
+                    mReminderLayout.animate().alpha(1.0f).setDuration(500).setListener(
                             new Animator.AnimatorListener() {
                                 @Override
                                 public void onAnimationStart(Animator animation) {
-                                    reminderLayout.setVisibility(View.VISIBLE);
+                                    mReminderLayout.setVisibility(View.VISIBLE);
                                 }
 
                                 @Override
@@ -120,7 +125,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
                             }
                     );
                 } else {
-                    reminderLayout.animate().alpha(0.0f).setDuration(500).setListener(
+                    mReminderLayout.animate().alpha(0.0f).setDuration(500).setListener(
                             new Animator.AnimatorListener() {
                                 @Override
                                 public void onAnimationStart(Animator animation) {
@@ -129,7 +134,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
 
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
-                                    reminderLayout.setVisibility(View.INVISIBLE);
+                                    mReminderLayout.setVisibility(View.INVISIBLE);
                                 }
 
                                 @Override
@@ -159,11 +164,14 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
             }
         });
 
-
         mCalendar = Calendar.getInstance();
+        if (mDate.length() != 0 || mTime.length() != 0) {
+            mCalendar.setTimeInMillis(date);
+        }
         // If the user specified only the date (without time), then the notification of the event will appear in an hour.
-        mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1);
-
+        if (mTime.length() == 0) {
+            mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1);
+        }
 
         mDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,14 +195,14 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
             @Override
             public void onClick(View view) {
                 if (mTitle.length() == 0) {
-                    mTitle.setError("Please, input some text!");
+                    mTitle.setError(getString(R.string.error_text_input));
                 } else if (mTitle.getText().toString().trim().length() == 0) {
-                    mTitle.setError("Error! The entered text consists only of spaces!");
+                    mTitle.setError(getString(R.string.error_spaces));
                 } else {
                     DBHelper dbHelper = DBHelper.getInstance(MainActivity.mContext);
                     RecyclerViewAdapter adapter = RecyclerViewAdapter.getInstance();
 
-                    final ModelTask task = new ModelTask(id, mTitle.getText().toString(), date, position, timeStamp);
+                    ModelTask task = new ModelTask(id, mTitle.getText().toString(), date, position, timeStamp);
 
                     if (mDate.length() != 0 || mTime.length() != 0) {
                         task.setDate(mCalendar.getTimeInMillis());
@@ -209,8 +217,8 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
                     adapter.updateItem(task, task.getPosition());
 
                     if (task.getDate() != 0 && task.getDate() <= Calendar.getInstance().getTimeInMillis()) {
-                        Toast.makeText(MainActivity.mContext, "Error! You have selected an incorrect time!", Toast.LENGTH_SHORT).show();
                         task.setDate(0);
+                        Toast.makeText(MainActivity.mContext, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show();
                     } else if (task.getDate() != 0) {
                         AlarmHelper alarmHelper = AlarmHelper.getInstance();
                         alarmHelper.setAlarm(task);

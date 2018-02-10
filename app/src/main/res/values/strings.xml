@@ -1,3 +1,46 @@
 <resources>
-    <string name="app_name">SimpleToDo</string>
+    <string name="app_name">Simple ToDo</string>
+    <string name="empty_view_title">No tasks</string>
+    <string name="empty_view_text">You can create new tasks \n using the + button</string>
+    <string name="create_task">NEW TASK</string>
+    <string name="set_reminder">Set reminder</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_date">Date</string>
+    <string name="hint_time">Time</string>
+    <string name="add_task">ADD TASK</string>
+    <string name="update_task">UPDATE TASK</string>
+    <string name="edit_task">EDIT TASK</string>
+
+    <string name="toast_incorrect_time">Error! You have selected an incorrect time!</string>
+    <string name="error_text_input">Please, input some text!</string>
+    <string name="error_spaces">Error! The entered text consists only of spaces!</string>
+
+    <string name="preferences_animation_title">Enable animations</string>
+    <string name="preferences_animation_summary">Enable animations for UI elements</string>
+    <string name="preferences_rate_app_title">Rate this app</string>
+    <string name="preferences_rate_app_summary">Rate this app on Google Play store</string>
+    <string name="preferences_send_feedback_title">Send feedback</string>
+    <string name="preferences_send_feedback_summary">Suggest ideas or tell about bugs</string>
+    <string name="preferences_about_version_title">Version</string>
+    <string name="preferences_about_version_summary">0.5 Public Beta Version</string>
+    <string name="preferences_about_licenses_title">Open source licenses</string>
+    <string name="preferences_about_licenses_summary">License details for open source software</string>
+
+    <string name="feedback_title">Simple ToDo - Feedback</string>
+    <string name="feedback_device_info">My device info: </string>
+    <string name="feedback_app_version">App version: </string>
+    <string name="feedback">Feedback: </string>
+
+    <string name="category_general">General settings</string>
+    <string name="category_additional">Additional</string>
+    <string name="category_about">About</string>
+
+    <string name="settings">Settings</string>
+    <string name="licenses">Licenses</string>
+
+    <string name="reminder_text">Reminder</string>
+    <string name="licenses_circular_anim_summary">This software distributed without a license</string>
+
+    <string name="snackbar_remove_task">Task is removed!</string>
+    <string name="snackbar_cancel_removing">Cancel</string>
 </resources>

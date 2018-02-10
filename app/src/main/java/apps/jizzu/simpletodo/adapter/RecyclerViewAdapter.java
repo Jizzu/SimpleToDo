@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -109,8 +111,8 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         mItems.remove(position);
         notifyItemRemoved(position);
 
-        Snackbar snackbar = Snackbar.make(recyclerView, "Task is removed!", Snackbar.LENGTH_LONG);
-        snackbar.setAction("Cancel", new CustomOnClickListener(taskID) {
+        Snackbar snackbar = Snackbar.make(recyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.snackbar_cancel_removing, new CustomOnClickListener(taskID) {
 
             public void onClick(View view) {
                 ModelTask task = mHelper.getTask(taskID);
@@ -262,16 +264,27 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
 
         if (task.getDate() != 0) {
             Log.d(TAG, "TASK WITH DATE");
-            taskViewHolder.title.setMaxLines(1);
             taskViewHolder.title.setPadding(0, 0, 0, 0);
             taskViewHolder.title.setGravity(Gravity.CENTER_VERTICAL);
             taskViewHolder.date.setVisibility(View.VISIBLE);
             taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
         } else {
             Log.d(TAG, "TASK WITHOUT DATE");
+
+            // Get the resolution of the user's screen
+            Display d = ((WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+            int width = d.getWidth();
+            int height = d.getHeight();
+            Log.d(TAG, "width = " + width + ", height = " + height);
+
             taskViewHolder.date.setVisibility(View.GONE);
-            taskViewHolder.title.setMaxLines(2);
-            taskViewHolder.title.setPadding(0, 28, 0, 28);
+            if (width >= 1080 || height >= 1776) {
+                taskViewHolder.title.setPadding(0, 27, 0, 27);
+            } else if (width >= 720 || height >= 1184) {
+                taskViewHolder.title.setPadding(0, 20, 0, 20);
+            } else if (width >= 480 || height >= 800) {
+                taskViewHolder.title.setPadding(0, 15, 0, 15);
+            }
             taskViewHolder.title.setGravity(Gravity.CENTER_VERTICAL);
         }
     }

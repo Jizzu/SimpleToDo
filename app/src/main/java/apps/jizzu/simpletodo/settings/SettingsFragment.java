@@ -63,10 +63,10 @@ public class SettingsFragment extends PreferenceFragment {
                 Intent email = new Intent(Intent.ACTION_SENDTO);
                 email.setData(new Uri.Builder().scheme("mailto").build());
                 email.putExtra(Intent.EXTRA_EMAIL, new String[]{"ilya.ponomarenko.dev@gmail.com"});
-                email.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
-                email.putExtra(Intent.EXTRA_TEXT, "My device info:" + "\n" + DeviceInfo.getDeviceInfo()
-                        + "\n" + "App version:" + BuildConfig.VERSION_NAME
-                        + "\n" + "Feedback:" + "\n");
+                email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_title));
+                email.putExtra(Intent.EXTRA_TEXT, getString(R.string.feedback_device_info) + "\n" + DeviceInfo.getDeviceInfo()
+                        + "\n" + getString(R.string.feedback_app_version) + BuildConfig.VERSION_NAME
+                        + "\n" + getString(R.string.feedback) + "\n");
                 try {
                     startActivity(Intent.createChooser(email, "Send feedback"));
                 } catch (android.content.ActivityNotFoundException ex) {

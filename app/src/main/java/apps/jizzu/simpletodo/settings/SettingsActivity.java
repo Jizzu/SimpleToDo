@@ -17,7 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        setTitle("Settings");
+        setTitle(getString(R.string.settings));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {

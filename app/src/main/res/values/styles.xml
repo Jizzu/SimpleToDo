@@ -8,9 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/white</item>
+        <item name="android:fontFamily">@font/averta_regular</item>
     </style>
 
-    <style name="EditTextHint"  parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="EditTextHint" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorHint">@color/white</item>
     </style>
 

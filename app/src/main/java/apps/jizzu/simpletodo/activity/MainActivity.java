@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -18,8 +19,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.stone.vega.library.VegaLayoutManager;
 
 import java.util.Calendar;
 import java.util.List;
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private DBHelper mHelper;
     public static FloatingActionButton mFab;
     private PreferenceHelper preferenceHelper;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mContext = MainActivity.this;
+        setTitle("");
 
         // Initialize ALARM_SERVICE
         AlarmHelper.getInstance().init(getApplicationContext());
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.tasksList);
         mRecyclerView.setHasFixedSize(true);
 
-        mRecyclerView.setLayoutManager(new VegaLayoutManager());
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = RecyclerViewAdapter.getInstance();
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setEmptyView(mEmptyView);
@@ -238,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set notification to the current task
         if (task.getDate() != 0 && task.getDate() <= Calendar.getInstance().getTimeInMillis()) {
-            Toast.makeText(this, "Error! You have selected an incorrect time!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show();
             task.setDate(0);
         } else if (task.getDate() != 0) {
             AlarmHelper alarmHelper = AlarmHelper.getInstance();

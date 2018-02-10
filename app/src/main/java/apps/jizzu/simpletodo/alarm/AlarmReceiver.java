@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import apps.jizzu.simpletodo.R;
 import apps.jizzu.simpletodo.activity.MainActivity;
@@ -51,8 +52,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // Customize and create notifications
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
-        builder.setContentTitle(title);
-        builder.setSmallIcon(R.drawable.ic_event_note_white_48dp);
+        builder.setContentTitle(context.getString(R.string.reminder_text));
+        builder.setContentText(title);
+        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(title));
+        builder.setColor(ContextCompat.getColor(context, R.color.colorAccent));
+        builder.setSmallIcon(R.drawable.ic_check_circle_white_24dp);
         builder.setDefaults(Notification.DEFAULT_ALL);
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);

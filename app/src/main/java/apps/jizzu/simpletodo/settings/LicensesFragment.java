@@ -23,9 +23,6 @@ public class LicensesFragment extends PreferenceFragment {
     }
 
     private void addLicenses() {
-        findPreference("vega_layout_manager").setOnPreferenceClickListener(
-                createPreferenceClickListener("https://github.com/xmuSistone/VegaLayoutManager")
-        );
         findPreference("circular_anim").setOnPreferenceClickListener(
                 createPreferenceClickListener("https://github.com/XunMengWinter/CircularAnim")
         );

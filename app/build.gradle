@@ -13,7 +13,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,7 +32,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'
     compile 'com.github.XunMengWinter:CircularAnim:0.3.4'
     testCompile 'junit:junit:4.12'
 }

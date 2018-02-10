@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_view_title">Нет задач</string>
+    <string name="empty_view_text">Создайте новые задачи \n с помощью кнопки +</string>
+    <string name="create_task">Новая задача</string>
+    <string name="set_reminder">Добавить напоминание</string>
+    <string name="hint_title">Заголовок</string>
+    <string name="hint_date">Дата</string>
+    <string name="hint_time">Время</string>
+    <string name="add_task">Добавить задачу</string>
+    <string name="update_task">Обновить задачу</string>
+    <string name="edit_task">Изменить задачу</string>
+    <string name="toast_incorrect_time">Ошибка! Вы выбрали неправильное время!</string>
+    <string name="error_text_input">Пожалуйста, введите текст!</string>
+    <string name="error_spaces">Ошибка! Введённый текст состоит только из пробелов!</string>
+
+    <string name="preferences_animation_title">Включить анимацию</string>
+    <string name="preferences_animation_summary">Включить анимацию для элементов интерфейса</string>
+    <string name="preferences_rate_app_title">Оценить приложение</string>
+    <string name="preferences_rate_app_summary">Оцените это приложение в Google Play</string>
+    <string name="preferences_send_feedback_title">Написать автору</string>
+    <string name="preferences_send_feedback_summary">Предлагайте свои идеи и сообщайте о багах</string>
+    <string name="preferences_about_version_title">Версия</string>
+    <string name="preferences_about_version_summary">0.5 Публичная Бета Версия</string>
+    <string name="preferences_about_licenses_title">Лицензии</string>
+    <string name="preferences_about_licenses_summary">Информация о лицензиях</string>
+
+    <string name="feedback_title">Simple ToDo - Отзыв</string>
+    <string name="feedback_device_info">Информация о моём устройстве: </string>
+    <string name="feedback_app_version">Версия приложения: </string>
+    <string name="feedback">Отзыв: </string>
+
+    <string name="category_general">Общие настройки</string>
+    <string name="category_additional">Дополнительно</string>
+    <string name="category_about">О приложении</string>
+
+    <string name="settings">Настройки</string>
+    <string name="licenses">Лицензии</string>
+
+    <string name="reminder_text">Напоминание</string>
+    <string name="licenses_circular_anim_summary">Распространяется без лицензии</string>
+
+    <string name="snackbar_remove_task">Задача удалена!</string>
+    <string name="snackbar_cancel_removing">Отмена</string>
+</resources>

@@ -8,7 +8,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -33,12 +32,16 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.EditTaskActivity" />
+        <activity
+            android:name=".activity.EditTaskActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".settings.SettingsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/PreferenceScreen" />
         <activity
             android:name=".settings.LicensesActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/PreferenceScreen" />
     </application>
 

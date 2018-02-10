@@ -33,7 +33,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
     EditText mTitle;
     TextInputLayout mTaskTitleLayout;
-    RelativeLayout reminderLayout;
+    RelativeLayout mReminderLayout;
     Calendar mCalendar;
     EditText mDate;
     EditText mTime;
@@ -44,7 +44,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        setTitle("NEW TASK");
+        setTitle(getString(R.string.create_task));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -57,24 +57,24 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         RelativeLayout relativeLayout = findViewById(R.id.container);
         mDate = findViewById(R.id.taskDate);
         mTaskTitleLayout = findViewById(R.id.taskTitleLayout);
-        reminderLayout = findViewById(R.id.reminderContainer);
+        mReminderLayout = findViewById(R.id.reminderContainer);
         mTitle = findViewById(R.id.taskTitle);
         mTime = findViewById(R.id.taskTime);
         Button addTaskButton = findViewById(R.id.addTaskButton);
         mReminderSwitch = findViewById(R.id.reminderSwitch);
 
-        reminderLayout.setVisibility(View.INVISIBLE);
+        mReminderLayout.setVisibility(View.INVISIBLE);
 
         mReminderSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mReminderSwitch.isChecked()) {
                     hideKeyboard(mTitle);
-                    reminderLayout.animate().alpha(1.0f).setDuration(500).setListener(
+                    mReminderLayout.animate().alpha(1.0f).setDuration(500).setListener(
                             new Animator.AnimatorListener() {
                                 @Override
                                 public void onAnimationStart(Animator animation) {
-                                    reminderLayout.setVisibility(View.VISIBLE);
+                                    mReminderLayout.setVisibility(View.VISIBLE);
                                 }
 
                                 @Override
@@ -91,7 +91,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
                             }
                     );
                 } else {
-                    reminderLayout.animate().alpha(0.0f).setDuration(500).setListener(
+                    mReminderLayout.animate().alpha(0.0f).setDuration(500).setListener(
                             new Animator.AnimatorListener() {
                                 @Override
                                 public void onAnimationStart(Animator animation) {
@@ -100,7 +100,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
-                                    reminderLayout.setVisibility(View.INVISIBLE);
+                                    mReminderLayout.setVisibility(View.INVISIBLE);
                                 }
 
                                 @Override
@@ -157,9 +157,9 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
             @Override
             public void onClick(View view) {
                 if (mTitle.length() == 0) {
-                    mTitle.setError("Please, input some text!");
+                    mTitle.setError(getString(R.string.error_text_input));
                 } else if (mTitle.getText().toString().trim().length() == 0) {
-                    mTitle.setError("Error! The entered text consists only of spaces!");
+                    mTitle.setError(getString(R.string.error_spaces));
                 } else {
                     Intent intent = new Intent();
                     intent.putExtra("title", mTitle.getText().toString());

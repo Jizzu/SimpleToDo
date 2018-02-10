@@ -10,7 +10,19 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@null" />
+        android:background="@null">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIMPLE TODO"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:id="@+id/toolbar_title"
+            android:textStyle="bold"/>
+
+    </android.support.v7.widget.Toolbar>
 
 
     <apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
@@ -18,8 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="64dp"
-        android:scrollbars="vertical" />
+        android:layout_marginTop="56dp"
+        android:scrollbars="none" />
 
     <RelativeLayout
         android:id="@+id/empty"
@@ -32,7 +44,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:text="No tasks"
+            android:text="@string/empty_view_title"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -43,7 +55,7 @@
             android:layout_height="fill_parent"
             android:layout_marginTop="75dp"
             android:gravity="center"
-            android:text="You can create new tasks \n using the + button"
+            android:text="@string/empty_view_text"
             android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>
