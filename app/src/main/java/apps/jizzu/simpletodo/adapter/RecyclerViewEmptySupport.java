@@ -5,6 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
+import apps.jizzu.simpletodo.R;
+import apps.jizzu.simpletodo.activity.MainActivity;
 
 /**
  * Adds the setEmptyView method for the RecyclerView.
@@ -18,6 +23,13 @@ public class RecyclerViewEmptySupport extends RecyclerView {
             final boolean emptyViewVisible = getAdapter().getItemCount() == 0;
             emptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
             setVisibility(emptyViewVisible ? GONE : VISIBLE);
+
+            if (emptyViewVisible) {
+                Animation anim = AnimationUtils.loadAnimation(MainActivity.mContext, R.anim.empty_view_animation);
+                anim.setStartOffset(300);
+                anim.setDuration(300);
+                emptyView.startAnimation(anim);
+            }
         }
     }
 
