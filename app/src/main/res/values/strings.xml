@@ -39,6 +39,9 @@
     <string name="licenses">Licenses</string>
 
     <string name="reminder_text">Reminder</string>
+    <string name="reminder_today">Today</string>
+    <string name="reminder_yesterday">Yesterday</string>
+    <string name="reminder_tomorrow">Tomorrow</string>
     <string name="licenses_circular_anim_summary">This software distributed without a license</string>
 
     <string name="snackbar_remove_task">Task is removed!</string>

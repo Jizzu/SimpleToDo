@@ -3,7 +3,9 @@ package apps.jizzu.simpletodo.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -14,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -267,12 +270,24 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             taskViewHolder.title.setPadding(0, 0, 0, 0);
             taskViewHolder.title.setGravity(Gravity.CENTER_VERTICAL);
             taskViewHolder.date.setVisibility(View.VISIBLE);
-            taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
+            if (DateUtils.isToday(task.getDate())) {
+                taskViewHolder.date.setText(mContext.getString(R.string.reminder_today) + "  " + Utils.getTime(task.getDate()));
+            } else if (DateUtils.isToday(task.getDate() + DateUtils.DAY_IN_MILLIS)) {
+                taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                taskViewHolder.date.setText(mContext.getString(R.string.reminder_yesterday) + "  " + Utils.getTime(task.getDate()));
+            } else if (DateUtils.isToday(task.getDate() - DateUtils.DAY_IN_MILLIS)) {
+                taskViewHolder.date.setText(mContext.getString(R.string.reminder_tomorrow) + "  " + Utils.getTime(task.getDate()));
+            } else if (task.getDate() < Calendar.getInstance().getTimeInMillis()) {
+                taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
+            } else {
+                taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
+            }
         } else {
             Log.d(TAG, "TASK WITHOUT DATE");
 
             // Get the resolution of the user's screen
-            Display d = ((WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+            Display d = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
             int width = d.getWidth();
             int height = d.getHeight();
             Log.d(TAG, "width = " + width + ", height = " + height);
