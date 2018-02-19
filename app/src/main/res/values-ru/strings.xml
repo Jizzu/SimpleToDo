@@ -21,7 +21,7 @@
     <string name="preferences_send_feedback_title">Написать автору</string>
     <string name="preferences_send_feedback_summary">Предлагайте свои идеи и сообщайте о багах</string>
     <string name="preferences_about_version_title">Версия</string>
-    <string name="preferences_about_version_summary">0.5 Публичная Бета Версия</string>
+    <string name="preferences_about_version_summary">0.7 Публичная Бета Версия</string>
     <string name="preferences_about_licenses_title">Лицензии</string>
     <string name="preferences_about_licenses_summary">Информация о лицензиях</string>
 

@@ -36,11 +36,12 @@ import static android.content.ContentValues.TAG;
  */
 public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
 
-    public List<ModelTask> mItems = new ArrayList<>();
+    public static List<ModelTask> mItems = new ArrayList<>();
     private DBHelper mHelper = DBHelper.getInstance(MainActivity.mContext);
     private AlarmHelper mAlarmHelper = AlarmHelper.getInstance();
     private Context mContext;
     private static RecyclerViewAdapter mInstance;
+    private boolean mCancelButtonIsClicked;
 
     /**
      * Constructor is private to prevent direct instantiation.
@@ -110,6 +111,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         final long taskID = mItems.get(position).getId();
         final boolean[] isRemoved = {true};
         final long timeStamp = mItems.get(position).getTimeStamp();
+        mCancelButtonIsClicked = false;
 
         mItems.remove(position);
         notifyItemRemoved(position);
@@ -118,10 +120,13 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         snackbar.setAction(R.string.snackbar_cancel_removing, new CustomOnClickListener(taskID) {
 
             public void onClick(View view) {
-                ModelTask task = mHelper.getTask(taskID);
-                addItem(task, task.getPosition());
+                if (!mCancelButtonIsClicked) {
+                    mCancelButtonIsClicked = true;
+                    ModelTask task = mHelper.getTask(taskID);
+                    addItem(task, task.getPosition());
 
-                isRemoved[0] = false;
+                    isRemoved[0] = false;
+                }
             }
         });
 

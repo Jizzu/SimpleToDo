@@ -28,7 +28,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         String title = intent.getStringExtra("title");
         int timeStamp = (int) intent.getLongExtra("time_stamp", 0);
 
-        // Intent to launch the application when you click on a notification
+        // Intent to launch the application when you click on notification
         Intent resultIntent = new Intent(context, MainActivity.class);
 
         if (MyApplication.isActivityVisible()) {

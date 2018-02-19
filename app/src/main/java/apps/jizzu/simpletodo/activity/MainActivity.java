@@ -1,5 +1,7 @@
 package apps.jizzu.simpletodo.activity;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +36,7 @@ import apps.jizzu.simpletodo.settings.SettingsActivity;
 import apps.jizzu.simpletodo.utils.Interpolator;
 import apps.jizzu.simpletodo.utils.MyApplication;
 import apps.jizzu.simpletodo.utils.PreferenceHelper;
+import apps.jizzu.simpletodo.widget.WidgetProvider;
 import top.wefor.circularanim.CircularAnim;
 
 import static android.content.ContentValues.TAG;
@@ -150,6 +153,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updates widget data.
+     */
+    public void updateWidget() {
+        Log.d(TAG, "WIDGET IS UPDATED!");
+        Intent intent = new Intent(this, WidgetProvider.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids = AppWidgetManager.getInstance(MainActivity.this)
+                .getAppWidgetIds(new ComponentName(MainActivity.this, WidgetProvider.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -190,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 mHelper.saveTask(task);
             }
         }
+        updateWidget();
     }
 
     @Override

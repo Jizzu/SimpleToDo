@@ -22,7 +22,7 @@
     <string name="preferences_send_feedback_title">Send feedback</string>
     <string name="preferences_send_feedback_summary">Suggest ideas or tell about bugs</string>
     <string name="preferences_about_version_title">Version</string>
-    <string name="preferences_about_version_summary">0.5 Public Beta Version</string>
+    <string name="preferences_about_version_summary">0.7 Public Beta Version</string>
     <string name="preferences_about_licenses_title">Open source licenses</string>
     <string name="preferences_about_licenses_summary">License details for open source software</string>
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/toolbar_textView"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_gravity="start"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="SIMPLE TODO"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/widget_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
+</LinearLayout>
