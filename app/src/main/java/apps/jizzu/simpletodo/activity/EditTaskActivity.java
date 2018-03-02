@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
@@ -13,14 +14,17 @@ import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -78,7 +82,17 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         mTimeEditText = findViewById(R.id.taskTime);
         Button addTaskButton = findViewById(R.id.addTaskButton);
         mReminderSwitch = findViewById(R.id.reminderSwitch);
+        TextView reminderText = findViewById(R.id.tvSetReminder);
 
+        // Get the resolution of the user's screen
+        Display d = ((WindowManager) this.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        int width = d.getWidth();
+        int height = d.getHeight();
+        Log.d(TAG, "width = " + width + ", height = " + height);
+
+        if (width >= 480 || height >= 800) {
+            reminderText.setText(R.string.set_reminder_short);
+        }
 
         // Get Intent data
         Intent intent = getIntent();

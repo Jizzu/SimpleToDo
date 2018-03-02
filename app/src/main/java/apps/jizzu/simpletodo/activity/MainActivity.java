@@ -179,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
             int resId = R.anim.layout_animation;
             LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
             mRecyclerView.setLayoutAnimation(animation);
+        } else {
+            mFab.setVisibility(View.VISIBLE);
         }
     }
 
@@ -300,6 +302,8 @@ public class MainActivity extends AppCompatActivity {
                     mFab.startAnimation(myAnim);
                 }
             }, 300);
+        } else {
+            mFab.setVisibility(View.VISIBLE);
         }
         MyApplication.activityResumed();
     }

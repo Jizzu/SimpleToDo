@@ -4,6 +4,7 @@
     <string name="empty_view_text">You can create new tasks \n using the + button</string>
     <string name="create_task">NEW TASK</string>
     <string name="set_reminder">Set reminder</string>
+    <string name="set_reminder_short">Reminder</string>
     <string name="hint_title">Title</string>
     <string name="hint_date">Date</string>
     <string name="hint_time">Time</string>

@@ -4,6 +4,7 @@
     <string name="empty_view_text">Создайте новые задачи \n с помощью кнопки +</string>
     <string name="create_task">Новая задача</string>
     <string name="set_reminder">Добавить напоминание</string>
+    <string name="set_reminder_short">Напоминание</string>
     <string name="hint_title">Заголовок</string>
     <string name="hint_date">Дата</string>
     <string name="hint_time">Время</string>
