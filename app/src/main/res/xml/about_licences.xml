@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
+        android:key="material_search_view"
+        android:summary="MiguelCatalan"
+        android:title="MaterialSearchView" />
+    <Preference
         android:key="circular_anim"
-        android:summary="@string/licenses_circular_anim_summary"
-        android:title="XunMengWinter / CircularAnim" />
+        android:summary="XunMengWinter"
+        android:title="CircularAnim" />
 </PreferenceScreen>

@@ -76,12 +76,12 @@ public class ViewFactory implements RemoteViewsService.RemoteViewsFactory {
             remoteViews.setViewVisibility(R.id.item_date, View.VISIBLE);
 
             if (DateUtils.isToday(mListData.get(position).getDate())) {
-                remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_today) + "  " + Utils.getTime(mListData.get(position).getDate()));
+                remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_today) + " " + Utils.getTime(mListData.get(position).getDate()));
             } else if (DateUtils.isToday(mListData.get(position).getDate() + DateUtils.DAY_IN_MILLIS)) {
                 remoteViews.setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red));
-                remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_yesterday) + "  " + Utils.getTime(mListData.get(position).getDate()));
+                remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_yesterday) + " " + Utils.getTime(mListData.get(position).getDate()));
             } else if (DateUtils.isToday(mListData.get(position).getDate() - DateUtils.DAY_IN_MILLIS)) {
-                remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_tomorrow) + "  " + Utils.getTime(mListData.get(position).getDate()));
+                remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_tomorrow) + " " + Utils.getTime(mListData.get(position).getDate()));
             } else if (mListData.get(position).getDate() < Calendar.getInstance().getTimeInMillis()) {
                 remoteViews.setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red));
                 remoteViews.setTextViewText(R.id.item_date, Utils.getFullDate(mListData.get(position).getDate()));

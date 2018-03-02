@@ -23,6 +23,9 @@ public class LicensesFragment extends PreferenceFragment {
     }
 
     private void addLicenses() {
+        findPreference("material_search_view").setOnPreferenceClickListener(
+                createPreferenceClickListener("https://github.com/MiguelCatalan/MaterialSearchView")
+        );
         findPreference("circular_anim").setOnPreferenceClickListener(
                 createPreferenceClickListener("https://github.com/XunMengWinter/CircularAnim")
         );

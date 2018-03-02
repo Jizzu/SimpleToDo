@@ -22,6 +22,9 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -49,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout mEmptyView;
     private DBHelper mHelper;
     public static FloatingActionButton mFab;
-    private PreferenceHelper preferenceHelper;
+    private PreferenceHelper mPreferenceHelper;
     private RecyclerView.LayoutManager mLayoutManager;
+    public static boolean mSearchViewIsOpen;
+    private MaterialSearchView mSearchView;
+    public static boolean mShowAnimation;
 
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
@@ -74,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         PreferenceHelper.getInstance().init(getApplicationContext());
-        preferenceHelper = PreferenceHelper.getInstance();
+        mPreferenceHelper = PreferenceHelper.getInstance();
 
         mEmptyView = findViewById(R.id.empty);
 
@@ -85,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = RecyclerViewAdapter.getInstance();
         mRecyclerView.setAdapter(mAdapter);
+        mSearchView = findViewById(R.id.search_view);
         mRecyclerView.setEmptyView(mEmptyView);
         mFab = findViewById(R.id.fab);
 
@@ -95,10 +102,44 @@ public class MainActivity extends AppCompatActivity {
         mHelper = DBHelper.getInstance(mContext);
         addTasksFromDB();
 
+        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d(TAG, "onQueryTextSubmit");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                findTasks(newText);
+                Log.d(TAG, "onQueryTextChange: newText = " + newText);
+                return false;
+            }
+        });
+
+        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                Log.d(TAG, "onSearchViewShown!");
+                mSearchViewIsOpen = true;
+                Log.d(TAG, "isSearchOpen = " + mSearchViewIsOpen);
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                Log.d(TAG, "onSearchViewClosed!");
+                addTasksFromDB();
+                startEmptyViewAnimation();
+                mSearchViewIsOpen = false;
+                mShowAnimation = false;
+                Log.d(TAG, "onSearchViewClosed: isSearchOpen = " + mSearchViewIsOpen);
+            }
+        });
+
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+                if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
                     CircularAnim.fullActivity(MainActivity.this, view)
                             .colorOrImageRes(R.color.colorPrimary)
                             .duration(300)
@@ -131,13 +172,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
             mFab.setVisibility(View.GONE);
 
             // Starts the RecyclerView items animation
             int resId = R.anim.layout_animation;
             LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
             mRecyclerView.setLayoutAnimation(animation);
+        }
+    }
+
+    /**
+     * Finds tasks by the title in the database.
+     */
+    public void findTasks(String title) {
+        mSearchViewIsOpen = true;
+        Log.d(TAG, "findTasks: SearchView Title = " + title);
+        mAdapter.removeAllItems();
+        List<ModelTask> tasks = new ArrayList<>();
+
+        if (!title.equals("")) {
+            tasks.addAll(mHelper.getTasks(mHelper.SELECTION_LIKE_TITLE, new String[]{"%" + title + "%"}, mHelper.TASK_DATE_COLUMN));
+        } else {
+            tasks.addAll(mHelper.getAllTasks());
+        }
+
+        for (int i = 0; i < tasks.size(); i++) {
+            mAdapter.addItem(tasks.get(i));
         }
     }
 
@@ -150,6 +211,16 @@ public class MainActivity extends AppCompatActivity {
 
         for (ModelTask task : taskList) {
             mAdapter.addItem(task, task.getPosition());
+        }
+    }
+
+    /**
+     * Starts the EmptyView animation.
+     */
+    private void startEmptyViewAnimation() {
+        if (mAdapter.getItemCount() == 0 && mShowAnimation) {
+            mSearchViewIsOpen = false;
+            mRecyclerView.checkIfEmpty();
         }
     }
 
@@ -170,19 +241,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
+        MenuItem item = menu.findItem(R.id.action_search);
+        mSearchView.setMenuItem(item);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings: {
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            }
+        if (item.getItemId() == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     /**
@@ -195,10 +267,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
+        Log.d(TAG, "onStop call!!!");
         List<ModelTask> taskList = mHelper.getAllTasks();
 
         Log.d(TAG, "dbSize = " + taskList.size() + ", adapterSize = " + mAdapter.mItems.size());
-        if (taskList.size() != mAdapter.mItems.size()) {
+        if (taskList.size() != mAdapter.mItems.size() && !mSearchViewIsOpen) {
 
             mHelper.deleteAllTasks();
 
@@ -214,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         mFab.setVisibility(View.GONE);
 
-        if (preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
             // Starts the FAB animation
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -267,5 +340,14 @@ public class MainActivity extends AppCompatActivity {
         long id = mHelper.saveTask(task);
         task.setId(id);
         mAdapter.addItem(task);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mSearchView.isSearchOpen()) {
+            mSearchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

@@ -20,4 +20,8 @@
         <item name="android:textColorSecondary">@color/grey_white</item>
     </style>
 
+    <style name="MaterialSearchViewStyle">
+        <item name="android:hint">@string/search</item>
+    </style>
+
 </resources>

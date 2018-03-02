@@ -22,8 +22,8 @@
     <string name="preferences_send_feedback_summary">Предлагайте свои идеи и сообщайте о багах</string>
     <string name="preferences_about_version_title">Версия</string>
     <string name="preferences_about_version_summary">0.7 Публичная Бета Версия</string>
-    <string name="preferences_about_licenses_title">Лицензии</string>
-    <string name="preferences_about_licenses_summary">Информация о лицензиях</string>
+    <string name="preferences_about_licenses_title">Использованные библиотеки</string>
+    <string name="preferences_about_licenses_summary">Лицензии</string>
 
     <string name="feedback_title">Simple ToDo - Отзыв</string>
     <string name="feedback_device_info">Информация о моём устройстве: </string>
@@ -36,13 +36,17 @@
 
     <string name="settings">Настройки</string>
     <string name="licenses">Лицензии</string>
+    <string name="search">Поиск</string>
 
     <string name="reminder_text">Напоминание</string>
-    <string name="reminder_today">Сегодня</string>
-    <string name="reminder_yesterday">Вчера</string>
-    <string name="reminder_tomorrow">Завтра</string>
+    <string name="reminder_today">Сегодня в</string>
+    <string name="reminder_yesterday">Вчера в</string>
+    <string name="reminder_tomorrow">Завтра в</string>
     <string name="licenses_circular_anim_summary">Распространяется без лицензии</string>
 
     <string name="snackbar_remove_task">Задача удалена!</string>
-    <string name="snackbar_cancel_removing">Отмена</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_delete">Удалить</string>
+    <string name="dialog_title">Вы уверены?</string>
+    <string name="dialog_message">Удалить эту задачу?</string>
 </resources>

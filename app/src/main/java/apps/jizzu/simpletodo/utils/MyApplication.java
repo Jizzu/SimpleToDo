@@ -7,17 +7,17 @@ import android.app.Application;
  */
 public class MyApplication extends Application {
 
-    private static boolean activityVisible;
+    private static boolean mActivityVisible;
 
     public static boolean isActivityVisible() {
-        return activityVisible;
+        return mActivityVisible;
     }
 
     public static void activityResumed() {
-        activityVisible = true;
+        mActivityVisible = true;
     }
 
     public static void activityPaused() {
-        activityVisible = false;
+        mActivityVisible = false;
     }
 }

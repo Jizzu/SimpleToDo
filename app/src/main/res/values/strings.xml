@@ -23,8 +23,8 @@
     <string name="preferences_send_feedback_summary">Suggest ideas or tell about bugs</string>
     <string name="preferences_about_version_title">Version</string>
     <string name="preferences_about_version_summary">0.7 Public Beta Version</string>
-    <string name="preferences_about_licenses_title">Open source licenses</string>
-    <string name="preferences_about_licenses_summary">License details for open source software</string>
+    <string name="preferences_about_licenses_title">Used libraries</string>
+    <string name="preferences_about_licenses_summary">Licenses</string>
 
     <string name="feedback_title">Simple ToDo - Feedback</string>
     <string name="feedback_device_info">My device info: </string>
@@ -37,13 +37,17 @@
 
     <string name="settings">Settings</string>
     <string name="licenses">Licenses</string>
+    <string name="search">Search</string>
 
     <string name="reminder_text">Reminder</string>
-    <string name="reminder_today">Today</string>
-    <string name="reminder_yesterday">Yesterday</string>
-    <string name="reminder_tomorrow">Tomorrow</string>
+    <string name="reminder_today">Today at</string>
+    <string name="reminder_yesterday">Yesterday at</string>
+    <string name="reminder_tomorrow">Tomorrow at</string>
     <string name="licenses_circular_anim_summary">This software distributed without a license</string>
 
     <string name="snackbar_remove_task">Task is removed!</string>
-    <string name="snackbar_cancel_removing">Cancel</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="dialog_title">Are you sure?</string>
+    <string name="dialog_message">Delete this task?</string>
 </resources>

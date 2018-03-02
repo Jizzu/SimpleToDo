@@ -3,6 +3,8 @@ package apps.jizzu.simpletodo.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import apps.jizzu.simpletodo.activity.MainActivity;
+
 /**
  * Enables basic drag & drop and swipe-to-dismiss. Drag events are automatically started by an item long-press.
  */
@@ -25,6 +27,7 @@ public class ListItemTouchHelper extends ItemTouchHelper.Callback {
      */
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        if (MainActivity.mSearchViewIsOpen) return 0;
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN; // Flags for up and down movement
         int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END; // Flags for left and right movement
         return makeMovementFlags(dragFlags, swipeFlags);

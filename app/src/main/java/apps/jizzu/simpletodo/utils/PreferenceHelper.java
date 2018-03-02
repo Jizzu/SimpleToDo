@@ -11,8 +11,8 @@ public class PreferenceHelper {
     public static final String ANIMATION_IS_ON = "animation_is_on";
 
     private static PreferenceHelper mInstance;
-    private Context context;
-    private SharedPreferences preferences;
+    private Context mContext;
+    private SharedPreferences mPreferences;
 
     private PreferenceHelper() {
 
@@ -26,17 +26,17 @@ public class PreferenceHelper {
     }
 
     public void init(Context context) {
-        this.context = context;
-        preferences = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        mContext = context;
+        mPreferences = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
     }
 
     public void putBoolean(String key, boolean value) {
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(key, value);
         editor.apply();
     }
 
     public boolean getBoolean(String key) {
-        return preferences.getBoolean(key, true);
+        return mPreferences.getBoolean(key, true);
     }
 }

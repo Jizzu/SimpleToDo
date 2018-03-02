@@ -82,6 +82,8 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     public void addItem(ModelTask item) {
         mItems.add(item);
         notifyItemInserted(getItemCount() - 1);
+
+        Log.d(TAG, "Task with title " + item.getTitle() + " and position = " + item.getPosition() + " added from db to RecyclerView!");
     }
 
     /**
@@ -105,7 +107,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     }
 
     /**
-     * Removes an item from the list.
+     * Removes an item from the list (with Snackbar).
      */
     public void removeItem(int position, RecyclerView recyclerView) {
         final long taskID = mItems.get(position).getId();
@@ -117,7 +119,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         notifyItemRemoved(position);
 
         Snackbar snackbar = Snackbar.make(recyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG);
-        snackbar.setAction(R.string.snackbar_cancel_removing, new CustomOnClickListener(taskID) {
+        snackbar.setAction(R.string.action_cancel, new CustomOnClickListener(taskID) {
 
             public void onClick(View view) {
                 if (!mCancelButtonIsClicked) {
@@ -154,12 +156,33 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     }
 
     /**
+     * Removes an item from the list (without Snackbar).
+     */
+    public void removeItem(int position) {
+        Log.d(TAG, "RV ADAPTER: task position = " + mItems.get(position).getPosition());
+        long taskID = mItems.get(position).getId();
+        long timeStamp = mItems.get(position).getTimeStamp();
+
+        mItems.remove(position);
+        notifyItemRemoved(position);
+
+        // Removes a notification
+        mAlarmHelper.removeNotification(timeStamp, MainActivity.mContext);
+
+        // Removes a task
+        mHelper.deleteTask(taskID);
+        saveTasksOrderFromDB();
+    }
+
+    /**
      * Removes all items from the list.
      */
     public void removeAllItems() {
         if (getItemCount() != 0) {
             mItems = new ArrayList<>();
             notifyDataSetChanged();
+
+            Log.d(TAG, "All items is removed!");
         }
     }
 
@@ -245,6 +268,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         final ModelTask task = mItems.get(position);
+        final int currentTaskPosition = position;
 
         TaskViewHolder taskViewHolder = (TaskViewHolder) holder;
         View itemView = taskViewHolder.itemView;
@@ -256,7 +280,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
 
                 intent.putExtra("id", task.getId());
                 intent.putExtra("title", task.getTitle());
-                intent.putExtra("position", task.getPosition());
+                intent.putExtra("position", currentTaskPosition);
                 intent.putExtra("time_stamp", task.getTimeStamp());
 
                 if (task.getDate() != 0) {
@@ -276,12 +300,12 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             taskViewHolder.title.setGravity(Gravity.CENTER_VERTICAL);
             taskViewHolder.date.setVisibility(View.VISIBLE);
             if (DateUtils.isToday(task.getDate())) {
-                taskViewHolder.date.setText(mContext.getString(R.string.reminder_today) + "  " + Utils.getTime(task.getDate()));
+                taskViewHolder.date.setText(mContext.getString(R.string.reminder_today) + " " + Utils.getTime(task.getDate()));
             } else if (DateUtils.isToday(task.getDate() + DateUtils.DAY_IN_MILLIS)) {
                 taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red));
-                taskViewHolder.date.setText(mContext.getString(R.string.reminder_yesterday) + "  " + Utils.getTime(task.getDate()));
+                taskViewHolder.date.setText(mContext.getString(R.string.reminder_yesterday) + " " + Utils.getTime(task.getDate()));
             } else if (DateUtils.isToday(task.getDate() - DateUtils.DAY_IN_MILLIS)) {
-                taskViewHolder.date.setText(mContext.getString(R.string.reminder_tomorrow) + "  " + Utils.getTime(task.getDate()));
+                taskViewHolder.date.setText(mContext.getString(R.string.reminder_tomorrow) + " " + Utils.getTime(task.getDate()));
             } else if (task.getDate() < Calendar.getInstance().getTimeInMillis()) {
                 taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red));
                 taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));

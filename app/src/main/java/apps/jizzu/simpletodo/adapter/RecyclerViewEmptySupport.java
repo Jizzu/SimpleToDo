@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -11,24 +12,29 @@ import android.view.animation.AnimationUtils;
 import apps.jizzu.simpletodo.R;
 import apps.jizzu.simpletodo.activity.MainActivity;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Adds the setEmptyView method for the RecyclerView.
  */
 public class RecyclerViewEmptySupport extends RecyclerView {
 
-    private View emptyView;
+    private View mEmptyView;
 
-    void checkIfEmpty() {
-        if (emptyView != null && getAdapter() != null) {
+    public void checkIfEmpty() {
+        if (mEmptyView != null && getAdapter() != null && !MainActivity.mSearchViewIsOpen) {
             final boolean emptyViewVisible = getAdapter().getItemCount() == 0;
-            emptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
+            mEmptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
             setVisibility(emptyViewVisible ? GONE : VISIBLE);
+
+            Log.d(TAG, "checkIfEmpty");
 
             if (emptyViewVisible) {
                 Animation anim = AnimationUtils.loadAnimation(MainActivity.mContext, R.anim.empty_view_animation);
                 anim.setStartOffset(300);
                 anim.setDuration(300);
-                emptyView.startAnimation(anim);
+                mEmptyView.startAnimation(anim);
+                Log.d(TAG, "checkIfEmpty: Start animation");
             }
         }
     }
@@ -66,7 +72,7 @@ public class RecyclerViewEmptySupport extends RecyclerView {
     }
 
     public void setEmptyView(@Nullable View emptyView) {
-        this.emptyView = emptyView;
+        mEmptyView = emptyView;
         checkIfEmpty();
     }
 

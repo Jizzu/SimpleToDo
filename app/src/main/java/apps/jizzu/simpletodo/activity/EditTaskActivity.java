@@ -1,9 +1,11 @@
 package apps.jizzu.simpletodo.activity;
 
 import android.animation.Animator;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -43,9 +46,14 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
     TextInputLayout mTaskTitleLayout;
     RelativeLayout mReminderLayout;
     Calendar mCalendar;
-    EditText mDate;
-    EditText mTime;
+    EditText mDateEditText;
+    EditText mTimeEditText;
     SwitchCompat mReminderSwitch;
+    RecyclerViewAdapter mAdapter;
+    long mId;
+    long mDate;
+    int mPosition;
+    long mTimeStamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,37 +71,40 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         }
 
         RelativeLayout relativeLayout = findViewById(R.id.container);
-        mDate = findViewById(R.id.taskDate);
+        mDateEditText = findViewById(R.id.taskDate);
         mTaskTitleLayout = findViewById(R.id.taskTitleLayout);
         mReminderLayout = findViewById(R.id.reminderContainer);
         mTitle = findViewById(R.id.taskTitle);
-        mTime = findViewById(R.id.taskTime);
+        mTimeEditText = findViewById(R.id.taskTime);
         Button addTaskButton = findViewById(R.id.addTaskButton);
         mReminderSwitch = findViewById(R.id.reminderSwitch);
 
+
         // Get Intent data
         Intent intent = getIntent();
-        final long id = intent.getLongExtra("id", 0);
+        mId = intent.getLongExtra("id", 0);
         String title = intent.getStringExtra("title");
-        final long date = intent.getLongExtra("date", 0);
-        final int position = intent.getIntExtra("position", 0);
-        final long timeStamp = intent.getLongExtra("time_stamp", 0);
+        mDate = intent.getLongExtra("date", 0);
+        mPosition = intent.getIntExtra("position", 0);
+        mTimeStamp = intent.getLongExtra("time_stamp", 0);
 
-        Log.d(TAG, "TASK DATE = " + date);
+        mAdapter = RecyclerViewAdapter.getInstance();
+
+        Log.d(TAG, "TASK DATE = " + mDate);
 
         mTitle.setText(title);
         mTitle.setSelection(mTitle.getText().length());
-        if (date != 0) {
-            mDate.setText(Utils.getDate(date));
-            mTime.setText(Utils.getTime(date));
+        if (mDate != 0) {
+            mDateEditText.setText(Utils.getDate(mDate));
+            mTimeEditText.setText(Utils.getTime(mDate));
         }
         addTaskButton.setText(getString(R.string.update_task));
 
-        if (date == 0) {
+        if (mDate == 0) {
             mReminderLayout.setVisibility(View.INVISIBLE);
             mReminderSwitch.setChecked(false);
-            mDate.setText(null);
-            mTime.setText(null);
+            mDateEditText.setText(null);
+            mTimeEditText.setText(null);
         } else {
             mReminderLayout.setVisibility(View.VISIBLE);
             mReminderSwitch.setChecked(true);
@@ -148,8 +159,8 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
                                 }
                             }
                     );
-                    mDate.setText(null);
-                    mTime.setText(null);
+                    mDateEditText.setText(null);
+                    mTimeEditText.setText(null);
                 }
             }
         });
@@ -165,27 +176,27 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         });
 
         mCalendar = Calendar.getInstance();
-        if (mDate.length() != 0 || mTime.length() != 0) {
-            mCalendar.setTimeInMillis(date);
+        if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
+            mCalendar.setTimeInMillis(mDate);
         }
         // If the user specified only the date (without time), then the notification of the event will appear in an hour.
-        if (mTime.length() == 0) {
+        if (mTimeEditText.length() == 0) {
             mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1);
         }
 
-        mDate.setOnClickListener(new View.OnClickListener() {
+        mDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDate.setText(null);
+                mDateEditText.setText(null);
                 DialogFragment datePickerFragment = new DatePickerFragment();
                 datePickerFragment.show(getFragmentManager(), "DatePickerFragment");
             }
         });
 
-        mTime.setOnClickListener(new View.OnClickListener() {
+        mTimeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTime.setText(null);
+                mTimeEditText.setText(null);
                 DialogFragment timePickerFragment = new TimePickerFragment();
                 timePickerFragment.show(getFragmentManager(), "TimePickerFragment");
             }
@@ -200,21 +211,20 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
                     mTitle.setError(getString(R.string.error_spaces));
                 } else {
                     DBHelper dbHelper = DBHelper.getInstance(MainActivity.mContext);
-                    RecyclerViewAdapter adapter = RecyclerViewAdapter.getInstance();
 
-                    ModelTask task = new ModelTask(id, mTitle.getText().toString(), date, position, timeStamp);
+                    ModelTask task = new ModelTask(mId, mTitle.getText().toString(), mDate, mPosition, mTimeStamp);
 
-                    if (mDate.length() != 0 || mTime.length() != 0) {
+                    if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
                         task.setDate(mCalendar.getTimeInMillis());
                     }
 
-                    if (!mReminderSwitch.isChecked() || (mDate.length() == 0 && mTime.length() == 0)) {
+                    if (!mReminderSwitch.isChecked() || (mDateEditText.length() == 0 && mTimeEditText.length() == 0)) {
                         task.setDate(0);
                     }
                     Log.d(TAG, "Title = " + task.getTitle() + ", date = " + task.getDate() + ", position = " + task.getPosition());
 
                     dbHelper.updateTask(task);
-                    adapter.updateItem(task, task.getPosition());
+                    mAdapter.updateItem(task, task.getPosition());
 
                     if (task.getDate() != 0 && task.getDate() <= Calendar.getInstance().getTimeInMillis()) {
                         task.setDate(0);
@@ -249,17 +259,52 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_task_menu, menu);
+        return true;
+    }
+
     /**
      * The handler for clicking the close button in the toolbar.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            hideKeyboard(mTitle);
-            onBackPressed();
-            return true;
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                hideKeyboard(mTitle);
+                onBackPressed();
+                break;
+
+            case R.id.action_delete:
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle(R.string.dialog_title);
+                alertDialog.setMessage(R.string.dialog_message);
+                alertDialog.setPositiveButton(R.string.action_delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        hideKeyboard(mTitle);
+                        ModelTask task = new ModelTask(mId, mTitle.getText().toString(), mDate, mPosition, mTimeStamp);
+                        Log.d(TAG, "EDIT TASK ACTIVITY: task position = " + (task.getPosition()));
+                        mAdapter.removeItem(task.getPosition());
+                        if (mAdapter.getItemCount() == 0 && MainActivity.mSearchViewIsOpen) {
+                            MainActivity.mShowAnimation = true;
+                        }
+                        finish();
+                    }
+                });
+                alertDialog.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.show();
+                break;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -270,7 +315,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         mCalendar.set(Calendar.YEAR, year);
         mCalendar.set(Calendar.MONTH, monthOfYear);
         mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        mDate.setText(Utils.getDate(mCalendar.getTimeInMillis()));
+        mDateEditText.setText(Utils.getDate(mCalendar.getTimeInMillis()));
     }
 
     /**
@@ -281,6 +326,6 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         mCalendar.set(Calendar.MINUTE, minute);
         mCalendar.set(Calendar.SECOND, 0);
-        mTime.setText(Utils.getTime(mCalendar.getTimeInMillis()));
+        mTimeEditText.setText(Utils.getTime(mCalendar.getTimeInMillis()));
     }
 }
