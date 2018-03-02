@@ -8,4 +8,8 @@
         android:key="circular_anim"
         android:summary="XunMengWinter"
         android:title="CircularAnim" />
+    <Preference
+        android:key="whats_new"
+        android:summary="TonnyL"
+        android:title="WhatsNew" />
 </PreferenceScreen>

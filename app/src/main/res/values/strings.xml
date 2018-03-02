@@ -23,7 +23,7 @@
     <string name="preferences_send_feedback_title">Send feedback</string>
     <string name="preferences_send_feedback_summary">Suggest ideas or tell about bugs</string>
     <string name="preferences_about_version_title">Version</string>
-    <string name="preferences_about_version_summary">0.7 Public Beta Version</string>
+    <string name="preferences_about_version_summary">0.9 Public Beta Version</string>
     <string name="preferences_about_licenses_title">Used libraries</string>
     <string name="preferences_about_licenses_summary">Licenses</string>
 
@@ -51,4 +51,13 @@
     <string name="action_delete">Delete</string>
     <string name="dialog_title">Are you sure?</string>
     <string name="dialog_message">Delete this task?</string>
+
+    <string name="whats_new_title">What\'s New?</string>
+    <string name="whats_new_button_text">Continue</string>
+    <string name="whats_new_item_1_title">Search</string>
+    <string name="whats_new_item_2_title">Bug fixes</string>
+    <string name="whats_new_item_3_title">Start screen</string>
+    <string name="whats_new_item_1_text">Added searching feature.</string>
+    <string name="whats_new_item_2_text">Some bugs are fixed.</string>
+    <string name="whats_new_item_3_text">Added start screen with actual information about updates.</string>
 </resources>

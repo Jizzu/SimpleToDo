@@ -29,6 +29,9 @@ public class LicensesFragment extends PreferenceFragment {
         findPreference("circular_anim").setOnPreferenceClickListener(
                 createPreferenceClickListener("https://github.com/XunMengWinter/CircularAnim")
         );
+        findPreference("whats_new").setOnPreferenceClickListener(
+                createPreferenceClickListener("https://github.com/TonnyL/WhatsNew")
+        );
     }
 
     private Preference.OnPreferenceClickListener createPreferenceClickListener(

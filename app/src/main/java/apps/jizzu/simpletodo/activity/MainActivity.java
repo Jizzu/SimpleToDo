@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,9 @@ import apps.jizzu.simpletodo.utils.Interpolator;
 import apps.jizzu.simpletodo.utils.MyApplication;
 import apps.jizzu.simpletodo.utils.PreferenceHelper;
 import apps.jizzu.simpletodo.widget.WidgetProvider;
+import io.github.tonnyl.whatsnew.WhatsNew;
+import io.github.tonnyl.whatsnew.item.WhatsNewItem;
+import io.github.tonnyl.whatsnew.util.PresentationOption;
 import top.wefor.circularanim.CircularAnim;
 
 import static android.content.ContentValues.TAG;
@@ -66,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Set up "What's New" screen
+        WhatsNew whatsNew = WhatsNew.newInstance(
+                new WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text), R.drawable.whats_new_search),
+                new WhatsNewItem(getString(R.string.whats_new_item_2_title), getString(R.string.whats_new_item_2_text), R.drawable.whats_new_bug_fixes),
+                new WhatsNewItem(getString(R.string.whats_new_item_3_title), getString(R.string.whats_new_item_3_text), R.drawable.whats_new_start_screen)
+        );
+        whatsNew.setTitleColor(ContextCompat.getColor(this, R.color.colorAccent));
+        whatsNew.setTitleText(getString(R.string.whats_new_title));
+        whatsNew.setButtonText(getString(R.string.whats_new_button_text));
+        whatsNew.setButtonBackground(ContextCompat.getColor(this, R.color.colorAccent));
+        whatsNew.setButtonTextColor(ContextCompat.getColor(this, R.color.white));
+        whatsNew.presentAutomatically(MainActivity.this);
 
         mContext = MainActivity.this;
         setTitle("");
