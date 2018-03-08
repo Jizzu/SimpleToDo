@@ -43,7 +43,6 @@ import apps.jizzu.simpletodo.utils.PreferenceHelper;
 import apps.jizzu.simpletodo.widget.WidgetProvider;
 import io.github.tonnyl.whatsnew.WhatsNew;
 import io.github.tonnyl.whatsnew.item.WhatsNewItem;
-import io.github.tonnyl.whatsnew.util.PresentationOption;
 import top.wefor.circularanim.CircularAnim;
 
 import static android.content.ContentValues.TAG;
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean mSearchViewIsOpen;
     private MaterialSearchView mSearchView;
     public static boolean mShowAnimation;
+    public static boolean mActivityIsShown;
 
     // TODO: Find better way to get the MainActivity context.
     public static Context mContext;
@@ -290,13 +290,14 @@ public class MainActivity extends AppCompatActivity {
         List<ModelTask> taskList = mHelper.getAllTasks();
 
         Log.d(TAG, "dbSize = " + taskList.size() + ", adapterSize = " + mAdapter.mItems.size());
-        if (taskList.size() != mAdapter.mItems.size() && !mSearchViewIsOpen) {
+        if (taskList.size() != mAdapter.mItems.size() && !mSearchViewIsOpen && !mActivityIsShown) {
 
             mHelper.deleteAllTasks();
 
             for (ModelTask task : mAdapter.mItems) {
                 mHelper.saveTask(task);
             }
+            mActivityIsShown = false;
         }
         updateWidget();
     }

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import apps.jizzu.simpletodo.R;
 
@@ -17,7 +18,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        setTitle(getString(R.string.settings));
+        setTitle("");
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.settings));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {

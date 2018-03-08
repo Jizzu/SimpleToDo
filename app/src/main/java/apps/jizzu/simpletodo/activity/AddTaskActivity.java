@@ -51,7 +51,9 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        setTitle(getString(R.string.create_task));
+        setTitle("");
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.create_task));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -71,13 +73,15 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         mReminderSwitch = findViewById(R.id.reminderSwitch);
         TextView reminderText = findViewById(R.id.tvSetReminder);
 
+        MainActivity.mActivityIsShown = true;
+
         // Get the resolution of the user's screen
         Display d = ((WindowManager) this.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         int width = d.getWidth();
         int height = d.getHeight();
         Log.d(TAG, "width = " + width + ", height = " + height);
 
-        if (width >= 480 || height >= 800) {
+        if (width <= 480 || height <= 800) {
             reminderText.setText(R.string.set_reminder_short);
         }
 

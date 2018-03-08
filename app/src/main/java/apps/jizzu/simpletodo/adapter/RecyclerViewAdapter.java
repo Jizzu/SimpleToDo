@@ -20,14 +20,14 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import apps.jizzu.simpletodo.R;
 import apps.jizzu.simpletodo.activity.EditTaskActivity;
 import apps.jizzu.simpletodo.activity.MainActivity;
-import apps.jizzu.simpletodo.R;
 import apps.jizzu.simpletodo.alarm.AlarmHelper;
-import apps.jizzu.simpletodo.database.TasksOrderUpdate;
-import apps.jizzu.simpletodo.utils.Utils;
 import apps.jizzu.simpletodo.database.DBHelper;
+import apps.jizzu.simpletodo.database.TasksOrderUpdate;
 import apps.jizzu.simpletodo.model.ModelTask;
+import apps.jizzu.simpletodo.utils.Utils;
 
 import static android.content.ContentValues.TAG;
 
@@ -126,7 +126,6 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
                     mCancelButtonIsClicked = true;
                     ModelTask task = mHelper.getTask(taskID);
                     addItem(task, task.getPosition());
-
                     isRemoved[0] = false;
                 }
             }

@@ -2,7 +2,7 @@
 <resources>
     <string name="empty_view_title">Нет задач</string>
     <string name="empty_view_text">Создайте новые задачи \n с помощью кнопки +</string>
-    <string name="create_task">Новая задача</string>
+    <string name="create_task">НОВАЯ ЗАДАЧА</string>
     <string name="set_reminder">Добавить напоминание</string>
     <string name="set_reminder_short">Напоминание</string>
     <string name="hint_title">Заголовок</string>
@@ -10,7 +10,7 @@
     <string name="hint_time">Время</string>
     <string name="add_task">Добавить задачу</string>
     <string name="update_task">Обновить задачу</string>
-    <string name="edit_task">Изменить задачу</string>
+    <string name="edit_task">ИЗМЕНИТЬ ЗАДАЧУ</string>
     <string name="toast_incorrect_time">Ошибка! Вы выбрали неправильное время!</string>
     <string name="error_text_input">Пожалуйста, введите текст!</string>
     <string name="error_spaces">Ошибка! Введённый текст состоит только из пробелов!</string>
@@ -35,8 +35,8 @@
     <string name="category_additional">Дополнительно</string>
     <string name="category_about">О приложении</string>
 
-    <string name="settings">Настройки</string>
-    <string name="licenses">Лицензии</string>
+    <string name="settings">НАСТРОЙКИ</string>
+    <string name="licenses">ЛИЦЕНЗИИ</string>
     <string name="search">Поиск</string>
 
     <string name="reminder_text">Напоминание</string>
@@ -48,7 +48,7 @@
     <string name="snackbar_remove_task">Задача удалена!</string>
     <string name="action_cancel">Отмена</string>
     <string name="action_delete">Удалить</string>
-    <string name="dialog_title">Вы уверены?</string>
+    <string name="dialog_title"><b>Вы уверены?</b></string>
     <string name="dialog_message">Удалить эту задачу?</string>
 
     <string name="whats_new_title">Что нового?</string>
