@@ -11,6 +11,8 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 - Completely free and no ads
 - Modern design
 - Reminder feature
+- Search feature
+- Widget support
 - Drag & drop and swipe-to-dismiss features
 - No permissions is required
 
