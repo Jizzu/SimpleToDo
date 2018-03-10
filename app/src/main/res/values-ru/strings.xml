@@ -22,9 +22,8 @@
     <string name="preferences_send_feedback_title">Написать автору</string>
     <string name="preferences_send_feedback_summary">Предлагайте свои идеи и сообщайте о багах</string>
     <string name="preferences_about_version_title">Версия</string>
-    <string name="preferences_about_version_summary">0.9 Публичная Бета Версия</string>
-    <string name="preferences_about_licenses_title">Использованные библиотеки</string>
-    <string name="preferences_about_licenses_summary">Лицензии</string>
+    <string name="preferences_about_licenses_summary">Использованные библиотеки</string>
+    <string name="preferences_about_licenses_title">Лицензии</string>
 
     <string name="feedback_title">Simple ToDo - Отзыв</string>
     <string name="feedback_device_info">Информация о моём устройстве: </string>
@@ -36,6 +35,7 @@
     <string name="category_about">О приложении</string>
 
     <string name="settings">НАСТРОЙКИ</string>
+    <string name="settings_menu">Настройки</string>
     <string name="licenses">ЛИЦЕНЗИИ</string>
     <string name="search">Поиск</string>
 
@@ -51,12 +51,15 @@
     <string name="dialog_title"><b>Вы уверены?</b></string>
     <string name="dialog_message">Удалить эту задачу?</string>
 
+    ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Что нового?</string>
     <string name="whats_new_button_text">Продолжить</string>
-    <string name="whats_new_item_1_title">Поиск</string>
-    <string name="whats_new_item_2_title">Исправления</string>
-    <string name="whats_new_item_3_title">Стартовый экран</string>
-    <string name="whats_new_item_1_text">Добавлена возможность поиска.</string>
-    <string name="whats_new_item_2_text">Исправлены некоторые ошибки.</string>
-    <string name="whats_new_item_3_text">Добавлен стартовый экран с актуальной информацией об обновлениях.</string>
+    <string name="whats_new_item_1_title">Стабильная версия</string>
+    <string name="whats_new_item_1_text">Релиз стабильной версии приложения Simple ToDo!</string>
+
+    ///////////////<!-- Rate this app dialog -->///////////////
+    <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="rate_dialog_ok">Оценить</string>
+    <string name="rate_dialog_cancel">Позже</string>
+    <string name="rate_dialog_no">Нет, спасибо</string>
 </resources>

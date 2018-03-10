@@ -32,6 +32,9 @@ public class LicensesFragment extends PreferenceFragment {
         findPreference("whats_new").setOnPreferenceClickListener(
                 createPreferenceClickListener("https://github.com/TonnyL/WhatsNew")
         );
+        findPreference("android_rate").setOnPreferenceClickListener(
+                createPreferenceClickListener("https://github.com/hotchemi/Android-Rate")
+        );
     }
 
     private Preference.OnPreferenceClickListener createPreferenceClickListener(

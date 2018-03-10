@@ -41,6 +41,7 @@ import apps.jizzu.simpletodo.utils.Interpolator;
 import apps.jizzu.simpletodo.utils.MyApplication;
 import apps.jizzu.simpletodo.utils.PreferenceHelper;
 import apps.jizzu.simpletodo.widget.WidgetProvider;
+import hotchemi.android.rate.AppRate;
 import io.github.tonnyl.whatsnew.WhatsNew;
 import io.github.tonnyl.whatsnew.item.WhatsNewItem;
 import top.wefor.circularanim.CircularAnim;
@@ -73,9 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up "What's New" screen
         WhatsNew whatsNew = WhatsNew.newInstance(
-                new WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text), R.drawable.whats_new_search),
-                new WhatsNewItem(getString(R.string.whats_new_item_2_title), getString(R.string.whats_new_item_2_text), R.drawable.whats_new_bug_fixes),
-                new WhatsNewItem(getString(R.string.whats_new_item_3_title), getString(R.string.whats_new_item_3_text), R.drawable.whats_new_start_screen)
+                new WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text), R.drawable.whats_new_release)
         );
         whatsNew.setTitleColor(ContextCompat.getColor(this, R.color.colorAccent));
         whatsNew.setTitleText(getString(R.string.whats_new_title));
@@ -118,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
         mHelper = DBHelper.getInstance(mContext);
         addTasksFromDB();
+
+        // Show rate this app dialog
+        AppRate.with(this).setInstallDays(0).setLaunchTimes(5).setRemindInterval(3).monitor();
+        AppRate.showRateDialogIfMeetsConditions(this);
 
         mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override

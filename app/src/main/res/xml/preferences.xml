@@ -20,7 +20,7 @@
     <PreferenceCategory android:title="@string/category_about" />
     <Preference
         android:key="about_version"
-        android:summary="@string/preferences_about_version_summary"
+        android:summary="1.0"
         android:title="@string/preferences_about_version_title" />
     <Preference
         android:key="about_licenses"

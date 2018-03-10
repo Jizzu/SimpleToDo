@@ -18,8 +18,8 @@ import apps.jizzu.simpletodo.utils.PreferenceHelper;
  */
 public class SettingsFragment extends PreferenceFragment {
 
-    PreferenceHelper preferenceHelper;
-    CheckBoxPreference animation;
+    PreferenceHelper mPreferenceHelper;
+    CheckBoxPreference mAnimation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,16 +27,16 @@ public class SettingsFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.preferences);
 
-        preferenceHelper = PreferenceHelper.getInstance();
+        mPreferenceHelper = PreferenceHelper.getInstance();
 
-        animation = (CheckBoxPreference) findPreference("animation");
-        animation.setChecked(preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON));
+        mAnimation = (CheckBoxPreference) findPreference("animation");
+        mAnimation.setChecked(mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON));
 
-        animation.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        mAnimation.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
 
-                preferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, animation.isChecked());
+                mPreferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, mAnimation.isChecked());
 
                 return true;
             }

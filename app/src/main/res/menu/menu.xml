@@ -13,6 +13,6 @@
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings_white_24dp"
         android:orderInCategory="100"
-        android:title="@string/settings"
+        android:title="@string/settings_menu"
         app:showAsAction="always" />
 </menu>
