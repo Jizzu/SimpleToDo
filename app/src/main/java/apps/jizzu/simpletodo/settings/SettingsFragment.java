@@ -20,6 +20,7 @@ public class SettingsFragment extends PreferenceFragment {
 
     PreferenceHelper mPreferenceHelper;
     CheckBoxPreference mAnimation;
+    CheckBoxPreference mGeneralNotification;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,19 @@ public class SettingsFragment extends PreferenceFragment {
             public boolean onPreferenceClick(Preference preference) {
 
                 mPreferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, mAnimation.isChecked());
+
+                return true;
+            }
+        });
+
+        mGeneralNotification = (CheckBoxPreference) findPreference("general_notification");
+        mGeneralNotification.setChecked(mPreferenceHelper.getBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON));
+
+        mGeneralNotification.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, mGeneralNotification.isChecked());
 
                 return true;
             }

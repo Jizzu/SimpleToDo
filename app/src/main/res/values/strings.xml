@@ -18,6 +18,8 @@
 
     <string name="preferences_animation_title">Enable animations</string>
     <string name="preferences_animation_summary">Enable animations for UI elements</string>
+    <string name="preferences_general_notification_title">Enable general notification</string>
+    <string name="preferences_general_notification_summary">Show general notification with you current task list</string>
     <string name="preferences_rate_app_title">Rate this app</string>
     <string name="preferences_rate_app_summary">Rate this app on Google Play store</string>
     <string name="preferences_send_feedback_title">Send feedback</string>
@@ -51,6 +53,11 @@
     <string name="action_delete">Delete</string>
     <string name="dialog_title"><b>Are you sure?</b></string>
     <string name="dialog_message">Delete this task?</string>
+
+    <string name="general_notification_1">You have</string>
+    <string name="general_notification_2">active task:</string>
+    <string name="general_notification_3">active tasks:</string>
+    <string name="general_notification_4">active tasks:</string>
 
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">What\'s New?</string>

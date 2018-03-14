@@ -6,6 +6,11 @@
         android:key="animation"
         android:summary="@string/preferences_animation_summary"
         android:title="@string/preferences_animation_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="general_notification"
+        android:summary="@string/preferences_general_notification_summary"
+        android:title="@string/preferences_general_notification_title" />
     <PreferenceCategory android:title="@string/category_additional" />
     <Preference
         android:key="rate_app"

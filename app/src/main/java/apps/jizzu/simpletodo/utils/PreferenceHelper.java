@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 public class PreferenceHelper {
 
     public static final String ANIMATION_IS_ON = "animation_is_on";
+    public static final String GENERAL_NOTIFICATION_IS_ON = "general_notification_is_on";
 
     private static PreferenceHelper mInstance;
     private Context mContext;

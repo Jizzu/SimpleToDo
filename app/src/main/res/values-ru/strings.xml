@@ -17,6 +17,8 @@
 
     <string name="preferences_animation_title">Включить анимацию</string>
     <string name="preferences_animation_summary">Включить анимацию для элементов интерфейса</string>
+    <string name="preferences_general_notification_title">Включить общее уведомление</string>
+    <string name="preferences_general_notification_summary">Показывать отдельное уведомление с вашим текущим списком задач</string>
     <string name="preferences_rate_app_title">Оценить приложение</string>
     <string name="preferences_rate_app_summary">Оцените это приложение в Google Play</string>
     <string name="preferences_send_feedback_title">Написать автору</string>
@@ -50,6 +52,11 @@
     <string name="action_delete">Удалить</string>
     <string name="dialog_title"><b>Вы уверены?</b></string>
     <string name="dialog_message">Удалить эту задачу?</string>
+
+    <string name="general_notification_1">У вас есть</string>
+    <string name="general_notification_2">активная задача:</string>
+    <string name="general_notification_3">активных задачи:</string>
+    <string name="general_notification_4">активных задач:</string>
 
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Что нового?</string>

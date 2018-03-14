@@ -1,12 +1,18 @@
 package apps.jizzu.simpletodo.activity;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +40,7 @@ import apps.jizzu.simpletodo.adapter.ListItemTouchHelper;
 import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter;
 import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport;
 import apps.jizzu.simpletodo.alarm.AlarmHelper;
+import apps.jizzu.simpletodo.alarm.AlarmReceiver;
 import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.model.ModelTask;
 import apps.jizzu.simpletodo.settings.SettingsActivity;
@@ -49,7 +56,7 @@ import top.wefor.circularanim.CircularAnim;
 import static android.content.ContentValues.TAG;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.UpdateNotificationDataCallback {
 
     private RecyclerViewEmptySupport mRecyclerView;
     public RecyclerViewAdapter mAdapter;
@@ -60,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     public static boolean mSearchViewIsOpen;
     private MaterialSearchView mSearchView;
+    private NotificationManager mNotificationManager;
     public static boolean mShowAnimation;
     public static boolean mActivityIsShown;
 
@@ -74,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up "What's New" screen
         WhatsNew whatsNew = WhatsNew.newInstance(
-                new WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text), R.drawable.whats_new_release)
+                new WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text))
         );
         whatsNew.setTitleColor(ContextCompat.getColor(this, R.color.colorAccent));
         whatsNew.setTitleText(getString(R.string.whats_new_title));
@@ -111,7 +119,22 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setEmptyView(mEmptyView);
         mFab = findViewById(R.id.fab);
 
-        ItemTouchHelper.Callback callback = new ListItemTouchHelper(mAdapter, mRecyclerView);
+        mAdapter.registerCallback(this);
+
+        ItemTouchHelper.Callback callback = new ListItemTouchHelper(mAdapter, mRecyclerView) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                super.onMove(recyclerView, viewHolder, target);
+                updateGeneralNotification();
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                super.onSwiped(viewHolder, direction);
+                updateGeneralNotification();
+            }
+        };
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
 
@@ -126,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d(TAG, "onQueryTextSubmit");
-                return false;
+                return true;
             }
 
             @Override
@@ -259,6 +282,103 @@ public class MainActivity extends AppCompatActivity {
         sendBroadcast(intent);
     }
 
+    /**
+     * Updates general notification data.
+     */
+    public void updateGeneralNotification() {
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON)) {
+            if (mAdapter.getItemCount() != 0) {
+                showGeneralNotification();
+            } else {
+                removeGeneralNotification();
+            }
+        } else {
+            removeGeneralNotification();
+        }
+    }
+
+    /**
+     * Set up and show general notification.
+     */
+    public void showGeneralNotification() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        for (ModelTask task : RecyclerViewAdapter.mItems) {
+            stringBuilder.append("• ").append(task.getTitle());
+
+            if (task.getPosition() < mAdapter.getItemCount() - 1) {
+                stringBuilder.append("\n\n");
+            }
+        }
+
+        String notificationTitle = "";
+        switch (mAdapter.getItemCount() % 10) {
+            case 1:
+                notificationTitle = getString(R.string.general_notification_1) + " " + mAdapter.getItemCount() + " " + getString(R.string.general_notification_2);
+                break;
+
+            case 2:
+            case 3:
+            case 4:
+                notificationTitle = getString(R.string.general_notification_1) + " " + mAdapter.getItemCount() + " " + getString(R.string.general_notification_3);
+                break;
+
+            case 0:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                notificationTitle = getString(R.string.general_notification_1) + " " + mAdapter.getItemCount() + " " + getString(R.string.general_notification_4);
+                break;
+        }
+
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        // Set NotificationChannel for Android Oreo
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(AlarmReceiver.CHANNEL_ID, "SimpleToDo Notifications",
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.enableLights(true);
+            channel.setLightColor(Color.GREEN);
+            channel.enableVibration(true);
+            mNotificationManager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, AlarmReceiver.CHANNEL_ID)
+                .setContentTitle(notificationTitle)
+                .setContentText(stringBuilder.toString())
+                .setNumber(mAdapter.getItemCount())
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(stringBuilder.toString()))
+                .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setSmallIcon(R.drawable.ic_check_circle_white_24dp)
+                .setContentIntent(resultPendingIntent)
+                .setOngoing(true);
+
+        Notification notification = builder.build();
+        mNotificationManager.notify(1, notification);
+    }
+
+    /**
+     * Removes general notification.
+     */
+    public void removeGeneralNotification() {
+        if (mNotificationManager != null) {
+            mNotificationManager.cancel(1);
+        }
+    }
+
+    /**
+     * Updates general notification data when user click the "Cancel" snackbar button.
+     */
+    @Override
+    public void updateData() {
+        updateGeneralNotification();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -327,6 +447,7 @@ public class MainActivity extends AppCompatActivity {
             mFab.setVisibility(View.VISIBLE);
         }
         MyApplication.activityResumed();
+        updateGeneralNotification();
     }
 
     @Override
@@ -365,6 +486,7 @@ public class MainActivity extends AppCompatActivity {
         long id = mHelper.saveTask(task);
         task.setId(id);
         mAdapter.addItem(task);
+        updateGeneralNotification();
     }
 
     @Override

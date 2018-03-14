@@ -20,7 +20,7 @@ import apps.jizzu.simpletodo.utils.MyApplication;
  */
 public class AlarmReceiver extends BroadcastReceiver {
 
-    private static final String CHANNEL_ID = "1";
+    public static final String CHANNEL_ID = "1";
 
     @Override
     public void onReceive(Context context, Intent intent) {

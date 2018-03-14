@@ -36,12 +36,27 @@ import static android.content.ContentValues.TAG;
  */
 public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
 
+    /**
+     * Callback for update general notification data from another class.
+     */
+    public interface UpdateNotificationDataCallback {
+        void updateData();
+    }
+
     public static List<ModelTask> mItems = new ArrayList<>();
     private DBHelper mHelper = DBHelper.getInstance(MainActivity.mContext);
     private AlarmHelper mAlarmHelper = AlarmHelper.getInstance();
     private Context mContext;
     private static RecyclerViewAdapter mInstance;
     private boolean mCancelButtonIsClicked;
+    private UpdateNotificationDataCallback mCallback;
+
+    /**
+     * Registers callback from another class.
+     */
+    public void registerCallback(UpdateNotificationDataCallback callback) {
+        mCallback = callback;
+    }
 
     /**
      * Constructor is private to prevent direct instantiation.
@@ -63,7 +78,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     /**
      * Custom OnClickListener which is needed to pass task id for the Snackbar onClick() method.
      */
-    class CustomOnClickListener implements View.OnClickListener {
+    public static class CustomOnClickListener implements View.OnClickListener {
         long taskID;
 
         public CustomOnClickListener(long taskID) {
@@ -128,6 +143,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
                     addItem(task, task.getPosition());
                     isRemoved[0] = false;
                 }
+                mCallback.updateData();
             }
         });
 
