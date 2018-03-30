@@ -54,6 +54,30 @@
     <string name="dialog_title"><b>Are you sure?</b></string>
     <string name="dialog_message">Delete this task?</string>
 
+    <string name="backup_title">Backup/Restore</string>
+    <string name="backup_create_title">Create backup</string>
+    <string name="backup_create_summary">Export tasks to the device storage</string>
+    <string name="backup_restore_title">Restore backup</string>
+    <string name="backup_restore_summary">Import tasks from the device storage</string>
+
+    <string name="backup_create_dialog_message">Do you want to create new backup? \nThe previous backup file will be deleted</string>
+    <string name="backup_create_dialog_button">Create backup</string>
+    <string name="backup_restore_dialog_message">Do you want to restore the backup? \nCurrent tasks will not be deleted</string>
+    <string name="backup_restore_dialog_button">Restore backup</string>
+
+    <string name="backup_create_message_success">Backup created successfully!</string>
+    <string name="backup_create_message_failure">Failed to create backup!</string>
+    <string name="backup_restore_message_success">Backup is restored!</string>
+    <string name="backup_restore_message_failure">Failed to restore backup!</string>
+    <string name="backup_restore_message_nothing">Nothing to restore</string>
+
+    <string name="settings_permission_denied_toast">Storage permission denied</string>
+    <string name="settings_permission_settings_toast">Open "Permissions" and grant the "Storage permission"</string>
+    <string name="settings_permission_snackbar_with_rationale">Storage permission is needed to write a backup to a file</string>
+    <string name="settings_permission_snackbar_button_grant">GRANT</string>
+    <string name="settings_permission_snackbar_no_permission">Storage permission isn\'t granted</string>
+    <string name="settings_permission_snackbar_button_settings">SETTINGS</string>
+
     <string name="general_notification_1">You have</string>
     <string name="general_notification_2">active task:</string>
     <string name="general_notification_3">active tasks:</string>
@@ -62,8 +86,12 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">What\'s New?</string>
     <string name="whats_new_button_text">Continue</string>
-    <string name="whats_new_item_1_title">Stable version</string>
-    <string name="whats_new_item_1_text">Simple ToDo stable version release!</string>
+    <string name="whats_new_item_1_title">General Notification</string>
+    <string name="whats_new_item_1_text">Added the general notification with your current tasks list</string>
+    <string name="whats_new_item_2_title">Backup feature</string>
+    <string name="whats_new_item_2_text">Now you have the ability to save your task list to the internal storage of your phone</string>
+    <string name="whats_new_item_3_title">Bug fixes</string>
+    <string name="whats_new_item_3_text">Many bugs have been fixed</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_message">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>

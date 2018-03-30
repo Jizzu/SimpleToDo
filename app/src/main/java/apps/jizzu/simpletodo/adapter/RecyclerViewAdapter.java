@@ -22,7 +22,6 @@ import java.util.List;
 
 import apps.jizzu.simpletodo.R;
 import apps.jizzu.simpletodo.activity.EditTaskActivity;
-import apps.jizzu.simpletodo.activity.MainActivity;
 import apps.jizzu.simpletodo.alarm.AlarmHelper;
 import apps.jizzu.simpletodo.database.DBHelper;
 import apps.jizzu.simpletodo.database.TasksOrderUpdate;
@@ -36,25 +35,28 @@ import static android.content.ContentValues.TAG;
  */
 public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
 
-    /**
-     * Callback for update general notification data from another class.
-     */
-    public interface UpdateNotificationDataCallback {
-        void updateData();
-    }
-
-    public static List<ModelTask> mItems = new ArrayList<>();
-    private DBHelper mHelper = DBHelper.getInstance(MainActivity.mContext);
+    private DBHelper mHelper;
     private AlarmHelper mAlarmHelper = AlarmHelper.getInstance();
     private Context mContext;
-    private static RecyclerViewAdapter mInstance;
     private boolean mCancelButtonIsClicked;
-    private UpdateNotificationDataCallback mCallback;
+    private AdapterCallback mCallback;
+    private static RecyclerViewAdapter mInstance;
+
+    public static List<ModelTask> mItems = new ArrayList<>();
+
+
+    /**
+     * Callback for update general notification data and show FAB from another class.
+     */
+    public interface AdapterCallback {
+        void updateData();
+        void showFAB();
+    }
 
     /**
      * Registers callback from another class.
      */
-    public void registerCallback(UpdateNotificationDataCallback callback) {
+    public void registerCallback(AdapterCallback callback) {
         mCallback = callback;
     }
 
@@ -98,7 +100,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         mItems.add(item);
         notifyItemInserted(getItemCount() - 1);
 
-        Log.d(TAG, "Task with title " + item.getTitle() + " and position = " + item.getPosition() + " added from db to RecyclerView!");
+        Log.d(TAG, "Task with title " + item.getTitle() + " and position = " + item.getPosition() + " added to RecyclerView!");
     }
 
     /**
@@ -108,7 +110,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         mItems.add(position, item);
         notifyItemInserted(position);
 
-        Log.d(TAG, "Task with title " + mItems.get(position).getTitle() + " and position = " + position + " added from db to RecyclerView!");
+        Log.d(TAG, "Task with title " + mItems.get(position).getTitle() + " and position = " + position + " added to RecyclerView!");
     }
 
     /**
@@ -129,6 +131,9 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         final boolean[] isRemoved = {true};
         final long timeStamp = mItems.get(position).getTimeStamp();
         mCancelButtonIsClicked = false;
+
+        Log.d(TAG, "taskID = " + taskID + ", position = " + position);
+        Log.d(TAG, "Removing item from position  " + position + " ...");
 
         mItems.remove(position);
         notifyItemRemoved(position);
@@ -151,7 +156,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             // Called when Snackbar appears on the screen.
             @Override
             public void onViewAttachedToWindow(View view) {
-                MainActivity.mFab.show();
+                mCallback.showFAB();
             }
 
             // Called when Snackbar disappears from the screen.
@@ -159,7 +164,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             public void onViewDetachedFromWindow(View view) {
                 if (isRemoved[0]) {
                     // Removes a notification
-                    mAlarmHelper.removeNotification(timeStamp, MainActivity.mContext);
+                    mAlarmHelper.removeNotification(timeStamp, mContext);
 
                     // Removes a task
                     mHelper.deleteTask(taskID);
@@ -182,7 +187,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         notifyItemRemoved(position);
 
         // Removes a notification
-        mAlarmHelper.removeNotification(timeStamp, MainActivity.mContext);
+        mAlarmHelper.removeNotification(timeStamp, mContext);
 
         // Removes a task
         mHelper.deleteTask(taskID);
@@ -239,7 +244,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         for (ModelTask task : mItems) {
             task.setPosition(mItems.indexOf(task));
 
-            TasksOrderUpdate order = new TasksOrderUpdate();
+            TasksOrderUpdate order = new TasksOrderUpdate(mContext);
             order.execute(task);
         }
     }
@@ -253,7 +258,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         for (ModelTask task : taskList) {
             task.setPosition(taskList.indexOf(task));
 
-            TasksOrderUpdate order = new TasksOrderUpdate();
+            TasksOrderUpdate order = new TasksOrderUpdate(mContext);
             order.execute(task);
         }
     }
@@ -265,12 +270,12 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
      */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.model_task, parent, false);
         TextView title = v.findViewById(R.id.tvTaskTitle);
         TextView date = v.findViewById(R.id.tvTaskDate);
 
         mContext = parent.getContext();
+        mHelper = DBHelper.getInstance(mContext);
 
         return new TaskViewHolder(v, title, date);
     }

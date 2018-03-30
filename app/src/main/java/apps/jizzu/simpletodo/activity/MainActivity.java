@@ -56,24 +56,22 @@ import top.wefor.circularanim.CircularAnim;
 import static android.content.ContentValues.TAG;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.UpdateNotificationDataCallback {
+public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.AdapterCallback {
 
+    private Context mContext;
     private RecyclerViewEmptySupport mRecyclerView;
-    public RecyclerViewAdapter mAdapter;
+    private RecyclerViewAdapter mAdapter;
     private RelativeLayout mEmptyView;
     private DBHelper mHelper;
-    public static FloatingActionButton mFab;
     private PreferenceHelper mPreferenceHelper;
     private RecyclerView.LayoutManager mLayoutManager;
-    public static boolean mSearchViewIsOpen;
     private MaterialSearchView mSearchView;
     private NotificationManager mNotificationManager;
+    private FloatingActionButton mFab;
+
+    public static boolean mSearchViewIsOpen;
     public static boolean mShowAnimation;
     public static boolean mActivityIsShown;
-
-    // TODO: Find better way to get the MainActivity context.
-    public static Context mContext;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         // Set up "What's New" screen
         WhatsNew whatsNew = WhatsNew.newInstance(
-                new WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text))
+                new WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text)),
+                new WhatsNewItem(getString(R.string.whats_new_item_2_title), getString(R.string.whats_new_item_2_text)),
+                new WhatsNewItem(getString(R.string.whats_new_item_3_title), getString(R.string.whats_new_item_3_text))
         );
         whatsNew.setTitleColor(ContextCompat.getColor(this, R.color.colorAccent));
         whatsNew.setTitleText(getString(R.string.whats_new_title));
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         whatsNew.presentAutomatically(MainActivity.this);
 
         mContext = MainActivity.this;
+        mSearchViewIsOpen = false;
         setTitle("");
 
         // Initialize ALARM_SERVICE
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         mEmptyView = findViewById(R.id.empty);
 
+        mRecyclerView = new RecyclerViewEmptySupport(mContext);
         mRecyclerView = findViewById(R.id.tasksList);
         mRecyclerView.setHasFixedSize(true);
 
@@ -230,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     /**
      * Finds tasks by the title in the database.
      */
-    public void findTasks(String title) {
+    private void findTasks(String title) {
         mSearchViewIsOpen = true;
         Log.d(TAG, "findTasks: SearchView Title = " + title);
         mAdapter.removeAllItems();
@@ -250,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     /**
      * Reads all tasks from the database and adds them to the RecyclerView list.
      */
-    public void addTasksFromDB() {
+    private void addTasksFromDB() {
         mAdapter.removeAllItems();
         List<ModelTask> taskList = mHelper.getAllTasks();
 
@@ -272,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     /**
      * Updates widget data.
      */
-    public void updateWidget() {
+    private void updateWidget() {
         Log.d(TAG, "WIDGET IS UPDATED!");
         Intent intent = new Intent(this, WidgetProvider.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
@@ -285,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     /**
      * Updates general notification data.
      */
-    public void updateGeneralNotification() {
+    private void updateGeneralNotification() {
         if (mPreferenceHelper.getBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON)) {
             if (mAdapter.getItemCount() != 0) {
                 showGeneralNotification();
@@ -300,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     /**
      * Set up and show general notification.
      */
-    public void showGeneralNotification() {
+    private void showGeneralNotification() {
         StringBuilder stringBuilder = new StringBuilder();
 
         Intent resultIntent = new Intent(this, MainActivity.class);
@@ -365,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     /**
      * Removes general notification.
      */
-    public void removeGeneralNotification() {
+    private void removeGeneralNotification() {
         if (mNotificationManager != null) {
             mNotificationManager.cancel(1);
         }
@@ -377,6 +379,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     @Override
     public void updateData() {
         updateGeneralNotification();
+    }
+
+    @Override
+    public void showFAB() {
+        mFab.show();
     }
 
     @Override
@@ -428,6 +435,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     @Override
     protected void onResume() {
         super.onResume();
+
+        //addTasksFromDB();
         mFab.setVisibility(View.GONE);
 
         if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {

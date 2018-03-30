@@ -53,6 +53,30 @@
     <string name="dialog_title"><b>Вы уверены?</b></string>
     <string name="dialog_message">Удалить эту задачу?</string>
 
+    <string name="backup_title">Резервное копирование данных</string>
+    <string name="backup_create_title">Создать резервную копию</string>
+    <string name="backup_create_summary">Экспорт задач в память устройства</string>
+    <string name="backup_restore_title">Восстановить резервную копию</string>
+    <string name="backup_restore_summary">Импорт задач из памяти устройства</string>
+
+    <string name="backup_create_dialog_message">Создать новый бэкап? \nПредыдущий файл бэкапа будет удален</string>
+    <string name="backup_create_dialog_button">Создать</string>
+    <string name="backup_restore_dialog_message">Восстановить бэкап? \nТекущие задачи не будут удалены</string>
+    <string name="backup_restore_dialog_button">Восстановить</string>
+
+    <string name="backup_create_message_success">Бэкап успешно создан!</string>
+    <string name="backup_create_message_failure">Не удалось создать бэкап!</string>
+    <string name="backup_restore_message_success">Бэкап восстановлен!</string>
+    <string name="backup_restore_message_failure">Не удалось восстановить бэкап!</string>
+    <string name="backup_restore_message_nothing">Нет данных для восстановления</string>
+
+    <string name="settings_permission_denied_toast">Разрешение на доступ к памяти не предоставлено</string>
+    <string name="settings_permission_settings_toast">Откройте Разрешения и активируйте переключатель Память</string>
+    <string name="settings_permission_snackbar_with_rationale">Доступ к памяти нужен для записи бэкапа в файл</string>
+    <string name="settings_permission_snackbar_button_grant">РАЗРЕШИТЬ</string>
+    <string name="settings_permission_snackbar_no_permission">Разрешение на доступ к памяти отклонено</string>
+    <string name="settings_permission_snackbar_button_settings">НАСТРОЙКИ</string>
+
     <string name="general_notification_1">У вас есть</string>
     <string name="general_notification_2">активная задача:</string>
     <string name="general_notification_3">активных задачи:</string>
@@ -61,8 +85,12 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Что нового?</string>
     <string name="whats_new_button_text">Продолжить</string>
-    <string name="whats_new_item_1_title">Стабильная версия</string>
-    <string name="whats_new_item_1_text">Релиз стабильной версии приложения Simple ToDo!</string>
+    <string name="whats_new_item_1_title">Общее уведомление</string>
+    <string name="whats_new_item_1_text">Добавлено общее уведомление с вашим текущим списком задач</string>
+    <string name="whats_new_item_2_title">Функция резервного копирования</string>
+    <string name="whats_new_item_2_text">Теперь у вас есть возможность сохранить список задач во внутреннем хранилище вашего телефона</string>
+    <string name="whats_new_item_3_title">Исправление ошибок</string>
+    <string name="whats_new_item_3_text">Исправлено множество ошибок</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>

@@ -1,11 +1,12 @@
 package apps.jizzu.simpletodo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Class for representing a specific task.
  */
-public class ModelTask {
+public class ModelTask implements Serializable {
 
     private long id;
     private String title;

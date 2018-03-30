@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,18 +47,19 @@ import static android.content.ContentValues.TAG;
  */
 public class EditTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    EditText mTitle;
-    TextInputLayout mTaskTitleLayout;
-    RelativeLayout mReminderLayout;
-    Calendar mCalendar;
-    EditText mDateEditText;
-    EditText mTimeEditText;
-    SwitchCompat mReminderSwitch;
-    RecyclerViewAdapter mAdapter;
-    long mId;
-    long mDate;
-    int mPosition;
-    long mTimeStamp;
+    private Context mContext;
+    private EditText mTitle;
+    private TextInputLayout mTaskTitleLayout;
+    private RelativeLayout mReminderLayout;
+    private Calendar mCalendar;
+    private EditText mDateEditText;
+    private EditText mTimeEditText;
+    private SwitchCompat mReminderSwitch;
+    private RecyclerViewAdapter mAdapter;
+    private long mId;
+    private long mDate;
+    private int mPosition;
+    private long mTimeStamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         TextView reminderText = findViewById(R.id.tvSetReminder);
 
         MainActivity.mActivityIsShown = true;
+        mContext = getApplicationContext();
 
         // Get the resolution of the user's screen
         Display d = ((WindowManager) this.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -228,7 +231,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
                 } else if (mTitle.getText().toString().trim().length() == 0) {
                     mTitle.setError(getString(R.string.error_spaces));
                 } else {
-                    DBHelper dbHelper = DBHelper.getInstance(MainActivity.mContext);
+                    DBHelper dbHelper = DBHelper.getInstance(mContext);
 
                     ModelTask task = new ModelTask(mId, mTitle.getText().toString(), mDate, mPosition, mTimeStamp);
 
@@ -246,7 +249,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
 
                     if (task.getDate() != 0 && task.getDate() <= Calendar.getInstance().getTimeInMillis()) {
                         task.setDate(0);
-                        Toast.makeText(MainActivity.mContext, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show();
                     } else if (task.getDate() != 0) {
                         AlarmHelper alarmHelper = AlarmHelper.getInstance();
                         alarmHelper.setAlarm(task);
@@ -297,7 +300,12 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
                 break;
 
             case R.id.action_delete:
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertDialog;
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+                    alertDialog = new AlertDialog.Builder(this);
+                } else {
+                    alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme);
+                }
                 alertDialog.setTitle(R.string.dialog_title);
                 alertDialog.setMessage(R.string.dialog_message);
                 alertDialog.setPositiveButton(R.string.action_delete, new DialogInterface.OnClickListener() {

@@ -34,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TASK_POSITION_COLUMN = "task_position";
     public static final String TASK_TIME_STAMP_COLUMN = "task_time_stamp";
 
-    private static final String TASKS_TABLE_CREATE_SCRIPT = "CREATE TABLE "
+    public static final String TASKS_TABLE_CREATE_SCRIPT = "CREATE TABLE "
             + TASKS_TABLE + " (" + TASK_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TASK_TITLE_COLUMN + " TEXT NOT NULL, " + TASK_DATE_COLUMN + " LONG, " + TASK_POSITION_COLUMN + " INTEGER, " + TASK_TIME_STAMP_COLUMN + " LONG);";
 

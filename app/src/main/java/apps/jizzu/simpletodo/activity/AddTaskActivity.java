@@ -38,13 +38,13 @@ import static android.content.ContentValues.TAG;
  */
 public class AddTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    EditText mTitle;
-    TextInputLayout mTaskTitleLayout;
-    RelativeLayout mReminderLayout;
-    Calendar mCalendar;
-    EditText mDate;
-    EditText mTime;
-    SwitchCompat mReminderSwitch;
+    private EditText mTitle;
+    private TextInputLayout mTaskTitleLayout;
+    private RelativeLayout mReminderLayout;
+    private Calendar mCalendar;
+    private EditText mDate;
+    private EditText mTime;
+    private SwitchCompat mReminderSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,20 +197,20 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
     }
 
     /**
+     * Method for hiding the soft keyboard.
+     */
+    private void hideKeyboard(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    /**
      * Hides the soft keyboard when the user clicks on the home button.
      */
     @Override
     protected void onStop() {
         super.onStop();
         hideKeyboard(mTitle);
-    }
-
-    /**
-     * Method for hiding the soft keyboard.
-     */
-    public void hideKeyboard(EditText editText) {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
     /**

@@ -7,10 +7,19 @@
         android:summary="@string/preferences_animation_summary"
         android:title="@string/preferences_animation_title" />
     <CheckBoxPreference
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:key="general_notification"
         android:summary="@string/preferences_general_notification_summary"
         android:title="@string/preferences_general_notification_title" />
+    <PreferenceCategory android:title="@string/backup_title" />
+    <Preference
+        android:key="backup"
+        android:summary="@string/backup_create_summary"
+        android:title="@string/backup_create_title" />
+    <Preference
+        android:key="restore"
+        android:summary="@string/backup_restore_summary"
+        android:title="@string/backup_restore_title" />
     <PreferenceCategory android:title="@string/category_additional" />
     <Preference
         android:key="rate_app"
@@ -25,7 +34,7 @@
     <PreferenceCategory android:title="@string/category_about" />
     <Preference
         android:key="about_version"
-        android:summary="1.0"
+        android:summary="1.1"
         android:title="@string/preferences_about_version_title" />
     <Preference
         android:key="about_licenses"

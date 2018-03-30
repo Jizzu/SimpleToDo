@@ -16,7 +16,7 @@ public class ListItemTouchHelper extends ItemTouchHelper.Callback {
     /**
      * Constructor for mAdapter initialization.
      */
-    public ListItemTouchHelper(RecyclerViewAdapter adapter, RecyclerView recyclerView) {
+    protected ListItemTouchHelper(RecyclerViewAdapter adapter, RecyclerView recyclerView) {
         mAdapter = adapter;
         mRecyclerView = recyclerView;
     }

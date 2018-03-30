@@ -37,9 +37,7 @@ public class LicensesFragment extends PreferenceFragment {
         );
     }
 
-    private Preference.OnPreferenceClickListener createPreferenceClickListener(
-            final String uriString
-    ) {
+    private Preference.OnPreferenceClickListener createPreferenceClickListener(final String uriString) {
         return new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {

@@ -20,6 +20,7 @@ import static android.content.ContentValues.TAG;
 public class RecyclerViewEmptySupport extends RecyclerView {
 
     private View mEmptyView;
+    private Context mContext;
 
     public void checkIfEmpty() {
         if (mEmptyView != null && getAdapter() != null && !MainActivity.mSearchViewIsOpen) {
@@ -30,7 +31,7 @@ public class RecyclerViewEmptySupport extends RecyclerView {
             Log.d(TAG, "checkIfEmpty");
 
             if (emptyViewVisible) {
-                Animation anim = AnimationUtils.loadAnimation(MainActivity.mContext, R.anim.empty_view_animation);
+                Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.empty_view_animation);
                 anim.setStartOffset(300);
                 anim.setDuration(300);
                 mEmptyView.startAnimation(anim);
@@ -78,6 +79,7 @@ public class RecyclerViewEmptySupport extends RecyclerView {
 
     public RecyclerViewEmptySupport(Context context) {
         super(context);
+        mContext = context;
     }
 
     public RecyclerViewEmptySupport(Context context, AttributeSet attrs) {
