@@ -13,6 +13,7 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 - Reminder feature
 - Search feature
 - Widget support
+- Backup & Restore feature
 - Drag & drop and swipe-to-dismiss features
 - No permissions is required
 
