@@ -1,6 +1,7 @@
 package apps.jizzu.simpletodo.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -76,6 +77,7 @@ public class ViewFactory implements RemoteViewsService.RemoteViewsFactory {
             remoteViews.setViewVisibility(R.id.item_date, View.VISIBLE);
 
             if (DateUtils.isToday(mListData.get(position).getDate())) {
+                remoteViews.setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.colorPrimary));
                 remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_today) + " " + Utils.getTime(mListData.get(position).getDate()));
             } else if (DateUtils.isToday(mListData.get(position).getDate() + DateUtils.DAY_IN_MILLIS)) {
                 remoteViews.setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red));
@@ -103,6 +105,18 @@ public class ViewFactory implements RemoteViewsService.RemoteViewsFactory {
                 remoteViews.setViewPadding(R.id.item_title, 0, 15, 0, 15);
             }
         }
+
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtra(WidgetProvider.ITEM_ID, mListData.get(position).getId());
+        fillInIntent.putExtra(WidgetProvider.ITEM_TITLE, mListData.get(position).getTitle());
+        fillInIntent.putExtra(WidgetProvider.ITEM_POSITION, position);
+        fillInIntent.putExtra(WidgetProvider.ITEM_TIME_STAMP, mListData.get(position).getTimeStamp());
+
+        if (mListData.get(position).getDate() != 0) {
+            fillInIntent.putExtra(WidgetProvider.ITEM_DATE, mListData.get(position).getDate());
+        }
+        remoteViews.setOnClickFillInIntent(R.id.item, fillInIntent);
+
         return remoteViews;
     }
 

@@ -320,6 +320,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             taskViewHolder.title.setGravity(Gravity.CENTER_VERTICAL);
             taskViewHolder.date.setVisibility(View.VISIBLE);
             if (DateUtils.isToday(task.getDate())) {
+                taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
                 taskViewHolder.date.setText(mContext.getString(R.string.reminder_today) + " " + Utils.getTime(task.getDate()));
             } else if (DateUtils.isToday(task.getDate() + DateUtils.DAY_IN_MILLIS)) {
                 taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red));

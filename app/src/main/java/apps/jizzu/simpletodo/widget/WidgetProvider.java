@@ -9,12 +9,19 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 
 import apps.jizzu.simpletodo.R;
+import apps.jizzu.simpletodo.activity.EditTaskActivity;
 import apps.jizzu.simpletodo.activity.MainActivity;
 
 /**
  * Class for implementing lifecycle methods of widget.
  */
 public class WidgetProvider extends AppWidgetProvider {
+
+    final static String ITEM_ID = "id";
+    final static String ITEM_TITLE = "title";
+    final static String ITEM_POSITION = "position";
+    final static String ITEM_TIME_STAMP = "time_stamp";
+    final static String ITEM_DATE = "date";
 
     /**
      * Called in response to the ACTION_APPWIDGET_UPDATE and ACTION_APPWIDGET_RESTORED broadcasts
@@ -42,9 +49,41 @@ public class WidgetProvider extends AppWidgetProvider {
             widget.setRemoteAdapter(R.id.widget_list, adapter);
             widget.setOnClickPendingIntent(R.id.toolbar_textView, clickPI);
 
+            Intent listClickIntent = new Intent(context, WidgetProvider.class);
+            PendingIntent listClickPIntent = PendingIntent.getBroadcast(context, 0,
+                    listClickIntent, 0);
+            widget.setPendingIntentTemplate(R.id.widget_list, listClickPIntent);
+
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
             appWidgetManager.updateAppWidget(appWidgetId, widget);
         }
+
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        long itemID = intent.getLongExtra(ITEM_ID, 0);
+        String itemTitle = intent.getStringExtra(ITEM_TITLE);
+        int itemPosition = intent.getIntExtra(ITEM_POSITION, -1);
+        long itemTimeStamp = intent.getLongExtra(ITEM_TIME_STAMP, 0);
+        long itemDate = intent.getLongExtra(ITEM_DATE, 0);
+
+        if (itemPosition != -1) {
+            Intent mainActivity = new Intent(context, MainActivity.class);
+            mainActivity.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            context.startActivity(mainActivity);
+
+            Intent editTaskActivity = new Intent(context, EditTaskActivity.class);
+            editTaskActivity.putExtra(ITEM_ID, itemID);
+            editTaskActivity.putExtra(ITEM_TITLE, itemTitle);
+            editTaskActivity.putExtra(ITEM_POSITION, itemPosition);
+            editTaskActivity.putExtra(ITEM_TIME_STAMP, itemTimeStamp);
+            editTaskActivity.putExtra(ITEM_DATE, itemDate);
+
+            context.startActivity(editTaskActivity);
+        }
     }
 }
