@@ -1,16 +1,15 @@
 package apps.jizzu.simpletodo.activity;
 
 import android.animation.Animator;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
@@ -300,12 +299,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
                 break;
 
             case R.id.action_delete:
-                AlertDialog.Builder alertDialog;
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-                    alertDialog = new AlertDialog.Builder(this);
-                } else {
-                    alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme);
-                }
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme);
                 alertDialog.setTitle(R.string.dialog_title);
                 alertDialog.setMessage(R.string.dialog_message);
                 alertDialog.setPositiveButton(R.string.action_delete, new DialogInterface.OnClickListener() {

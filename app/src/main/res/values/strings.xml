@@ -20,6 +20,8 @@
     <string name="preferences_animation_summary">Enable animations for UI elements</string>
     <string name="preferences_general_notification_title">Enable general notification</string>
     <string name="preferences_general_notification_summary">Show general notification with you current task list</string>
+    <string name="preferences_notification_sound_title">Notification sound</string>
+    <string name="preferences_notification_sound_summary">Set the notification sound</string>
     <string name="preferences_rate_app_title">Rate this app</string>
     <string name="preferences_rate_app_summary">Rate this app on Google Play store</string>
     <string name="preferences_send_feedback_title">Send feedback</string>
@@ -86,10 +88,10 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">What\'s New?</string>
     <string name="whats_new_button_text">Continue</string>
-    <string name="whats_new_item_1_title">General Notification</string>
-    <string name="whats_new_item_1_text">Added the general notification with your current tasks list</string>
-    <string name="whats_new_item_2_title">Backup feature</string>
-    <string name="whats_new_item_2_text">Now you have the ability to save your task list to the internal storage of your phone</string>
+    <string name="whats_new_item_1_title">Custom notification sound</string>
+    <string name="whats_new_item_1_text">Set custom ringtones for notification sound</string>
+    <string name="whats_new_item_2_title">Widget improvement</string>
+    <string name="whats_new_item_2_text">Now tasks on widget are clickable</string>
     <string name="whats_new_item_3_title">Bug fixes</string>
     <string name="whats_new_item_3_text">Many bugs have been fixed</string>
 

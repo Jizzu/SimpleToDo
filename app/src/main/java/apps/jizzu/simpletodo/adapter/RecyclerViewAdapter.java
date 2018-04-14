@@ -83,7 +83,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     public static class CustomOnClickListener implements View.OnClickListener {
         long taskID;
 
-        public CustomOnClickListener(long taskID) {
+        CustomOnClickListener(long taskID) {
             this.taskID = taskID;
         }
 
@@ -163,8 +163,9 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
             @Override
             public void onViewDetachedFromWindow(View view) {
                 if (isRemoved[0]) {
-                    // Removes a notification
+                    // Removes a notification and alarm
                     mAlarmHelper.removeNotification(timeStamp, mContext);
+                    mAlarmHelper.removeAlarm(timeStamp);
 
                     // Removes a task
                     mHelper.deleteTask(taskID);
@@ -179,15 +180,15 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
      * Removes an item from the list (without Snackbar).
      */
     public void removeItem(int position) {
-        Log.d(TAG, "RV ADAPTER: task position = " + mItems.get(position).getPosition());
         long taskID = mItems.get(position).getId();
         long timeStamp = mItems.get(position).getTimeStamp();
 
         mItems.remove(position);
         notifyItemRemoved(position);
 
-        // Removes a notification
+        // Removes a notification and alarm
         mAlarmHelper.removeNotification(timeStamp, mContext);
+        mAlarmHelper.removeAlarm(timeStamp);
 
         // Removes a task
         mHelper.deleteTask(taskID);
@@ -201,8 +202,6 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         if (getItemCount() != 0) {
             mItems = new ArrayList<>();
             notifyDataSetChanged();
-
-            Log.d(TAG, "All items is removed!");
         }
     }
 
@@ -240,7 +239,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     /**
      * Saves the new tasks order from RecyclerView list to the database.
      */
-    public void saveTasksOrderFromRV() {
+    private void saveTasksOrderFromRV() {
         for (ModelTask task : mItems) {
             task.setPosition(mItems.indexOf(task));
 
@@ -252,7 +251,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
     /**
      * Saves the new tasks order to the database.
      */
-    public void saveTasksOrderFromDB() {
+    private void saveTasksOrderFromDB() {
         List<ModelTask> taskList = mHelper.getAllTasks();
 
         for (ModelTask task : taskList) {
@@ -369,7 +368,7 @@ public class RecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<Recycl
         TextView title;
         TextView date;
 
-        public TaskViewHolder(View itemView, TextView title, TextView date) {
+        TaskViewHolder(View itemView, TextView title, TextView date) {
             super(itemView);
 
             this.title = title;

@@ -1,10 +1,9 @@
 package apps.jizzu.simpletodo.utils;
 
-import android.support.v7.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -41,8 +40,7 @@ public class BackupHelper {
         makeFolder();
 
         if (mFile.exists()) {
-            AlertDialog.Builder alertDialog;
-            alertDialog = new AlertDialog.Builder(mContext, R.style.DialogTheme);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext, R.style.DialogTheme);
             alertDialog.setMessage(R.string.backup_create_dialog_message);
             alertDialog.setPositiveButton(R.string.backup_create_dialog_button, new DialogInterface.OnClickListener() {
                 @Override
@@ -63,8 +61,7 @@ public class BackupHelper {
     }
 
     public void showRestoreDialog() {
-        AlertDialog.Builder alertDialog;
-        alertDialog = new AlertDialog.Builder(mContext, R.style.DialogTheme);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext, R.style.DialogTheme);
         alertDialog.setMessage(R.string.backup_restore_dialog_message);
         alertDialog.setPositiveButton(R.string.backup_restore_dialog_button, new DialogInterface.OnClickListener() {
             @Override

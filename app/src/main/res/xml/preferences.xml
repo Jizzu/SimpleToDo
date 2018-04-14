@@ -11,6 +11,14 @@
         android:key="general_notification"
         android:summary="@string/preferences_general_notification_summary"
         android:title="@string/preferences_general_notification_title" />
+    <RingtonePreference
+        android:defaultValue="content://settings/system/notification_sound"
+        android:key="notification_sound"
+        android:ringtoneType="notification"
+        android:showDefault="true"
+        android:showSilent="true"
+        android:summary="@string/preferences_notification_sound_summary"
+        android:title="@string/preferences_notification_sound_title" />
     <PreferenceCategory android:title="@string/backup_title" />
     <Preference
         android:key="backup"
@@ -34,7 +42,7 @@
     <PreferenceCategory android:title="@string/category_about" />
     <Preference
         android:key="about_version"
-        android:summary="1.1"
+        android:summary="1.2"
         android:title="@string/preferences_about_version_title" />
     <Preference
         android:key="about_licenses"

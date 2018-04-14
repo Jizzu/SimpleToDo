@@ -58,7 +58,7 @@ public class AlarmHelper {
     }
 
     /**
-     * Removes a notification by id (timeStamp).
+     * Removes notification by id (timeStamp).
      */
     public void removeNotification(long taskTimeStamp, Context context) {
         NotificationManager notificationManager =
@@ -67,7 +67,7 @@ public class AlarmHelper {
     }
 
     /**
-     * Removes a alarm by id (timeStamp).
+     * Removes alarm by id (timeStamp).
      */
     public void removeAlarm(long taskTimeStamp) {
         Intent intent = new Intent(mContext, AlarmReceiver.class);

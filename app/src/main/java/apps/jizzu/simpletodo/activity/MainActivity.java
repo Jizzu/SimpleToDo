@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         mEmptyView = findViewById(R.id.empty);
 
-        mRecyclerView = new RecyclerViewEmptySupport(mContext);
+        new RecyclerViewEmptySupport(mContext);
         mRecyclerView = findViewById(R.id.tasksList);
         mRecyclerView.setHasFixedSize(true);
 
@@ -436,7 +436,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     protected void onResume() {
         super.onResume();
 
-        //addTasksFromDB();
         mFab.setVisibility(View.GONE);
 
         if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
