@@ -50,7 +50,7 @@
     <string name="licenses_circular_anim_summary">Распространяется без лицензии</string>
 
     <string name="snackbar_remove_task">Задача удалена!</string>
-    <string name="action_cancel">Отмена</string>
+    <string name="action_undo">Отмена</string>
     <string name="action_delete">Удалить</string>
     <string name="dialog_title"><b>Вы уверены?</b></string>
     <string name="dialog_message">Удалить эту задачу?</string>

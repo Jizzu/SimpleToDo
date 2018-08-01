@@ -51,7 +51,7 @@
     <string name="licenses_circular_anim_summary">This software distributed without a license</string>
 
     <string name="snackbar_remove_task">Task is removed!</string>
-    <string name="action_cancel">Cancel</string>
+    <string name="action_undo">Undo</string>
     <string name="action_delete">Delete</string>
     <string name="dialog_title"><b>Are you sure?</b></string>
     <string name="dialog_message">Delete this task?</string>
