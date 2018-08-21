@@ -18,21 +18,6 @@ class AlarmHelper private constructor() {
     private lateinit var mContext: Context
     private lateinit var mAlarmManager: AlarmManager
 
-    companion object {
-
-        private var mInstance: AlarmHelper? = null
-
-        /**
-         * This static method ensures that only one AlarmHelper will ever exist at any given time.
-         */
-        fun getInstance(): AlarmHelper {
-            if (mInstance == null) {
-                mInstance = AlarmHelper()
-            }
-            return mInstance as AlarmHelper
-        }
-    }
-
     /**
      * Alarm service initialization.
      */
@@ -72,5 +57,20 @@ class AlarmHelper private constructor() {
                 intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         mAlarmManager.cancel(pendingIntent)
+    }
+
+    companion object {
+
+        private var mInstance: AlarmHelper? = null
+
+        /**
+         * This static method ensures that only one AlarmHelper will ever exist at any given time.
+         */
+        fun getInstance(): AlarmHelper {
+            if (mInstance == null) {
+                mInstance = AlarmHelper()
+            }
+            return mInstance as AlarmHelper
+        }
     }
 }

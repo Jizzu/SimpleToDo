@@ -23,10 +23,6 @@ import apps.jizzu.simpletodo.utils.MyApplication
  */
 class AlarmReceiver : BroadcastReceiver() {
 
-    companion object {
-        const val CHANNEL_ID = "1"
-    }
-
     override fun onReceive(context: Context, intent: Intent) {
         val title = intent.getStringExtra("title")
         val timeStamp = intent.getLongExtra("time_stamp", 0).toInt()
@@ -75,5 +71,9 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val notification = builder.build()
         notificationManager.notify(timeStamp, notification)
+    }
+
+    companion object {
+        const val CHANNEL_ID = "1"
     }
 }

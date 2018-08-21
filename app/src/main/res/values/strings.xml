@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Simple ToDo</string>
+    <string name="simple_todo_title">SIMPLE TODO</string>
     <string name="empty_view_title">No tasks</string>
     <string name="empty_view_text">You can create new tasks \n using the + button</string>
     <string name="create_task">NEW TASK</string>
@@ -22,10 +23,18 @@
     <string name="preferences_general_notification_summary">Show general notification with you current task list</string>
     <string name="preferences_notification_sound_title">Notification sound</string>
     <string name="preferences_notification_sound_summary">Set the notification sound</string>
+    <string name="preferences_date_format_title">Date format</string>
+    <string name="preferences_date_format_summary">Change date format</string>
+    <string name="preferences_backup_create_title">Create backup</string>
+    <string name="preferences_backup_create_summary">Export tasks to the device storage</string>
+    <string name="preferences_backup_restore_title">Restore backup</string>
+    <string name="preferences_backup_restore_summary">Import tasks from the device storage</string>
     <string name="preferences_rate_app_title">Rate this app</string>
     <string name="preferences_rate_app_summary">Rate this app on Google Play store</string>
     <string name="preferences_send_feedback_title">Send feedback</string>
     <string name="preferences_send_feedback_summary">Suggest ideas or tell about bugs</string>
+    <string name="preferences_other_apps_title">Other apps</string>
+    <string name="preferences_other_apps_summary">Other developer\'s apps on Google Play</string>
     <string name="preferences_about_version_title">Version</string>
     <string name="preferences_about_licenses_summary">Used libraries</string>
     <string name="preferences_about_licenses_title">Licenses</string>
@@ -36,6 +45,7 @@
     <string name="feedback">Feedback: </string>
 
     <string name="category_general">General settings</string>
+    <string name="category_backup_and_restore">Backup/Restore</string>
     <string name="category_additional">Additional</string>
     <string name="category_about">About</string>
 
@@ -51,16 +61,11 @@
     <string name="licenses_circular_anim_summary">This software distributed without a license</string>
 
     <string name="snackbar_remove_task">Task is removed!</string>
-    <string name="action_undo">Undo</string>
+    <string name="snackbar_undo">Undo</string>
+    <string name="action_cancel">Cancel</string>
     <string name="action_delete">Delete</string>
     <string name="dialog_title"><b>Are you sure?</b></string>
     <string name="dialog_message">Delete this task?</string>
-
-    <string name="backup_title">Backup/Restore</string>
-    <string name="backup_create_title">Create backup</string>
-    <string name="backup_create_summary">Export tasks to the device storage</string>
-    <string name="backup_restore_title">Restore backup</string>
-    <string name="backup_restore_summary">Import tasks from the device storage</string>
 
     <string name="backup_create_dialog_message">Do you want to create new backup? \nThe previous backup file will be deleted</string>
     <string name="backup_create_dialog_button">Create backup</string>
@@ -100,4 +105,13 @@
     <string name="rate_dialog_ok">Rate now</string>
     <string name="rate_dialog_cancel">Later</string>
     <string name="rate_dialog_no">No, Thanks</string>
+
+    ////////////////<!-- Date format dialog -->/////////////////
+    <string name="date_format_dialog_title">Choose date format:</string>
+    <string-array name="date_format_list">
+        <item>Day.Month.Year</item>
+        <item>Year.Month.Day</item>
+        <item>Month.Day.Year</item>
+        <item>Year.Day.Month</item>
+    </string-array>
 </resources>

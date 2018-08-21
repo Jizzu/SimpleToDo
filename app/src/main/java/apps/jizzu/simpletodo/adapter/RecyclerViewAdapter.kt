@@ -19,23 +19,19 @@ import apps.jizzu.simpletodo.database.TasksOrderUpdate
 import apps.jizzu.simpletodo.model.ModelTask
 import apps.jizzu.simpletodo.utils.Utils
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Adapters connect the list views (RecyclerView for example) to it's contents (uses the Singleton pattern).
  */
-class RecyclerViewAdapter
-/**
- * Constructor is private to prevent direct instantiation.
- */
-private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolder>() {
+class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.EmptyAdapter<RecyclerView.ViewHolder>() {
 
     private lateinit var mHelper: DBHelper
     private lateinit var mContext: Context
     private lateinit var mCallback: AdapterCallback
 
     private val mAlarmHelper = AlarmHelper.getInstance()
-    private var mCancelButtonIsClicked: Boolean = false
-
+    private var mCancelButtonIsClicked: Boolean = true
 
     /**
      * Callback for update general notification data and show FAB from another class.
@@ -55,54 +51,54 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
     /**
      * Adds a new item to the end of the list.
      */
-    fun addItem(item: ModelTask) {
-        mItems.add(item)
+    fun addTask(item: ModelTask) {
+        mTaskList.add(item)
         notifyItemInserted(itemCount - 1)
 
-        Log.d(TAG, "Task with title " + item.title + " and position = " + item.position + " added to RecyclerView!")
+        Log.d(TAG, "Task with title (${item.title}) and position (${item.position}) added to RecyclerView!")
     }
 
     /**
      * Adds a new item to the specific position of the list.
      */
-    fun addItem(item: ModelTask, position: Int) {
-        mItems.add(position, item)
+    fun addTask(item: ModelTask, position: Int) {
+        mTaskList.add(position, item)
         notifyItemInserted(position)
 
-        Log.d(TAG, "Task with title " + mItems[position].title + " and position = " + position + " added to RecyclerView!")
+        Log.d(TAG, "Task with title (${mTaskList[position].title}) and position ($position) added to RecyclerView!")
     }
 
     /**
      * Updates the data of the specific item in the list.
      */
-    fun updateItem(updatedTask: ModelTask, position: Int) {
-        mItems[position] = updatedTask
+    fun updateTask(updatedTask: ModelTask, position: Int) {
+        mTaskList[position] = updatedTask
         notifyItemChanged(position)
 
-        Log.d(TAG, "Task with title " + mItems[position].title + " and position = " + position + " updated in RecyclerView!")
+        Log.d(TAG, "Task with title (${mTaskList[position].title}) and position ($position) updated in RecyclerView!")
     }
 
     /**
      * Removes an item from the list (with Snackbar).
      */
-    fun removeItem(position: Int, recyclerView: RecyclerView) {
-        val taskID = mItems[position].id
+    fun removeTask(position: Int, recyclerView: RecyclerView) {
+        val taskID = mTaskList[position].id
         val isRemoved = booleanArrayOf(true)
-        val timeStamp = mItems[position].timeStamp
+        val timeStamp = mTaskList[position].timeStamp
         mCancelButtonIsClicked = false
 
         Log.d(TAG, "taskID = $taskID, position = $position")
         Log.d(TAG, "Removing item from position  $position ...")
 
-        mItems.removeAt(position)
+        mTaskList.removeAt(position)
         notifyItemRemoved(position)
 
         val snackbar = Snackbar.make(recyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG)
-        snackbar.setAction(R.string.action_undo) {
+        snackbar.setAction(R.string.snackbar_undo) {
             if (!mCancelButtonIsClicked) {
                 mCancelButtonIsClicked = true
                 val task = mHelper.getTask(taskID)
-                addItem(task, task.position)
+                addTask(task, task.position)
                 isRemoved[0] = false
             }
             mCallback.updateData()
@@ -133,11 +129,11 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
     /**
      * Removes an item from the list (without Snackbar).
      */
-    fun removeItem(position: Int) {
-        val taskID = mItems[position].id
-        val timeStamp = mItems[position].timeStamp
+    fun removeTask(position: Int) {
+        val taskID = mTaskList[position].id
+        val timeStamp = mTaskList[position].timeStamp
 
-        mItems.removeAt(position)
+        mTaskList.removeAt(position)
         notifyItemRemoved(position)
 
         // Removes a notification and alarm
@@ -152,9 +148,9 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
     /**
      * Removes all items from the list.
      */
-    fun removeAllItems() {
+    fun removeAllTasks() {
         if (itemCount != 0) {
-            mItems = ArrayList()
+            mTaskList = ArrayList()
             notifyDataSetChanged()
         }
     }
@@ -162,28 +158,28 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
     /**
      * Moves an item in the list.
      */
-    fun moveItem(fromPosition: Int, toPosition: Int) {
+    fun moveTask(fromPosition: Int, toPosition: Int) {
         Log.d(TAG, "fromPosition: $fromPosition toPosition: $toPosition")
 
         if (fromPosition < toPosition) {
             // Move down
             for (i in fromPosition until toPosition) {
-                Collections.swap(mItems, i, i + 1)
-                mItems[i].position = i
-                mItems[i + 1].position = i + 1
+                Collections.swap(mTaskList, i, i + 1)
+                mTaskList[i].position = i
+                mTaskList[i + 1].position = i + 1
 
-                Log.d(TAG, "Task with title " + mItems[i].title + " new position = " + mItems[i].position)
-                Log.d(TAG, "Task with title " + mItems[i + 1].title + " new position = " + mItems[i + 1].position)
+                Log.d(TAG, "Task with title ${mTaskList[i].title} has new position = ${mTaskList[i].position}")
+                Log.d(TAG, "Task with title ${mTaskList[i + 1].title} has new position = ${mTaskList[i + 1].position}")
             }
         } else {
             // Move up
             for (i in fromPosition downTo toPosition + 1) {
-                Collections.swap(mItems, i, i - 1)
-                mItems[i].position = i
-                mItems[i - 1].position = i - 1
+                Collections.swap(mTaskList, i, i - 1)
+                mTaskList[i].position = i
+                mTaskList[i - 1].position = i - 1
 
-                Log.d(TAG, "Task with title " + mItems[i].title + " new position = " + mItems[i].position)
-                Log.d(TAG, "Task with title " + mItems[i - 1].title + " new position = " + mItems[i - 1].position)
+                Log.d(TAG, "Task with title ${mTaskList[i].title} has new position = ${mTaskList[i].position}")
+                Log.d(TAG, "Task with title ${mTaskList[i - 1].title} has new position = ${mTaskList[i - 1].position}")
             }
         }
         notifyItemMoved(fromPosition, toPosition)
@@ -194,8 +190,8 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
      * Saves the new tasks order from RecyclerView list to the database.
      */
     private fun saveTasksOrderFromRV() {
-        for (task in mItems) {
-            task.position = mItems.indexOf(task)
+        for (task in mTaskList) {
+            task.position = mTaskList.indexOf(task)
 
             val order = TasksOrderUpdate(mContext)
             order.execute(task)
@@ -213,6 +209,16 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
 
             val order = TasksOrderUpdate(mContext)
             order.execute(task)
+        }
+    }
+
+    fun reloadTasks() {
+        val backupList = ArrayList<ModelTask>()
+        backupList.addAll(mTaskList)
+
+        removeAllTasks()
+        for (task in backupList) {
+            addTask(task)
         }
     }
 
@@ -238,7 +244,7 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
      * position: The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val task = mItems[position]
+        val task = mTaskList[position]
 
         val taskViewHolder = holder as TaskViewHolder
         val itemView = taskViewHolder.itemView
@@ -265,19 +271,21 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
             taskViewHolder.title.setPadding(0, 0, 0, 0)
             taskViewHolder.title.gravity = Gravity.CENTER_VERTICAL
             taskViewHolder.date.visibility = View.VISIBLE
-            if (DateUtils.isToday(task.date)) {
-                taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
-                taskViewHolder.date.text = mContext!!.getString(R.string.reminder_today) + " " + Utils.getTime(task.date)
-            } else if (DateUtils.isToday(task.date + DateUtils.DAY_IN_MILLIS)) {
-                taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red))
-                taskViewHolder.date.text = mContext!!.getString(R.string.reminder_yesterday) + " " + Utils.getTime(task.date)
-            } else if (DateUtils.isToday(task.date - DateUtils.DAY_IN_MILLIS)) {
-                taskViewHolder.date.text = mContext!!.getString(R.string.reminder_tomorrow) + " " + Utils.getTime(task.date)
-            } else if (task.date < Calendar.getInstance().timeInMillis) {
-                taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red))
-                taskViewHolder.date.text = Utils.getFullDate(task.date)
-            } else {
-                taskViewHolder.date.text = Utils.getFullDate(task.date)
+            when {
+                DateUtils.isToday(task.date) -> {
+                    taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
+                    taskViewHolder.date.text = mContext.getString(R.string.reminder_today) + " " + Utils.getTime(task.date)
+                }
+                DateUtils.isToday(task.date + DateUtils.DAY_IN_MILLIS) -> {
+                    taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red))
+                    taskViewHolder.date.text = mContext.getString(R.string.reminder_yesterday) + " " + Utils.getTime(task.date)
+                }
+                DateUtils.isToday(task.date - DateUtils.DAY_IN_MILLIS) -> taskViewHolder.date.text = mContext.getString(R.string.reminder_tomorrow) + " " + Utils.getTime(task.date)
+                task.date < Calendar.getInstance().timeInMillis -> {
+                    taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red))
+                    taskViewHolder.date.text = Utils.getFullDate(task.date)
+                }
+                else -> taskViewHolder.date.text = Utils.getFullDate(task.date)
             }
         } else {
             Log.d(TAG, "TASK WITHOUT DATE")
@@ -304,9 +312,7 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
     /**
      * Returns the total number of items in the data set held by the adapter.
      */
-    override fun getItemCount(): Int {
-        return mItems.size
-    }
+    override fun getItemCount() = mTaskList.size
 
     /**
      * This class helps to get a reference to each element of a particular list item.
@@ -316,7 +322,7 @@ private constructor() : RecyclerViewEmptySupport.Adapter1<RecyclerView.ViewHolde
     companion object {
         private var mInstance: RecyclerViewAdapter? = null
 
-        var mItems: MutableList<ModelTask> = ArrayList()
+        var mTaskList: MutableList<ModelTask> = ArrayList()
 
         /**
          * This static method ensures that only one RecyclerViewAdapter will ever exist at any given time.

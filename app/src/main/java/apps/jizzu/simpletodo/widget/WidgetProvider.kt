@@ -17,14 +17,6 @@ import apps.jizzu.simpletodo.activity.MainActivity
  */
 class WidgetProvider : AppWidgetProvider() {
 
-    companion object {
-        internal const val ITEM_ID = "id"
-        internal const val ITEM_TITLE = "title"
-        internal const val ITEM_POSITION = "position"
-        internal const val ITEM_TIME_STAMP = "time_stamp"
-        internal const val ITEM_DATE = "date"
-    }
-
     /**
      * Called in response to the ACTION_APPWIDGET_UPDATE and ACTION_APPWIDGET_RESTORED broadcasts
      * when this AppWidget provider is being asked to provide RemoteViews for a set of AppWidgets.
@@ -85,5 +77,13 @@ class WidgetProvider : AppWidgetProvider() {
 
             context.startActivity(editTaskActivity)
         }
+    }
+
+    companion object {
+        internal const val ITEM_ID = "id"
+        internal const val ITEM_TITLE = "title"
+        internal const val ITEM_POSITION = "position"
+        internal const val ITEM_TIME_STAMP = "time_stamp"
+        internal const val ITEM_DATE = "date"
     }
 }

@@ -37,7 +37,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
      */
     override fun onDataSetChanged() {
         mListData.clear()
-        mListData.addAll(RecyclerViewAdapter.mItems)
+        mListData.addAll(RecyclerViewAdapter.mTaskList)
     }
 
     /**
@@ -47,9 +47,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
 
     }
 
-    override fun getCount(): Int {
-        return mListData.size
-    }
+    override fun getCount() = mListData.size
 
     /**
      * Get a View that displays the data at the specified position in the data set.

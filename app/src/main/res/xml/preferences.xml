@@ -19,15 +19,20 @@
         android:showSilent="true"
         android:summary="@string/preferences_notification_sound_summary"
         android:title="@string/preferences_notification_sound_title" />
-    <PreferenceCategory android:title="@string/backup_title" />
+    <Preference
+        android:defaultValue="true"
+        android:key="date_format"
+        android:title="@string/preferences_date_format_title"
+        android:summary="@string/preferences_date_format_summary"/>
+    <PreferenceCategory android:title="@string/category_backup_and_restore" />
     <Preference
         android:key="backup"
-        android:summary="@string/backup_create_summary"
-        android:title="@string/backup_create_title" />
+        android:summary="@string/preferences_backup_create_summary"
+        android:title="@string/preferences_backup_create_title" />
     <Preference
         android:key="restore"
-        android:summary="@string/backup_restore_summary"
-        android:title="@string/backup_restore_title" />
+        android:summary="@string/preferences_backup_restore_summary"
+        android:title="@string/preferences_backup_restore_title" />
     <PreferenceCategory android:title="@string/category_additional" />
     <Preference
         android:key="rate_app"
@@ -39,6 +44,11 @@
         android:onClick="onMultipleIncludeOwnClick"
         android:summary="@string/preferences_send_feedback_summary"
         android:title="@string/preferences_send_feedback_title" />
+    <Preference
+        android:key="other_apps"
+        android:onClick="onMultipleIncludeOwnClick"
+        android:summary="@string/preferences_other_apps_summary"
+        android:title="@string/preferences_other_apps_title" />
     <PreferenceCategory android:title="@string/category_about" />
     <Preference
         android:key="about_version"

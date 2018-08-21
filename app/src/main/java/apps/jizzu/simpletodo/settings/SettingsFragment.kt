@@ -13,9 +13,11 @@ import android.preference.PreferenceFragment
 import android.provider.Settings
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AlertDialog
 import android.widget.Toast
 import apps.jizzu.simpletodo.BuildConfig
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter
 import apps.jizzu.simpletodo.utils.BackupHelper
 import apps.jizzu.simpletodo.utils.DeviceInfo
 import apps.jizzu.simpletodo.utils.PreferenceHelper
@@ -31,10 +33,7 @@ class SettingsFragment : PreferenceFragment() {
     private lateinit var mBackupHelper: BackupHelper
 
     private var mIsCreatingProcess: Boolean = false
-
-    companion object {
-        private const val PERMISSION_REQUEST_CODE = 123
-    }
+    private var mSelectedItemPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +59,27 @@ class SettingsFragment : PreferenceFragment() {
         mGeneralNotification.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, mGeneralNotification.isChecked)
 
+            true
+        }
+
+        val dateFormat = findPreference("date_format")
+        dateFormat.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+
+            val listItems = resources.getStringArray(R.array.date_format_list)
+            mSelectedItemPosition = mPreferenceHelper.getInt(PreferenceHelper.DATE_FORMAT_KEY)
+
+            val mBuilder = AlertDialog.Builder(activity, R.style.AlertDialogStyle)
+            mBuilder.setTitle(getString(R.string.date_format_dialog_title))
+            mBuilder.setSingleChoiceItems(listItems, mSelectedItemPosition) { dialogInterface, i ->
+                mSelectedItemPosition = i
+                mPreferenceHelper.putInt(PreferenceHelper.DATE_FORMAT_KEY, i)
+                dialogInterface.dismiss()
+            }
+            val mDialog = mBuilder.create()
+            mDialog.show()
+
+            val adapter = RecyclerViewAdapter.getInstance()
+            adapter.reloadTasks()
             true
         }
 
@@ -114,6 +134,12 @@ class SettingsFragment : PreferenceFragment() {
                 Toast.makeText(activity, "There are no email clients installed.", Toast.LENGTH_SHORT).show()
             }
 
+            true
+        }
+
+        val otherApps = findPreference("other_apps")
+        otherApps.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Ilya+Ponomarenko")))
             true
         }
 
@@ -238,5 +264,9 @@ class SettingsFragment : PreferenceFragment() {
         } else {
             requestPerms()
         }
+    }
+
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = 123
     }
 }

@@ -25,26 +25,25 @@ open class ListItemTouchHelper protected constructor(private val mAdapter: Recyc
      * Called when ItemTouchHelper wants to move the dragged item from its old position to the new position.
      */
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-        mAdapter.moveItem(viewHolder.adapterPosition, target.adapterPosition)
+        mAdapter.moveTask(viewHolder.adapterPosition, target.adapterPosition)
         return true
     }
 
     /**
      * Called when a ViewHolder is swiped by the user.
      */
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        mAdapter.removeItem(viewHolder.adapterPosition, mRecyclerView)
-    }
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) =
+        mAdapter.removeTask(viewHolder.adapterPosition, mRecyclerView)
 
     /**
      * Enable the ability to move items.
      * Returns whether ItemTouchHelper should start a drag and drop operation if an item is long pressed.
      */
-    override fun isLongPressDragEnabled(): Boolean = true
+    override fun isLongPressDragEnabled() = true
 
     /**
      * Enable the ability to swipe items.
      * Returns whether ItemTouchHelper should start a swipe operation if a pointer is swiped over the View.
      */
-    override fun isItemViewSwipeEnabled(): Boolean = true
+    override fun isItemViewSwipeEnabled() = true
 }

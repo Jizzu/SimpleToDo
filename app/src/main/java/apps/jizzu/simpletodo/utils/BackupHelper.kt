@@ -26,7 +26,7 @@ class BackupHelper(private val mContext: Context) {
             val alertDialog = AlertDialog.Builder(mContext, R.style.DialogTheme)
             alertDialog.setMessage(R.string.backup_create_dialog_message)
             alertDialog.setPositiveButton(R.string.backup_create_dialog_button) { _, _ -> createBackup() }
-            alertDialog.setNegativeButton(R.string.action_undo) { _, _ -> }
+            alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
             alertDialog.show()
         } else {
             createBackup()
@@ -37,7 +37,7 @@ class BackupHelper(private val mContext: Context) {
         val alertDialog = AlertDialog.Builder(mContext, R.style.DialogTheme)
         alertDialog.setMessage(R.string.backup_restore_dialog_message)
         alertDialog.setPositiveButton(R.string.backup_restore_dialog_button) { _, _ -> restoreBackup() }
-        alertDialog.setNegativeButton(R.string.action_undo) { _, _ -> }
+        alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
         alertDialog.show()
     }
 
@@ -49,10 +49,10 @@ class BackupHelper(private val mContext: Context) {
             val fileOutputStream = FileOutputStream(mFile, true)
             val objectOutputStream = ObjectOutputStream(fileOutputStream)
 
-            objectOutputStream.writeObject(RecyclerViewAdapter.mItems)
+            objectOutputStream.writeObject(RecyclerViewAdapter.mTaskList)
 
-            for (task in RecyclerViewAdapter.mItems) {
-                Log.d(TAG, "Object with 1) Title = " + task.title + "; 2) Position = " + task.position + "; 3) Date = " + task.date + " added to backup file!")
+            for (task in RecyclerViewAdapter.mTaskList) {
+                Log.d(TAG, "Object with 1) Title = ${task.title}; 2) Position = ${task.position}; 3) Date = ${task.date} added to backup file!")
             }
             Toast.makeText(mContext, R.string.backup_create_message_success, Toast.LENGTH_SHORT).show()
             objectOutputStream.close()
@@ -82,11 +82,11 @@ class BackupHelper(private val mContext: Context) {
                         newTaskPosition++
 
                         task.position = newTaskPosition
-                        Log.d(TAG, "Task wit title " + task.title + " set to position = " + task.position)
+                        Log.d(TAG, "Task wit title ${task.title} set to position = ${task.position}")
 
                         val id = dbHelper.saveTask(task)
                         task.id = id
-                        mAdapter.addItem(task, newTaskPosition)
+                        mAdapter.addTask(task, newTaskPosition)
                     }
                 } else {
                     @Suppress("UNCHECKED_CAST")
@@ -94,7 +94,7 @@ class BackupHelper(private val mContext: Context) {
 
                     for (task in restoredTasks) {
                         dbHelper.saveTask(task)
-                        mAdapter.addItem(task)
+                        mAdapter.addTask(task)
                     }
                 }
                 Toast.makeText(mContext, R.string.backup_restore_message_success, Toast.LENGTH_SHORT).show()

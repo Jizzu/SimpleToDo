@@ -25,7 +25,6 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@id/item_title"
         android:layout_marginBottom="3dp"
-        android:text="No reminder"
         android:textColor="@color/colorAccent"
         android:textSize="12sp" />
 

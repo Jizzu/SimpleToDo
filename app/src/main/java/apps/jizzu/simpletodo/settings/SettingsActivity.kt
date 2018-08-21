@@ -1,12 +1,18 @@
 package apps.jizzu.simpletodo.settings
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.ContentValues
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.widget.WidgetProvider
 
 /**
  * Activity which contains SettingsFragment.
@@ -37,5 +43,17 @@ class SettingsActivity : AppCompatActivity() {
             return true
         }
         return false
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d(ContentValues.TAG, "WIDGET IS UPDATED!")
+        val intent = Intent(this, WidgetProvider::class.java)
+        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        val ids = AppWidgetManager.getInstance(this@SettingsActivity)
+                .getAppWidgetIds(ComponentName(this@SettingsActivity, WidgetProvider::class.java))
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        sendBroadcast(intent)
     }
 }

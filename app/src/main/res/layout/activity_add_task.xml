@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212121"
+    android:background="@color/colorPrimaryDark"
     tools:context="apps.jizzu.simpletodo.activity.AddTaskActivity">
 
     <android.support.v7.widget.Toolbar
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </android.support.v7.widget.Toolbar>
@@ -49,12 +49,10 @@
         android:id="@+id/addAlarmIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/reminderContainer"
-        android:layout_alignLeft="@+id/taskTitleLayout"
-        android:layout_alignStart="@+id/taskTitleLayout"
-        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/taskTitleLayout"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
-        android:padding="8dp"
         android:src="@drawable/ic_alarm_add_white_24dp" />
 
     <TextView
@@ -62,8 +60,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/taskTitleLayout"
-        android:layout_marginLeft="66dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="36dp"
+        android:layout_toEndOf="@id/addAlarmIcon"
         android:text="@string/set_reminder"
         android:textColor="@color/white"
         android:textSize="15sp" />
@@ -72,10 +71,10 @@
         android:id="@+id/reminderSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/taskTitleLayout"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="34dp" />
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp" />
 
     <RelativeLayout
         android:id="@+id/reminderContainer"
@@ -87,7 +86,7 @@
             android:id="@+id/taskDateLayout"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:theme="@style/EditTextHint">
 
@@ -100,15 +99,16 @@
                 android:hint="@string/hint_date"
                 android:inputType="none"
                 android:textColor="@color/white"
-                app:backgroundTint="@color/colorAccent" />
+                app:backgroundTint="@color/colorAccent"
+                tools:ignore="TextFields" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/taskTimeLayout"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="32dp"
             android:layout_marginTop="32dp"
             android:theme="@style/EditTextHint">
 

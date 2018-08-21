@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".activity.AddTaskActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
         <receiver
             android:name=".alarm.AlarmReceiver"
@@ -37,7 +38,8 @@
 
         <activity
             android:name=".activity.EditTaskActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait"

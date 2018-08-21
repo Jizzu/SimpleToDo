@@ -14,44 +14,6 @@ import java.util.*
  */
 class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
-    companion object {
-
-        private var mInstance: DBHelper? = null
-
-        const val DATABASE_VERSION = 1
-
-        const val DATABASE_NAME = "simpletodo_database"
-
-        const val TASKS_TABLE = "tasks_table"
-
-        const val TASK_ID_COLUMN = "_id"
-        const val TASK_TITLE_COLUMN = "task_title"
-        const val TASK_DATE_COLUMN = "task_date"
-        const val TASK_POSITION_COLUMN = "task_position"
-        const val TASK_TIME_STAMP_COLUMN = "task_time_stamp"
-
-        const val TASKS_TABLE_CREATE_SCRIPT = ("CREATE TABLE "
-                + TASKS_TABLE + " (" + TASK_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + TASK_TITLE_COLUMN + " TEXT NOT NULL, " + TASK_DATE_COLUMN + " LONG, " + TASK_POSITION_COLUMN + " INTEGER, " + TASK_TIME_STAMP_COLUMN + " LONG);")
-
-        const val SELECTION_LIKE_TITLE = "$TASK_TITLE_COLUMN LIKE ?"
-
-        /**
-         * This static method ensures that only one DBHelper will ever exist at any given time.
-         * If the mInstance object has not been initialized, one will be created.
-         * If one has already been created then it will simply be returned.
-         */
-        @JvmStatic
-        @Synchronized
-        fun getInstance(context: Context): DBHelper {
-
-            if (mInstance == null) {
-                mInstance = DBHelper(context.applicationContext)
-            }
-            return mInstance as DBHelper
-        }
-    }
-
     override fun onCreate(sqLiteDatabase: SQLiteDatabase) {
         sqLiteDatabase.execSQL(TASKS_TABLE_CREATE_SCRIPT)
     }
@@ -77,7 +39,7 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
         val id = db.insert(TASKS_TABLE, null, newValues)
         db.close()
 
-        Log.d(TAG, "Task with ID (" + id + "), Title (" + task.title + "), Date (" + task.date + "), Position (" + task.position + ") saved to DB!")
+        Log.d(TAG, "Task with ID ($id), Title (${task.title}), Date (${task.date}), Position (${task.position}) saved to DB!")
         return id
     }
 
@@ -90,7 +52,7 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
         updatedValues.put(TASK_DATE_COLUMN, task.date)
 
         this.writableDatabase.update(TASKS_TABLE, updatedValues, "$TASK_ID_COLUMN = ?", arrayOf(task.id.toString()))
-        Log.d(TAG, "Task with ID (" + task.id + "), Title (" + task.title + "), Date (" + task.date + "), Position (" + task.position + ") updated in DB!")
+        Log.d(TAG, "Task with ID (${task.id}), Title (${task.title}), Date (${task.date}), Position (${task.position}) updated in DB!")
     }
 
     /**
@@ -111,7 +73,7 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
             val timeStamp = java.lang.Long.parseLong(cursor.getString(4))
 
             task = ModelTask(id, title, date, position, timeStamp)
-            Log.d(TAG, "Task with ID (" + task.id + "), Title (" + task.title + "), Date (" + task.date + "), Position (" + task.position + ") get from DB!")
+            Log.d(TAG, "Task with ID (${task.id}), Title (${task.title}), Date (${task.date}), Position (${task.position}) get from DB!")
         }
         cursor.close()
 
@@ -148,7 +110,7 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
                 task.position = Integer.parseInt(cursor.getString(3))
                 task.timeStamp = java.lang.Long.parseLong(cursor.getString(4))
 
-                Log.d(TAG, "Task with ID (" + task.id + "), Title (" + task.title + "), Date (" + task.date + "), Position (" + task.position + ") extracted from DB!")
+                Log.d(TAG, "Task with ID (${task.id}), Title (${task.title}), Date (${task.date}), Position (${task.position}) extracted from DB!")
                 tasksList.add(task)
             } while (cursor.moveToNext())
         }
@@ -180,7 +142,7 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
         updatedValues.put(TASK_POSITION_COLUMN, task.position)
         this.writableDatabase.update(TASKS_TABLE, updatedValues, "$TASK_ID_COLUMN = ?", arrayOf(task.id.toString()))
 
-        Log.d(TAG, "Task with ID (" + task.id + "), Title (" + task.title + "), Date (" + task.date + "), Position (" + task.position + ") updated in DB!")
+        Log.d(TAG, "Task with ID (${task.id}), Title (${task.title}), Date (${task.date}), Position (${task.position}) updated in DB!")
     }
 
     /**
@@ -208,5 +170,42 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
         c.close()
 
         return tasks
+    }
+
+    companion object {
+
+        private var mInstance: DBHelper? = null
+
+        const val DATABASE_VERSION = 1
+
+        const val DATABASE_NAME = "simpletodo_database"
+
+        const val TASKS_TABLE = "tasks_table"
+
+        const val TASK_ID_COLUMN = "_id"
+        const val TASK_TITLE_COLUMN = "task_title"
+        const val TASK_DATE_COLUMN = "task_date"
+        const val TASK_POSITION_COLUMN = "task_position"
+        const val TASK_TIME_STAMP_COLUMN = "task_time_stamp"
+
+        const val TASKS_TABLE_CREATE_SCRIPT = ("CREATE TABLE "
+                + TASKS_TABLE + " (" + TASK_ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + TASK_TITLE_COLUMN + " TEXT NOT NULL, " + TASK_DATE_COLUMN + " LONG, " + TASK_POSITION_COLUMN + " INTEGER, " + TASK_TIME_STAMP_COLUMN + " LONG);")
+
+        const val SELECTION_LIKE_TITLE = "$TASK_TITLE_COLUMN LIKE ?"
+
+        /**
+         * This static method ensures that only one DBHelper will ever exist at any given time.
+         * If the mInstance object has not been initialized, one will be created.
+         * If one has already been created then it will simply be returned.
+         */
+        @Synchronized
+        fun getInstance(context: Context): DBHelper {
+
+            if (mInstance == null) {
+                mInstance = DBHelper(context.applicationContext)
+            }
+            return mInstance as DBHelper
+        }
     }
 }

@@ -21,10 +21,18 @@
     <string name="preferences_general_notification_summary">Показывать отдельное уведомление с вашим текущим списком задач</string>
     <string name="preferences_notification_sound_title">Звук уведомления</string>
     <string name="preferences_notification_sound_summary">Настройка звука уведомления</string>
+    <string name="preferences_date_format_title">Формат даты</string>
+    <string name="preferences_date_format_summary">Изменить формат даты</string>
+    <string name="preferences_backup_create_title">Создать резервную копию</string>
+    <string name="preferences_backup_create_summary">Экспорт задач в память устройства</string>
+    <string name="preferences_backup_restore_title">Восстановить резервную копию</string>
+    <string name="preferences_backup_restore_summary">Импорт задач из памяти устройства</string>
     <string name="preferences_rate_app_title">Оценить приложение</string>
     <string name="preferences_rate_app_summary">Оцените это приложение в Google Play</string>
     <string name="preferences_send_feedback_title">Написать автору</string>
     <string name="preferences_send_feedback_summary">Предлагайте свои идеи и сообщайте о багах</string>
+    <string name="preferences_other_apps_title">Другие приложения</string>
+    <string name="preferences_other_apps_summary">Другие приложения разработчика в Google Play</string>
     <string name="preferences_about_version_title">Версия</string>
     <string name="preferences_about_licenses_summary">Использованные библиотеки</string>
     <string name="preferences_about_licenses_title">Лицензии</string>
@@ -35,6 +43,7 @@
     <string name="feedback">Отзыв: </string>
 
     <string name="category_general">Общие настройки</string>
+    <string name="category_backup_and_restore">Резервное копирование данных</string>
     <string name="category_additional">Дополнительно</string>
     <string name="category_about">О приложении</string>
 
@@ -50,16 +59,11 @@
     <string name="licenses_circular_anim_summary">Распространяется без лицензии</string>
 
     <string name="snackbar_remove_task">Задача удалена!</string>
-    <string name="action_undo">Отмена</string>
+    <string name="snackbar_undo">Отмена</string>
+    <string name="action_cancel">Отмена</string>
     <string name="action_delete">Удалить</string>
     <string name="dialog_title"><b>Вы уверены?</b></string>
     <string name="dialog_message">Удалить эту задачу?</string>
-
-    <string name="backup_title">Резервное копирование данных</string>
-    <string name="backup_create_title">Создать резервную копию</string>
-    <string name="backup_create_summary">Экспорт задач в память устройства</string>
-    <string name="backup_restore_title">Восстановить резервную копию</string>
-    <string name="backup_restore_summary">Импорт задач из памяти устройства</string>
 
     <string name="backup_create_dialog_message">Создать новый бэкап? \nПредыдущий файл бэкапа будет удален</string>
     <string name="backup_create_dialog_button">Создать</string>
@@ -99,4 +103,13 @@
     <string name="rate_dialog_ok">Оценить</string>
     <string name="rate_dialog_cancel">Позже</string>
     <string name="rate_dialog_no">Нет, спасибо</string>
+
+    ////////////////<!-- Date format dialog -->/////////////////
+    <string name="date_format_dialog_title">Выберете формат даты:</string>
+    <string-array name="date_format_list">
+        <item>День.Месяц.Год</item>
+        <item>Год.Месяц.День</item>
+        <item>Месяц.День.Год</item>
+        <item>Год.День.Месяц</item>
+    </string-array>
 </resources>

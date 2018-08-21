@@ -70,5 +70,5 @@ class RecyclerViewEmptySupport : RecyclerView {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
-    abstract class Adapter1<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+    abstract class EmptyAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 }

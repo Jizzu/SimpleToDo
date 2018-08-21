@@ -66,6 +66,8 @@ class AddTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
 
         if (width <= 480 || height <= 800) {
             tvSetReminder.setText(R.string.set_reminder_short)
+            taskDateLayout.layoutParams.width = 150
+            taskTimeLayout.layoutParams.width = 150
         }
 
         mReminderLayout.visibility = View.INVISIBLE
@@ -147,6 +149,7 @@ class AddTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                     finish()
                 }
             }
+            hideKeyboard(mTitle)
         }
     }
 
@@ -169,14 +172,12 @@ class AddTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     /**
      * The handler for clicking the close button in the toolbar.
      */
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem) =
         if (item.itemId == android.R.id.home) {
             hideKeyboard(mTitle)
             onBackPressed()
-            return true
-        }
-        return false
-    }
+            true
+        } else false
 
     /**
      * Sets the date selected in the DatePickerFragment.

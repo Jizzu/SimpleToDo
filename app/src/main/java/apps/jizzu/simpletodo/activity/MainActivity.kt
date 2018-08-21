@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.NotificationCompat
+import android.support.v4.app.RemoteInput
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -46,6 +47,7 @@ import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import kotterknife.bindView
 import top.wefor.circularanim.CircularAnim
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
@@ -61,13 +63,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
     private lateinit var mPreferenceHelper: PreferenceHelper
     private lateinit var mNotificationManager: NotificationManager
     private lateinit var mLayoutManager: RecyclerView.LayoutManager
-
-    companion object {
-        @JvmField
-        var mSearchViewIsOpen: Boolean = false
-        var mShowAnimation: Boolean = false
-        var mActivityIsShown: Boolean = false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,6 +148,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
             override fun onSearchViewShown() {
                 Log.d(TAG, "onSearchViewShown!")
                 mSearchViewIsOpen = true
+                mFab.hide()
+                mFab.isEnabled = false
                 Log.d(TAG, "isSearchOpen = $mSearchViewIsOpen")
             }
 
@@ -162,7 +159,13 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
                 startEmptyViewAnimation()
                 mSearchViewIsOpen = false
                 mShowAnimation = false
-                Log.d(TAG, "onSearchViewClosed: isSearchOpen = $mSearchViewIsOpen")
+
+                val handler = Handler()
+                handler.postDelayed({
+                    mFab.show()
+                    mFab.isEnabled = true
+                }, 500)
+                Log.d(TAG, "isSearchOpen = $mSearchViewIsOpen")
             }
         })
 
@@ -189,7 +192,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0 && mFab.visibility == View.VISIBLE) {
                     mFab.hide()
-                } else if (dy < 0 && mFab.visibility != View.VISIBLE) {
+                } else if (dy < 0 && mFab.visibility != View.VISIBLE && !mSearchViewIsOpen) {
                     mFab.show()
                 }
             }
@@ -213,7 +216,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
     private fun findTasks(title: String) {
         mSearchViewIsOpen = true
         Log.d(TAG, "findTasks: SearchView Title = $title")
-        mAdapter.removeAllItems()
+        mAdapter.removeAllTasks()
         val tasks = ArrayList<ModelTask>()
 
         if (title != "") {
@@ -223,7 +226,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         }
 
         for (i in tasks.indices) {
-            mAdapter.addItem(tasks[i])
+            mAdapter.addTask(tasks[i])
         }
     }
 
@@ -231,11 +234,11 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
      * Reads all tasks from the database and adds them to the RecyclerView list.
      */
     private fun addTasksFromDB() {
-        mAdapter.removeAllItems()
+        mAdapter.removeAllTasks()
         val taskList = mHelper.getAllTasks()
 
         for (task in taskList) {
-            mAdapter.addItem(task, task.position)
+            mAdapter.addTask(task, task.position)
         }
     }
 
@@ -286,7 +289,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         val resultIntent = Intent(this, MainActivity::class.java)
         val resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        for (task in RecyclerViewAdapter.mItems) {
+        for (task in RecyclerViewAdapter.mTaskList) {
             stringBuilder.append("• ").append(task.title)
 
             if (task.position < mAdapter.itemCount - 1) {
@@ -337,13 +340,9 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
     /**
      * Updates general notification data when user click the "Cancel" snackbar button.
      */
-    override fun updateData() {
-        updateGeneralNotification()
-    }
+    override fun updateData() = updateGeneralNotification()
 
-    override fun showFAB() {
-        mFab.show()
-    }
+    override fun showFAB() = mFab.show()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -364,9 +363,9 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
     }
 
     /**
-     * Reads all tasks from the database and compares them with mItems in RecyclerView.
+     * Reads all tasks from the database and compares them with mTaskList in RecyclerView.
      * If the tasks count in the database doesn't coincide with the number of tasks in RecyclerView,
-     * all the tasks in the database are replaced with tasks from the mItems.
+     * all the tasks in the database are replaced with tasks from the mTaskList.
      * For example, this happens when the user removes the task from the RecyclerView list and hide/close app until the snackbar has disappeared.
      */
     override fun onStop() {
@@ -375,15 +374,18 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         Log.d(TAG, "onStop call!!!")
         val taskList = mHelper.getAllTasks()
 
-        Log.d(TAG, "dbSize = " + taskList.size + ", adapterSize = " + RecyclerViewAdapter.mItems.size)
-        if (taskList.size != RecyclerViewAdapter.mItems.size && !mSearchViewIsOpen && !mActivityIsShown) {
+        Log.d(TAG, "dbSize = ${taskList.size}, adapterSize = ${RecyclerViewAdapter.mTaskList.size}")
+        if (taskList.size != RecyclerViewAdapter.mTaskList.size && !mSearchViewIsOpen && !mActivityIsShown) {
 
             mHelper.deleteAllTasks()
 
-            for (task in RecyclerViewAdapter.mItems) {
+            for (task in RecyclerViewAdapter.mTaskList) {
                 mHelper.saveTask(task)
             }
             mActivityIsShown = false
+        }
+        if (!mFab.isShown && !mSearchViewIsOpen) {
+            mFab.show()
         }
         updateWidget()
     }
@@ -392,19 +394,22 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         super.onResume()
 
         mFab.visibility = View.GONE
+        Log.d(TAG, "onResume call!!!")
 
-        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
-            // Starts the FAB animation
-            val handler = Handler()
-            handler.postDelayed({
+        if (!mSearchViewIsOpen) {
+            if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+                // Starts the FAB animation
+                val handler = Handler()
+                handler.postDelayed({
+                    mFab.visibility = View.VISIBLE
+                    val myAnim = AnimationUtils.loadAnimation(mContext, R.anim.fab_animation)
+                    val interpolator = Interpolator(0.2, 20.0)
+                    myAnim.interpolator = interpolator
+                    mFab.startAnimation(myAnim)
+                }, 300)
+            } else {
                 mFab.visibility = View.VISIBLE
-                val myAnim = AnimationUtils.loadAnimation(mContext, R.anim.fab_animation)
-                val interpolator = Interpolator(0.2, 20.0)
-                myAnim.interpolator = interpolator
-                mFab.startAnimation(myAnim)
-            }, 300)
-        } else {
-            mFab.visibility = View.VISIBLE
+            }
         }
         MyApplication.activityResumed()
         updateGeneralNotification()
@@ -443,15 +448,16 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
 
         val id = mHelper.saveTask(task)
         task.id = id
-        mAdapter.addItem(task)
+        mAdapter.addTask(task)
         updateGeneralNotification()
     }
 
-    override fun onBackPressed() {
-        if (mSearchView.isSearchOpen) {
-            mSearchView.closeSearch()
-        } else {
-            super.onBackPressed()
-        }
+    override fun onBackPressed() = if (mSearchView.isSearchOpen) mSearchView.closeSearch()
+        else super.onBackPressed()
+
+    companion object {
+        var mSearchViewIsOpen: Boolean = false
+        var mShowAnimation: Boolean = false
+        var mActivityIsShown: Boolean = false
     }
 }

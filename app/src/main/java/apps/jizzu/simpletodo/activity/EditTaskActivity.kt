@@ -27,6 +27,7 @@ import apps.jizzu.simpletodo.fragment.DatePickerFragment
 import apps.jizzu.simpletodo.fragment.TimePickerFragment
 import apps.jizzu.simpletodo.model.ModelTask
 import apps.jizzu.simpletodo.utils.Utils
+import kotlinx.android.synthetic.main.activity_add_task.*
 import kotterknife.bindView
 import java.util.*
 
@@ -82,6 +83,8 @@ class EditTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         if (width <= 480 || height <= 800) {
             reminderText.setText(R.string.set_reminder_short)
+            taskDateLayout.layoutParams.width = 150
+            taskTimeLayout.layoutParams.width = 150
         }
 
         // Get Intent data
@@ -181,39 +184,40 @@ class EditTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         }
 
         addTaskButton.setOnClickListener {
-            if (mTitle.length() == 0) {
-                mTitle.error = getString(R.string.error_text_input)
-            } else if (mTitle.text.toString().trim { it <= ' ' }.isEmpty()) {
-                mTitle.error = getString(R.string.error_spaces)
-            } else {
-                val dbHelper = DBHelper.getInstance(mContext)
+            when {
+                mTitle.length() == 0 -> mTitle.error = getString(R.string.error_text_input)
+                mTitle.text.toString().trim { it <= ' ' }.isEmpty() -> mTitle.error = getString(R.string.error_spaces)
+                else -> {
+                    val dbHelper = DBHelper.getInstance(mContext)
 
-                val task = ModelTask(mId, mTitle.text.toString(), mDate, mPosition, mTimeStamp)
+                    val task = ModelTask(mId, mTitle.text.toString(), mDate, mPosition, mTimeStamp)
 
-                if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
-                    task.date = mCalendar.timeInMillis
+                    if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
+                        task.date = mCalendar.timeInMillis
+                    }
+
+                    if (!mReminderSwitch.isChecked || mDateEditText.length() == 0 && mTimeEditText.length() == 0) {
+                        task.date = 0
+                    }
+                    Log.d(TAG, "Title = ${task.title}, date = ${task.date}, position = ${task.position}")
+
+                    dbHelper.updateTask(task)
+                    mAdapter.updateTask(task, task.position)
+
+                    if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
+                        task.date = 0
+                        Toast.makeText(mContext, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show()
+                    } else if (task.date != 0L) {
+                        val alarmHelper = AlarmHelper.getInstance()
+                        alarmHelper.setAlarm(task)
+                    } else if (task.date == 0L) {
+                        val mAlarmHelper = AlarmHelper.getInstance()
+                        mAlarmHelper.removeAlarm(task.timeStamp)
+                    }
+                    finish()
                 }
-
-                if (!mReminderSwitch.isChecked || mDateEditText.length() == 0 && mTimeEditText.length() == 0) {
-                    task.date = 0
-                }
-                Log.d(TAG, "Title = " + task.title + ", date = " + task.date + ", position = " + task.position)
-
-                dbHelper.updateTask(task)
-                mAdapter.updateItem(task, task.position)
-
-                if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
-                    task.date = 0
-                    Toast.makeText(mContext, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show()
-                } else if (task.date != 0L) {
-                    val alarmHelper = AlarmHelper.getInstance()
-                    alarmHelper.setAlarm(task)
-                } else if (task.date == 0L) {
-                    val mAlarmHelper = AlarmHelper.getInstance()
-                    mAlarmHelper.removeAlarm(task.timeStamp)
-                }
-                finish()
             }
+            hideKeyboard(mTitle)
         }
     }
 
@@ -257,14 +261,14 @@ class EditTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                 alertDialog.setPositiveButton(R.string.action_delete) { _, _ ->
                     hideKeyboard(mTitle)
                     val task = ModelTask(mId, mTitle.text.toString(), mDate, mPosition, mTimeStamp)
-                    Log.d(TAG, "EDIT TASK ACTIVITY: task position = " + task.position)
-                    mAdapter.removeItem(task.position)
+                    Log.d(TAG, "EDIT TASK ACTIVITY: task position = ${task.position}")
+                    mAdapter.removeTask(task.position)
                     if (mAdapter.itemCount == 0 && MainActivity.mSearchViewIsOpen) {
                         MainActivity.mShowAnimation = true
                     }
                     finish()
                 }
-                alertDialog.setNegativeButton(R.string.action_undo) { _, _ -> }
+                alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
                 alertDialog.show()
             }
         }
