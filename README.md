@@ -22,6 +22,8 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 id=apps.jizzu.simpletodo&pcampaignid=MKT-Other-
 global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play'
 src='https://play.google.com/intl/ru_ru/badges/images/generic/en_badge_web_generic.png' width="40%" height="40%" /></a>
+<a href="https://f-droid.org/en/packages/apps.jizzu.simpletodo/" target="_blank">
+<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" width="40%" height="40%" /></a>
 
 
 # License:
