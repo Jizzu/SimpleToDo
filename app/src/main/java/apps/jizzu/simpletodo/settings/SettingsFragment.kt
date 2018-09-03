@@ -103,6 +103,10 @@ class SettingsFragment : PreferenceFragment() {
             notificationSound.key = "notification_sound"
             notificationSound.title = getString(R.string.preferences_notification_sound_title)
             notificationSound.summary = getString(R.string.preferences_notification_sound_summary)
+            notificationSound.setDefaultValue("content://settings/system/notification_sound")
+            notificationSound.ringtoneType = 2
+            notificationSound.showDefault = true
+            notificationSound.showSilent = true
             categoryGeneralSettings.addPreference(notificationSound)
         }
 
