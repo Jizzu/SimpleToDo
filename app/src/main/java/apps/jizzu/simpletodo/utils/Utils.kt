@@ -9,7 +9,13 @@ object Utils {
     private val mPreferenceHelper = PreferenceHelper.getInstance()
 
     fun getTime(time: Long): String {
-        val timeFormat = SimpleDateFormat("HH:mm")
+        val timeFormatKey = mPreferenceHelper.getInt(PreferenceHelper.TIME_FORMAT_KEY)
+        lateinit var timeFormat: SimpleDateFormat
+
+        when(timeFormatKey) {
+            0 -> timeFormat = SimpleDateFormat("HH:mm")
+            1 -> timeFormat = SimpleDateFormat("hh:mm aa")
+        }
         return timeFormat.format(time)
     }
 

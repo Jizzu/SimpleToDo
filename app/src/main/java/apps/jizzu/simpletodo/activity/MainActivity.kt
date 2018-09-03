@@ -8,12 +8,10 @@ import android.content.ComponentName
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.NotificationCompat
-import android.support.v4.app.RemoteInput
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -308,15 +306,14 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
 
         // Set NotificationChannel for Android Oreo
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(AlarmReceiver.CHANNEL_ID, "SimpleToDo Notifications",
-                    NotificationManager.IMPORTANCE_HIGH)
-            channel.enableLights(true)
-            channel.lightColor = Color.GREEN
-            channel.enableVibration(true)
+            val channel = NotificationChannel(AlarmReceiver.GENERAL_NOTIFICATION_CHANNEL_ID, getString(R.string.general_notification_channel),
+                    NotificationManager.IMPORTANCE_LOW)
+            channel.enableLights(false)
+            channel.enableVibration(false)
             mNotificationManager.createNotificationChannel(channel)
         }
 
-        val builder = NotificationCompat.Builder(this, AlarmReceiver.CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, AlarmReceiver.GENERAL_NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(notificationTitle)
                 .setContentText(stringBuilder.toString())
                 .setNumber(mAdapter.itemCount)
@@ -333,9 +330,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
     /**
      * Removes general notification.
      */
-    private fun removeGeneralNotification() {
-        mNotificationManager.cancel(1)
-    }
+    private fun removeGeneralNotification() = mNotificationManager.cancel(1)
 
     /**
      * Updates general notification data when user click the "Cancel" snackbar button.

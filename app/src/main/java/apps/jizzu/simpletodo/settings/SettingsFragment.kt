@@ -1,15 +1,17 @@
 package apps.jizzu.simpletodo.settings
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.preference.CheckBoxPreference
-import android.preference.Preference
-import android.preference.PreferenceFragment
+import android.preference.*
 import android.provider.Settings
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
@@ -18,6 +20,7 @@ import android.widget.Toast
 import apps.jizzu.simpletodo.BuildConfig
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter
+import apps.jizzu.simpletodo.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.utils.BackupHelper
 import apps.jizzu.simpletodo.utils.DeviceInfo
 import apps.jizzu.simpletodo.utils.PreferenceHelper
@@ -39,32 +42,80 @@ class SettingsFragment : PreferenceFragment() {
         super.onCreate(savedInstanceState)
 
         mBackupHelper = BackupHelper(activity)
-
-        addPreferencesFromResource(R.xml.preferences)
-
         mPreferenceHelper = PreferenceHelper.getInstance()
 
-        mAnimation = findPreference("animation") as CheckBoxPreference
+        val screen = preferenceManager.createPreferenceScreen(activity)
+
+        val categoryGeneralSettings = PreferenceCategory(activity)
+        categoryGeneralSettings.title = getString(R.string.category_general)
+        screen.addPreference(categoryGeneralSettings)
+
+        mAnimation = CheckBoxPreference(activity)
+        mAnimation.title = getString(R.string.preferences_animation_title)
+        mAnimation.summary = getString(R.string.preferences_animation_summary)
         mAnimation.isChecked = mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)
+        categoryGeneralSettings.addPreference(mAnimation)
 
         mAnimation.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             mPreferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, mAnimation.isChecked)
-
             true
         }
 
-        mGeneralNotification = findPreference("general_notification") as CheckBoxPreference
+        mGeneralNotification = CheckBoxPreference(activity)
+        mGeneralNotification.title = getString(R.string.preferences_general_notification_title)
+        mGeneralNotification.summary = getString(R.string.preferences_general_notification_summary)
         mGeneralNotification.isChecked = mPreferenceHelper.getBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON)
+        categoryGeneralSettings.addPreference(mGeneralNotification)
 
         mGeneralNotification.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, mGeneralNotification.isChecked)
-
             true
         }
 
-        val dateFormat = findPreference("date_format")
-        dateFormat.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationChannel = notificationManager.getNotificationChannel(AlarmReceiver.NOTIFICATION_CHANNEL_ID)
 
+            if (notificationChannel == null) {
+                val channel = NotificationChannel(AlarmReceiver.NOTIFICATION_CHANNEL_ID, context.getString(R.string.notification_channel),
+                        NotificationManager.IMPORTANCE_HIGH)
+
+                channel.enableLights(true)
+                channel.lightColor = Color.GREEN
+                channel.enableVibration(true)
+                notificationManager.createNotificationChannel(channel)
+            }
+
+            val notificationSound = Preference(activity)
+            notificationSound.title = getString(R.string.preferences_notification_channel_title)
+            notificationSound.summary = getString(R.string.preferences_notification_channel_summary)
+            categoryGeneralSettings.addPreference(notificationSound)
+
+            notificationSound.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+                        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                        .putExtra(Settings.EXTRA_CHANNEL_ID, AlarmReceiver.NOTIFICATION_CHANNEL_ID)
+                startActivity(intent)
+                true
+            }
+        } else {
+            val notificationSound = RingtonePreference(activity)
+            notificationSound.key = "notification_sound"
+            notificationSound.title = getString(R.string.preferences_notification_sound_title)
+            notificationSound.summary = getString(R.string.preferences_notification_sound_summary)
+            categoryGeneralSettings.addPreference(notificationSound)
+        }
+
+        val categoryDateAndTime = PreferenceCategory(activity)
+        categoryDateAndTime.title = getString(R.string.category_date_and_time)
+        screen.addPreference(categoryDateAndTime)
+
+        val dateFormat = Preference(activity)
+        dateFormat.title = getString(R.string.preferences_date_format_title)
+        dateFormat.summary = getString(R.string.preferences_date_format_summary)
+        categoryDateAndTime.addPreference(dateFormat)
+
+        dateFormat.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val listItems = resources.getStringArray(R.array.date_format_list)
             mSelectedItemPosition = mPreferenceHelper.getInt(PreferenceHelper.DATE_FORMAT_KEY)
 
@@ -83,7 +134,39 @@ class SettingsFragment : PreferenceFragment() {
             true
         }
 
-        val createBackup = findPreference("backup")
+        val timeFormat = Preference(activity)
+        timeFormat.title = getString(R.string.preferences_time_format_title)
+        timeFormat.summary = getString(R.string.preferences_time_format_summary)
+        categoryDateAndTime.addPreference(timeFormat)
+
+        timeFormat.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            val listItems = resources.getStringArray(R.array.time_format_list)
+            mSelectedItemPosition = mPreferenceHelper.getInt(PreferenceHelper.TIME_FORMAT_KEY)
+
+            val mBuilder = AlertDialog.Builder(activity, R.style.AlertDialogStyle)
+            mBuilder.setTitle(getString(R.string.time_format_dialog_title))
+            mBuilder.setSingleChoiceItems(listItems, mSelectedItemPosition) { dialogInterface, i ->
+                mSelectedItemPosition = i
+                mPreferenceHelper.putInt(PreferenceHelper.TIME_FORMAT_KEY, i)
+                dialogInterface.dismiss()
+            }
+            val mDialog = mBuilder.create()
+            mDialog.show()
+
+            val adapter = RecyclerViewAdapter.getInstance()
+            adapter.reloadTasks()
+            true
+        }
+
+        val categoryBackupAndRestore = PreferenceCategory(activity)
+        categoryBackupAndRestore.title = getString(R.string.category_backup_and_restore)
+        screen.addPreference(categoryBackupAndRestore)
+
+        val createBackup = Preference(activity)
+        createBackup.title = getString(R.string.preferences_backup_create_title)
+        createBackup.summary = getString(R.string.preferences_backup_create_summary)
+        categoryBackupAndRestore.addPreference(createBackup)
+
         createBackup.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             mIsCreatingProcess = true
 
@@ -95,7 +178,11 @@ class SettingsFragment : PreferenceFragment() {
             true
         }
 
-        val restoreBackup = findPreference("restore")
+        val restoreBackup = Preference(activity)
+        restoreBackup.title = getString(R.string.preferences_backup_restore_title)
+        restoreBackup.summary = getString(R.string.preferences_backup_restore_summary)
+        categoryBackupAndRestore.addPreference(restoreBackup)
+
         restoreBackup.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             if (hasPermissions()) {
                 mBackupHelper.showRestoreDialog()
@@ -105,9 +192,15 @@ class SettingsFragment : PreferenceFragment() {
             true
         }
 
-        findPreference("about_version").onPreferenceClickListener = createPreferenceClickListener("https://github.com/Jizzu/SimpleToDo")
+        val categoryAdditional = PreferenceCategory(activity)
+        categoryAdditional.title = getString(R.string.category_additional)
+        screen.addPreference(categoryAdditional)
 
-        val rateThisApp = findPreference("rate_app")
+        val rateThisApp = Preference(activity)
+        rateThisApp.title = getString(R.string.preferences_rate_app_title)
+        rateThisApp.summary = getString(R.string.preferences_rate_app_summary)
+        categoryAdditional.addPreference(rateThisApp)
+
         rateThisApp.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val appPackageName = activity.packageName
             try {
@@ -115,11 +208,14 @@ class SettingsFragment : PreferenceFragment() {
             } catch (anfe: android.content.ActivityNotFoundException) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
             }
-
             true
         }
 
-        val sendFeedback = findPreference("send_feedback")
+        val sendFeedback = Preference(activity)
+        sendFeedback.title = getString(R.string.preferences_send_feedback_title)
+        sendFeedback.summary = getString(R.string.preferences_send_feedback_summary)
+        categoryAdditional.addPreference(sendFeedback)
+
         sendFeedback.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val email = Intent(Intent.ACTION_SENDTO)
             email.data = Uri.Builder().scheme("mailto").build()
@@ -133,22 +229,41 @@ class SettingsFragment : PreferenceFragment() {
             } catch (ex: android.content.ActivityNotFoundException) {
                 Toast.makeText(activity, "There are no email clients installed.", Toast.LENGTH_SHORT).show()
             }
-
             true
         }
 
-        val otherApps = findPreference("other_apps")
+        val otherApps = Preference(activity)
+        otherApps.title = getString(R.string.preferences_other_apps_title)
+        otherApps.summary = getString(R.string.preferences_other_apps_summary)
+        categoryAdditional.addPreference(otherApps)
+
         otherApps.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Ilya+Ponomarenko")))
             true
         }
 
-        val licences = findPreference("about_licenses")
+        val categoryAbout = PreferenceCategory(activity)
+        categoryAbout.title = getString(R.string.category_about)
+        screen.addPreference(categoryAbout)
+
+        val aboutVersion = Preference(activity)
+        aboutVersion.title = getString(R.string.preferences_about_version_title)
+        aboutVersion.summary = "1.3"
+        categoryAbout.addPreference(aboutVersion)
+
+        aboutVersion.onPreferenceClickListener = createPreferenceClickListener("https://github.com/Jizzu/SimpleToDo")
+
+        val licences = Preference(activity)
+        licences.title = getString(R.string.preferences_about_licenses_title)
+        licences.summary = getString(R.string.preferences_about_licenses_summary)
+        categoryAbout.addPreference(licences)
+
         licences.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(activity, LicensesActivity::class.java)
             startActivity(intent)
             true
         }
+        preferenceScreen = screen
     }
 
     private fun createPreferenceClickListener(uriString: String): Preference.OnPreferenceClickListener {

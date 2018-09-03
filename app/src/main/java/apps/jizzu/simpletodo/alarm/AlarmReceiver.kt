@@ -41,20 +41,22 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val ringtonePath = preferences.getString("notification_sound", "")
+        val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
 
         // Set NotificationChannel for Android Oreo
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID, "SimpleToDo Notifications",
-                    NotificationManager.IMPORTANCE_HIGH)
-            channel.enableLights(true)
-            channel.lightColor = Color.GREEN
-            channel.enableVibration(true)
-            notificationManager.createNotificationChannel(channel)
-        }
+            val notificationChannel = notificationManager.getNotificationChannel(NOTIFICATION_CHANNEL_ID)
 
-        // Customize and create notifications
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-        if (ringtonePath != "") {
+            if (notificationChannel == null) {
+                val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID, context.getString(R.string.notification_channel),
+                        NotificationManager.IMPORTANCE_HIGH)
+
+                channel.enableLights(true)
+                channel.lightColor = Color.GREEN
+                channel.enableVibration(true)
+                notificationManager.createNotificationChannel(channel)
+            }
+        } else if (ringtonePath != "") {
             if (SDK_INT >= LOLLIPOP) {
                 builder.setSound(Uri.parse(ringtonePath), USAGE_NOTIFICATION)
             } else {
@@ -74,6 +76,7 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        const val CHANNEL_ID = "1"
+        const val NOTIFICATION_CHANNEL_ID = "1"
+        const val GENERAL_NOTIFICATION_CHANNEL_ID = "2"
     }
 }

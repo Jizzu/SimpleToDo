@@ -16,7 +16,7 @@
         android:padding="10dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:text="SIMPLE TODO"
+        android:text="@string/simple_todo_title"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
@@ -24,7 +24,7 @@
         android:id="@+id/widget_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="5dp"
         android:divider="@null"
-        android:dividerHeight="10dp"
-        android:layout_margin="5dp" />
+        android:dividerHeight="10dp" />
 </LinearLayout>

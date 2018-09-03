@@ -22,7 +22,6 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TextInputLayout
@@ -139,5 +138,4 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
-
 </RelativeLayout>

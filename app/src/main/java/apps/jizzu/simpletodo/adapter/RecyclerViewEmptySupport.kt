@@ -33,7 +33,7 @@ class RecyclerViewEmptySupport : RecyclerView {
     }
 
     fun checkIfEmpty() {
-        if (mEmptyView != null && adapter != null && !MainActivity.mSearchViewIsOpen) {
+        if (mEmptyView != null && adapter != null && !isAnimationCanceled && !MainActivity.mSearchViewIsOpen) {
             val emptyViewVisible = adapter.itemCount == 0
             mEmptyView!!.visibility = if (emptyViewVisible) View.VISIBLE else View.GONE
             visibility = if (emptyViewVisible) View.GONE else View.VISIBLE
@@ -70,5 +70,9 @@ class RecyclerViewEmptySupport : RecyclerView {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
-    abstract class EmptyAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+    abstract class EmptyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+
+    companion object {
+        var isAnimationCanceled: Boolean = false
+    }
 }

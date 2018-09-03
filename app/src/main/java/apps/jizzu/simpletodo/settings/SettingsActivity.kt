@@ -2,16 +2,14 @@ package apps.jizzu.simpletodo.settings
 
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
-import android.content.ContentValues
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
-
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
 import apps.jizzu.simpletodo.widget.WidgetProvider
 
 /**
@@ -48,7 +46,8 @@ class SettingsActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-        Log.d(ContentValues.TAG, "WIDGET IS UPDATED!")
+        RecyclerViewEmptySupport.isAnimationCanceled = false
+
         val intent = Intent(this, WidgetProvider::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
         val ids = AppWidgetManager.getInstance(this@SettingsActivity)

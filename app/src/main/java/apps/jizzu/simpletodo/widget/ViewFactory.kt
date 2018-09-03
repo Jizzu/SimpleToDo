@@ -74,7 +74,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
                     remoteViews.setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red))
                     remoteViews.setTextViewText(R.id.item_date, Utils.getFullDate(mListData[position].date))
                 }
-                else -> remoteViews.setTextViewText(R.id.item_date, Utils.getFullDate(mListData[position].date))
+                else -> remoteViews.setTextViewText(R.id.item_date, Utils.getFullDate(mListData[position].date) + mContext.getString(R.string.date_format_at) + Utils.getTime(mListData[position].date))
             }
         } else {
             val displayMetrics = DisplayMetrics()

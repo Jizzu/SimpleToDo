@@ -22,6 +22,7 @@ class LicensesFragment : PreferenceFragment() {
     }
 
     private fun addLicenses() {
+        findPreference("kotter_knife").onPreferenceClickListener = createPreferenceClickListener("https://github.com/JakeWharton/kotterknife")
         findPreference("material_search_view").onPreferenceClickListener = createPreferenceClickListener("https://github.com/MiguelCatalan/MaterialSearchView")
         findPreference("circular_anim").onPreferenceClickListener = createPreferenceClickListener("https://github.com/XunMengWinter/CircularAnim")
         findPreference("whats_new").onPreferenceClickListener = createPreferenceClickListener("https://github.com/TonnyL/WhatsNew")

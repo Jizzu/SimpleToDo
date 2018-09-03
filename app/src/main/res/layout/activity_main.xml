@@ -21,14 +21,13 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </android.support.v7.widget.Toolbar>
 
     <com.miguelcatalan.materialsearchview.MaterialSearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/MaterialSearchViewStyle"/>
+        android:theme="@style/MaterialSearchViewStyle" />
 
     <apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
         android:id="@+id/tasksList"
@@ -72,5 +71,4 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_white_24dp" />
-
 </android.support.design.widget.CoordinatorLayout>

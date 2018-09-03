@@ -24,7 +24,7 @@ import kotlin.collections.ArrayList
 /**
  * Adapters connect the list views (RecyclerView for example) to it's contents (uses the Singleton pattern).
  */
-class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.EmptyAdapter<RecyclerView.ViewHolder>() {
+class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.EmptyAdapter() {
 
     private lateinit var mHelper: DBHelper
     private lateinit var mContext: Context
@@ -215,6 +215,7 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
     fun reloadTasks() {
         val backupList = ArrayList<ModelTask>()
         backupList.addAll(mTaskList)
+        RecyclerViewEmptySupport.isAnimationCanceled = true
 
         removeAllTasks()
         for (task in backupList) {
@@ -285,7 +286,7 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
                     taskViewHolder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red))
                     taskViewHolder.date.text = Utils.getFullDate(task.date)
                 }
-                else -> taskViewHolder.date.text = Utils.getFullDate(task.date)
+                else -> taskViewHolder.date.text = Utils.getFullDate(task.date) + mContext.getString(R.string.date_format_at) + Utils.getTime(task.date)
             }
         } else {
             Log.d(TAG, "TASK WITHOUT DATE")

@@ -19,10 +19,14 @@
     <string name="preferences_animation_summary">Включить анимацию для элементов интерфейса</string>
     <string name="preferences_general_notification_title">Включить общее уведомление</string>
     <string name="preferences_general_notification_summary">Показывать отдельное уведомление с вашим текущим списком задач</string>
+    <string name="preferences_notification_channel_title">Параметры уведомлений</string>
+    <string name="preferences_notification_channel_summary">Настройка звука, вибрации и т.д.</string>
     <string name="preferences_notification_sound_title">Звук уведомления</string>
     <string name="preferences_notification_sound_summary">Настройка звука уведомления</string>
     <string name="preferences_date_format_title">Формат даты</string>
     <string name="preferences_date_format_summary">Изменить формат даты</string>
+    <string name="preferences_time_format_title">Формат времени</string>
+    <string name="preferences_time_format_summary">Изменить формат времени</string>
     <string name="preferences_backup_create_title">Создать резервную копию</string>
     <string name="preferences_backup_create_summary">Экспорт задач в память устройства</string>
     <string name="preferences_backup_restore_title">Восстановить резервную копию</string>
@@ -43,6 +47,7 @@
     <string name="feedback">Отзыв: </string>
 
     <string name="category_general">Общие настройки</string>
+    <string name="category_date_and_time">Дата и время</string>
     <string name="category_backup_and_restore">Резервное копирование данных</string>
     <string name="category_additional">Дополнительно</string>
     <string name="category_about">О приложении</string>
@@ -88,15 +93,18 @@
     <string name="general_notification_3">активных задачи:</string>
     <string name="general_notification_4">активных задач:</string>
 
+    <string name="notification_channel">Уведомления</string>
+    <string name="general_notification_channel">Общее уведомление</string>
+
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Что нового?</string>
     <string name="whats_new_button_text">Продолжить</string>
-    <string name="whats_new_item_1_title">Настройка звука уведомления</string>
-    <string name="whats_new_item_1_text">Теперь вы можете устанавливать свои рингтоны в качестве звука для уведомлений</string>
-    <string name="whats_new_item_2_title">Улучшение виджета</string>
-    <string name="whats_new_item_2_text">Все задачи, отображаемые в виджете, стали кликабельны</string>
+    <string name="whats_new_item_1_title">Форматирование даты и времени</string>
+    <string name="whats_new_item_1_text">Теперь вы можете выбрать формат даты и времени в настройках приложения</string>
+    <string name="whats_new_item_2_title">Изменения в интерфейсе</string>
+    <string name="whats_new_item_2_text">Упрощён процесс добавления и редактирования задач</string>
     <string name="whats_new_item_3_title">Исправление ошибок</string>
-    <string name="whats_new_item_3_text">Исправлено множество ошибок</string>
+    <string name="whats_new_item_3_text">Исправлены некоторые ошибки</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
@@ -105,11 +113,18 @@
     <string name="rate_dialog_no">Нет, спасибо</string>
 
     ////////////////<!-- Date format dialog -->/////////////////
-    <string name="date_format_dialog_title">Выберете формат даты:</string>
+    <string name="date_format_dialog_title">Выберите формат даты:</string>
+    <string name="date_format_at">" в "</string>
     <string-array name="date_format_list">
         <item>День.Месяц.Год</item>
         <item>Год.Месяц.День</item>
         <item>Месяц.День.Год</item>
         <item>Год.День.Месяц</item>
+    </string-array>
+
+    <string name="time_format_dialog_title">Выберите формат времени:</string>
+    <string-array name="time_format_list">
+        <item>24-часовой формат</item>
+        <item>12-часовой формат</item>
     </string-array>
 </resources>
