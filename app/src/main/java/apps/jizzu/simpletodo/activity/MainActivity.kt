@@ -33,7 +33,7 @@ import apps.jizzu.simpletodo.alarm.AlarmHelper
 import apps.jizzu.simpletodo.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.database.DBHelper
 import apps.jizzu.simpletodo.model.ModelTask
-import apps.jizzu.simpletodo.settings.SettingsActivity
+import apps.jizzu.simpletodo.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.utils.Interpolator
 import apps.jizzu.simpletodo.utils.MyApplication
 import apps.jizzu.simpletodo.utils.PreferenceHelper
@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
     private val mSearchView: MaterialSearchView by bindView(R.id.search_view)
     private val mFab: FloatingActionButton by bindView(R.id.fab)
 
-    private lateinit var mContext: Context
     private lateinit var mAdapter: RecyclerViewAdapter
     private lateinit var mHelper: DBHelper
     private lateinit var mPreferenceHelper: PreferenceHelper
@@ -79,7 +78,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         whatsNew.buttonTextColor = ContextCompat.getColor(this, R.color.white)
         whatsNew.presentAutomatically(this@MainActivity)
 
-        mContext = this@MainActivity
         mSearchViewIsOpen = false
         title = ""
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -96,7 +94,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         PreferenceHelper.getInstance().init(applicationContext)
         mPreferenceHelper = PreferenceHelper.getInstance()
 
-        RecyclerViewEmptySupport(mContext)
+        RecyclerViewEmptySupport(this)
         mRecyclerView.setHasFixedSize(true)
 
         mLayoutManager = LinearLayoutManager(this)
@@ -122,7 +120,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(mRecyclerView)
 
-        mHelper = DBHelper.getInstance(mContext)
+        mHelper = DBHelper.getInstance(this)
         addTasksFromDB()
 
         // Show rate this app dialog
@@ -397,7 +395,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
                 val handler = Handler()
                 handler.postDelayed({
                     mFab.visibility = View.VISIBLE
-                    val myAnim = AnimationUtils.loadAnimation(mContext, R.anim.fab_animation)
+                    val myAnim = AnimationUtils.loadAnimation(this, R.anim.fab_animation)
                     val interpolator = Interpolator(0.2, 20.0)
                     myAnim.interpolator = interpolator
                     mFab.startAnimation(myAnim)

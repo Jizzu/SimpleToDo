@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.settings
+package apps.jizzu.simpletodo.settings.fragment
 
 import android.Manifest
 import android.app.NotificationChannel
@@ -21,6 +21,7 @@ import apps.jizzu.simpletodo.BuildConfig
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter
 import apps.jizzu.simpletodo.alarm.AlarmReceiver
+import apps.jizzu.simpletodo.settings.activity.LicensesActivity
 import apps.jizzu.simpletodo.utils.BackupHelper
 import apps.jizzu.simpletodo.utils.DeviceInfo
 import apps.jizzu.simpletodo.utils.PreferenceHelper

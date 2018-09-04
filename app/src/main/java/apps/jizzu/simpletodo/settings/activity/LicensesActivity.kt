@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.settings
+package apps.jizzu.simpletodo.settings.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.TextView
 
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.settings.fragment.LicensesFragment
 
 /**
  * Activity which contains LicensesFragment.

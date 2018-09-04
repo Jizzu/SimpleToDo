@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.settings
+package apps.jizzu.simpletodo.settings.fragment
 
 import android.content.Intent
 import android.net.Uri

@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.settings
+package apps.jizzu.simpletodo.settings.activity
 
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
+import apps.jizzu.simpletodo.settings.fragment.SettingsFragment
 import apps.jizzu.simpletodo.widget.WidgetProvider
 
 /**
