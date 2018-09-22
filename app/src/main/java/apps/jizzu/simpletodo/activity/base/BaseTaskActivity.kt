@@ -6,10 +6,8 @@ import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.SwitchCompat
-import android.support.v7.widget.Toolbar
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
@@ -17,11 +15,15 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.Toolbar
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.activity.MainActivity
 import apps.jizzu.simpletodo.fragment.DatePickerFragment
 import apps.jizzu.simpletodo.fragment.TimePickerFragment
 import apps.jizzu.simpletodo.utils.Utils
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_add_task.*
 import kotterknife.bindView
 import java.util.*
@@ -32,12 +34,13 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
     lateinit var mCalendar: Calendar
     val mReminderSwitch: SwitchCompat by bindView(R.id.reminderSwitch)
     val mReminderLayout: RelativeLayout by bindView(R.id.reminderContainer)
-    val mTitleEditText: EditText by bindView(R.id.taskTitle)
-    val mDateEditText: EditText by bindView(R.id.taskDate)
-    val mTimeEditText: EditText by bindView(R.id.taskTime)
+    val mTitleEditText: TextInputEditText by bindView(R.id.taskTitle)
+    val mDateEditText: TextInputEditText by bindView(R.id.taskDate)
+    val mTimeEditText: TextInputEditText by bindView(R.id.taskTime)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_task)
         mCalendar = Calendar.getInstance()
         MainActivity.mActivityIsShown = true
         screenResolutionCheck()
@@ -58,8 +61,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
         if (toolbar != null) {
             setSupportActionBar(toolbar)
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp)
-            toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
+            supportActionBar!!.setHomeAsUpIndicator(R.drawable.round_close_black_24)
         }
     }
 
@@ -85,6 +87,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
                         object : Animator.AnimatorListener {
                             override fun onAnimationStart(animation: Animator) {
                                 mReminderLayout.visibility = View.VISIBLE
+
                             }
 
                             override fun onAnimationEnd(animation: Animator) {}
@@ -118,6 +121,22 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
                 mTimeEditText.text = null
             }
         }
+
+        mTitleEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                if (mTitleEditText.length() != 0) {
+                    taskTitleLayout.error = null
+                }
+            }
+        })
 
         mDateEditText.setOnClickListener {
             mDateEditText.text = null

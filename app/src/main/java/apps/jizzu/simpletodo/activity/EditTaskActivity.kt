@@ -1,8 +1,10 @@
 package apps.jizzu.simpletodo.activity
 
 import android.content.ContentValues.TAG
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -10,7 +12,7 @@ import android.view.View
 import android.widget.Toast
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.activity.base.BaseTaskActivity
-import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter
+import apps.jizzu.simpletodo.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.alarm.AlarmHelper
 import apps.jizzu.simpletodo.database.DBHelper
 import apps.jizzu.simpletodo.model.ModelTask
@@ -31,7 +33,6 @@ class EditTaskActivity : BaseTaskActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
 
         initToolbar(getString(R.string.edit_task))
         mAdapter = RecyclerViewAdapter.getInstance()
@@ -45,7 +46,7 @@ class EditTaskActivity : BaseTaskActivity() {
         Log.d(TAG, "TASK DATE = $mDate")
 
         mTitleEditText.setText(title)
-        mTitleEditText.setSelection(mTitleEditText.text.length)
+        mTitleEditText.setSelection(mTitleEditText.text!!.length)
         if (mDate != 0L) {
             mDateEditText.setText(Utils.getDate(mDate))
             mTimeEditText.setText(Utils.getTime(mDate))
@@ -72,8 +73,8 @@ class EditTaskActivity : BaseTaskActivity() {
         addTaskButton.text = getString(R.string.update_task)
         addTaskButton.setOnClickListener {
             when {
-                mTitleEditText.length() == 0 -> mTitleEditText.error = getString(R.string.error_text_input)
-                mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> mTitleEditText.error = getString(R.string.error_spaces)
+                mTitleEditText.length() == 0 -> taskTitleLayout.error = getString(R.string.error_text_input)
+                mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> taskTitleLayout.error = getString(R.string.error_spaces)
                 else -> {
                     val dbHelper = DBHelper.getInstance(this)
 

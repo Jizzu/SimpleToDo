@@ -1,8 +1,7 @@
-package apps.jizzu.simpletodo.adapter
+package apps.jizzu.simpletodo.recycler
 
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -13,11 +12,10 @@ import apps.jizzu.simpletodo.activity.MainActivity
 /**
  * Adds the setEmptyView method for the RecyclerView.
  */
-class RecyclerViewEmptySupport : RecyclerView {
-
+class RecyclerViewEmptySupport : androidx.recyclerview.widget.RecyclerView {
     private var mEmptyView: View? = null
 
-    private val observer: RecyclerView.AdapterDataObserver = object : RecyclerView.AdapterDataObserver() {
+    private val observer: androidx.recyclerview.widget.RecyclerView.AdapterDataObserver = object : androidx.recyclerview.widget.RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
             super.onChanged()
             checkIfEmpty()
@@ -34,7 +32,7 @@ class RecyclerViewEmptySupport : RecyclerView {
 
     fun checkIfEmpty() {
         if (mEmptyView != null && adapter != null && !isAnimationCanceled && !MainActivity.mSearchViewIsOpen) {
-            val emptyViewVisible = adapter.itemCount == 0
+            val emptyViewVisible = adapter!!.itemCount == 0
             mEmptyView!!.visibility = if (emptyViewVisible) View.VISIBLE else View.GONE
             visibility = if (emptyViewVisible) View.GONE else View.VISIBLE
 
@@ -50,7 +48,7 @@ class RecyclerViewEmptySupport : RecyclerView {
         }
     }
 
-    override fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
+    override fun setAdapter(adapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>?) {
         val oldAdapter = getAdapter()
         oldAdapter?.unregisterAdapterDataObserver(observer)
 
@@ -70,7 +68,7 @@ class RecyclerViewEmptySupport : RecyclerView {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
-    abstract class EmptyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+    abstract class EmptyAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>()
 
     companion object {
         var isAnimationCanceled: Boolean = false

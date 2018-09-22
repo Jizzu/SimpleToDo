@@ -1,12 +1,11 @@
 package apps.jizzu.simpletodo.settings.activity
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.widget.TextView
-
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.settings.fragment.LicensesFragment
 

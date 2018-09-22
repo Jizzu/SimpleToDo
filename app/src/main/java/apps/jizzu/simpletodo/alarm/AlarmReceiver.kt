@@ -11,9 +11,9 @@ import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.preference.PreferenceManager
-import android.support.v4.app.NotificationCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.media.AudioAttributesCompat.USAGE_NOTIFICATION
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+import androidx.media.AudioAttributesCompat.USAGE_NOTIFICATION
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.activity.MainActivity
 import apps.jizzu.simpletodo.utils.MyApplication

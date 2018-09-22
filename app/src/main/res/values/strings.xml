@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">Simple ToDo</string>
-    <string name="simple_todo_title">SIMPLE TODO</string>
+    <string name="simple_todo_title">S I M P L E \u0020\u0020 T O D O</string>
     <string name="empty_view_title">No tasks</string>
     <string name="empty_view_text">You can create new tasks \n using the + button</string>
-    <string name="create_task">NEW TASK</string>
+    <string name="create_task">N E W \u0020\u0020 T A S K</string>
     <string name="set_reminder">Set reminder</string>
     <string name="set_reminder_short">Reminder</string>
     <string name="hint_title">Title</string>
     <string name="hint_date">Date</string>
     <string name="hint_time">Time</string>
-    <string name="add_task">ADD TASK</string>
-    <string name="update_task">UPDATE TASK</string>
-    <string name="edit_task">EDIT TASK</string>
+    <string name="add_task">A D D</string>
+    <string name="update_task">U P D A T E</string>
+    <string name="edit_task">E D I T \u0020\u0020 T A S K</string>
 
     <string name="toast_incorrect_time">Error! You have selected an incorrect time!</string>
     <string name="error_text_input">Please, input some text!</string>
@@ -54,7 +54,7 @@
     <string name="category_additional">Additional</string>
     <string name="category_about">About</string>
 
-    <string name="settings">SETTINGS</string>
+    <string name="settings">S E T T I N G S</string>
     <string name="settings_menu">Settings</string>
     <string name="licenses">LICENSES</string>
     <string name="search">Search</string>

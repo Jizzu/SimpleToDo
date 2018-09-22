@@ -3,7 +3,7 @@ package apps.jizzu.simpletodo.widget
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.text.format.DateUtils
 import android.util.DisplayMetrics
 import android.util.Log
@@ -12,7 +12,7 @@ import android.view.WindowManager
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter
+import apps.jizzu.simpletodo.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.model.ModelTask
 import apps.jizzu.simpletodo.utils.Utils
 import java.util.*
@@ -53,7 +53,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
      * Get a View that displays the data at the specified position in the data set.
      */
     override fun getViewAt(position: Int): RemoteViews {
-        val remoteViews = RemoteViews(mContext.packageName, R.layout.widget_item)
+        val remoteViews = RemoteViews(mContext.packageName, R.layout.widget_task_item)
         remoteViews.setTextViewText(R.id.item_title, mListData[position].title)
 
         if (mListData[position].date != 0L) {

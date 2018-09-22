@@ -8,18 +8,19 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.preference.*
 import android.provider.Settings
-import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AlertDialog
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AlertDialog
 import android.widget.Toast
 import apps.jizzu.simpletodo.BuildConfig
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter
+import apps.jizzu.simpletodo.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.settings.activity.LicensesActivity
 import apps.jizzu.simpletodo.utils.BackupHelper
@@ -36,7 +37,7 @@ class SettingsFragment : PreferenceFragment() {
     private lateinit var mGeneralNotification: CheckBoxPreference
     private lateinit var mBackupHelper: BackupHelper
 
-    private var mIsCreatingProcess: Boolean = false
+    private var mIsCreatingProcess = false
     private var mSelectedItemPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,15 +125,14 @@ class SettingsFragment : PreferenceFragment() {
             val listItems = resources.getStringArray(R.array.date_format_list)
             mSelectedItemPosition = mPreferenceHelper.getInt(PreferenceHelper.DATE_FORMAT_KEY)
 
-            val mBuilder = AlertDialog.Builder(activity, R.style.AlertDialogStyle)
-            mBuilder.setTitle(getString(R.string.date_format_dialog_title))
-            mBuilder.setSingleChoiceItems(listItems, mSelectedItemPosition) { dialogInterface, i ->
+            val alertDialog = AlertDialog.Builder(activity, R.style.AlertDialogStyle)
+            alertDialog.setTitle(getString(R.string.date_format_dialog_title))
+            alertDialog.setSingleChoiceItems(listItems, mSelectedItemPosition) { dialogInterface, i ->
                 mSelectedItemPosition = i
                 mPreferenceHelper.putInt(PreferenceHelper.DATE_FORMAT_KEY, i)
                 dialogInterface.dismiss()
             }
-            val mDialog = mBuilder.create()
-            mDialog.show()
+            alertDialog.show()
 
             val adapter = RecyclerViewAdapter.getInstance()
             adapter.reloadTasks()

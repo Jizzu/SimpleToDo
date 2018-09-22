@@ -1,12 +1,13 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/white</item>
-        <item name="android:fontFamily">@font/averta_regular</item>
+        <item name="android:fontFamily">@font/product_sans</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="EditTextHint" parent="Theme.AppCompat.Light.NoActionBar">
@@ -29,6 +30,7 @@
 
     <style name="DialogButtonStyle" parent="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/colorAccent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -37,5 +39,4 @@
         <item name="android:textColor">@color/black</item>
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
-
 </resources>

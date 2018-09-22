@@ -5,9 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-
 import apps.jizzu.simpletodo.model.ModelTask
-
 import android.content.Context.NOTIFICATION_SERVICE
 
 /**

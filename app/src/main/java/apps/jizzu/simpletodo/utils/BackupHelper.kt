@@ -3,11 +3,11 @@ package apps.jizzu.simpletodo.utils
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Environment
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter
+import apps.jizzu.simpletodo.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.database.DBHelper
 import apps.jizzu.simpletodo.model.ModelTask
 import java.io.*

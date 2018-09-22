@@ -5,35 +5,37 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/white"
     tools:context="apps.jizzu.simpletodo.activity.AddTaskActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@null">
+        android:layout_height="?attr/actionBarSize">
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/taskTitleLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp">
+        app:boxStrokeColor="@color/grey_white"
+        app:errorEnabled="true">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/taskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,8 +43,8 @@
             android:inputType="textAutoCorrect|textCapSentences"
             android:lines="2"
             android:maxLines="3"
-            android:textColor="@color/white" />
-    </android.support.design.widget.TextInputLayout>
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
         android:id="@+id/addAlarmIcon"
@@ -50,9 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/taskTitleLayout"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_alarm_add_white_24dp" />
+        android:src="@drawable/round_add_alarm_black_24" />
 
     <TextView
         android:id="@+id/tvSetReminder"
@@ -60,20 +62,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/taskTitleLayout"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:layout_toEndOf="@id/addAlarmIcon"
         android:text="@string/set_reminder"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp" />
 
-    <android.support.v7.widget.SwitchCompat
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/reminderSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_below="@+id/taskTitleLayout"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="32dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp" />
 
     <RelativeLayout
         android:id="@+id/reminderContainer"
@@ -81,15 +83,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reminderSwitch">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/taskDateLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:theme="@style/EditTextHint">
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/colorPrimary">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/taskDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,45 +100,47 @@
                 android:focusableInTouchMode="false"
                 android:hint="@string/hint_date"
                 android:inputType="none"
-                android:textColor="@color/white"
-                app:backgroundTint="@color/colorAccent"
+                android:textColor="@color/black"
                 tools:ignore="TextFields" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/taskTimeLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginTop="32dp"
-            android:theme="@style/EditTextHint">
+            android:textColorHint="@color/colorPrimary">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/taskTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cursorVisible="false"
+                android:focusable="true"
                 android:focusableInTouchMode="false"
                 android:hint="@string/hint_time"
                 android:inputType="none"
-                android:textColor="@color/white"
-                app:backgroundTint="@color/colorAccent" />
-        </android.support.design.widget.TextInputLayout>
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+        </com.google.android.material.textfield.TextInputLayout>
     </RelativeLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addTaskButton"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/colorPrimary"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_corner"
         android:text="@string/add_task"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="50dp" />
 </RelativeLayout>

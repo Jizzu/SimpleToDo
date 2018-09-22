@@ -2,7 +2,6 @@ package apps.jizzu.simpletodo.database
 
 import android.content.Context
 import android.os.AsyncTask
-
 import apps.jizzu.simpletodo.model.ModelTask
 
 /**

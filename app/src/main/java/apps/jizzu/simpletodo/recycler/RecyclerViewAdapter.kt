@@ -1,11 +1,10 @@
-package apps.jizzu.simpletodo.adapter
+package apps.jizzu.simpletodo.recycler
 
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
 import android.text.format.DateUtils
 import android.util.DisplayMetrics
 import android.util.Log
@@ -81,7 +80,7 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
     /**
      * Removes an item from the list (with Snackbar).
      */
-    fun removeTask(position: Int, recyclerView: RecyclerView) {
+    fun removeTask(position: Int, recyclerView: androidx.recyclerview.widget.RecyclerView) {
         val taskID = mTaskList[position].id
         val isRemoved = booleanArrayOf(true)
         val timeStamp = mTaskList[position].timeStamp
@@ -228,8 +227,8 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
      * parent: The ViewGroup into which the new View will be added after it is bound to an adapter position
      * viewType: The view type of the new View.
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.model_task, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
         val title = v.findViewById<TextView>(R.id.tvTaskTitle)
         val date = v.findViewById<TextView>(R.id.tvTaskDate)
 
@@ -244,7 +243,7 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
      * holder: The ViewHolder which should be updated to represent the contents of the item at the given position in the data set
      * position: The position of the item within the adapter's data set.
      */
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         val task = mTaskList[position]
 
         val taskViewHolder = holder as TaskViewHolder
@@ -318,7 +317,7 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
     /**
      * This class helps to get a reference to each element of a particular list item.
      */
-    inner class TaskViewHolder internal constructor(itemView: View, internal var title: TextView, internal var date: TextView) : RecyclerView.ViewHolder(itemView)
+    inner class TaskViewHolder internal constructor(itemView: View, internal var title: TextView, internal var date: TextView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
 
     companion object {
         private var mInstance: RecyclerViewAdapter? = null

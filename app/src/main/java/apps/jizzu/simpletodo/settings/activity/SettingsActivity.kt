@@ -4,12 +4,12 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.widget.TextView
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
+import apps.jizzu.simpletodo.recycler.RecyclerViewEmptySupport
 import apps.jizzu.simpletodo.settings.fragment.SettingsFragment
 import apps.jizzu.simpletodo.widget.WidgetProvider
 
@@ -28,11 +28,10 @@ class SettingsActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         if (toolbar != null) {
-            toolbar.setTitleTextColor(resources.getColor(R.color.white))
+            //toolbar.setTitleTextColor(resources.getColor(R.color.white))
             setSupportActionBar(toolbar)
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
-
         fragmentManager.beginTransaction().replace(R.id.content_frame, SettingsFragment()).commit()
     }
 

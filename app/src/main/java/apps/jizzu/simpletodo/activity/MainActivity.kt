@@ -1,5 +1,6 @@
 package apps.jizzu.simpletodo.activity
 
+import android.animation.ValueAnimator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -8,40 +9,40 @@ import android.content.ComponentName
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.NotificationCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.adapter.ListItemTouchHelper
-import apps.jizzu.simpletodo.adapter.RecyclerViewAdapter
-import apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
 import apps.jizzu.simpletodo.alarm.AlarmHelper
 import apps.jizzu.simpletodo.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.database.DBHelper
 import apps.jizzu.simpletodo.model.ModelTask
+import apps.jizzu.simpletodo.recycler.RecyclerViewAdapter
+import apps.jizzu.simpletodo.recycler.RecyclerViewEmptySupport
+import apps.jizzu.simpletodo.recycler.RecyclerViewItemTouchHelper
+import apps.jizzu.simpletodo.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.utils.Interpolator
 import apps.jizzu.simpletodo.utils.MyApplication
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.widget.WidgetProvider
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import hotchemi.android.rate.AppRate
-import io.github.tonnyl.whatsnew.WhatsNew
-import io.github.tonnyl.whatsnew.item.WhatsNewItem
+import kotlinx.android.synthetic.main.activity_main.*
 import kotterknife.bindView
 import top.wefor.circularanim.CircularAnim
 import java.util.*
@@ -59,24 +60,16 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
     private lateinit var mHelper: DBHelper
     private lateinit var mPreferenceHelper: PreferenceHelper
     private lateinit var mNotificationManager: NotificationManager
-    private lateinit var mLayoutManager: RecyclerView.LayoutManager
+    private lateinit var mLayoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Set up "What's New" screen
-        val whatsNew = WhatsNew.newInstance(
-                WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text)),
-                WhatsNewItem(getString(R.string.whats_new_item_2_title), getString(R.string.whats_new_item_2_text)),
-                WhatsNewItem(getString(R.string.whats_new_item_3_title), getString(R.string.whats_new_item_3_text))
-        )
-        whatsNew.titleColor = ContextCompat.getColor(this, R.color.colorAccent)
-        whatsNew.titleText = getString(R.string.whats_new_title)
-        whatsNew.buttonText = getString(R.string.whats_new_button_text)
-        whatsNew.buttonBackground = ContextCompat.getColor(this, R.color.colorAccent)
-        whatsNew.buttonTextColor = ContextCompat.getColor(this, R.color.white)
-        whatsNew.presentAutomatically(this@MainActivity)
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(this, R.color.grey_white)
+        }
 
         mSearchViewIsOpen = false
         title = ""
@@ -85,10 +78,11 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         // Initialize ALARM_SERVICE
         AlarmHelper.getInstance().init(applicationContext)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         if (toolbar != null) {
             toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
             setSupportActionBar(toolbar)
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_settings_black_24)
         }
 
         PreferenceHelper.getInstance().init(applicationContext)
@@ -97,7 +91,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         RecyclerViewEmptySupport(this)
         mRecyclerView.setHasFixedSize(true)
 
-        mLayoutManager = LinearLayoutManager(this)
+        mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         mRecyclerView.layoutManager = mLayoutManager
         mAdapter = RecyclerViewAdapter.getInstance()
         mRecyclerView.adapter = mAdapter
@@ -105,14 +99,14 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
 
         mAdapter.registerCallback(this)
 
-        val callback = object : ListItemTouchHelper(mAdapter, mRecyclerView) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+        val callback = object : RecyclerViewItemTouchHelper(mAdapter, mRecyclerView) {
+            override fun onMove(recyclerView: androidx.recyclerview.widget.RecyclerView, viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, target: androidx.recyclerview.widget.RecyclerView.ViewHolder): Boolean {
                 super.onMove(recyclerView, viewHolder, target)
                 updateGeneralNotification()
                 return true
             }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            override fun onSwiped(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, direction: Int) {
                 super.onSwiped(viewHolder, direction)
                 updateGeneralNotification()
             }
@@ -183,8 +177,20 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
             }
         }
 
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+            (mFab as View).visibility = View.GONE
+
+            // Starts the RecyclerView items animation
+            val resId = R.anim.layout_animation
+            val animation = AnimationUtils.loadLayoutAnimation(this, resId)
+            mRecyclerView.layoutAnimation = animation
+        } else {
+            (mFab as View).visibility = View.VISIBLE
+        }
+
+
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0 && mFab.visibility == View.VISIBLE) {
                     mFab.hide()
@@ -194,15 +200,26 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
             }
         })
 
-        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
-            mFab.visibility = View.GONE
+        mRecyclerView.addOnScrollListener(object : RecyclerViewScrollListener() {
+            override fun onShow() {
+                setToolbarShadow(0f, 30f)
+            }
 
-            // Starts the RecyclerView items animation
-            val resId = R.anim.layout_animation
-            val animation = AnimationUtils.loadLayoutAnimation(this, resId)
-            mRecyclerView.layoutAnimation = animation
-        } else {
-            mFab.visibility = View.VISIBLE
+            override fun onHide() {
+                setToolbarShadow(30f, 0f)
+            }
+        })
+    }
+
+    private fun setToolbarShadow(start: Float, end: Float) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ValueAnimator.ofFloat(start, end).apply {
+                addUpdateListener { updatedAnimation ->
+                    toolbar.elevation = updatedAnimation.animatedValue as Float
+                }
+                duration = 500
+                start()
+            }
         }
     }
 
@@ -346,14 +363,12 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_settings) {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-            return true
-        }
-        return false
-    }
+    override fun onOptionsItemSelected(item: MenuItem) =
+            if (item.itemId == android.R.id.home) {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                true
+            } else false
 
     /**
      * Reads all tasks from the database and compares them with mTaskList in RecyclerView.
@@ -386,7 +401,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
     override fun onResume() {
         super.onResume()
 
-        mFab.visibility = View.GONE
+        (mFab as View).visibility = View.GONE
         Log.d(TAG, "onResume call!!!")
 
         if (!mSearchViewIsOpen) {
@@ -394,14 +409,14 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
                 // Starts the FAB animation
                 val handler = Handler()
                 handler.postDelayed({
-                    mFab.visibility = View.VISIBLE
+                    (mFab as View).visibility = View.VISIBLE
                     val myAnim = AnimationUtils.loadAnimation(this, R.anim.fab_animation)
                     val interpolator = Interpolator(0.2, 20.0)
                     myAnim.interpolator = interpolator
                     mFab.startAnimation(myAnim)
                 }, 300)
             } else {
-                mFab.visibility = View.VISIBLE
+                (mFab as View).visibility = View.VISIBLE
             }
         }
         MyApplication.activityResumed()

@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
-
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.activity.EditTaskActivity
 import apps.jizzu.simpletodo.activity.MainActivity

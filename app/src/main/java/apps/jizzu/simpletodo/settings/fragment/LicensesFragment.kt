@@ -5,9 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
-
 import apps.jizzu.simpletodo.R
-
 import android.content.Intent.ACTION_VIEW
 
 /**

@@ -15,7 +15,6 @@ class AddTaskActivity : BaseTaskActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
 
         initToolbar(getString(R.string.create_task))
         mReminderLayout.visibility = View.INVISIBLE
@@ -25,8 +24,8 @@ class AddTaskActivity : BaseTaskActivity() {
 
         addTaskButton.setOnClickListener {
             when {
-                mTitleEditText.length() == 0 -> mTitleEditText.error = getString(R.string.error_text_input)
-                mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> mTitleEditText.error = getString(R.string.error_spaces)
+                mTitleEditText.length() == 0 -> taskTitleLayout.error = getString(R.string.error_text_input)
+                mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> taskTitleLayout.error = getString(R.string.error_spaces)
                 else -> {
                     val intent = Intent()
                     intent.putExtra("title", mTitleEditText.text.toString())
