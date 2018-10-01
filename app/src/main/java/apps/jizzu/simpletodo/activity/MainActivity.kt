@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
             toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
             setSupportActionBar(toolbar)
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_settings_black_24)
+            supportActionBar!!.setHomeAsUpIndicator(R.drawable.outline_settings_black_24)
         }
 
         PreferenceHelper.getInstance().init(applicationContext)

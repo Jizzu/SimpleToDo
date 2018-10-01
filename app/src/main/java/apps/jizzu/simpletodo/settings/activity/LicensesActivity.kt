@@ -29,7 +29,7 @@ class LicensesActivity : AppCompatActivity() {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
 
-        fragmentManager.beginTransaction().replace(R.id.content_frame, LicensesFragment()).commit()
+        //fragmentManager.beginTransaction().replace(R.id.content_frame, LicensesFragment()).commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

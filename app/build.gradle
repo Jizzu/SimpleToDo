@@ -32,11 +32,13 @@ dependencies {
     })
 
     // UI
-    implementation 'androidx.appcompat:appcompat:1.0.0-rc02'
-    implementation 'com.google.android.material:material:1.0.0-rc02'
-    implementation 'androidx.cardview:cardview:1.0.0-rc02'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.preference:preference:1.0.0"
     implementation 'com.github.XunMengWinter:CircularAnim:0.3.4'
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.github.hotchemi:android-rate:1.0.1'
 
     // Kotlin

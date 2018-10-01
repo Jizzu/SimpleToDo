@@ -1,0 +1,155 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/buttonUI"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/outline_format_paint_black_24"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="User Interface"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/buttonNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/round_notifications_none_black_24"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Notifications"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/buttonDateAndTime"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/round_access_time_black_24"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Date &amp; Time"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/buttonBackupAndRestore"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/round_save_alt_black_24"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Backup &amp; Restore"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/buttonRate"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/round_star_border_black_24"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Rate this app"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/buttonFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/outline_email_black_24"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Send Feedback"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/buttonOtherApps"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/outline_local_mall_black_24"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Other apps"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/buttonGitHub"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/ic_github_circle_black_24dp"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="GitHub page"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/buttonLicenses"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/round_code_black_24"
+            android:drawableEnd="@drawable/round_chevron_right_black_24"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Licenses"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+</ScrollView>
