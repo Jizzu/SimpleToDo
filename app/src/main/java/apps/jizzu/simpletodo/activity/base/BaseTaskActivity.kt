@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -78,6 +79,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
     }
 
     private fun setOnClickListeners() {
+        mReminderSwitch.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
         mReminderSwitch.setOnClickListener {
             if (mReminderSwitch.isChecked) {
                 hideKeyboard(mTitleEditText)
