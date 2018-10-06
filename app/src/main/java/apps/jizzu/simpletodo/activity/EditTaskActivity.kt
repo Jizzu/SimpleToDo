@@ -127,9 +127,8 @@ class EditTaskActivity : BaseTaskActivity() {
                 alertDialog.setMessage(R.string.dialog_message)
                 alertDialog.setPositiveButton(R.string.action_delete) { _, _ ->
                     hideKeyboard(mTitleEditText)
-                    val task = ModelTask(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp)
-                    Log.d(TAG, "EDIT TASK ACTIVITY: task position = ${task.position}")
-                    mAdapter.removeTask(task.position)
+                    Log.d(TAG, "EDIT TASK ACTIVITY: task position = $mPosition")
+                    mAdapter.removeTask(mPosition)
                     if (mAdapter.itemCount == 0 && MainActivity.mSearchViewIsOpen) {
                         MainActivity.mShowAnimation = true
                     }

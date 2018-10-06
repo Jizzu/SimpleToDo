@@ -62,10 +62,11 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
      * Adds a new item to the specific position of the list.
      */
     fun addTask(item: ModelTask, position: Int) {
-        mTaskList.add(position, item)
-        notifyItemInserted(position)
-
-        Log.d(TAG, "Task with title (${mTaskList[position].title}) and position ($position) added to RecyclerView!")
+        if (itemCount >= position) {
+            mTaskList.add(position, item)
+            notifyItemInserted(position)
+            Log.d(TAG, "Task with title (${mTaskList[position].title}) and position ($position) added to RecyclerView!")
+        }
     }
 
     /**
@@ -82,13 +83,9 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
      * Removes an item from the list (with Snackbar).
      */
     fun removeTask(position: Int, recyclerView: RecyclerView) {
-        val taskID = mTaskList[position].id
+        val task = mTaskList[position]
         val isRemoved = booleanArrayOf(true)
-        val timeStamp = mTaskList[position].timeStamp
         mCancelButtonIsClicked = false
-
-        Log.d(TAG, "taskID = $taskID, position = $position")
-        Log.d(TAG, "Removing item from position  $position ...")
 
         mTaskList.removeAt(position)
         notifyItemRemoved(position)
@@ -97,30 +94,29 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
         snackbar.setAction(R.string.snackbar_undo) {
             if (!mCancelButtonIsClicked) {
                 mCancelButtonIsClicked = true
-                val task = mHelper.getTask(taskID)
-                addTask(task, task.position)
+                addTask(task, position)
                 isRemoved[0] = false
             }
             mCallback.updateData()
         }
 
-        snackbar.view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            // Called when Snackbar appears on the screen.
-            override fun onViewAttachedToWindow(view: View) {
-                mCallback.showFAB()
-            }
-
-            // Called when Snackbar disappears from the screen.
-            override fun onViewDetachedFromWindow(view: View) {
+        snackbar.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                super.onDismissed(transientBottomBar, event)
                 if (isRemoved[0]) {
                     // Removes a notification and alarm
-                    mAlarmHelper.removeNotification(timeStamp, mContext)
-                    mAlarmHelper.removeAlarm(timeStamp)
+                    mAlarmHelper.removeNotification(task.timeStamp, mContext)
+                    mAlarmHelper.removeAlarm(task.timeStamp)
 
                     // Removes a task
-                    mHelper.deleteTask(taskID)
+                    mHelper.deleteTask(task.id)
                     saveTasksOrderFromDB()
                 }
+            }
+
+            override fun onShown(sb: Snackbar?) {
+                super.onShown(sb)
+                mCallback.showFAB()
             }
         })
         snackbar.show()
@@ -245,7 +241,7 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
      * position: The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val task = mTaskList[position]
+        val task = mTaskList[holder.adapterPosition]
 
         val taskViewHolder = holder as TaskViewHolder
         val itemView = taskViewHolder.itemView
@@ -254,7 +250,7 @@ class RecyclerViewAdapter private constructor() : RecyclerViewEmptySupport.Empty
 
             intent.putExtra("id", task.id)
             intent.putExtra("title", task.title)
-            intent.putExtra("position", position)
+            intent.putExtra("position", holder.adapterPosition)
             intent.putExtra("time_stamp", task.timeStamp)
 
             if (task.date != 0L) {

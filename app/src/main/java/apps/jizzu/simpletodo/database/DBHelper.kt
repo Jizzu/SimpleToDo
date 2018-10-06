@@ -37,7 +37,6 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
         newValues.put(TASK_TIME_STAMP_COLUMN, task.timeStamp)
 
         val id = db.insert(TASKS_TABLE, null, newValues)
-        db.close()
 
         Log.d(TAG, "Task with ID ($id), Title (${task.title}), Date (${task.date}), Position (${task.position}) saved to DB!")
         return id
@@ -86,7 +85,6 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
     fun deleteTask(id: Long) {
         val db = writableDatabase
         db.delete(TASKS_TABLE, "$TASK_ID_COLUMN = ?", arrayOf(id.toString()))
-        db.close()
 
         Log.d(TAG, "Task with ID ($id) deleted from DB!")
     }
@@ -131,7 +129,6 @@ class DBHelper private constructor(context: Context) : SQLiteOpenHelper(context,
     fun deleteAllTasks() {
         val db = writableDatabase
         db.delete(TASKS_TABLE, null, null)
-        db.close()
     }
 
     /**
