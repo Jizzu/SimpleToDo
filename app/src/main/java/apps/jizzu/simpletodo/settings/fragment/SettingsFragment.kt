@@ -253,7 +253,7 @@ class SettingsFragment : PreferenceFragment() {
 
         val aboutVersion = Preference(activity)
         aboutVersion.title = getString(R.string.preferences_about_version_title)
-        aboutVersion.summary = "1.3"
+        aboutVersion.summary = getString(R.string.preferences_about_version_summary)
         categoryAbout.addPreference(aboutVersion)
 
         aboutVersion.onPreferenceClickListener = createPreferenceClickListener("https://github.com/Jizzu/SimpleToDo")

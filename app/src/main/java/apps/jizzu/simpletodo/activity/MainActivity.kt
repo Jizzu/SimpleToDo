@@ -68,9 +68,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
         // Set up "What's New" screen
         val whatsNew = WhatsNew.newInstance(
                 WhatsNewItem(getString(R.string.whats_new_item_1_title), getString(R.string.whats_new_item_1_text)),
-                WhatsNewItem(getString(R.string.whats_new_item_2_title), getString(R.string.whats_new_item_2_text)),
-                WhatsNewItem(getString(R.string.whats_new_item_3_title), getString(R.string.whats_new_item_3_text))
-        )
+                WhatsNewItem(getString(R.string.whats_new_item_2_title), getString(R.string.whats_new_item_2_text)))
         whatsNew.titleColor = ContextCompat.getColor(this, R.color.colorAccent)
         whatsNew.titleText = getString(R.string.whats_new_title)
         whatsNew.buttonText = getString(R.string.whats_new_button_text)

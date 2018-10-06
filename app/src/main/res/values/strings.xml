@@ -40,6 +40,7 @@
     <string name="preferences_other_apps_title">Other apps</string>
     <string name="preferences_other_apps_summary">Other developer\'s apps on Google Play</string>
     <string name="preferences_about_version_title">Version</string>
+    <string name="preferences_about_version_summary">1.4</string>
     <string name="preferences_about_licenses_summary">Used libraries</string>
     <string name="preferences_about_licenses_title">Licenses</string>
 
@@ -101,12 +102,10 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">What\'s New?</string>
     <string name="whats_new_button_text">Continue</string>
-    <string name="whats_new_item_1_title">Date and time formatting</string>
-    <string name="whats_new_item_1_text">Now you can set the date and time format right from the settings screen</string>
-    <string name="whats_new_item_2_title">Minor UI improvements</string>
-    <string name="whats_new_item_2_text">Adding and editing tasks is now even faster and easier</string>
-    <string name="whats_new_item_3_title">Bug fixes</string>
-    <string name="whats_new_item_3_text">Some bugs have been fixed</string>
+    <string name="whats_new_item_1_title">Fixes:</string>
+    <string name="whats_new_item_1_text">Bug fixes</string>
+    <string name="whats_new_item_2_title">Improvements:</string>
+    <string name="whats_new_item_2_text">Improved app stability</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_message">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>
