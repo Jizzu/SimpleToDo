@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.fragment
+package apps.jizzu.simpletodo.dialogs
 
 import android.app.DatePickerDialog
 import android.app.Dialog

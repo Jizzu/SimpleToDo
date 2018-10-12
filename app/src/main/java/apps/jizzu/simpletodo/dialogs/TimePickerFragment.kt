@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.fragment
+package apps.jizzu.simpletodo.dialogs
 
 import android.app.Dialog
 import android.app.DialogFragment

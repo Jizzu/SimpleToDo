@@ -9,86 +9,78 @@
     android:showDividers="middle|end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonGeneralNotification"
+        android:id="@+id/buttonDateFormat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
-            android:id="@+id/tvGeneralNotificationTitle"
+            android:id="@+id/tvDateFormatTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/preferences_general_notification_title"
+            android:layout_marginEnd="10dp"
+            android:text="@string/preferences_date_format_title"
             android:textColor="@color/black"
             android:textSize="17sp"
-            app:layout_constraintBottom_toTopOf="@id/tvGeneralNotificationSummary"
+            app:layout_constraintBottom_toTopOf="@id/tvDateFormatSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvGeneralNotificationSummary"
-            android:layout_width="300dp"
+            android:id="@+id/tvDateFormatSummary"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/preferences_general_notification_summary"
+            android:text="@string/preferences_date_format_summary"
             android:textColor="@color/grey_white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/switchGeneralNotification"
-            app:layout_constraintTop_toBottomOf="@id/tvGeneralNotificationTitle" />
-
-        <Switch
-            android:id="@+id/switchGeneralNotification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvDateFormatTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonNotificationSound"
+        android:id="@+id/buttonTimeFormat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
-            android:id="@+id/tvNotificationSoundTitle"
+            android:id="@+id/tvTimeFormatTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:text="@string/preferences_notification_channel_title"
+            android:text="@string/preferences_time_format_title"
             android:textColor="@color/black"
             android:textSize="17sp"
-            app:layout_constraintBottom_toTopOf="@id/tvNotificationSoundSummary"
+            app:layout_constraintBottom_toTopOf="@id/tvTimeFormatSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvNotificationSoundSummary"
+            android:id="@+id/tvTimeFormatSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/preferences_notification_channel_summary"
+            android:text="@string/preferences_time_format_summary"
             android:textColor="@color/grey_white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNotificationSoundTitle" />
+            app:layout_constraintTop_toBottomOf="@id/tvTimeFormatTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

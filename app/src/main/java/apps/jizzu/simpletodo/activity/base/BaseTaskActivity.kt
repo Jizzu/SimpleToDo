@@ -20,8 +20,8 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.activity.MainActivity
-import apps.jizzu.simpletodo.fragment.DatePickerFragment
-import apps.jizzu.simpletodo.fragment.TimePickerFragment
+import apps.jizzu.simpletodo.dialogs.DatePickerFragment
+import apps.jizzu.simpletodo.dialogs.TimePickerFragment
 import apps.jizzu.simpletodo.utils.Utils
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_add_task.*

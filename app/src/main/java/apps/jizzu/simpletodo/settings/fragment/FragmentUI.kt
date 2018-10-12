@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.settings.fragment.base.BaseSettingsFragment
+import apps.jizzu.simpletodo.utils.PreferenceHelper
+import kotlinx.android.synthetic.main.fragment_user_interface.*
+
 
 class FragmentUI : BaseSettingsFragment() {
 
@@ -16,5 +19,21 @@ class FragmentUI : BaseSettingsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTitle("I N T E R F A C E")
+        initAnimationsSwitch()
+    }
+
+    private fun initAnimationsSwitch() {
+        val mPreferenceHelper = PreferenceHelper.getInstance()
+
+        switchAnimations.isChecked = mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)
+
+        switchAnimations.setOnClickListener {
+            mPreferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, switchAnimations.isChecked)
+        }
+
+        buttonAnimations.setOnClickListener {
+            switchAnimations.isChecked = !switchAnimations.isChecked
+            mPreferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, switchAnimations.isChecked)
+        }
     }
 }

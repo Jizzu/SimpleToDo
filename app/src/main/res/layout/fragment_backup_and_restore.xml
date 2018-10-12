@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="15dp"
@@ -9,86 +10,78 @@
     android:showDividers="middle|end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonGeneralNotification"
+        android:id="@+id/buttonCreateBackup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
-            android:id="@+id/tvGeneralNotificationTitle"
+            android:id="@+id/tvCreateBackupTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/preferences_general_notification_title"
+            android:layout_marginEnd="10dp"
+            android:text="@string/preferences_backup_create_title"
             android:textColor="@color/black"
             android:textSize="17sp"
-            app:layout_constraintBottom_toTopOf="@id/tvGeneralNotificationSummary"
+            app:layout_constraintBottom_toTopOf="@id/tvCreateBackupSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvGeneralNotificationSummary"
-            android:layout_width="300dp"
+            android:id="@+id/tvCreateBackupSummary"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/preferences_general_notification_summary"
+            android:text="@string/preferences_backup_create_summary"
             android:textColor="@color/grey_white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/switchGeneralNotification"
-            app:layout_constraintTop_toBottomOf="@id/tvGeneralNotificationTitle" />
-
-        <Switch
-            android:id="@+id/switchGeneralNotification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvCreateBackupTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonNotificationSound"
+        android:id="@+id/buttonRestoreBackup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
-            android:id="@+id/tvNotificationSoundTitle"
+            android:id="@+id/tvRestoreBackupTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:text="@string/preferences_notification_channel_title"
+            android:text="@string/preferences_backup_restore_title"
             android:textColor="@color/black"
             android:textSize="17sp"
-            app:layout_constraintBottom_toTopOf="@id/tvNotificationSoundSummary"
+            app:layout_constraintBottom_toTopOf="@id/tvRestoreBackupSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvNotificationSoundSummary"
+            android:id="@+id/tvRestoreBackupSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/preferences_notification_channel_summary"
+            android:text="@string/preferences_backup_restore_summary"
             android:textColor="@color/grey_white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNotificationSoundTitle" />
+            app:layout_constraintTop_toBottomOf="@id/tvRestoreBackupTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
