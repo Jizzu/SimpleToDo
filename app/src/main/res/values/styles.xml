@@ -14,11 +14,6 @@
         <item name="android:textColorHint">@color/white</item>
     </style>
 
-    <style name="PreferenceScreen" parent="AppTheme">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textColorSecondary">@color/grey_white</item>
-    </style>
-
     <style name="MaterialSearchViewStyle">
         <item name="android:hint">@string/search</item>
     </style>

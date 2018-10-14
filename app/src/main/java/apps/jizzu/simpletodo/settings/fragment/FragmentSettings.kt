@@ -35,7 +35,7 @@ class FragmentSettings : Fragment() {
         buttonFeedback.setOnClickListener { sendFeedback() }
         buttonOtherApps.setOnClickListener { openUri(GOOGLE_PLAY_PAGE) }
         buttonGitHub.setOnClickListener { openUri(GIT_HUB_PAGE) }
-        buttonLicenses.setOnClickListener { Toast.makeText(activity, "buttonLicenses", Toast.LENGTH_SHORT).show() }
+        buttonLicenses.setOnClickListener { openFragment(FragmentLicenses()) }
     }
 
     private fun openFragment(fragment: BaseSettingsFragment) =

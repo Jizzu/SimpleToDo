@@ -40,8 +40,14 @@
     <string name="preferences_other_apps_title">Other apps</string>
     <string name="preferences_other_apps_summary">Other developer\'s apps on Google Play</string>
     <string name="preferences_about_version_title">Version</string>
-    <string name="preferences_about_licenses_summary">Used libraries</string>
     <string name="preferences_about_licenses_title">Licenses</string>
+    <string name="preferences_about_licenses_summary">Used libraries</string>
+    <string name="preferences_kotter_knife_title">KotterKnife</string>
+    <string name="preferences_kotter_knife_summary">JakeWharton</string>
+    <string name="preferences_circular_anim_title">CircularAnim</string>
+    <string name="preferences_circular_anim_summary">XunMengWinter</string>
+    <string name="preferences_material_search_view_title">MaterialSearchView</string>
+    <string name="preferences_material_search_view_summary">MiguelCatalan</string>
 
     <string name="feedback_title">Simple ToDo - Feedback</string>
     <string name="feedback_device_info">My device info: </string>

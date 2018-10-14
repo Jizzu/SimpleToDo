@@ -41,7 +41,6 @@ import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.widget.WidgetProvider
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miguelcatalan.materialsearchview.MaterialSearchView
-import hotchemi.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_main.*
 import kotterknife.bindView
 import top.wefor.circularanim.CircularAnim
@@ -116,10 +115,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
 
         mHelper = DBHelper.getInstance(this)
         addTasksFromDB()
-
-        // Show rate this app dialog
-        AppRate.with(this).setInstallDays(0).setLaunchTimes(5).setRemindInterval(3).monitor()
-        AppRate.showRateDialogIfMeetsConditions(this)
 
         mSearchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
