@@ -20,7 +20,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="User Interface"
+            android:text="@string/settings_user_interface"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -36,7 +36,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Notifications"
+            android:text="@string/settings_notifications"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -52,7 +52,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Date &amp; Time"
+            android:text="@string/settings_date_and_time"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -68,7 +68,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Backup &amp; Restore"
+            android:text="@string/settings_backup_and_restore"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -84,7 +84,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Rate this app"
+            android:text="@string/settings_rate"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -100,7 +100,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Send Feedback"
+            android:text="@string/settings_feedback"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -116,7 +116,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Other apps"
+            android:text="@string/settings_other_apps"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -132,7 +132,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="GitHub page"
+            android:text="@string/settings_git_hub"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -148,7 +148,7 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Licenses"
+            android:text="@string/settings_licenses"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>

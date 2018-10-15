@@ -18,7 +18,7 @@ class FragmentUI : BaseSettingsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle("I N T E R F A C E")
+        setTitle(getString(R.string.settings_page_title_user_interface))
         initAnimationsSwitch()
     }
 

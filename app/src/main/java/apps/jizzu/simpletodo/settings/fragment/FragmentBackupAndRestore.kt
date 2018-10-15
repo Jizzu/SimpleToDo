@@ -32,7 +32,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBackupHelper = BackupHelper(activity as Context)
-        setTitle("B A C K U P   &   R E S T O R E")
+        setTitle(getString(R.string.settings_page_title_backup_and_restore))
         setOnClickListeners()
     }
 

@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.settings.activity.SettingsActivity
 
+
 abstract class BaseSettingsFragment : Fragment() {
 
     fun setTitle(title: String) {

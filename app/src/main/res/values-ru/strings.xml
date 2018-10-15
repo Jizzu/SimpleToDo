@@ -2,15 +2,15 @@
 <resources>
     <string name="empty_view_title">Нет задач</string>
     <string name="empty_view_text">Создайте новые задачи \n с помощью кнопки +</string>
-    <string name="create_task">НОВАЯ ЗАДАЧА</string>
+    <string name="create_task">Н О В А Я \u0020\u0020 З А Д А Ч А</string>
     <string name="set_reminder">Добавить напоминание</string>
     <string name="set_reminder_short">Напоминание</string>
     <string name="hint_title">Заголовок</string>
     <string name="hint_date">Дата</string>
     <string name="hint_time">Время</string>
-    <string name="add_task">Добавить задачу</string>
-    <string name="update_task">Обновить задачу</string>
-    <string name="edit_task">ИЗМЕНИТЬ ЗАДАЧУ</string>
+    <string name="add_task">С О З Д А Т Ь</string>
+    <string name="update_task">И З М Е Н И Т Ь</string>
+    <string name="edit_task">И З М Е Н И Т Ь \u0020 З А Д А Ч У</string>
     <string name="toast_incorrect_time">Ошибка! Вы выбрали неправильное время!</string>
     <string name="error_text_input">Пожалуйста, введите текст!</string>
     <string name="error_spaces">Ошибка! Введённый текст состоит только из пробелов!</string>
@@ -52,13 +52,23 @@
     <string name="feedback_app_version">Версия приложения: </string>
     <string name="feedback">Отзыв: </string>
 
-    <string name="category_general">Общие настройки</string>
-    <string name="category_date_and_time">Дата и время</string>
-    <string name="category_backup_and_restore">Резервное копирование данных</string>
-    <string name="category_additional">Дополнительно</string>
-    <string name="category_about">О приложении</string>
+    <string name="settings_user_interface">Интерфейс</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="settings_date_and_time">Дата и время</string>
+    <string name="settings_backup_and_restore">Резервная копия данных</string>
+    <string name="settings_rate">Оценить приложение</string>
+    <string name="settings_feedback">Написать автору</string>
+    <string name="settings_other_apps">Другие приложения</string>
+    <string name="settings_git_hub">Страница на GitHub</string>
+    <string name="settings_licenses">Лицензии</string>
 
-    <string name="settings">НАСТРОЙКИ</string>
+    <string name="settings">Н А С Т Р О Й К И</string>
+    <string name="settings_page_title_user_interface">И Н Т Е Р Ф Е Й С</string>
+    <string name="settings_page_title_notifications">У В Е Д О М Л Е Н И Я</string>
+    <string name="settings_page_title_date_and_time">Д А Т А \u0020\u0020 И \u0020\u0020 В Р Е М Я</string>
+    <string name="settings_page_title_backup_and_restore">Р Е З Е Р В Н А Я \u0020\u0020 К О П И Я</string>
+    <string name="settings_page_title_licenses">Л И Ц Е Н З И И</string>
+
     <string name="settings_menu">Настройки</string>
     <string name="licenses">ЛИЦЕНЗИИ</string>
     <string name="search">Поиск</string>

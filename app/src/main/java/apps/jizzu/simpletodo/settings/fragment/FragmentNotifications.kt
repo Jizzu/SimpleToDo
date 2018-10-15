@@ -27,7 +27,7 @@ class FragmentNotifications : BaseSettingsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPreferenceHelper = PreferenceHelper.getInstance()
-        setTitle("N O T I F I C A T I O N S")
+        setTitle(getString(R.string.settings_page_title_notifications))
         initUiComponents()
     }
 

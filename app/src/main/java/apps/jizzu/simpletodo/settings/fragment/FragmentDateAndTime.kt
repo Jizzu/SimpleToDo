@@ -20,7 +20,7 @@ class FragmentDateAndTime : BaseSettingsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle("D A T E   &   T I M E")
+        setTitle(getString(R.string.settings_page_title_date_and_time))
         setOnClickListeners()
     }
 

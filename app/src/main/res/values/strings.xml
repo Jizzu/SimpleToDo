@@ -54,13 +54,23 @@
     <string name="feedback_app_version">App version: </string>
     <string name="feedback">Feedback: </string>
 
-    <string name="category_general">General settings</string>
-    <string name="category_date_and_time">Date &amp; Time</string>
-    <string name="category_backup_and_restore">Backup &amp; Restore</string>
-    <string name="category_additional">Additional</string>
-    <string name="category_about">About</string>
+    <string name="settings_user_interface">User Interface</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_date_and_time">Date &amp; Time</string>
+    <string name="settings_backup_and_restore">Backup &amp; Restore</string>
+    <string name="settings_rate">Rate this app</string>
+    <string name="settings_feedback">Send Feedback</string>
+    <string name="settings_other_apps">Other apps</string>
+    <string name="settings_git_hub">GitHub page</string>
+    <string name="settings_licenses">Licenses</string>
 
     <string name="settings">S E T T I N G S</string>
+    <string name="settings_page_title_user_interface">I N T E R F A C E</string>
+    <string name="settings_page_title_notifications">N O T I F I C A T I O N S</string>
+    <string name="settings_page_title_date_and_time">D A T E \u0020\u0020 &amp; \u0020\u0020 T I M E</string>
+    <string name="settings_page_title_backup_and_restore">B A C K U P \u0020\u0020 &amp; \u0020\u0020 R E S T O R E</string>
+    <string name="settings_page_title_licenses">L I C E N S E S</string>
+
     <string name="settings_menu">Settings</string>
     <string name="licenses">LICENSES</string>
     <string name="search">Search</string>

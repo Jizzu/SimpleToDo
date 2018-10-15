@@ -19,7 +19,7 @@ class FragmentLicenses : BaseSettingsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle("L I C E N S E S")
+        setTitle(getString(R.string.settings_page_title_licenses))
         initButtons()
     }
 
