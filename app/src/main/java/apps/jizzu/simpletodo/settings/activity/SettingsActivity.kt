@@ -36,7 +36,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     fun setToolbarTitle(title: String) {
-        toolbar_title.text = title
+        toolbarTitle.text = title
     }
 
     private fun openSettingsFragment() =

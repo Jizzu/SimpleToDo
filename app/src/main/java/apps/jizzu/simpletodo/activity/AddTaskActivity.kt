@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.activity.base.BaseTaskActivity
-import kotlinx.android.synthetic.main.activity_add_task.*
+import kotlinx.android.synthetic.main.activity_task_details.*
 import java.util.*
 
 /**

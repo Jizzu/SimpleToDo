@@ -9,8 +9,8 @@
     <string name="hint_date">Дата</string>
     <string name="hint_time">Время</string>
     <string name="add_task">С О З Д А Т Ь</string>
-    <string name="update_task">И З М Е Н И Т Ь</string>
-    <string name="edit_task">И З М Е Н И Т Ь \u0020 З А Д А Ч У</string>
+    <string name="update_task">О Б Н О В И Т Ь</string>
+    <string name="edit_task">Р Е Д А К Т И Р О В А Т Ь</string>
     <string name="toast_incorrect_time">Ошибка! Вы выбрали неправильное время!</string>
     <string name="error_text_input">Пожалуйста, введите текст!</string>
     <string name="error_spaces">Ошибка! Введённый текст состоит только из пробелов!</string>

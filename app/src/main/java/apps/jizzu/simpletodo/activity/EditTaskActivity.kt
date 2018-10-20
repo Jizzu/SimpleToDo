@@ -17,7 +17,7 @@ import apps.jizzu.simpletodo.alarm.AlarmHelper
 import apps.jizzu.simpletodo.database.DBHelper
 import apps.jizzu.simpletodo.model.ModelTask
 import apps.jizzu.simpletodo.utils.Utils
-import kotlinx.android.synthetic.main.activity_add_task.*
+import kotlinx.android.synthetic.main.activity_task_details.*
 import java.util.*
 
 /**

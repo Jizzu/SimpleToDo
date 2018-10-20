@@ -24,7 +24,7 @@ import apps.jizzu.simpletodo.dialogs.DatePickerFragment
 import apps.jizzu.simpletodo.dialogs.TimePickerFragment
 import apps.jizzu.simpletodo.utils.Utils
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.activity_add_task.*
+import kotlinx.android.synthetic.main.activity_task_details.*
 import kotterknife.bindView
 import java.util.*
 
@@ -40,7 +40,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
+        setContentView(R.layout.activity_task_details)
         mCalendar = Calendar.getInstance()
         MainActivity.mActivityIsShown = true
         screenResolutionCheck()
@@ -54,7 +54,6 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
 
     fun initToolbar(titleText: String) {
         title = ""
-        val toolbarTitle = findViewById<TextView>(R.id.toolbar_title)
         toolbarTitle.text = titleText
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -73,6 +72,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
         Log.d(ContentValues.TAG, "width = $width, height = $height")
 
         if (width <= 480 || height <= 800) {
+            if (Locale.getDefault().displayLanguage == "русский") toolbarTitle.textSize = 18f
             tvSetReminder.setText(R.string.set_reminder_short)
             taskDateLayout.layoutParams.width = 150
             taskTimeLayout.layoutParams.width = 150
