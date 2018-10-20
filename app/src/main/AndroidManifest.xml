@@ -43,6 +43,9 @@
         <activity
             android:name=".settings.activity.SettingsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ChangelogActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".widget.WidgetService"

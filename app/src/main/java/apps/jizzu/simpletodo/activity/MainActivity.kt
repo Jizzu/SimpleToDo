@@ -204,6 +204,10 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.AdapterCallback {
                 setToolbarShadow(30f, 0f)
             }
         })
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.IS_FIRST_APP_LAUNCH)) {
+            startActivity(Intent(this, ChangelogActivity::class.java))
+            mPreferenceHelper.putBoolean(PreferenceHelper.IS_FIRST_APP_LAUNCH, false)
+        }
     }
 
     private fun setToolbarShadow(start: Float, end: Float) {
