@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -48,7 +49,7 @@ dependencies {
     })
 
     // UI
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.1'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.preference:preference:1.0.0"
@@ -61,9 +62,19 @@ dependencies {
     implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
 
     // Room
-    implementation 'android.arch.persistence.room:runtime:1.1.1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
-    androidTestImplementation 'android.arch.persistence.room:testing:1.1.1'
+    implementation 'android.arch.persistence.room:runtime:2.1.0-alpha02'
+    implementation "android.arch.persistence.room:rxjava2:2.1.0-alpha02"
+    kapt  'android.arch.persistence.room:compiler:2.1.0-alpha02'
+    androidTestImplementation 'android.arch.persistence.room:testing:2.1.0-alpha02'
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:2.2.3"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
     testImplementation 'junit:junit:4.12'
 }

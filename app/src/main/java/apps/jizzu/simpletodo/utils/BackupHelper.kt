@@ -7,9 +7,8 @@ import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.recycler.RecyclerViewAdapter
-import apps.jizzu.simpletodo.database.DBHelper
-import apps.jizzu.simpletodo.model.ModelTask
+import apps.jizzu.simpletodo.data.database.TasksDatabase
+import apps.jizzu.simpletodo.data.models.Task
 import java.io.*
 
 /**
@@ -17,7 +16,7 @@ import java.io.*
  */
 class BackupHelper(private val mContext: Context) {
     private val mFile = File(Environment.getExternalStoragePublicDirectory("SimpleToDo"), "Backup.ser")
-    private val mAdapter = RecyclerViewAdapter.getInstance()
+//    private val mAdapter = RecyclerViewAdapter.getInstance()
 
     fun showCreateDialog() {
         makeFolder()
@@ -49,11 +48,11 @@ class BackupHelper(private val mContext: Context) {
             val fileOutputStream = FileOutputStream(mFile, true)
             val objectOutputStream = ObjectOutputStream(fileOutputStream)
 
-            objectOutputStream.writeObject(RecyclerViewAdapter.mTaskList)
-
-            for (task in RecyclerViewAdapter.mTaskList) {
-                Log.d(TAG, "Object with 1) Title = ${task.title}; 2) Position = ${task.position}; 3) Date = ${task.date} added to backup file!")
-            }
+//            objectOutputStream.writeObject(RecyclerViewAdapter.mTaskList)
+//
+//            for (task in RecyclerViewAdapter.mTaskList) {
+//                Log.d(TAG, "Object with 1) Title = ${task.title}; 2) Position = ${task.position}; 3) Date = ${task.date} added to backup file!")
+//            }
             Toast.makeText(mContext, R.string.backup_create_message_success, Toast.LENGTH_SHORT).show()
             objectOutputStream.close()
         } catch (e: IOException) {
@@ -63,40 +62,40 @@ class BackupHelper(private val mContext: Context) {
     }
 
     private fun restoreBackup() {
-        val dbHelper = DBHelper.getInstance(mContext)
-        val restoredTasks: List<ModelTask>
+        val database = TasksDatabase.getInstance(mContext)
+        val restoredTasks: List<Task>
 
         if (mFile.exists()) {
             try {
                 val fileInputStream = FileInputStream(mFile)
                 val objectInputStream = ObjectInputStream(fileInputStream)
 
-                var newTaskPosition = mAdapter.itemCount - 1
-
-                if (mAdapter.itemCount > 0) {
-
-                    @Suppress("UNCHECKED_CAST")
-                    restoredTasks = objectInputStream.readObject() as List<ModelTask>
-
-                    for (task in restoredTasks) {
-                        newTaskPosition++
-
-                        task.position = newTaskPosition
-                        Log.d(TAG, "Task wit title ${task.title} set to position = ${task.position}")
-
-                        val id = dbHelper.saveTask(task)
-                        task.id = id
-                        mAdapter.addTask(task, newTaskPosition)
-                    }
-                } else {
-                    @Suppress("UNCHECKED_CAST")
-                    restoredTasks = objectInputStream.readObject() as List<ModelTask>
-
-                    for (task in restoredTasks) {
-                        dbHelper.saveTask(task)
-                        mAdapter.addTask(task)
-                    }
-                }
+//                var newTaskPosition = mAdapter.itemCount - 1
+//
+//                if (mAdapter.itemCount > 0) {
+//
+//                    @Suppress("UNCHECKED_CAST")
+//                    restoredTasks = objectInputStream.readObject() as List<ModelTask>
+//
+//                    for (task in restoredTasks) {
+//                        newTaskPosition++
+//
+//                        task.position = newTaskPosition
+//                        Log.d(TAG, "Task wit title ${task.title} set to position = ${task.position}")
+//
+//                        val id = database.taskDAO().saveTask(task)
+//                        //task.id = id
+//                        mAdapter.addTask(task, newTaskPosition)
+//                    }
+//                } else {
+//                    @Suppress("UNCHECKED_CAST")
+//                    restoredTasks = objectInputStream.readObject() as List<ModelTask>
+//
+//                    for (task in restoredTasks) {
+//                        database.taskDAO().saveTask(task)
+//                        mAdapter.addTask(task)
+//                    }
+//                }
                 Toast.makeText(mContext, R.string.backup_restore_message_success, Toast.LENGTH_SHORT).show()
                 objectInputStream.close()
             } catch (e: IOException) {

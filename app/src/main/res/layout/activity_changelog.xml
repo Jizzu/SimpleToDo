@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="apps.jizzu.simpletodo.activity.ChangelogActivity">
+    tools:context=".ui.view.ChangelogActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

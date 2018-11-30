@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name="apps.jizzu.simpletodo.ui.view.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -23,35 +23,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AddTaskActivity"
+            android:name="apps.jizzu.simpletodo.ui.view.AddTaskActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
         <receiver
-            android:name=".alarm.AlarmReceiver"
+            android:name="apps.jizzu.simpletodo.service.alarm.AlarmReceiver"
             android:process=":remote" />
-        <receiver android:name=".alarm.AlarmSetter">
+        <receiver android:name="apps.jizzu.simpletodo.service.alarm.AlarmSetter">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".activity.EditTaskActivity"
+            android:name="apps.jizzu.simpletodo.ui.view.EditTaskActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".settings.activity.SettingsActivity"
+            android:name="apps.jizzu.simpletodo.ui.settings.activity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ChangelogActivity"
+            android:name="apps.jizzu.simpletodo.ui.view.ChangelogActivity"
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".widget.WidgetService"
+            android:name=".service.widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <receiver android:name=".widget.WidgetProvider">
+        <receiver android:name="apps.jizzu.simpletodo.service.widget.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
