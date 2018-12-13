@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.ui.adapter
+package apps.jizzu.simpletodo.ui.recycler
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.database.TasksDatabase
@@ -18,13 +19,12 @@ import kotlin.collections.ArrayList
 
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHolder>() {
-
     private var mTaskList = arrayListOf<Task>()
     private lateinit var mDatabase: TasksDatabase
     private lateinit var mContext: Context
 
-    fun setData(forecasts: List<Task>) {
-        mTaskList = forecasts as ArrayList<Task>
+    fun setData(tasks: List<Task>) {
+        mTaskList = tasks as ArrayList<Task>
         notifyDataSetChanged()
     }
 
@@ -35,20 +35,17 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
         Log.d(TAG, "Task with title (${item.title}) and position (${item.position}) added to RecyclerView!")
     }
 
-    fun updateTaskOrder(fromPosition: Int, toPosition: Int) = notifyItemMoved(fromPosition, toPosition)
-
-    fun updateTask(updatedTask: Task, position: Int) {
-        mTaskList[position] = updatedTask
-        notifyItemChanged(position)
-
-        Log.d(TAG, "Task with title (${mTaskList[position].title}) and position ($position) updated in RecyclerView!")
+    fun updateData(tasks: List<Task>) {
+        val result = DiffUtil.calculateDiff(TaskDiffUtilCallback(mTaskList, tasks))
+        mTaskList = tasks as ArrayList<Task>
+        result.dispatchUpdatesTo(this)
     }
+
+    fun updateTaskOrder(fromPosition: Int, toPosition: Int) = notifyItemMoved(fromPosition, toPosition)
 
     fun removeTask(position: Int) {
         mTaskList.removeAt(position)
         notifyItemRemoved(position)
-        Log.d(TAG, "REMOVED TASK FROM POSITION $position")
-
     }
 
     fun removeAllTasks() {

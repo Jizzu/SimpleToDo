@@ -9,9 +9,7 @@ class TaskListViewModel(app: Application) : BaseViewModel(app) {
 
     fun getAllTasks() = repository.getAllTasks()
 
-    fun updateTask(task: Task) = repository.updateTask(task)
-
-    fun updateTaskOrder(position: Int, id: Long) = repository.updateTaskOrder(position, id)
+    fun updateTaskOrder(tasks: List<Task>) = repository.updateTaskOrder(tasks)
 
     fun deleteTask(task: Task) = repository.deleteTask(task)
 

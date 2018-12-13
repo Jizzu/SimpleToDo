@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.ui.adapter
+package apps.jizzu.simpletodo.ui.recycler
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

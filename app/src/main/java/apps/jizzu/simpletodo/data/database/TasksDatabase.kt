@@ -11,7 +11,7 @@ import apps.jizzu.simpletodo.data.models.Task
 @Database(entities = [Task::class], version = 2)
 abstract class TasksDatabase : RoomDatabase() {
 
-    abstract fun taskDAO(): TaskDAO
+    abstract fun taskDAO(): TaskDao
 
     companion object {
         private var mInstance: TasksDatabase? = null

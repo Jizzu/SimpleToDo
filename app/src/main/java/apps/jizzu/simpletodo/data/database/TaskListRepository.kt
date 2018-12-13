@@ -17,30 +17,5 @@ class TaskListRepository(app: Application) {
 
     fun updateTask(task: Task) = Completable.fromCallable{ mTaskDao.updateTask(task) }.subscribeOn(Schedulers.io()).subscribe()
 
-    fun updateTaskOrder(position: Int, id: Long) = Completable.fromCallable{ mTaskDao.updateTaskOrder(position, id) }.subscribeOn(Schedulers.io()).subscribe()
-
-//
-//    fun removeTask(task: ModelTask) {
-//        mTaskDao.removeTask(task)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeBy(
-//                        onComplete = { mLiveData.value = ViewStateCompleted }
-//                )
-//    }
-//
-//    fun deleteAllTasks() {
-//        mTaskDao.deleteAllTasks()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeBy(
-//                        onComplete = { mLiveData.value = ViewStateCompleted }
-//                )
-//    }
-//
-//    fun getTasksForSearch(title: String) {
-//        mTaskDao.getTasksForSearch(title)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeBy(
-//                        onNext = { mLiveData.value = ViewStateTaskListIsReady(it) }
-//                )
-//    }
+    fun updateTaskOrder(tasks: List<Task>) = Completable.fromCallable{ mTaskDao.updateTaskOrder(tasks) }.subscribeOn(Schedulers.io()).subscribe()
 }

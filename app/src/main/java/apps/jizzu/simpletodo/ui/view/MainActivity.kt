@@ -11,6 +11,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -28,8 +29,8 @@ import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
-import apps.jizzu.simpletodo.ui.adapter.RecyclerViewAdapter
-import apps.jizzu.simpletodo.ui.adapter.RecyclerViewScrollListener
+import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
+import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.utils.Interpolator
 import apps.jizzu.simpletodo.utils.PreferenceHelper
@@ -43,7 +44,6 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-
     private val mRecyclerView: RecyclerView by bindView(R.id.tasksList)
     private val mFab: FloatingActionButton by bindView(R.id.fab)
 
@@ -110,12 +110,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteTask(position: Int) {
         val task = mAdapter.getTaskAtPosition(position)
+//        mTaskList.remove(task)
         mAdapter.removeTask(position)
+//        mAdapter.updateData(mTaskList)
         mViewModel.deleteTask(task)
 
         val snackbar = Snackbar.make(mRecyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG)
         snackbar.setAction(R.string.snackbar_undo) {
             mViewModel.saveTask(task)
+            Log.d("KEK", "Task (${task.title}) with position (${task.position}) added to RV")
         }
 
         snackbar.view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
@@ -146,16 +149,12 @@ class MainActivity : AppCompatActivity() {
                 mTaskList[i - 1].position = i - 1
             }
         }
-        mAdapter.updateTaskOrder(fromPosition, toPosition)
-        updateGeneralNotification(mTaskList)
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        for (task in mTaskList) {
-            mViewModel.updateTask(task)
+        mViewModel.updateTaskOrder(mTaskList)
+        mAdapter.apply {
+            updateTaskOrder(fromPosition, toPosition)
+            updateData(mTaskList)
         }
+        updateGeneralNotification(mTaskList)
     }
 
     private fun showChangelogActivity() {
@@ -264,7 +263,7 @@ class MainActivity : AppCompatActivity() {
     private fun showTaskList(tasks: List<Task>) {
         mTaskList = tasks as ArrayList<Task>
         emptyView.visibility = View.GONE
-        mAdapter.setData(tasks)
+        mAdapter.updateData(tasks)
         updateGeneralNotification(tasks)
         updateWidget()
     }
