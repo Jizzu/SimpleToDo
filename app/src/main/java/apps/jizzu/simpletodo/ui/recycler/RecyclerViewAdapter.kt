@@ -23,11 +23,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
     private lateinit var mDatabase: TasksDatabase
     private lateinit var mContext: Context
 
-    fun setData(tasks: List<Task>) {
-        mTaskList = tasks as ArrayList<Task>
-        notifyDataSetChanged()
-    }
-
     fun addTask(item: Task) {
         mTaskList.add(item)
         notifyItemInserted(itemCount - 1)
@@ -81,10 +76,10 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val task = mTaskList[position]
+        val task = mTaskList[holder.adapterPosition]
 
         val itemView = holder.itemView
-        itemView.setOnClickListener { view -> clickListener?.onTaskClick(view, position) }
+        itemView.setOnClickListener { view -> clickListener?.onTaskClick(view, holder.adapterPosition) }
 
         holder.itemView.isEnabled = true
         holder.title.text = task.title

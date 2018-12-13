@@ -20,7 +20,4 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks_table ORDER BY task_position")
     fun getAllTasks(): LiveData<List<Task>>
-
-    @Query("SELECT count(*) FROM tasks_table")
-    fun getTasksCount(): Int
 }

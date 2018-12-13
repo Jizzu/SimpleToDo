@@ -11,11 +11,11 @@ class TaskListRepository(app: Application) {
 
     fun getAllTasks() = mLiveData
 
-    fun saveTask(task: Task) = Completable.fromCallable{ mTaskDao.saveTask(task) }.subscribeOn(Schedulers.io()).subscribe()
+    fun saveTask(task: Task) = Completable.fromCallable{ mTaskDao.saveTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
 
-    fun deleteTask(task: Task) = Completable.fromCallable{ mTaskDao.deleteTask(task) }.subscribeOn(Schedulers.io()).subscribe()
+    fun deleteTask(task: Task) = Completable.fromCallable{ mTaskDao.deleteTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
 
-    fun updateTask(task: Task) = Completable.fromCallable{ mTaskDao.updateTask(task) }.subscribeOn(Schedulers.io()).subscribe()
+    fun updateTask(task: Task) = Completable.fromCallable{ mTaskDao.updateTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
 
-    fun updateTaskOrder(tasks: List<Task>) = Completable.fromCallable{ mTaskDao.updateTaskOrder(tasks) }.subscribeOn(Schedulers.io()).subscribe()
+    fun updateTaskOrder(tasks: List<Task>) = Completable.fromCallable{ mTaskDao.updateTaskOrder(tasks) }.subscribeOn(Schedulers.io()).subscribe()!!
 }

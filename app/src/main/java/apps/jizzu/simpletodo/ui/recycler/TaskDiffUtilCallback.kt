@@ -9,7 +9,6 @@ class TaskDiffUtilCallback constructor(private val oldList: List<Task>, private 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
             oldList[oldItemPosition].id == updatedList[newItemPosition].id
 
-
     override fun getOldListSize(): Int {
         return oldList.size
     }

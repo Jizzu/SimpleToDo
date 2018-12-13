@@ -11,7 +11,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -79,6 +78,28 @@ class MainActivity : AppCompatActivity() {
         initListeners()
     }
 
+    private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView()
+        else showTaskList(tasks)
+
+    private fun showTaskList(tasks: List<Task>) {
+        mTaskList = tasks as ArrayList<Task>
+        emptyView.visibility = View.GONE
+        mAdapter.updateData(tasks)
+        updateGeneralNotification()
+        updateWidget()
+    }
+
+    private fun showEmptyView() {
+        mAdapter.updateData(arrayListOf())
+        emptyView.visibility = View.VISIBLE
+        val anim = AnimationUtils.loadAnimation(this, R.anim.empty_view_animation).apply {
+            startOffset = 300
+            duration = 300
+        }
+        updateGeneralNotification()
+        emptyView.startAnimation(anim)
+    }
+
     private fun showRecyclerViewAnimation() {
         if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
             val resId = R.anim.layout_animation
@@ -110,15 +131,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteTask(position: Int) {
         val task = mAdapter.getTaskAtPosition(position)
-//        mTaskList.remove(task)
         mAdapter.removeTask(position)
-//        mAdapter.updateData(mTaskList)
         mViewModel.deleteTask(task)
 
         val snackbar = Snackbar.make(mRecyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG)
         snackbar.setAction(R.string.snackbar_undo) {
             mViewModel.saveTask(task)
-            Log.d("KEK", "Task (${task.title}) with position (${task.position}) added to RV")
         }
 
         snackbar.view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
@@ -154,7 +172,7 @@ class MainActivity : AppCompatActivity() {
             updateTaskOrder(fromPosition, toPosition)
             updateData(mTaskList)
         }
-        updateGeneralNotification(mTaskList)
+        updateGeneralNotification()
     }
 
     private fun showChangelogActivity() {
@@ -257,27 +275,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView()
-        else showTaskList(tasks)
-
-    private fun showTaskList(tasks: List<Task>) {
-        mTaskList = tasks as ArrayList<Task>
-        emptyView.visibility = View.GONE
-        mAdapter.updateData(tasks)
-        updateGeneralNotification(tasks)
-        updateWidget()
-    }
-
-    private fun showEmptyView() {
-        mAdapter.setData(arrayListOf())
-        emptyView.visibility = View.VISIBLE
-        val anim = AnimationUtils.loadAnimation(this, R.anim.empty_view_animation).apply {
-            startOffset = 300
-            duration = 300
-        }
-        emptyView.startAnimation(anim)
-    }
-
     private fun updateWidget() {
         val intent = Intent(this, WidgetProvider::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
@@ -287,24 +284,18 @@ class MainActivity : AppCompatActivity() {
         sendBroadcast(intent)
     }
 
-    private fun updateGeneralNotification(tasks: List<Task>) {
+    private fun updateGeneralNotification() {
         if (mPreferenceHelper.getBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON)) {
-            if (mAdapter.itemCount != 0) {
-                showGeneralNotification(tasks)
-            } else {
-                removeGeneralNotification()
-            }
-        } else {
-            removeGeneralNotification()
-        }
+            if (mAdapter.itemCount != 0) showGeneralNotification() else removeGeneralNotification()
+        } else removeGeneralNotification()
     }
 
-    private fun showGeneralNotification(tasks: List<Task>) {
+    private fun showGeneralNotification() {
         val stringBuilder = StringBuilder()
         val pendingIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java),
                 PendingIntent.FLAG_UPDATE_CURRENT)
 
-        for (task in tasks) {
+        for (task in mTaskList) {
             stringBuilder.append("• ").append(task.title)
 
             if (task.position < mAdapter.itemCount - 1) {

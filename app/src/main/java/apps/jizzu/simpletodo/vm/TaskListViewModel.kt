@@ -7,8 +7,6 @@ import apps.jizzu.simpletodo.vm.base.BaseViewModel
 class TaskListViewModel(app: Application) : BaseViewModel(app) {
     val liveData = repository.getAllTasks()
 
-    fun getAllTasks() = repository.getAllTasks()
-
     fun updateTaskOrder(tasks: List<Task>) = repository.updateTaskOrder(tasks)
 
     fun deleteTask(task: Task) = repository.deleteTask(task)
