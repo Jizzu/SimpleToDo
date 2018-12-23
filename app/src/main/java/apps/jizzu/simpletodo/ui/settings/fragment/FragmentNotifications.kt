@@ -29,10 +29,6 @@ class FragmentNotifications : BaseSettingsFragment() {
         super.onViewCreated(view, savedInstanceState)
         mPreferenceHelper = PreferenceHelper.getInstance()
         setTitle(getString(R.string.settings_page_title_notifications))
-        initUiComponents()
-    }
-
-    private fun initUiComponents() {
         initGeneralNotificationSwitch()
         initNotificationSoundButton()
     }
@@ -43,13 +39,13 @@ class FragmentNotifications : BaseSettingsFragment() {
 
         switchGeneralNotification.setOnClickListener {
             mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, switchGeneralNotification.isChecked)
-            clickListener?.onGeneralNotificationStateChanged()
+            callback?.onGeneralNotificationStateChanged()
         }
 
         buttonGeneralNotification.setOnClickListener {
             switchGeneralNotification.isChecked = !switchGeneralNotification.isChecked
             mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, switchGeneralNotification.isChecked)
-            clickListener?.onGeneralNotificationStateChanged()
+            callback?.onGeneralNotificationStateChanged()
         }
     }
 
@@ -82,6 +78,6 @@ class FragmentNotifications : BaseSettingsFragment() {
     }
 
     companion object {
-        var clickListener: GeneralNotificationClickListener? = null
+        var callback: GeneralNotificationClickListener? = null
     }
 }

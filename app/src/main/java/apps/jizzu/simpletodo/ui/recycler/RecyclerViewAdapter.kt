@@ -23,13 +23,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
     private lateinit var mDatabase: TasksDatabase
     private lateinit var mContext: Context
 
-    fun addTask(item: Task) {
-        mTaskList.add(item)
-        notifyItemInserted(itemCount - 1)
-
-        Log.d(TAG, "Task with title (${item.title}) and position (${item.position}) added to RecyclerView!")
-    }
-
     fun updateData(tasks: List<Task>) {
         val result = DiffUtil.calculateDiff(TaskDiffUtilCallback(mTaskList, tasks))
         mTaskList = tasks as ArrayList<Task>
@@ -43,21 +36,15 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
         notifyItemRemoved(position)
     }
 
-    fun removeAllTasks() {
-        if (itemCount != 0) {
-            mTaskList = ArrayList()
-            notifyDataSetChanged()
-        }
-    }
-
     fun reloadTasks() {
         val backupList = ArrayList<Task>()
         backupList.addAll(mTaskList)
+        mTaskList.clear()
 
-        removeAllTasks()
         for (task in backupList) {
-            addTask(task)
+            mTaskList.add(task)
         }
+        notifyDataSetChanged()
     }
 
     fun getTaskAtPosition(position: Int): Task {

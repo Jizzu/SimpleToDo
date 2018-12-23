@@ -32,6 +32,7 @@ import apps.jizzu.simpletodo.service.widget.WidgetProvider
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.settings.activity.SettingsActivity
+import apps.jizzu.simpletodo.ui.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.settings.fragment.FragmentNotifications
 import apps.jizzu.simpletodo.utils.Interpolator
 import apps.jizzu.simpletodo.utils.PreferenceHelper
@@ -334,7 +335,12 @@ class MainActivity : AppCompatActivity() {
         val callbackGeneralNotification = object : FragmentNotifications.GeneralNotificationClickListener {
             override fun onGeneralNotificationStateChanged() = updateGeneralNotification()
         }
-        FragmentNotifications.clickListener = callbackGeneralNotification
+        FragmentNotifications.callback = callbackGeneralNotification
+
+        val callbackDateAndTimeFormat = object : FragmentDateAndTime.DateAndTimeFormatCallback {
+            override fun onDateAndTimeFormatChanged() = mAdapter.reloadTasks()
+        }
+        FragmentDateAndTime.callback = callbackDateAndTimeFormat
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
