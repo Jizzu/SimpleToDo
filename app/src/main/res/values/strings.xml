@@ -3,6 +3,8 @@
     <string name="simple_todo_title">S I M P L E \u0020\u0020 T O D O</string>
     <string name="empty_view_title">No tasks</string>
     <string name="empty_view_text">You can create new tasks \n using the + button</string>
+    <string name="search_view_empty_text">Search to find particular tasks</string>
+    <string name="search_view_not_found_text">No results found :(</string>
     <string name="create_task">N E W \u0020\u0020 T A S K</string>
     <string name="set_reminder">Set reminder</string>
     <string name="set_reminder_short">Reminder</string>

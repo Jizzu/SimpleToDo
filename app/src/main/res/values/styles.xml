@@ -7,6 +7,7 @@
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/white</item>
         <item name="android:fontFamily">@font/product_sans</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
@@ -14,8 +15,9 @@
         <item name="android:textColorHint">@color/white</item>
     </style>
 
-    <style name="MaterialSearchViewStyle">
-        <item name="android:hint">@string/search</item>
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+        <item name="closeIcon">@drawable/round_close_black_24</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">

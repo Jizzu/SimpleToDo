@@ -2,6 +2,8 @@
 <resources>
     <string name="empty_view_title">Нет задач</string>
     <string name="empty_view_text">Создайте новые задачи \n с помощью кнопки +</string>
+    <string name="search_view_empty_text">Введите поисковый запрос</string>
+    <string name="search_view_not_found_text">Совпадения не найдены :(</string>
     <string name="create_task">Н О В А Я \u0020\u0020 З А Д А Ч А</string>
     <string name="set_reminder">Добавить напоминание</string>
     <string name="set_reminder_short">Напоминание</string>

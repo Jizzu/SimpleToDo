@@ -64,7 +64,7 @@ dependencies {
     // Room
     implementation 'android.arch.persistence.room:runtime:2.1.0-alpha02'
     implementation "android.arch.persistence.room:rxjava2:2.1.0-alpha02"
-    kapt  'android.arch.persistence.room:compiler:2.1.0-alpha02'
+    kapt 'android.arch.persistence.room:compiler:2.1.0-alpha02'
     androidTestImplementation 'android.arch.persistence.room:testing:2.1.0-alpha02'
 
     // RxJava

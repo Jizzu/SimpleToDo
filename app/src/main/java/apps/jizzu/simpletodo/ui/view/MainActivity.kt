@@ -11,6 +11,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView()
-        else showTaskList(tasks)
+    else showTaskList(tasks)
 
     private fun showTaskList(tasks: List<Task>) {
         mTaskList = tasks as ArrayList<Task>
@@ -218,13 +219,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
-            override fun onTaskClick(v: View, position: Int) {
-                val task = mAdapter.getTaskAtPosition(position)
-                showTaskDetailsActivity(task)
-            }
-        })
-
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -335,20 +329,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun removeGeneralNotification() = mNotificationManager.cancel(1)
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        menuInflater.inflate(R.menu.menu, menu)
-//
-//        val item = menu.findItem(R.id.action_search)
-//        mSearchView.setMenuItem(item)
-//
-//        return true
-//    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == android.R.id.home) {
-            startActivity(Intent(this, SettingsActivity::class.java))
-            true
-        } else false
+        when (item.itemId) {
+            android.R.id.home -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.action_search -> startActivity(Intent(this, SearchActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
@@ -368,5 +359,12 @@ class MainActivity : AppCompatActivity() {
         } else {
             (mFab as View).visibility = View.VISIBLE
         }
+
+        mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
+            override fun onTaskClick(v: View, position: Int) {
+                val task = mAdapter.getTaskAtPosition(position)
+                showTaskDetailsActivity(task)
+            }
+        })
     }
 }

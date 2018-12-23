@@ -7,15 +7,17 @@ import io.reactivex.schedulers.Schedulers
 
 class TaskListRepository(app: Application) {
     private val mTaskDao = TasksDatabase.getInstance(app).taskDAO()
-    private val mLiveData = mTaskDao.getAllTasks()
+    private val mAllTasksLiveData = mTaskDao.getAllTasks()
 
-    fun getAllTasks() = mLiveData
+    fun getAllTasks() = mAllTasksLiveData
 
-    fun saveTask(task: Task) = Completable.fromCallable{ mTaskDao.saveTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
+    fun saveTask(task: Task) = Completable.fromCallable { mTaskDao.saveTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
 
-    fun deleteTask(task: Task) = Completable.fromCallable{ mTaskDao.deleteTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
+    fun deleteTask(task: Task) = Completable.fromCallable { mTaskDao.deleteTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
 
-    fun updateTask(task: Task) = Completable.fromCallable{ mTaskDao.updateTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
+    fun updateTask(task: Task) = Completable.fromCallable { mTaskDao.updateTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
 
-    fun updateTaskOrder(tasks: List<Task>) = Completable.fromCallable{ mTaskDao.updateTaskOrder(tasks) }.subscribeOn(Schedulers.io()).subscribe()!!
+    fun updateTaskOrder(tasks: List<Task>) = Completable.fromCallable { mTaskDao.updateTaskOrder(tasks) }.subscribeOn(Schedulers.io()).subscribe()!!
+
+    fun getTasksForSearch(searchText: String) = mTaskDao.getTasksForSearch(searchText)
 }
