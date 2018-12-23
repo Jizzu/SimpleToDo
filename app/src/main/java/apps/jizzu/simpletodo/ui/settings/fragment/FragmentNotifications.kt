@@ -6,7 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import apps.jizzu.simpletodo.R
@@ -14,7 +16,6 @@ import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import kotlinx.android.synthetic.main.fragment_notifications.*
-import android.provider.Settings
 
 
 class FragmentNotifications : BaseSettingsFragment() {
@@ -37,15 +38,18 @@ class FragmentNotifications : BaseSettingsFragment() {
     }
 
     private fun initGeneralNotificationSwitch() {
+        switchGeneralNotification.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
         switchGeneralNotification.isChecked = mPreferenceHelper.getBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON)
 
         switchGeneralNotification.setOnClickListener {
             mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, switchGeneralNotification.isChecked)
+            clickListener?.onGeneralNotificationStateChanged()
         }
 
         buttonGeneralNotification.setOnClickListener {
             switchGeneralNotification.isChecked = !switchGeneralNotification.isChecked
             mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, switchGeneralNotification.isChecked)
+            clickListener?.onGeneralNotificationStateChanged()
         }
     }
 
@@ -71,5 +75,13 @@ class FragmentNotifications : BaseSettingsFragment() {
                 startActivity(intent)
             }
         }
+    }
+
+    interface GeneralNotificationClickListener {
+        fun onGeneralNotificationStateChanged()
+    }
+
+    companion object {
+        var clickListener: GeneralNotificationClickListener? = null
     }
 }

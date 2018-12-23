@@ -32,6 +32,7 @@ import apps.jizzu.simpletodo.service.widget.WidgetProvider
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.settings.activity.SettingsActivity
+import apps.jizzu.simpletodo.ui.settings.fragment.FragmentNotifications
 import apps.jizzu.simpletodo.utils.Interpolator
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.vm.TaskListViewModel
@@ -58,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initToolbar()
-
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         AlarmHelper.getInstance().init(applicationContext)
 
@@ -77,10 +77,11 @@ class MainActivity : AppCompatActivity() {
         showRecyclerViewAnimation()
         createItemTouchHelper()
         initListeners()
+        initCallbacks()
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView()
-    else showTaskList(tasks)
+        else showTaskList(tasks)
 
     private fun showTaskList(tasks: List<Task>) {
         mTaskList = tasks as ArrayList<Task>
@@ -328,6 +329,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun removeGeneralNotification() = mNotificationManager.cancel(1)
+
+    private fun initCallbacks() {
+        val callbackGeneralNotification = object : FragmentNotifications.GeneralNotificationClickListener {
+            override fun onGeneralNotificationStateChanged() = updateGeneralNotification()
+        }
+        FragmentNotifications.clickListener = callbackGeneralNotification
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
