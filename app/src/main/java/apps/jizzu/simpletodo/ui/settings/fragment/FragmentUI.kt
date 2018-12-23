@@ -2,6 +2,7 @@ package apps.jizzu.simpletodo.ui.settings.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import apps.jizzu.simpletodo.R
@@ -19,21 +20,22 @@ class FragmentUI : BaseSettingsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTitle(getString(R.string.settings_page_title_user_interface))
-        initAnimationsSwitch()
+        initAnimationSwitch()
     }
 
-    private fun initAnimationsSwitch() {
-        val mPreferenceHelper = PreferenceHelper.getInstance()
+    private fun initAnimationSwitch() {
+        val preferenceHelper = PreferenceHelper.getInstance()
 
-        switchAnimations.isChecked = mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)
+        switchAnimation.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
+        switchAnimation.isChecked = preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)
 
-        switchAnimations.setOnClickListener {
-            mPreferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, switchAnimations.isChecked)
+        switchAnimation.setOnClickListener {
+            preferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, switchAnimation.isChecked)
         }
 
         buttonAnimations.setOnClickListener {
-            switchAnimations.isChecked = !switchAnimations.isChecked
-            mPreferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, switchAnimations.isChecked)
+            switchAnimation.isChecked = !switchAnimation.isChecked
+            preferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, switchAnimation.isChecked)
         }
     }
 }

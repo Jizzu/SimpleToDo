@@ -40,11 +40,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/switchAnimations"
+            app:layout_constraintRight_toLeftOf="@id/switchAnimation"
             app:layout_constraintTop_toBottomOf="@id/tvAnimationsTitle" />
 
         <Switch
-            android:id="@+id/switchAnimations"
+            android:id="@+id/switchAnimation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

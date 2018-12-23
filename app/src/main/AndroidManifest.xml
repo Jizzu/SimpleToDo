@@ -46,6 +46,9 @@
         <activity
             android:name=".ui.view.ChangelogActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.SearchActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".service.widget.WidgetService"
@@ -60,8 +63,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_metadata" />
         </receiver>
-
-        <activity android:name=".ui.view.SearchActivity"></activity>
     </application>
 
 </manifest>

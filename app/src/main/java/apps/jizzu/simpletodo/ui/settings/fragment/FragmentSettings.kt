@@ -57,7 +57,7 @@ class FragmentSettings : Fragment() {
         email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_title))
         email.putExtra(Intent.EXTRA_TEXT, getString(R.string.feedback_device_info) + "\n" + DeviceInfo.deviceInfo
                 + "\n" + getString(R.string.feedback_app_version) + BuildConfig.VERSION_NAME
-                + "\n" + getString(R.string.feedback) + "\n")
+                + "\n" + getString(R.string.feedback))
         try {
             startActivity(Intent.createChooser(email, "Send feedback"))
         } catch (ex: android.content.ActivityNotFoundException) {
