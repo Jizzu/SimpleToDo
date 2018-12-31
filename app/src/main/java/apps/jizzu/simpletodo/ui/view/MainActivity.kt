@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mPreferenceHelper: PreferenceHelper
     private lateinit var mNotificationManager: NotificationManager
     private lateinit var mViewModel: TaskListViewModel
-    private var mTaskList = arrayListOf<Task>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,25 +80,26 @@ class MainActivity : AppCompatActivity() {
         initCallbacks()
     }
 
-    private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView()
-        else showTaskList(tasks)
+    private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView() else showTaskList(tasks)
 
     private fun showTaskList(tasks: List<Task>) {
         mTaskList = tasks as ArrayList<Task>
         emptyView.visibility = View.GONE
-        mAdapter.updateData(tasks)
+        mAdapter.updateData(mTaskList)
         updateGeneralNotification()
         updateWidget()
     }
 
     private fun showEmptyView() {
-        mAdapter.updateData(arrayListOf())
+        mTaskList = arrayListOf()
+        mAdapter.updateData(mTaskList)
         emptyView.visibility = View.VISIBLE
         val anim = AnimationUtils.loadAnimation(this, R.anim.empty_view_animation).apply {
             startOffset = 300
             duration = 300
         }
         updateGeneralNotification()
+        updateWidget()
         emptyView.startAnimation(anim)
     }
 
@@ -176,6 +176,7 @@ class MainActivity : AppCompatActivity() {
             updateData(mTaskList)
         }
         updateGeneralNotification()
+        updateWidget()
     }
 
     private fun showChangelogActivity() {
@@ -216,7 +217,6 @@ class MainActivity : AppCompatActivity() {
                 val position = mAdapter.itemCount
                 val intent = Intent(this@MainActivity, AddTaskActivity::class.java)
                 intent.putExtra("position", position)
-
                 startActivity(intent)
             }
         }
@@ -338,7 +338,10 @@ class MainActivity : AppCompatActivity() {
         FragmentNotifications.callback = callbackGeneralNotification
 
         val callbackDateAndTimeFormat = object : FragmentDateAndTime.DateAndTimeFormatCallback {
-            override fun onDateAndTimeFormatChanged() = mAdapter.reloadTasks()
+            override fun onDateAndTimeFormatChanged() {
+                mAdapter.reloadTasks()
+                updateWidget()
+            }
         }
         FragmentDateAndTime.callback = callbackDateAndTimeFormat
     }
@@ -380,5 +383,9 @@ class MainActivity : AppCompatActivity() {
                 showTaskDetailsActivity(task)
             }
         })
+    }
+
+    companion object {
+        var mTaskList = arrayListOf<Task>()
     }
 }

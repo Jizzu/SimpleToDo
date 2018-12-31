@@ -63,7 +63,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_corner"
+        android:background="@drawable/button_gradient_backgound"
         android:text="O K"
         android:textColor="@color/white"
         android:textSize="16sp"

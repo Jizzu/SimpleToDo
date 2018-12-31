@@ -114,6 +114,8 @@
     <string name="notification_channel">Уведомления</string>
     <string name="general_notification_channel">Общее уведомление</string>
 
+    <string name="widget_title">ЗАДАЧИ</string>
+
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Что нового?</string>
     <string name="whats_new_button_text">Продолжить</string>

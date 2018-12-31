@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/widget_rounded_corner"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/toolbar_textView"
+        android:id="@+id/toolbarTitle"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_gravity="start"
         android:elevation="4dp"
         android:gravity="center"
         android:padding="10dp"
-        android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:text="@string/simple_todo_title"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:paddingEnd="16dp"
+        android:text="@string/widget_title"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <ListView
-        android:id="@+id/widget_list"
+        android:id="@+id/widgetList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:divider="@null"
-        android:dividerHeight="10dp" />
+        android:dividerHeight="5dp"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
 </LinearLayout>

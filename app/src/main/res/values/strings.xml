@@ -116,6 +116,8 @@
     <string name="notification_channel">Notifications</string>
     <string name="general_notification_channel">General Notification</string>
 
+    <string name="widget_title">TODO LIST</string>
+
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">What\'s New?</string>
     <string name="whats_new_button_text">Continue</string>

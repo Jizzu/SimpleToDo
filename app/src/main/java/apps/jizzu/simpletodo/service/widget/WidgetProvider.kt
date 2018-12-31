@@ -22,10 +22,8 @@ class WidgetProvider : AppWidgetProvider() {
      */
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
 
-        val clickPI = PendingIntent.getActivity(context, 0,
-                Intent(context, MainActivity::class.java)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
-                PendingIntent.FLAG_UPDATE_CURRENT)
+        val onTitleClickPendingIntent = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_UPDATE_CURRENT)
 
         for (appWidgetId in appWidgetIds) {
 
@@ -38,18 +36,15 @@ class WidgetProvider : AppWidgetProvider() {
             adapter.data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME))
 
             val widget = RemoteViews(context.packageName, R.layout.widget_list)
-            widget.setRemoteAdapter(R.id.widget_list, adapter)
-            widget.setOnClickPendingIntent(R.id.toolbar_textView, clickPI)
+            widget.setRemoteAdapter(R.id.widgetList, adapter)
+            widget.setOnClickPendingIntent(R.id.toolbarTitle, onTitleClickPendingIntent)
 
-            val listClickIntent = Intent(context, WidgetProvider::class.java)
-            val listClickPIntent = PendingIntent.getBroadcast(context, 0,
-                    listClickIntent, 0)
-            widget.setPendingIntentTemplate(R.id.widget_list, listClickPIntent)
+            val onTaskClickPendingIntent = PendingIntent.getBroadcast(context, 0, Intent(context, WidgetProvider::class.java), 0)
+            widget.setPendingIntentTemplate(R.id.widgetList, onTaskClickPendingIntent)
 
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list)
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetList)
             appWidgetManager.updateAppWidget(appWidgetId, widget)
         }
-
         super.onUpdate(context, appWidgetManager, appWidgetIds)
     }
 

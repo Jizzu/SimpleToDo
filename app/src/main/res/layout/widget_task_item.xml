@@ -3,26 +3,26 @@
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_corner"
+    android:background="@drawable/widget_item_rounded_corner"
     android:foreground="?android:attr/selectableItemBackground"
     android:padding="5dp"
-    android:paddingEnd="5dp"
-    android:paddingStart="5dp">
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/item_title"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="3dp"
         android:textColor="@color/colorAccent"
         android:textSize="12sp" />

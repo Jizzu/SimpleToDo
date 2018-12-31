@@ -13,8 +13,10 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
+import apps.jizzu.simpletodo.ui.view.MainActivity
 import apps.jizzu.simpletodo.utils.Utils
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Class that will fill the list with values.
@@ -22,21 +24,21 @@ import java.util.*
  */
 class ViewFactory internal constructor(private val mContext: Context) : RemoteViewsService.RemoteViewsFactory {
 
-    private lateinit var mListData: ArrayList<Task>
+    private lateinit var  mWidgetData: ArrayList<Task>
 
     /**
      * Called when factory is first constructed.
      */
     override fun onCreate() {
-        mListData = ArrayList()
+        mWidgetData = arrayListOf()
     }
 
     /**
      * Called when notifyDataSetChanged() is triggered on the remote adapter.
      */
     override fun onDataSetChanged() {
-        mListData.clear()
-//        mListData.addAll(RecyclerViewAdapter.mTaskList)
+        mWidgetData = arrayListOf()
+        mWidgetData.addAll(MainActivity.mTaskList)
     }
 
     /**
@@ -46,34 +48,34 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
 
     }
 
-    override fun getCount() = mListData.size
+    override fun getCount() = mWidgetData.size
 
     /**
      * Get a View that displays the data at the specified position in the data set.
      */
     override fun getViewAt(position: Int): RemoteViews {
         val remoteViews = RemoteViews(mContext.packageName, R.layout.widget_task_item)
-        remoteViews.setTextViewText(R.id.item_title, mListData[position].title)
+        remoteViews.setTextViewText(R.id.item_title, mWidgetData[position].title)
 
-        if (mListData[position].date != 0L) {
+        if (mWidgetData[position].date != 0L) {
             remoteViews.setViewPadding(R.id.item_title, 0, 0, 0, 0)
             remoteViews.setViewVisibility(R.id.item_date, View.VISIBLE)
 
             when {
-                DateUtils.isToday(mListData[position].date) -> {
+                DateUtils.isToday(mWidgetData[position].date) -> {
                     remoteViews.setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.colorPrimary))
-                    remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_today) + " " + Utils.getTime(mListData[position].date))
+                    remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_today) + " " + Utils.getTime(mWidgetData[position].date))
                 }
-                DateUtils.isToday(mListData[position].date + DateUtils.DAY_IN_MILLIS) -> {
+                DateUtils.isToday(mWidgetData[position].date + DateUtils.DAY_IN_MILLIS) -> {
                     remoteViews.setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red))
-                    remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_yesterday) + " " + Utils.getTime(mListData[position].date))
+                    remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_yesterday) + " " + Utils.getTime(mWidgetData[position].date))
                 }
-                DateUtils.isToday(mListData[position].date - DateUtils.DAY_IN_MILLIS) -> remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_tomorrow) + " " + Utils.getTime(mListData[position].date))
-                mListData[position].date < Calendar.getInstance().timeInMillis -> {
+                DateUtils.isToday(mWidgetData[position].date - DateUtils.DAY_IN_MILLIS) -> remoteViews.setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_tomorrow) + " " + Utils.getTime(mWidgetData[position].date))
+                mWidgetData[position].date < Calendar.getInstance().timeInMillis -> {
                     remoteViews.setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red))
-                    remoteViews.setTextViewText(R.id.item_date, Utils.getFullDate(mListData[position].date))
+                    remoteViews.setTextViewText(R.id.item_date, Utils.getFullDate(mWidgetData[position].date))
                 }
-                else -> remoteViews.setTextViewText(R.id.item_date, Utils.getFullDate(mListData[position].date) + mContext.getString(R.string.date_format_at) + Utils.getTime(mListData[position].date))
+                else -> remoteViews.setTextViewText(R.id.item_date, Utils.getFullDate(mWidgetData[position].date) + mContext.getString(R.string.date_format_at) + Utils.getTime(mWidgetData[position].date))
             }
         } else {
             val displayMetrics = DisplayMetrics()
@@ -93,13 +95,13 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
         }
 
         val fillInIntent = Intent()
-        fillInIntent.putExtra(WidgetProvider.ITEM_ID, mListData[position].id)
-        fillInIntent.putExtra(WidgetProvider.ITEM_TITLE, mListData[position].title)
+        fillInIntent.putExtra(WidgetProvider.ITEM_ID, mWidgetData[position].id)
+        fillInIntent.putExtra(WidgetProvider.ITEM_TITLE, mWidgetData[position].title)
         fillInIntent.putExtra(WidgetProvider.ITEM_POSITION, position)
-        fillInIntent.putExtra(WidgetProvider.ITEM_TIME_STAMP, mListData[position].timeStamp)
+        fillInIntent.putExtra(WidgetProvider.ITEM_TIME_STAMP, mWidgetData[position].timeStamp)
 
-        if (mListData[position].date != 0L) {
-            fillInIntent.putExtra(WidgetProvider.ITEM_DATE, mListData[position].date)
+        if (mWidgetData[position].date != 0L) {
+            fillInIntent.putExtra(WidgetProvider.ITEM_DATE, mWidgetData[position].date)
         }
         remoteViews.setOnClickFillInIntent(R.id.item, fillInIntent)
 
