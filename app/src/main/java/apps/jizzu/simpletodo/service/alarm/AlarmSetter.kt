@@ -18,7 +18,7 @@ class AlarmSetter : BroadcastReceiver() {
         val alarmHelper = AlarmHelper.getInstance()
 
         val tasks = ArrayList<Task>()
-        //tasks.addAll(database.taskDAO().getAllTasks())
+        //tasks.addAll(database.taskDAO().getTasksLiveData())
 
         for (task in tasks) {
             if (task.date != 0L) {

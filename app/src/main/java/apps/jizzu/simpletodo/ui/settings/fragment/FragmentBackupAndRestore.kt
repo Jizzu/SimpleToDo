@@ -13,17 +13,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
-import apps.jizzu.simpletodo.utils.BackupHelper
+import apps.jizzu.simpletodo.vm.BackupViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_backup_and_restore.*
 
 
 class FragmentBackupAndRestore : BaseSettingsFragment() {
-    private lateinit var mBackupHelper: BackupHelper
     private var mIsCreatingProcess = false
+    private lateinit var mViewModel: BackupViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_backup_and_restore, container, false)
@@ -31,30 +33,72 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBackupHelper = BackupHelper(activity as Context)
+        mViewModel = createViewModel()
         setTitle(getString(R.string.settings_page_title_backup_and_restore))
         setOnClickListeners()
     }
 
+    private fun showCreateDialog() {
+        val alertDialog = AlertDialog.Builder(activity as Context, R.style.DialogTheme)
+        alertDialog.setMessage(R.string.backup_create_dialog_message)
+        alertDialog.setPositiveButton(R.string.backup_create_dialog_button) { _, _ -> createBackup() }
+        alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
+        alertDialog.show()
+    }
+
+    private fun showRestoreDialog() {
+        val alertDialog = AlertDialog.Builder(activity as Context, R.style.DialogTheme)
+        alertDialog.setMessage(R.string.backup_restore_dialog_message)
+        alertDialog.setPositiveButton(R.string.backup_restore_dialog_button) { _, _ ->  restoreBackup()}
+        alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
+        alertDialog.show()
+    }
+
+    private fun createBackup() {
+        mViewModel.createBackup()
+
+        if (mViewModel.isBackupCreatedSuccessfully()) {
+            Toast.makeText(activity, R.string.backup_create_message_success, Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(activity, R.string.backup_create_message_failure, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun restoreBackup() {
+        if (mViewModel.isBackupExist()) {
+            mViewModel.restoreBackup()
+
+            if (mViewModel.isBackupRestoredSuccessfully()) {
+                Toast.makeText(activity, R.string.backup_restore_message_success, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(activity, R.string.backup_restore_message_failure, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(activity, R.string.backup_restore_message_nothing, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun setOnClickListeners() {
         buttonCreateBackup.setOnClickListener {
-            if (hasPermissions()) {
-                mBackupHelper.showCreateDialog()
+            if (isHasPermissions()) {
+                if (mViewModel.isBackupExist()) {
+                    showCreateDialog()
+                } else mViewModel.createBackup()
             } else {
                 requestPermissionWithRationale()
             }
         }
 
         buttonRestoreBackup.setOnClickListener {
-            if (hasPermissions()) {
-                mBackupHelper.showRestoreDialog()
+            if (isHasPermissions()) {
+                showRestoreDialog()
             } else {
                 requestPermissionWithRationale()
             }
         }
     }
 
-    private fun hasPermissions(): Boolean {
+    private fun isHasPermissions(): Boolean {
         var result: Int
         val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
@@ -93,9 +137,9 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
         if (isAllowed) {
             if (mIsCreatingProcess) {
-                mBackupHelper.showCreateDialog()
+                mViewModel.isBackupExist()
             } else {
-                mBackupHelper.showRestoreDialog()
+                showRestoreDialog()
             }
         } else {
             // We will give warning to user that they haven't granted permissions.
@@ -139,6 +183,8 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
             requestPerms()
         }
     }
+
+    private fun createViewModel() = ViewModelProviders.of(this).get(BackupViewModel::class.java)
 
     private companion object {
         private const val PERMISSION_REQUEST_CODE = 123

@@ -45,7 +45,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_details)
         mCalendar = Calendar.getInstance()
-        screenResolutionCheck()
+        checkScreenResolution()
         showKeyboard()
     }
 
@@ -66,7 +66,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
         }
     }
 
-    private fun screenResolutionCheck() {
+    private fun checkScreenResolution() {
         val displayMetrics = DisplayMetrics()
         (this.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
