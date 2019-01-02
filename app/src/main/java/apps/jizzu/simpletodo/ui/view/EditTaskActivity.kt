@@ -80,9 +80,6 @@ class EditTaskActivity : BaseTaskActivity() {
                     if (!mReminderSwitch.isChecked || mDateEditText.length() == 0 && mTimeEditText.length() == 0) {
                         task.date = 0
                     }
-                    Log.d(TAG, "Title = ${task.title}, date = ${task.date}, position = ${task.position}")
-
-                    mViewModel.updateTask(task)
 
                     if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
                         task.date = 0
@@ -91,9 +88,11 @@ class EditTaskActivity : BaseTaskActivity() {
                         val alarmHelper = AlarmHelper.getInstance()
                         alarmHelper.setAlarm(task)
                     } else if (task.date == 0L) {
-                        val mAlarmHelper = AlarmHelper.getInstance()
-                        mAlarmHelper.removeAlarm(task.timeStamp)
+                        val alarmHelper = AlarmHelper.getInstance()
+                        alarmHelper.removeAlarm(task.timeStamp)
+                        alarmHelper.removeNotification(task.timeStamp, this)
                     }
+                    mViewModel.updateTask(task)
                     finish()
                 }
             }
@@ -124,6 +123,11 @@ class EditTaskActivity : BaseTaskActivity() {
                     hideKeyboard(mTitleEditText)
                     val task = Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp)
                     Log.d(TAG, "EDIT TASK ACTIVITY: task position = ${task.position}")
+                    if (task.date != 0L) {
+                        val alarmHelper = AlarmHelper.getInstance()
+                        alarmHelper.removeAlarm(task.timeStamp)
+                        alarmHelper.removeNotification(task.timeStamp, this)
+                    }
                     mViewModel.deleteTask(task)
                     finish()
                 }

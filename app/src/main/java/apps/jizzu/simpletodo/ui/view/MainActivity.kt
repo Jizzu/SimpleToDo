@@ -134,12 +134,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteTask(position: Int) {
         val task = mAdapter.getTaskAtPosition(position)
+        val alarmHelper = AlarmHelper.getInstance()
+        alarmHelper.removeAlarm(task.timeStamp)
         mAdapter.removeTask(position)
         mViewModel.deleteTask(task)
+        var isUndoClicked = false
 
         val snackbar = Snackbar.make(mRecyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG)
         snackbar.setAction(R.string.snackbar_undo) {
             mViewModel.saveTask(task)
+            if (task.date != 0L && task.date > Calendar.getInstance().timeInMillis) {
+                alarmHelper.setAlarm(task)
+            }
+            isUndoClicked = true
         }
 
         snackbar.view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
@@ -148,7 +155,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onViewDetachedFromWindow(view: View) {
-
+                if (!isUndoClicked) {
+                    alarmHelper.removeNotification(task.timeStamp, this@MainActivity)
+                }
             }
         })
         snackbar.show()

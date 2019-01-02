@@ -1,11 +1,12 @@
 package apps.jizzu.simpletodo.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
+import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.view.base.BaseTaskActivity
 import apps.jizzu.simpletodo.vm.AddTaskViewModel
 import kotlinx.android.synthetic.main.activity_task_details.*
@@ -20,11 +21,9 @@ class AddTaskActivity : BaseTaskActivity() {
         initToolbar(getString(R.string.create_task))
         mReminderLayout.visibility = View.INVISIBLE
 
-        // If the user specified only the date (without time), then the notification of the event will appear in an hour.
+        // If the user specified only the date (without time), then the notification of the event will appear in an hour
         mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1)
-
         val position = intent.getIntExtra("position", 0)
-        Log.d("TEST", "New task position = $position")
 
         addTaskButton.setOnClickListener {
             when {
@@ -35,9 +34,16 @@ class AddTaskActivity : BaseTaskActivity() {
                     task.title = mTitleEditText.text.toString()
                     task.position = position
 
-
                     if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
                         task.date = mCalendar.timeInMillis
+                    }
+
+                    if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
+                        task.date = 0
+                        Toast.makeText(this, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show()
+                    } else if (task.date != 0L) {
+                        val alarmHelper = AlarmHelper.getInstance()
+                        alarmHelper.setAlarm(task)
                     }
                     val viewModel = createViewModel()
                     viewModel.saveTask(task)
