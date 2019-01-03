@@ -90,7 +90,7 @@
 
     <string name="backup_create_dialog_message">Создать новый бэкап? \nПредыдущий файл бэкапа будет удален</string>
     <string name="backup_create_dialog_button">Создать</string>
-    <string name="backup_restore_dialog_message">Восстановить бэкап? \nТекущие задачи не будут удалены</string>
+    <string name="backup_restore_dialog_message">Восстановить бэкап? \nВсе текущие задачи будут удалены!</string>
     <string name="backup_restore_dialog_button">Восстановить</string>
 
     <string name="backup_create_message_success">Бэкап успешно создан!</string>

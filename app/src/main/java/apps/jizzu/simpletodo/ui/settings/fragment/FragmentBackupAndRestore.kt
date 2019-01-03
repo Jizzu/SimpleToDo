@@ -24,8 +24,8 @@ import kotlinx.android.synthetic.main.fragment_backup_and_restore.*
 
 
 class FragmentBackupAndRestore : BaseSettingsFragment() {
-    private var mIsCreatingProcess = false
     private lateinit var mViewModel: BackupViewModel
+    private var mIsCreatingProcess = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_backup_and_restore, container, false)
@@ -80,6 +80,8 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
     private fun setOnClickListeners() {
         buttonCreateBackup.setOnClickListener {
+            mIsCreatingProcess = true
+
             if (isHasPermissions()) {
                 if (mViewModel.isBackupExist()) {
                     showCreateDialog()
@@ -137,7 +139,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
         if (isAllowed) {
             if (mIsCreatingProcess) {
-                mViewModel.isBackupExist()
+                showCreateDialog()
             } else {
                 showRestoreDialog()
             }

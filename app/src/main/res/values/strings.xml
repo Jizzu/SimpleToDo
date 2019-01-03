@@ -92,7 +92,7 @@
 
     <string name="backup_create_dialog_message">Do you want to create new backup? \nThe previous backup file will be deleted</string>
     <string name="backup_create_dialog_button">Create backup</string>
-    <string name="backup_restore_dialog_message">Do you want to restore the backup? \nCurrent tasks will not be deleted</string>
+    <string name="backup_restore_dialog_message">Do you want to restore the backup? \nAll current tasks will be deleted!</string>
     <string name="backup_restore_dialog_button">Restore backup</string>
 
     <string name="backup_create_message_success">Backup created successfully!</string>

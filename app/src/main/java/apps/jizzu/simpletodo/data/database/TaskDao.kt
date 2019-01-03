@@ -18,11 +18,14 @@ interface TaskDao {
     @Delete
     fun deleteTask(task: Task)
 
-    @Query("SELECT * FROM tasks_table ORDER BY task_position")
-    fun getTasksLiveData(): LiveData<List<Task>>
+    @Query("DELETE FROM tasks_table")
+    fun deleteAllTasks()
 
     @Query("SELECT * FROM tasks_table ORDER BY task_position")
-    fun getTasksList(): List<Task>
+    fun getAllTasksLiveData(): LiveData<List<Task>>
+
+    @Query("SELECT * FROM tasks_table ORDER BY task_position")
+    fun getAllTasks(): List<Task>
 
     @Query("SELECT * FROM tasks_table WHERE task_title LIKE '%' || :searchText || '%'")
     fun getTasksForSearch(searchText: String): LiveData<List<Task>>

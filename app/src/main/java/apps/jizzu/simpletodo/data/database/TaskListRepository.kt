@@ -9,9 +9,11 @@ import io.reactivex.schedulers.Schedulers
 
 class TaskListRepository(app: Application) {
     private val mTaskDao = TasksDatabase.getInstance(app).taskDAO()
-    private val mAllTasksLiveData = mTaskDao.getTasksLiveData()
+    private val mAllTasksLiveData = mTaskDao.getAllTasksLiveData()
 
-    fun getAllTasks() = mAllTasksLiveData
+    fun getAllTasksLiveData() = mAllTasksLiveData
+
+    fun deleteAllTasks() = Completable.fromCallable { mTaskDao.deleteAllTasks() }.subscribeOn(Schedulers.io()).subscribe()!!
 
     fun saveTask(task: Task) = Completable.fromCallable { mTaskDao.saveTask(task) }.subscribeOn(Schedulers.io()).subscribe()!!
 
@@ -23,9 +25,9 @@ class TaskListRepository(app: Application) {
 
     fun getTasksForSearch(searchText: String) = mTaskDao.getTasksForSearch(searchText)
 
-    fun getTasksList(): ArrayList<Task> {
+    fun getAllTasks(): ArrayList<Task> {
         val taskList = arrayListOf<Task>()
-        Observable.fromCallable { mTaskDao.getTasksList() }.subscribeOn(Schedulers.io())
+        Observable.fromCallable { mTaskDao.getAllTasks() }.subscribeOn(Schedulers.io())
                 .flatMap { tasks -> Observable.fromIterable(tasks) }
                 .subscribeBy(onNext = { task -> taskList.add(task) })
         return taskList
