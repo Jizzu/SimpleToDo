@@ -11,6 +11,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -48,6 +49,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private val mRecyclerView: RecyclerView by bindView(R.id.tasksList)
     private val mFab: FloatingActionButton by bindView(R.id.fab)
+    private var mSnackbar: Snackbar? = null
 
     private lateinit var mAdapter: RecyclerViewAdapter
     private lateinit var mPreferenceHelper: PreferenceHelper
@@ -133,34 +135,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteTask(position: Int) {
-        val task = mAdapter.getTaskAtPosition(position)
+        val deletedTask = mAdapter.getTaskAtPosition(position)
+        val isDeletedTaskHasLastPosition = deletedTask.position == mAdapter.itemCount - 1
         val alarmHelper = AlarmHelper.getInstance()
-        alarmHelper.removeAlarm(task.timeStamp)
+        alarmHelper.removeAlarm(deletedTask.timeStamp)
         mAdapter.removeTask(position)
-        mViewModel.deleteTask(task)
+        mViewModel.deleteTask(deletedTask)
         var isUndoClicked = false
 
-        val snackbar = Snackbar.make(mRecyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG)
-        snackbar.setAction(R.string.snackbar_undo) {
-            mViewModel.saveTask(task)
-            if (task.date != 0L && task.date > Calendar.getInstance().timeInMillis) {
-                alarmHelper.setAlarm(task)
+        mSnackbar = Snackbar.make(mRecyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG)
+        mSnackbar?.setAction(R.string.snackbar_undo) {
+            mViewModel.saveTask(deletedTask)
+            if (deletedTask.date != 0L && deletedTask.date > Calendar.getInstance().timeInMillis) {
+                alarmHelper.setAlarm(deletedTask)
             }
             isUndoClicked = true
         }
 
-        snackbar.view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+        mSnackbar?.view?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(view: View) {
                 mFab.show()
             }
 
             override fun onViewDetachedFromWindow(view: View) {
                 if (!isUndoClicked) {
-                    alarmHelper.removeNotification(task.timeStamp, this@MainActivity)
+                    alarmHelper.removeNotification(deletedTask.timeStamp, this@MainActivity)
+
+                    if (!isDeletedTaskHasLastPosition) {
+                        for ((newPosition, task) in mTaskList.withIndex()) {
+                            task.position = newPosition
+                        }
+                        mViewModel.updateTaskOrder(mTaskList)
+                    }
                 }
             }
         })
-        snackbar.show()
+        mSnackbar?.show()
     }
 
     private fun moveTask(fromPosition: Int, toPosition: Int) {
@@ -213,6 +223,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListeners() {
         mFab.setOnClickListener { view ->
+            if (mSnackbar != null && mSnackbar!!.isShown) {
+                mSnackbar?.dismiss()
+                mSnackbar = null
+            }
+
             if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
                 val position = mAdapter.itemCount
                 val intent = Intent(this@MainActivity, AddTaskActivity::class.java)
