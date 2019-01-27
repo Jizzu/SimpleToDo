@@ -284,7 +284,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun createViewModel() = ViewModelProviders.of(this).get(TaskListViewModel::class.java)
+    private fun createViewModel() = ViewModelProviders.of(this@MainActivity).get(TaskListViewModel(application)::class.java)
 
     private fun setToolbarShadow(start: Float, end: Float) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

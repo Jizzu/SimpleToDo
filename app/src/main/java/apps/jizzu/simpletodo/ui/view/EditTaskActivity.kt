@@ -100,7 +100,7 @@ class EditTaskActivity : BaseTaskActivity() {
         }
     }
 
-    override fun createViewModel() = ViewModelProviders.of(this).get(EditTaskViewModel::class.java)
+    override fun createViewModel() = ViewModelProviders.of(this).get(EditTaskViewModel(application)::class.java)
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.edit_task_menu, menu)

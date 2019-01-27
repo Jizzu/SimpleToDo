@@ -54,5 +54,5 @@ class AddTaskActivity : BaseTaskActivity() {
         }
     }
 
-    override fun createViewModel() = ViewModelProviders.of(this).get(AddTaskViewModel::class.java)
+    override fun createViewModel() = ViewModelProviders.of(this).get(AddTaskViewModel(application)::class.java)
 }

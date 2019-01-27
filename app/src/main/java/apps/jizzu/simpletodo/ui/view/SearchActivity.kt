@@ -94,7 +94,7 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         mAdapter.updateData(tasks)
     }
 
-    private fun createViewModel() = ViewModelProviders.of(this).get(SearchTasksViewModel::class.java)
+    private fun createViewModel() = ViewModelProviders.of(this).get(SearchTasksViewModel(application)::class.java)
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.search, menu)

@@ -2,6 +2,7 @@ package apps.jizzu.simpletodo.ui.settings.fragment
 
 import android.Manifest
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -33,7 +34,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewModel = createViewModel()
+        activity?.let { mViewModel = createViewModel(it.application) }
         setTitle(getString(R.string.settings_page_title_backup_and_restore))
         setOnClickListeners()
     }
@@ -49,7 +50,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
     private fun showRestoreDialog() {
         val alertDialog = AlertDialog.Builder(activity as Context, R.style.DialogTheme)
         alertDialog.setMessage(R.string.backup_restore_dialog_message)
-        alertDialog.setPositiveButton(R.string.backup_restore_dialog_button) { _, _ ->  restoreBackup()}
+        alertDialog.setPositiveButton(R.string.backup_restore_dialog_button) { _, _ -> restoreBackup() }
         alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
         alertDialog.show()
     }
@@ -186,7 +187,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
         }
     }
 
-    private fun createViewModel() = ViewModelProviders.of(this).get(BackupViewModel::class.java)
+    private fun createViewModel(application: Application) = ViewModelProviders.of(this).get(BackupViewModel(application)::class.java)
 
     private companion object {
         private const val PERMISSION_REQUEST_CODE = 123
