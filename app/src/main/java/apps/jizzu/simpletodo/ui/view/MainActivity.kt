@@ -11,7 +11,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -85,11 +84,21 @@ class MainActivity : AppCompatActivity() {
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView() else showTaskList(tasks)
 
     private fun showTaskList(tasks: List<Task>) {
+        var isNeedToRecount = false
+        if (mTaskList.size > tasks.size) isNeedToRecount = true
         mTaskList = tasks as ArrayList<Task>
+        if (isNeedToRecount) recountTaskPositions()
         emptyView.visibility = View.GONE
         mAdapter.updateData(mTaskList)
         updateGeneralNotification()
         updateWidget()
+    }
+
+    private fun recountTaskPositions() {
+        for ((newPosition, task) in mTaskList.withIndex()) {
+            task.position = newPosition
+        }
+        mViewModel.updateTaskOrder(mTaskList)
     }
 
     private fun showEmptyView() {
@@ -160,13 +169,7 @@ class MainActivity : AppCompatActivity() {
             override fun onViewDetachedFromWindow(view: View) {
                 if (!isUndoClicked) {
                     alarmHelper.removeNotification(deletedTask.timeStamp, this@MainActivity)
-
-                    if (!isDeletedTaskHasLastPosition) {
-                        for ((newPosition, task) in mTaskList.withIndex()) {
-                            task.position = newPosition
-                        }
-                        mViewModel.updateTaskOrder(mTaskList)
-                    }
+                    if (!isDeletedTaskHasLastPosition) recountTaskPositions()
                 }
             }
         })
