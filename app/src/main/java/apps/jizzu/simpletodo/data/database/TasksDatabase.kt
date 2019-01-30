@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import apps.jizzu.simpletodo.data.models.Task
+import apps.jizzu.simpletodo.utils.PreferenceHelper
 
 @Database(entities = [Task::class], version = 2)
 abstract class TasksDatabase : RoomDatabase() {
@@ -35,6 +36,11 @@ abstract class TasksDatabase : RoomDatabase() {
                         "SELECT $TASK_ID_COLUMN, $TASK_TITLE_COLUMN, $TASK_DATE_COLUMN, $TASK_POSITION_COLUMN, $TASK_TIME_STAMP_COLUMN FROM $TASKS_TABLE")
                 database.execSQL("DROP TABLE $TASKS_TABLE")
                 database.execSQL("ALTER TABLE $TEMP_TABLE RENAME TO $TASKS_TABLE;")
+
+                val preferenceHelper = PreferenceHelper.getInstance()
+                if (!preferenceHelper.getBoolean(PreferenceHelper.IS_AFTER_DATABASE_MIGRATION)) {
+                    preferenceHelper.putBoolean(PreferenceHelper.IS_AFTER_DATABASE_MIGRATION, true)
+                }
             }
         }
 

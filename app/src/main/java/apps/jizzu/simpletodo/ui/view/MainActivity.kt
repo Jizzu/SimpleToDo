@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         showChangelogActivity()
         showRecyclerViewAnimation()
+        restoreAlarmsAfterMigration()
         createItemTouchHelper()
         initListeners()
         initCallbacks()
@@ -205,6 +206,19 @@ class MainActivity : AppCompatActivity() {
         if (mPreferenceHelper.getBoolean(PreferenceHelper.IS_FIRST_APP_LAUNCH)) {
             startActivity(Intent(this, ChangelogActivity::class.java))
             mPreferenceHelper.putBoolean(PreferenceHelper.IS_FIRST_APP_LAUNCH, false)
+        }
+    }
+
+    private fun restoreAlarmsAfterMigration() {
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.IS_AFTER_DATABASE_MIGRATION)) {
+            val alarmHelper = AlarmHelper.getInstance()
+
+            for (task in mTaskList) {
+                if (task.date != 0L && task.date > Calendar.getInstance().timeInMillis) {
+                    alarmHelper.setAlarm(task)
+                }
+            }
+            mPreferenceHelper.putBoolean(PreferenceHelper.IS_AFTER_DATABASE_MIGRATION, false)
         }
     }
 
