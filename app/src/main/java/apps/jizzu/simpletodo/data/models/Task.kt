@@ -1,5 +1,6 @@
 package apps.jizzu.simpletodo.data.models
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -12,18 +13,22 @@ class Task : Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
+    @NonNull
     var id: Long = 0
 
     @ColumnInfo(name = "task_title")
-    var title: String? = null
+    var title: String = ""
 
     @ColumnInfo(name = "task_date")
+    @NonNull
     var date: Long = 0
 
     @ColumnInfo(name = "task_position")
+    @NonNull
     var position: Int = 0
 
     @ColumnInfo(name = "task_time_stamp")
+    @NonNull
     var timeStamp: Long = 0
 
     @Ignore
