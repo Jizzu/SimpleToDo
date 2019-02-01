@@ -32,10 +32,14 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
         return inflater.inflate(R.layout.fragment_backup_and_restore, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setTitle(getString(R.string.settings_page_title_backup_and_restore))
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.let { mViewModel = createViewModel(it.application) }
-        setTitle(getString(R.string.settings_page_title_backup_and_restore))
         setOnClickListeners()
     }
 

@@ -17,9 +17,13 @@ class FragmentDateAndTime : BaseSettingsFragment() {
         return inflater.inflate(R.layout.fragment_date_and_time, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setTitle(getString(R.string.settings_page_title_date_and_time))
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(getString(R.string.settings_page_title_date_and_time))
         setOnClickListeners()
     }
 

@@ -17,9 +17,13 @@ class FragmentUI : BaseSettingsFragment() {
         return inflater.inflate(R.layout.fragment_user_interface, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setTitle(getString(R.string.settings_page_title_user_interface))
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(getString(R.string.settings_page_title_user_interface))
         initAnimationSwitch()
     }
 

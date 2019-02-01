@@ -25,10 +25,14 @@ class FragmentNotifications : BaseSettingsFragment() {
         return inflater.inflate(R.layout.fragment_notifications, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setTitle(getString(R.string.settings_page_title_notifications))
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPreferenceHelper = PreferenceHelper.getInstance()
-        setTitle(getString(R.string.settings_page_title_notifications))
         initGeneralNotificationSwitch()
         initNotificationSoundButton()
     }

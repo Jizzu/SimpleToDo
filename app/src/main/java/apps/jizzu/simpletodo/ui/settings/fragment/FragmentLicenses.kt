@@ -16,9 +16,13 @@ class FragmentLicenses : BaseSettingsFragment() {
         return inflater.inflate(R.layout.fragment_licenses, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setTitle(getString(R.string.settings_page_title_licenses))
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(getString(R.string.settings_page_title_licenses))
         initButtons()
     }
 
