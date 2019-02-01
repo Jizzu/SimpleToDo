@@ -10,7 +10,6 @@ import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
 import kotlinx.android.synthetic.main.fragment_licenses.*
 
-
 class FragmentLicenses : BaseSettingsFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,14 +25,16 @@ class FragmentLicenses : BaseSettingsFragment() {
     private fun initButtons() {
         buttonKotterKnife.setOnClickListener { openUri(KOTTER_KNIFE_PAGE) }
         buttonCircularAnim.setOnClickListener { openUri(CIRCULAR_ANIM_PAGE) }
-        buttonMaterialSearchView.setOnClickListener { openUri(MATERIAL_SEARCH_VIEW_PAGE) }
+        buttonRxJava.setOnClickListener { openUri(RX_JAVA_PAGE) }
+        buttonRxKotlin.setOnClickListener { openUri(RX_KOTLIN_PAGE) }
     }
 
     private fun openUri(uri: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
 
     private companion object {
-        const val KOTTER_KNIFE_PAGE = "https://github.com/JakeWharton/kotterknife"
-        const val CIRCULAR_ANIM_PAGE = "https://github.com/XunMengWinter/CircularAnim"
-        const val MATERIAL_SEARCH_VIEW_PAGE = "https://github.com/MiguelCatalan/MaterialSearchView"
+        private const val KOTTER_KNIFE_PAGE = "https://github.com/JakeWharton/kotterknife"
+        private const val CIRCULAR_ANIM_PAGE = "https://github.com/XunMengWinter/CircularAnim"
+        private const val RX_JAVA_PAGE = "https://github.com/ReactiveX/RxJava"
+        private const val RX_KOTLIN_PAGE = "https://github.com/ReactiveX/RxKotlin"
     }
 }

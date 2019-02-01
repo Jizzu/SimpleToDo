@@ -42,12 +42,6 @@
     <string name="preferences_about_version_title">Версия</string>
     <string name="preferences_about_licenses_title">Лицензии</string>
     <string name="preferences_about_licenses_summary">Использованные библиотеки</string>
-    <string name="preferences_kotter_knife_title">KotterKnife</string>
-    <string name="preferences_kotter_knife_summary">JakeWharton</string>
-    <string name="preferences_circular_anim_title">CircularAnim</string>
-    <string name="preferences_circular_anim_summary">XunMengWinter</string>
-    <string name="preferences_material_search_view_title">MaterialSearchView</string>
-    <string name="preferences_material_search_view_summary">MiguelCatalan</string>
 
     <string name="feedback_title">Simple ToDo - Отзыв</string>
     <string name="feedback_device_info">Информация о моём устройстве: </string>

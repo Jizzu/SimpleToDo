@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Simple ToDo</string>
+    <string name="app_name">To-Do</string>
     <string name="simple_todo_title">S I M P L E \u0020\u0020 T O D O</string>
     <string name="empty_view_title">No tasks</string>
     <string name="empty_view_text">You can create new tasks \n using the + button</string>
     <string name="search_view_empty_text">Search to find particular tasks</string>
-    <string name="search_view_not_found_text">No results found :(</string>
+    <string name="search_view_not_found_text">No tasks found :(</string>
     <string name="create_task">N E W \u0020\u0020 T A S K</string>
     <string name="set_reminder">Set reminder</string>
     <string name="set_reminder_short">Reminder</string>
@@ -16,13 +16,13 @@
     <string name="edit_task">E D I T \u0020\u0020 T A S K</string>
 
     <string name="toast_incorrect_time">Error! You have selected an incorrect time!</string>
-    <string name="error_text_input">Please, input some text!</string>
-    <string name="error_spaces">Error! The entered text consists only of spaces!</string>
+    <string name="error_text_input">Please, enter a title!</string>
+    <string name="error_spaces">Please, enter a valid title!</string>
 
     <string name="preferences_animation_title">Enable animations</string>
     <string name="preferences_animation_summary">Enable animations for UI elements</string>
     <string name="preferences_general_notification_title">Enable general notification</string>
-    <string name="preferences_general_notification_summary">Show general notification with you current task list</string>
+    <string name="preferences_general_notification_summary">Show notification with you current task list</string>
     <string name="preferences_notification_channel_title">Notifications options</string>
     <string name="preferences_notification_channel_summary">Set custom sound, vibration and etc.</string>
     <string name="preferences_notification_sound_title">Notification sound</string>
@@ -48,8 +48,9 @@
     <string name="preferences_kotter_knife_summary">JakeWharton</string>
     <string name="preferences_circular_anim_title">CircularAnim</string>
     <string name="preferences_circular_anim_summary">XunMengWinter</string>
-    <string name="preferences_material_search_view_title">MaterialSearchView</string>
-    <string name="preferences_material_search_view_summary">MiguelCatalan</string>
+    <string name="preferences_rx_java_title">RxJava</string>
+    <string name="preferences_rx_kotlin_title">RxKotlin</string>
+    <string name="preferences_reactive_libraries_summary">ReactiveX</string>
 
     <string name="feedback_title">Simple ToDo - Feedback</string>
     <string name="feedback_device_info">My device info: </string>
