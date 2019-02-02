@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
+import apps.jizzu.simpletodo.utils.gone
+import apps.jizzu.simpletodo.utils.visible
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -67,7 +69,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
         if (task.date != 0L) {
             holder.title.setPadding(0, 0, 0, 0)
             holder.title.gravity = Gravity.CENTER_VERTICAL
-            holder.date.visibility = View.VISIBLE
+            holder.date.visible()
             when {
                 // Today
                 DateUtils.isToday(task.date) -> {
@@ -107,7 +109,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
             val height = displayMetrics.heightPixels
             Log.d(TAG, "width = $width, height = $height")
 
-            holder.date.visibility = View.GONE
+            holder.date.gone()
             if (width >= 1080 || height >= 1776) {
                 holder.title.setPadding(0, 27, 0, 27)
             } else if (width >= 720 || height >= 1184) {

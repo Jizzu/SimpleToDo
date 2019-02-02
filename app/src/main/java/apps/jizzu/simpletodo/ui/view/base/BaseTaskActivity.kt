@@ -25,6 +25,8 @@ import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.dialogs.DatePickerFragment
 import apps.jizzu.simpletodo.ui.dialogs.TimePickerFragment
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
+import apps.jizzu.simpletodo.utils.invisible
+import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.base.BaseViewModel
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_task_details.*
@@ -86,7 +88,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
                 mReminderLayout.animate().alpha(1.0f).setDuration(500).setListener(
                         object : Animator.AnimatorListener {
                             override fun onAnimationStart(animation: Animator) {
-                                mReminderLayout.visibility = View.VISIBLE
+                                mReminderLayout.visible()
 
                             }
 
@@ -105,7 +107,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
                             }
 
                             override fun onAnimationEnd(animation: Animator) {
-                                mReminderLayout.visibility = View.INVISIBLE
+                                mReminderLayout.invisible()
                             }
 
                             override fun onAnimationCancel(animation: Animator) {

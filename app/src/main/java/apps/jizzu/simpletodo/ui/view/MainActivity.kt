@@ -33,8 +33,7 @@ import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.ui.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.ui.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.settings.fragment.FragmentNotifications
-import apps.jizzu.simpletodo.utils.Interpolator
-import apps.jizzu.simpletodo.utils.PreferenceHelper
+import apps.jizzu.simpletodo.utils.*
 import apps.jizzu.simpletodo.vm.TaskListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         if (mTaskList.size > tasks.size) isNeedToRecount = true
         mTaskList = tasks as ArrayList<Task>
         if (isNeedToRecount) recountTaskPositions()
-        emptyView.visibility = View.GONE
+        emptyView.gone()
         mAdapter.updateData(mTaskList)
         updateGeneralNotification()
         updateWidget()
@@ -103,7 +102,7 @@ class MainActivity : AppCompatActivity() {
     private fun showEmptyView() {
         mTaskList = arrayListOf()
         mAdapter.updateData(mTaskList)
-        emptyView.visibility = View.VISIBLE
+        emptyView.visible()
         val anim = AnimationUtils.loadAnimation(this, R.anim.empty_view_animation).apply {
             startOffset = 300
             duration = 300
@@ -263,9 +262,9 @@ class MainActivity : AppCompatActivity() {
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && mFab.visibility == View.VISIBLE) {
+                if (dy > 0 && mFab.isVisible()) {
                     mFab.hide()
-                } else if (dy < 0 && mFab.visibility != View.VISIBLE) {
+                } else if (dy < 0 && mFab.isNotVisible()) {
                     mFab.show()
                 }
             }
@@ -378,20 +377,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        (mFab as View).visibility = View.GONE
+        mFab.gone()
 
         if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
             val handler = Handler()
             handler.postDelayed({
-                (mFab as View).visibility = View.VISIBLE
+                mFab.visible()
                 val animation = AnimationUtils.loadAnimation(this, R.anim.fab_animation)
                 val interpolator = Interpolator(0.2, 20.0)
                 animation.interpolator = interpolator
                 mFab.startAnimation(animation)
             }, 300)
         } else {
-            (mFab as View).visibility = View.VISIBLE
+            mFab.visible()
         }
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {

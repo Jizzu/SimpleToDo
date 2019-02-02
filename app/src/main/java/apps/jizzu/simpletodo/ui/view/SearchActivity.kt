@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
+import apps.jizzu.simpletodo.utils.gone
+import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.SearchTasksViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 import kotterknife.bindView
@@ -53,7 +55,7 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mAdapter = RecyclerViewAdapter()
         mRecyclerView.adapter = mAdapter
-        emptyView.visibility = View.VISIBLE
+        emptyView.visible()
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {
@@ -82,14 +84,14 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun showEmptyView(isSearchFieldEmpty: Boolean) {
         mAdapter.updateData(arrayListOf())
-        emptyView.visibility = View.VISIBLE
+        emptyView.visible()
         if (isSearchFieldEmpty) {
             emptyViewTitle.text = getString(R.string.search_view_empty_text)
         } else emptyViewTitle.text = getString(R.string.search_view_not_found_text)
     }
 
     private fun showTaskList(tasks: List<Task>) {
-        emptyView.visibility = View.GONE
+        emptyView.gone()
         mAdapter.updateData(tasks)
     }
 

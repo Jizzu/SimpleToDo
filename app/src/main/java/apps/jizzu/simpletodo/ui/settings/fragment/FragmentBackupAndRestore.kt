@@ -13,12 +13,13 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
+import apps.jizzu.simpletodo.utils.toast
+import apps.jizzu.simpletodo.utils.toastLong
 import apps.jizzu.simpletodo.vm.BackupViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_backup_and_restore.*
@@ -64,9 +65,9 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
         mViewModel.createBackup()
 
         if (mViewModel.isBackupCreatedSuccessfully()) {
-            Toast.makeText(activity, R.string.backup_create_message_success, Toast.LENGTH_SHORT).show()
+            toast(getString(R.string.backup_create_message_success))
         } else {
-            Toast.makeText(activity, R.string.backup_create_message_failure, Toast.LENGTH_SHORT).show()
+            toast(getString(R.string.backup_create_message_failure))
         }
     }
 
@@ -75,12 +76,12 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
             mViewModel.restoreBackup()
 
             if (mViewModel.isBackupRestoredSuccessfully()) {
-                Toast.makeText(activity, R.string.backup_restore_message_success, Toast.LENGTH_SHORT).show()
+                toast(getString(R.string.backup_restore_message_success))
             } else {
-                Toast.makeText(activity, R.string.backup_restore_message_failure, Toast.LENGTH_SHORT).show()
+                toast(getString(R.string.backup_restore_message_failure))
             }
         } else {
-            Toast.makeText(activity, R.string.backup_restore_message_nothing, Toast.LENGTH_SHORT).show()
+            toast(getString(R.string.backup_restore_message_nothing))
         }
     }
 
@@ -154,7 +155,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
             // We will give warning to user that they haven't granted permissions.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    Toast.makeText(activity, R.string.settings_permission_denied_toast, Toast.LENGTH_SHORT).show()
+                    toast(getString(R.string.settings_permission_denied_toast))
                 } else {
                     showNoStoragePermissionSnackbar()
                 }
@@ -167,13 +168,8 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
         Snackbar.make(rootLayout, R.string.settings_permission_snackbar_no_permission, Snackbar.LENGTH_LONG)
                 .setAction(R.string.settings_permission_snackbar_button_settings) {
                     openApplicationSettings()
-
-                    Toast.makeText(activity!!.applicationContext,
-                            R.string.settings_permission_settings_toast,
-                            Toast.LENGTH_LONG)
-                            .show()
-                }
-                .show()
+                    toastLong(getString(R.string.settings_permission_settings_toast))
+                }.show()
     }
 
     private fun openApplicationSettings() =

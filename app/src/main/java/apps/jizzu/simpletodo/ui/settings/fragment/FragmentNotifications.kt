@@ -15,6 +15,7 @@ import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.PreferenceHelper
+import apps.jizzu.simpletodo.utils.gone
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
 class FragmentNotifications : BaseSettingsFragment() {
@@ -73,7 +74,7 @@ class FragmentNotifications : BaseSettingsFragment() {
                 startActivity(intent)
             }
         } else {
-            buttonNotificationSound.visibility = View.GONE
+            buttonNotificationSound.gone()
         }
     }
 

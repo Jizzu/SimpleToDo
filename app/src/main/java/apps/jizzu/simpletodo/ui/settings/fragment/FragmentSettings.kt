@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import apps.jizzu.simpletodo.BuildConfig
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.DeviceInfo
+import apps.jizzu.simpletodo.utils.toast
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class FragmentSettings : Fragment() {
@@ -62,7 +62,7 @@ class FragmentSettings : Fragment() {
         try {
             startActivity(Intent.createChooser(email, getString(R.string.settings_feedback)))
         } catch (ex: android.content.ActivityNotFoundException) {
-            Toast.makeText(activity, getString(R.string.settings_no_email_apps), Toast.LENGTH_SHORT).show()
+            toast(getString(R.string.settings_no_email_apps))
         }
     }
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
@@ -12,6 +11,9 @@ import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.view.base.BaseTaskActivity
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
+import apps.jizzu.simpletodo.utils.invisible
+import apps.jizzu.simpletodo.utils.toast
+import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.EditTaskViewModel
 import kotlinx.android.synthetic.main.activity_task_details.*
 import java.util.*
@@ -44,12 +46,12 @@ class EditTaskActivity : BaseTaskActivity() {
         }
 
         if (mDate == 0L) {
-            mReminderLayout.visibility = View.INVISIBLE
+            mReminderLayout.invisible()
             mReminderSwitch.isChecked = false
             mDateEditText.text = null
             mTimeEditText.text = null
         } else {
-            mReminderLayout.visibility = View.VISIBLE
+            mReminderLayout.visible()
             mReminderSwitch.isChecked = true
         }
 
@@ -79,7 +81,7 @@ class EditTaskActivity : BaseTaskActivity() {
 
                     if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
                         task.date = 0
-                        Toast.makeText(this, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show()
+                        toast(getString(R.string.toast_incorrect_time))
                     } else if (task.date != 0L) {
                         val alarmHelper = AlarmHelper.getInstance()
                         alarmHelper.setAlarm(task)
