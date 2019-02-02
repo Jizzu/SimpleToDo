@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/toolbarTitle"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:elevation="4dp"
         android:gravity="center"

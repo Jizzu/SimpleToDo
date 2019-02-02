@@ -24,22 +24,20 @@ import androidx.appcompat.widget.Toolbar
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.dialogs.DatePickerFragment
 import apps.jizzu.simpletodo.ui.dialogs.TimePickerFragment
-import apps.jizzu.simpletodo.utils.Utils
+import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
 import apps.jizzu.simpletodo.vm.base.BaseViewModel
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_task_details.*
 import kotterknife.bindView
 import java.util.*
 
-
 abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-
-    lateinit var mCalendar: Calendar
-    val mReminderSwitch: SwitchCompat by bindView(R.id.reminderSwitch)
     val mReminderLayout: RelativeLayout by bindView(R.id.reminderContainer)
+    val mReminderSwitch: SwitchCompat by bindView(R.id.reminderSwitch)
     val mTitleEditText: TextInputEditText by bindView(R.id.taskTitle)
     val mDateEditText: TextInputEditText by bindView(R.id.taskDate)
     val mTimeEditText: TextInputEditText by bindView(R.id.taskTime)
+    lateinit var mCalendar: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -180,16 +178,20 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
             } else false
 
     override fun onDateSet(datePicker: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        mCalendar.set(Calendar.YEAR, year)
-        mCalendar.set(Calendar.MONTH, monthOfYear)
-        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-        mDateEditText.setText(Utils.getDate(mCalendar.timeInMillis))
+        mCalendar.apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, monthOfYear)
+            set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        }
+        mDateEditText.setText(DateAndTimeFormatter.getDate(mCalendar.timeInMillis))
     }
 
     override fun onTimeSet(timePicker: TimePicker, hourOfDay: Int, minute: Int) {
-        mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-        mCalendar.set(Calendar.MINUTE, minute)
-        mCalendar.set(Calendar.SECOND, 0)
-        mTimeEditText.setText(Utils.getTime(mCalendar.timeInMillis))
+        mCalendar.apply {
+            set(Calendar.HOUR_OF_DAY, hourOfDay)
+            set(Calendar.MINUTE, minute)
+            set(Calendar.SECOND, 0)
+        }
+        mTimeEditText.setText(DateAndTimeFormatter.getTime(mCalendar.timeInMillis))
     }
 }

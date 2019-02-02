@@ -1,8 +1,6 @@
 package apps.jizzu.simpletodo.ui.view
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,14 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.data.models.Task
+import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.view.base.BaseTaskActivity
-import apps.jizzu.simpletodo.utils.Utils
+import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
 import apps.jizzu.simpletodo.vm.EditTaskViewModel
 import kotlinx.android.synthetic.main.activity_task_details.*
 import java.util.*
-
 
 class EditTaskActivity : BaseTaskActivity() {
     private var mId: Long = 0
@@ -38,13 +35,12 @@ class EditTaskActivity : BaseTaskActivity() {
         mDate = intent.getLongExtra("date", 0)
         mPosition = intent.getIntExtra("position", 0)
         mTimeStamp = intent.getLongExtra("time_stamp", 0)
-        Log.d(TAG, "TASK DATE = $mDate")
 
         mTitleEditText.setText(title)
         mTitleEditText.setSelection(mTitleEditText.text!!.length)
         if (mDate != 0L) {
-            mDateEditText.setText(Utils.getDate(mDate))
-            mTimeEditText.setText(Utils.getTime(mDate))
+            mDateEditText.setText(DateAndTimeFormatter.getDate(mDate))
+            mTimeEditText.setText(DateAndTimeFormatter.getTime(mDate))
         }
 
         if (mDate == 0L) {
@@ -122,7 +118,6 @@ class EditTaskActivity : BaseTaskActivity() {
                 alertDialog.setPositiveButton(R.string.action_delete) { _, _ ->
                     hideKeyboard(mTitleEditText)
                     val task = Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp)
-                    Log.d(TAG, "EDIT TASK ACTIVITY: task position = ${task.position}")
                     if (task.date != 0L) {
                         val alarmHelper = AlarmHelper.getInstance()
                         alarmHelper.removeAlarm(task.timeStamp)

@@ -3,11 +3,7 @@ package apps.jizzu.simpletodo.utils
 import android.content.Context
 import android.content.SharedPreferences
 
-/**
- * Class that helps to manage SharedPreferences data (uses the Singleton pattern).
- */
 class PreferenceHelper private constructor() {
-
     private lateinit var mPreferences: SharedPreferences
 
     fun init(context: Context) {
@@ -25,9 +21,10 @@ class PreferenceHelper private constructor() {
     fun getInt(key: String) = mPreferences.getInt(key, 0)
 
     fun putInt(key: String, value: Int) {
-        val editor = mPreferences.edit()
-        editor.putInt(key, value)
-        editor.apply()
+        mPreferences.edit().apply {
+            putInt(key, value)
+            apply()
+        }
     }
 
     companion object {

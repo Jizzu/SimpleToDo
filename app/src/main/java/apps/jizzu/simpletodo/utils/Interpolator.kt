@@ -1,8 +1,5 @@
 package apps.jizzu.simpletodo.utils
 
-/**
- * Class for getting interpolation for FAB animation.
- */
 class Interpolator(private val mAmplitude: Double, private val mFrequency: Double) : android.view.animation.Interpolator {
 
     override fun getInterpolation(time: Float): Float {

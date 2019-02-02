@@ -11,7 +11,6 @@ import apps.jizzu.simpletodo.ui.settings.fragment.FragmentSettings
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
 import kotlinx.android.synthetic.main.activity_settings.*
 
-
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

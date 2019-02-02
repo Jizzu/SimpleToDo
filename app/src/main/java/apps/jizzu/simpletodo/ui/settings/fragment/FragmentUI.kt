@@ -10,7 +10,6 @@ import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import kotlinx.android.synthetic.main.fragment_user_interface.*
 
-
 class FragmentUI : BaseSettingsFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

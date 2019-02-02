@@ -17,7 +17,6 @@ import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
-
 class FragmentNotifications : BaseSettingsFragment() {
     private lateinit var mPreferenceHelper: PreferenceHelper
 
@@ -59,12 +58,11 @@ class FragmentNotifications : BaseSettingsFragment() {
             val notificationChannel = notificationManager.getNotificationChannel(AlarmReceiver.NOTIFICATION_CHANNEL_ID)
 
             if (notificationChannel == null) {
-                val channel = NotificationChannel(AlarmReceiver.NOTIFICATION_CHANNEL_ID, context?.getString(R.string.notification_channel),
-                        NotificationManager.IMPORTANCE_HIGH)
-
-                channel.enableLights(true)
-                channel.lightColor = Color.GREEN
-                channel.enableVibration(true)
+                val channel = NotificationChannel(AlarmReceiver.NOTIFICATION_CHANNEL_ID, context?.getString(R.string.notification_channel), NotificationManager.IMPORTANCE_HIGH).apply {
+                    enableLights(true)
+                    lightColor = Color.GREEN
+                    enableVibration(true)
+                }
                 notificationManager.createNotificationChannel(channel)
             }
 
@@ -74,6 +72,8 @@ class FragmentNotifications : BaseSettingsFragment() {
                         .putExtra(Settings.EXTRA_CHANNEL_ID, AlarmReceiver.NOTIFICATION_CHANNEL_ID)
                 startActivity(intent)
             }
+        } else {
+            buttonNotificationSound.visibility = View.GONE
         }
     }
 

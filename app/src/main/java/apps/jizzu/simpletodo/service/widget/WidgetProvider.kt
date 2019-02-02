@@ -11,28 +11,16 @@ import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.view.EditTaskActivity
 import apps.jizzu.simpletodo.ui.view.MainActivity
 
-/**
- * Class for implementing lifecycle methods of widget.
- */
 class WidgetProvider : AppWidgetProvider() {
 
-    /**
-     * Called in response to the ACTION_APPWIDGET_UPDATE and ACTION_APPWIDGET_RESTORED broadcasts
-     * when this AppWidget provider is being asked to provide RemoteViews for a set of AppWidgets.
-     */
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
 
         val onTitleClickPendingIntent = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_UPDATE_CURRENT)
 
         for (appWidgetId in appWidgetIds) {
-
-            // Intent that contains the data for calling the WidgetService class
-            // When the system wants to update the data in the list, it takes out this intent, binds to the specified service
-            // and takes the adapter. This adapter is used for filling and forming list items.
             val adapter = Intent(context, WidgetService::class.java)
             adapter.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-            // In this case, we will have extra data in the data and Intents will be different.
             adapter.data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME))
 
             val widget = RemoteViews(context.packageName, R.layout.widget_list)
@@ -63,12 +51,11 @@ class WidgetProvider : AppWidgetProvider() {
             context.startActivity(mainActivity)
 
             val editTaskActivity = Intent(context, EditTaskActivity::class.java)
-            editTaskActivity.putExtra(ITEM_ID, itemID)
-            editTaskActivity.putExtra(ITEM_TITLE, itemTitle)
-            editTaskActivity.putExtra(ITEM_POSITION, itemPosition)
-            editTaskActivity.putExtra(ITEM_TIME_STAMP, itemTimeStamp)
-            editTaskActivity.putExtra(ITEM_DATE, itemDate)
-
+                .putExtra(ITEM_ID, itemID)
+                .putExtra(ITEM_TITLE, itemTitle)
+                .putExtra(ITEM_POSITION, itemPosition)
+                .putExtra(ITEM_TIME_STAMP, itemTimeStamp)
+                .putExtra(ITEM_DATE, itemDate)
             context.startActivity(editTaskActivity)
         }
     }

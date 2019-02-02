@@ -2,10 +2,7 @@ package apps.jizzu.simpletodo.utils
 
 import java.text.SimpleDateFormat
 
-/**
- * Class to represent date in string format.
- */
-object Utils {
+object DateAndTimeFormatter {
     private val mPreferenceHelper = PreferenceHelper.getInstance()
 
     fun getTime(time: Long): String {

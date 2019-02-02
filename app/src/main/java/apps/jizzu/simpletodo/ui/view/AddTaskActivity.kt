@@ -12,7 +12,6 @@ import apps.jizzu.simpletodo.vm.AddTaskViewModel
 import kotlinx.android.synthetic.main.activity_task_details.*
 import java.util.*
 
-
 class AddTaskActivity : BaseTaskActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +41,7 @@ class AddTaskActivity : BaseTaskActivity() {
                         task.date = 0
                         Toast.makeText(this, getString(R.string.toast_incorrect_time), Toast.LENGTH_SHORT).show()
                     } else if (task.date != 0L) {
-                        val alarmHelper = AlarmHelper.getInstance()
-                        alarmHelper.setAlarm(task)
+                        AlarmHelper.getInstance().setAlarm(task)
                     }
                     val viewModel = createViewModel()
                     viewModel.saveTask(task)

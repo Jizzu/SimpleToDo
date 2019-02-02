@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar
 import apps.jizzu.simpletodo.R
 import kotlinx.android.synthetic.main.activity_changelog.*
 
-
 class ChangelogActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

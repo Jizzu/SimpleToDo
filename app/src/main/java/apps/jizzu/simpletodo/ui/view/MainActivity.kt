@@ -30,7 +30,6 @@ import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
-import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.ui.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.settings.fragment.FragmentNotifications
@@ -43,7 +42,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotterknife.bindView
 import top.wefor.circularanim.CircularAnim
 import java.util.*
-
 
 class MainActivity : AppCompatActivity() {
     private val mRecyclerView: RecyclerView by bindView(R.id.tasksList)
@@ -272,16 +270,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
-        mRecyclerView.addOnScrollListener(object : RecyclerViewScrollListener() {
-            override fun onShow() {
-                setToolbarShadow(0f, 30f)
-            }
-
-            override fun onHide() {
-                setToolbarShadow(30f, 0f)
-            }
-        })
     }
 
     fun showTaskDetailsActivity(task: Task) {
@@ -299,18 +287,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createViewModel() = ViewModelProviders.of(this@MainActivity).get(TaskListViewModel(application)::class.java)
-
-    private fun setToolbarShadow(start: Float, end: Float) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ValueAnimator.ofFloat(start, end).apply {
-                addUpdateListener { updatedAnimation ->
-                    toolbar.elevation = updatedAnimation.animatedValue as Float
-                }
-                duration = 500
-                start()
-            }
-        }
-    }
 
     private fun updateWidget() {
         val intent = Intent(this, WidgetProvider::class.java)
@@ -342,11 +318,11 @@ class MainActivity : AppCompatActivity() {
 
         var notificationTitle = ""
         when (mAdapter.itemCount % 10) {
-            1 -> notificationTitle = getString(R.string.general_notification_1) + " " + mAdapter.itemCount + " " + getString(R.string.general_notification_2)
+            1 -> notificationTitle = "${getString(R.string.general_notification_1)} ${mAdapter.itemCount} ${getString(R.string.general_notification_2)}"
 
-            2, 3, 4 -> notificationTitle = getString(R.string.general_notification_1) + " " + mAdapter.itemCount + " " + getString(R.string.general_notification_3)
+            2, 3, 4 -> notificationTitle = "${getString(R.string.general_notification_1)} ${mAdapter.itemCount} ${getString(R.string.general_notification_3)}"
 
-            0, 5, 6, 7, 8, 9 -> notificationTitle = getString(R.string.general_notification_1) + " " + mAdapter.itemCount + " " + getString(R.string.general_notification_4)
+            0, 5, 6, 7, 8, 9 -> notificationTitle = "${getString(R.string.general_notification_1)} ${mAdapter.itemCount} ${getString(R.string.general_notification_4)}"
         }
 
         // Set NotificationChannel for Android Oreo and higher

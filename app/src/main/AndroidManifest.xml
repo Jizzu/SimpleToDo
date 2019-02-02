@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="apps.jizzu.simpletodo">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -26,16 +25,6 @@
             android:name=".ui.view.AddTaskActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-
-        <receiver
-            android:name=".service.alarm.AlarmReceiver"
-            android:process=":remote" />
-        <receiver android:name=".service.alarm.AlarmSetter">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".ui.view.EditTaskActivity"
             android:screenOrientation="portrait"
@@ -49,11 +38,12 @@
         <activity
             android:name=".ui.view.SearchActivity"
             android:screenOrientation="portrait" />
-
         <service
             android:name=".service.widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
+        <receiver
+            android:name=".service.alarm.AlarmReceiver"
+            android:process=":remote" />
         <receiver android:name=".service.widget.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -64,5 +54,4 @@
                 android:resource="@xml/widget_metadata" />
         </receiver>
     </application>
-
 </manifest>

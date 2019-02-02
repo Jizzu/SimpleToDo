@@ -23,7 +23,6 @@ import apps.jizzu.simpletodo.vm.BackupViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_backup_and_restore.*
 
-
 class FragmentBackupAndRestore : BaseSettingsFragment() {
     private lateinit var mViewModel: BackupViewModel
     private var mIsCreatingProcess = false
@@ -44,19 +43,21 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
     }
 
     private fun showCreateDialog() {
-        val alertDialog = AlertDialog.Builder(activity as Context, R.style.DialogTheme)
-        alertDialog.setMessage(R.string.backup_create_dialog_message)
-        alertDialog.setPositiveButton(R.string.backup_create_dialog_button) { _, _ -> createBackup() }
-        alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
-        alertDialog.show()
+        AlertDialog.Builder(activity as Context, R.style.DialogTheme).apply {
+            setMessage(R.string.backup_create_dialog_message)
+            setPositiveButton(R.string.backup_create_dialog_button) { _, _ -> createBackup() }
+            setNegativeButton(R.string.action_cancel) { _, _ -> }
+            show()
+        }
     }
 
     private fun showRestoreDialog() {
-        val alertDialog = AlertDialog.Builder(activity as Context, R.style.DialogTheme)
-        alertDialog.setMessage(R.string.backup_restore_dialog_message)
-        alertDialog.setPositiveButton(R.string.backup_restore_dialog_button) { _, _ -> restoreBackup() }
-        alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
-        alertDialog.show()
+        AlertDialog.Builder(activity as Context, R.style.DialogTheme).apply {
+            setMessage(R.string.backup_restore_dialog_message)
+            setPositiveButton(R.string.backup_restore_dialog_button) { _, _ -> restoreBackup() }
+            setNegativeButton(R.string.action_cancel) { _, _ -> }
+            show()
+        }
     }
 
     private fun createBackup() {
@@ -130,16 +131,17 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
         var isAllowed = true
 
         when (requestCode) {
-            PERMISSION_REQUEST_CODE ->
-
+            PERMISSION_REQUEST_CODE -> {
                 for (res in grantResults) {
                     // If user granted all permissions.
                     isAllowed = isAllowed && res == PackageManager.PERMISSION_GRANTED
                 }
+            }
 
-            else ->
+            else -> {
                 // If user not granted permissions.
                 isAllowed = false
+            }
         }
 
         if (isAllowed) {
@@ -174,11 +176,9 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
                 .show()
     }
 
-    private fun openApplicationSettings() {
-        val appSettingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                Uri.parse("package:" + activity!!.packageName))
-        startActivityForResult(appSettingsIntent, PERMISSION_REQUEST_CODE)
-    }
+    private fun openApplicationSettings() =
+        startActivityForResult(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.parse("$PACKAGE${activity!!.packageName}")), PERMISSION_REQUEST_CODE)
 
     private fun requestPermissionWithRationale() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity as Activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -195,5 +195,6 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
     private companion object {
         private const val PERMISSION_REQUEST_CODE = 123
+        private const val PACKAGE = "package:"
     }
 }

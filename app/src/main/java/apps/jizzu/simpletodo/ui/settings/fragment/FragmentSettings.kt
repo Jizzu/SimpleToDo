@@ -14,7 +14,6 @@ import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.DeviceInfo
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-
 class FragmentSettings : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,24 +43,26 @@ class FragmentSettings : Fragment() {
     private fun rateThisApp() {
         val appPackageName = activity?.packageName
         try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$APP_PAGE_SHORT_LINK$appPackageName")))
         } catch (exception: android.content.ActivityNotFoundException) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$APP_PAGE_LONG_LINK$appPackageName")))
         }
     }
 
     private fun sendFeedback() {
-        val email = Intent(Intent.ACTION_SENDTO)
-        email.data = Uri.Builder().scheme("mailto").build()
-        email.putExtra(Intent.EXTRA_EMAIL, arrayOf("ilya.ponomarenko.dev@gmail.com"))
-        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_title))
-        email.putExtra(Intent.EXTRA_TEXT, getString(R.string.feedback_device_info) + "\n" + DeviceInfo.deviceInfo
-                + "\n" + getString(R.string.feedback_app_version) + BuildConfig.VERSION_NAME
-                + "\n" + getString(R.string.feedback))
+        val email = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.Builder().scheme(SCHEME).build()
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.author_gmail)))
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_title))
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.feedback_device_info) + "\n" + DeviceInfo.deviceInfo
+                    + "\n" + getString(R.string.feedback_app_version) + BuildConfig.VERSION_NAME
+                    + "\n" + getString(R.string.feedback))
+        }
+
         try {
-            startActivity(Intent.createChooser(email, "Send feedback"))
+            startActivity(Intent.createChooser(email, getString(R.string.settings_feedback)))
         } catch (ex: android.content.ActivityNotFoundException) {
-            Toast.makeText(activity, "There are no email clients installed.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, getString(R.string.settings_no_email_apps), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -70,5 +71,8 @@ class FragmentSettings : Fragment() {
     private companion object {
         const val GOOGLE_PLAY_PAGE = "https://play.google.com/store/apps/developer?id=Ilya+Ponomarenko"
         const val GIT_HUB_PAGE = "https://github.com/Jizzu/SimpleToDo"
+        const val APP_PAGE_SHORT_LINK = "market://details?id="
+        const val APP_PAGE_LONG_LINK = "https://play.google.com/store/apps/details?id="
+        const val SCHEME = "mailto"
     }
 }

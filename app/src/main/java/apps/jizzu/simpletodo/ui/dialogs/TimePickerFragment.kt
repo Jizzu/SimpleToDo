@@ -7,9 +7,6 @@ import android.os.Bundle
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import java.util.*
 
-/**
- * TimePickerDialog class.
- */
 class TimePickerFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

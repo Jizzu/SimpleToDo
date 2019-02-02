@@ -23,11 +23,10 @@ import apps.jizzu.simpletodo.vm.SearchTasksViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 import kotterknife.bindView
 
-
 class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
-    private lateinit var mAdapter: RecyclerViewAdapter
-    private lateinit var mViewModel: SearchTasksViewModel
     private val mRecyclerView: RecyclerView by bindView(R.id.searchResult)
+    private lateinit var mViewModel: SearchTasksViewModel
+    private lateinit var mAdapter: RecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

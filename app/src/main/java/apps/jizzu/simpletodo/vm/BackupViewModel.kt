@@ -8,7 +8,6 @@ import apps.jizzu.simpletodo.vm.base.BaseViewModel
 import java.io.*
 import java.util.*
 
-
 class BackupViewModel(val app: Application) : BaseViewModel(app) {
     private val mFile = File(Environment.getExternalStoragePublicDirectory("SimpleToDo"), "Backup.ser")
     private var isCreatedSuccessfully = false
