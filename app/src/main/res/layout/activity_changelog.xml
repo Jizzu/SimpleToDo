@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="C H A N G E L O G"
+            android:text="@string/whats_new_title"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -27,23 +27,23 @@
         android:id="@+id/featureOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
+        android:layout_above="@id/featureTwo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="O N E"
+        android:text="@string/whats_new_item_1_text"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/featureTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/featureOne"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="20dp"
-        android:text="T W O"
+        android:text="@string/whats_new_item_2_text"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/featureThree"
@@ -52,9 +52,9 @@
         android:layout_below="@id/featureTwo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="T H R E E"
+        android:text="@string/whats_new_item_3_text"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirmButton"
@@ -64,7 +64,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_gradient_backgound"
-        android:text="O K"
+        android:text="@string/whats_new_button_text"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"

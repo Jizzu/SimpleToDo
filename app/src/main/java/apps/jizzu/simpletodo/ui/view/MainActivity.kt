@@ -1,6 +1,5 @@
 package apps.jizzu.simpletodo.ui.view
 
-import android.animation.ValueAnimator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -202,7 +201,6 @@ class MainActivity : AppCompatActivity() {
     private fun showChangelogActivity() {
         if (mPreferenceHelper.getBoolean(PreferenceHelper.IS_FIRST_APP_LAUNCH)) {
             startActivity(Intent(this, ChangelogActivity::class.java))
-            mPreferenceHelper.putBoolean(PreferenceHelper.IS_FIRST_APP_LAUNCH, false)
         }
     }
 

@@ -110,13 +110,10 @@
     <string name="widget_title">ЗАДАЧИ</string>
 
     ////////////////<!-- "What's New?" page -->////////////////
-    <string name="whats_new_title">Что нового?</string>
-    <string name="whats_new_button_text">Продолжить</string>
-    <string name="whats_new_item_1_title">Форматирование даты и времени</string>
-    <string name="whats_new_item_1_text">Теперь вы можете выбрать формат даты и времени в настройках приложения</string>
-    <string name="whats_new_item_2_title">Изменения в интерфейсе</string>
-    <string name="whats_new_item_2_text">Упрощён процесс добавления и редактирования задач</string>
-    <string name="whats_new_item_3_title">Исправление ошибок</string>
+    <string name="whats_new_title">Ч Т О \u0020\u0020 Н О В О Г О ?</string>
+    <string name="whats_new_button_text">Поехали!</string>
+    <string name="whats_new_item_1_text">Новый дизайн в светлых тонах</string>
+    <string name="whats_new_item_2_text">Улучшена стабильность приложения</string>
     <string name="whats_new_item_3_text">Исправлены некоторые ошибки</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
