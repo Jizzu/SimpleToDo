@@ -3,15 +3,12 @@ package apps.jizzu.simpletodo.ui.view.base
 import android.animation.Animator
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
@@ -71,10 +68,9 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
         (this.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
         val height = displayMetrics.heightPixels
-        Log.d(ContentValues.TAG, "width = $width, height = $height")
 
         if (width <= 480 || height <= 800) {
-            if (Locale.getDefault().displayLanguage == "русский") toolbarTitle.textSize = 18f
+            if (Locale.getDefault().displayLanguage == RU) toolbarTitle.textSize = 18f
             tvSetReminder.setText(R.string.set_reminder_short)
             taskDateLayout.layoutParams.width = 150
             taskTimeLayout.layoutParams.width = 150
@@ -195,5 +191,9 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
             set(Calendar.SECOND, 0)
         }
         mTimeEditText.setText(DateAndTimeFormatter.getTime(mCalendar.timeInMillis))
+    }
+
+    private companion object {
+        private const val RU = "русский"
     }
 }
