@@ -76,14 +76,12 @@
     <string name="settings_page_title_licenses">L I C E N S E S</string>
 
     <string name="settings_menu">Settings</string>
-    <string name="licenses">LICENSES</string>
     <string name="search">Search</string>
 
     <string name="reminder_text">Reminder</string>
-    <string name="reminder_today">Today at</string>
-    <string name="reminder_yesterday">Yesterday at</string>
-    <string name="reminder_tomorrow">Tomorrow at</string>
-    <string name="licenses_circular_anim_summary">This software distributed without a license</string>
+    <string name="reminder_today">Today at %1$s</string>
+    <string name="reminder_yesterday">Yesterday at %1$s</string>
+    <string name="reminder_tomorrow">Tomorrow at %1$s</string>
 
     <string name="snackbar_remove_task">Task is removed!</string>
     <string name="snackbar_undo">Undo</string>
@@ -139,7 +137,7 @@
 
     ////////////////<!-- Date format dialog -->/////////////////
     <string name="date_format_dialog_title">Choose date format:</string>
-    <string name="date_format_at">"at"</string>
+    <string name="date_format_at">"%1$s at %2$s"</string>
     <string-array name="date_format_list">
         <item>Day.Month.Year</item>
         <item>Year.Month.Day</item>

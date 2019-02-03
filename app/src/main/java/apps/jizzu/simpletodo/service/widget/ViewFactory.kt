@@ -45,7 +45,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
                 DateUtils.isToday(mWidgetData[position].date) -> {
                     remoteViews.apply {
                         setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.colorPrimary))
-                        setTextViewText(R.id.item_date, "${mContext.getString(R.string.reminder_today)} ${DateAndTimeFormatter.getTime(mWidgetData[position].date)}")
+                        setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_today, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
                     }
                 }
 
@@ -53,7 +53,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
                 DateUtils.isToday(mWidgetData[position].date + DateUtils.DAY_IN_MILLIS) -> {
                     remoteViews.apply {
                         setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red))
-                        setTextViewText(R.id.item_date, "${mContext.getString(R.string.reminder_yesterday)} ${DateAndTimeFormatter.getTime(mWidgetData[position].date)}")
+                        setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_yesterday, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
                     }
                 }
 
@@ -61,7 +61,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
                 DateUtils.isToday(mWidgetData[position].date - DateUtils.DAY_IN_MILLIS) -> {
                     remoteViews.apply {
                         setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.colorPrimary))
-                        setTextViewText(R.id.item_date, "${mContext.getString(R.string.reminder_tomorrow)} ${DateAndTimeFormatter.getTime(mWidgetData[position].date)}")
+                        setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_tomorrow, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
                     }
                 }
 
@@ -77,7 +77,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
                 else -> {
                     remoteViews.apply {
                         setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.colorPrimary))
-                        setTextViewText(R.id.item_date, "${DateAndTimeFormatter.getFullDate(mWidgetData[position].date)} ${mContext.getString(R.string.date_format_at)} ${DateAndTimeFormatter.getTime(mWidgetData[position].date)}")
+                        setTextViewText(R.id.item_date, mContext.getString(R.string.date_format_at, DateAndTimeFormatter.getFullDate(mWidgetData[position].date), DateAndTimeFormatter.getTime(mWidgetData[position].date)))
                     }
                 }
             }

@@ -74,19 +74,19 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
                 // Today
                 DateUtils.isToday(task.date) -> {
                     holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
-                    holder.date.text = "${mContext.getString(R.string.reminder_today)} ${DateAndTimeFormatter.getTime(task.date)}"
+                    holder.date.text = mContext.getString(R.string.reminder_today, DateAndTimeFormatter.getTime(task.date))
                 }
 
                 // Yesterday
                 DateUtils.isToday(task.date + DateUtils.DAY_IN_MILLIS) -> {
                     holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.red))
-                    holder.date.text = "${mContext.getString(R.string.reminder_yesterday)} ${DateAndTimeFormatter.getTime(task.date)}"
+                    holder.date.text = mContext.getString(R.string.reminder_yesterday, DateAndTimeFormatter.getTime(task.date))
                 }
 
                 // Tomorrow
                 DateUtils.isToday(task.date - DateUtils.DAY_IN_MILLIS) -> {
                     holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
-                    holder.date.text = "${mContext.getString(R.string.reminder_tomorrow)} ${DateAndTimeFormatter.getTime(task.date)}"
+                    holder.date.text = mContext.getString(R.string.reminder_tomorrow, DateAndTimeFormatter.getTime(task.date))
                 }
 
                 // Far past
@@ -98,7 +98,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
                 // Far future
                 else -> {
                     holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
-                    holder.date.text = "${DateAndTimeFormatter.getFullDate(task.date)} ${mContext.getString(R.string.date_format_at)} ${DateAndTimeFormatter.getTime(task.date)}"
+                    holder.date.text = mContext.getString(R.string.date_format_at, DateAndTimeFormatter.getFullDate(task.date), DateAndTimeFormatter.getTime(task.date))
                 }
             }
         } else {
