@@ -43,7 +43,10 @@
             android:inputType="textAutoCorrect|textCapSentences"
             android:lines="2"
             android:maxLines="3"
-            android:textColor="@color/black" />
+            android:textColor="@color/black">
+
+            <requestFocus />
+        </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton

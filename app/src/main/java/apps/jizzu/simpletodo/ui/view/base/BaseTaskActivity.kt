@@ -44,11 +44,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
         mCalendar = Calendar.getInstance()
         checkScreenResolution()
         showKeyboard()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setOnClickListeners()
+        initListeners()
     }
 
     fun initToolbar(titleText: String) {
@@ -77,7 +73,7 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
         }
     }
 
-    private fun setOnClickListeners() {
+    private fun initListeners() {
         mReminderSwitch.setOnClickListener {
             if (mReminderSwitch.isChecked) {
                 hideKeyboard(mTitleEditText)
