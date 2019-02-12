@@ -30,7 +30,7 @@ class PreferenceHelper private constructor() {
     companion object {
         const val ANIMATION_IS_ON = "animation_is_on"
         const val GENERAL_NOTIFICATION_IS_ON = "general_notification_is_on"
-        const val IS_FIRST_APP_LAUNCH = "is_first_app_launch"
+        const val VERSION_CODE = "version_code"
         const val IS_AFTER_DATABASE_MIGRATION = "is_after_database_migration"
         const val DATE_FORMAT_KEY = "date_format_key"
         const val TIME_FORMAT_KEY = "time_format_key"

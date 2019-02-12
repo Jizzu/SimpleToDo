@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import apps.jizzu.simpletodo.BuildConfig
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import kotlinx.android.synthetic.main.activity_changelog.*
@@ -35,6 +36,6 @@ class ChangelogActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        PreferenceHelper.getInstance().putBoolean(PreferenceHelper.IS_FIRST_APP_LAUNCH, false)
+        PreferenceHelper.getInstance().putInt(PreferenceHelper.VERSION_CODE, BuildConfig.VERSION_CODE)
     }
 }

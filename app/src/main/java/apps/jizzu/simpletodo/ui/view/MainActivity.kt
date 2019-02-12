@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import apps.jizzu.simpletodo.BuildConfig
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
@@ -199,7 +200,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showChangelogActivity() {
-        if (mPreferenceHelper.getBoolean(PreferenceHelper.IS_FIRST_APP_LAUNCH)) {
+        if (mPreferenceHelper.getInt(PreferenceHelper.VERSION_CODE) != BuildConfig.VERSION_CODE) {
             startActivity(Intent(this, ChangelogActivity::class.java))
         }
     }
