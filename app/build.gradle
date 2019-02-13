@@ -1,36 +1,21 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "apps.jizzu.simpletodo"
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 9
-        versionName "1.5"
-        testInstrumentationRunner "androidx.getAllTasksLiveData.runner.AndroidJUnitRunner"
-
-        // used by Room, to getAllTasksLiveData migrations
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation":
-                                     "$projectDir/schemas".toString()]
-            }
-        }
-
-        // used by Room, to getAllTasksLiveData migrations
-        sourceSets {
-            androidTest.assets.srcDirs +=
-                    files("$projectDir/schemas".toString())
-        }
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
 
     buildTypes {
         release {
@@ -39,43 +24,43 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     lintOptions {
         disable 'MissingTranslation', 'ExtraTranslation', 'StringFormatInvalid', 'ValidFragment'
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     // UI
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation "androidx.preference:preference:1.0.0"
-    implementation 'com.github.XunMengWinter:CircularAnim:0.3.4'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
+    implementation "com.google.android.material:material:$rootProject.androidxVersion"
+    implementation "androidx.cardview:cardview:$rootProject.androidxVersion"
+    implementation "androidx.preference:preference:$rootProject.androidxVersion"
+    implementation "com.github.XunMengWinter:CircularAnim:$rootProject.circularAnimVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
     // Firebase Crashlytics
-    implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    implementation "com.google.firebase:firebase-core:$rootProject.firebaseVersion"
+    implementation "com.crashlytics.sdk.android:crashlytics:$rootProject.crashlyticsVersion"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "com.jakewharton:kotterknife:$rootProject.kotterKnifeVersion"
 
     // Room
-    implementation 'android.arch.persistence.room:runtime:2.1.0-alpha02'
-    implementation "android.arch.persistence.room:rxjava2:2.1.0-alpha02"
-    kapt 'android.arch.persistence.room:compiler:2.1.0-alpha02'
-    androidTestImplementation 'android.arch.persistence.room:testing:2.1.0-alpha02'
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
 
     // RxJava
-    implementation "io.reactivex.rxjava2:rxjava:2.2.3"
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
 
     // Lifecycle components
-    implementation "android.arch.lifecycle:extensions:1.1.1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    implementation "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycleVersion"
 
-    testImplementation 'junit:junit:4.12'
+    // Tests
+    testImplementation "junit:junit:$rootProject.junitVersion"
 }
