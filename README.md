@@ -20,6 +20,11 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 ## FAQ:
 If you have any questions — welcome to the [FAQs page](FAQs.md)!
 
+## Next update changes (v1.5):
+- [ ] Migrate to MVVM: ViewModel, LiveData, Room, RxJava
+- [ ] Redesign by Material 2.0
+- [ ] Implement Crashlytics
+
 ## Download links:
 <a href='https://play.google.com/store/apps/details?
 id=apps.jizzu.simpletodo&pcampaignid=MKT-Other-
