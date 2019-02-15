@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.ui.settings.fragment
+package apps.jizzu.simpletodo.ui.view.settings.fragment
 
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
+import apps.jizzu.simpletodo.ui.view.settings.fragment.base.BaseSettingsFragment
 import kotlinx.android.synthetic.main.fragment_licenses.*
 
 class FragmentLicenses : BaseSettingsFragment() {

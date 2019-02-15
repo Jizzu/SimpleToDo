@@ -2,30 +2,19 @@ package apps.jizzu.simpletodo.ui.view
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import apps.jizzu.simpletodo.BuildConfig
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import kotlinx.android.synthetic.main.activity_changelog.*
 
-class ChangelogActivity : AppCompatActivity() {
+class ChangelogActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_changelog)
-        initToolbar()
+        initToolbar(getString(R.string.whats_new_title))
         confirmButton.setOnClickListener { onBackPressed() }
-    }
-
-    private fun initToolbar() {
-        title = ""
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        if (toolbar != null) {
-            setSupportActionBar(toolbar)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setHomeAsUpIndicator(R.drawable.round_close_black_24)
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =

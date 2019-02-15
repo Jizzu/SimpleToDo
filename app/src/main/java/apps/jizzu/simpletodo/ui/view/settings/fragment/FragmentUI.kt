@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.ui.settings.fragment
+package apps.jizzu.simpletodo.ui.view.settings.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
+import apps.jizzu.simpletodo.ui.view.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import kotlinx.android.synthetic.main.fragment_user_interface.*
 

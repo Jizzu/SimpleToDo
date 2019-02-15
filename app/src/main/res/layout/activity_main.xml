@@ -4,25 +4,10 @@
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.MainActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".ui.view.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white">
-
-        <TextView
-            android:id="@+id/toolbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/simple_todo_title"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksList"
@@ -30,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:layout_marginTop="56dp"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never" />
 
     <RelativeLayout
         android:id="@+id/emptyView"
@@ -63,7 +48,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_white_24dp"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add_white_24dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,21 +4,17 @@
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.SearchActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".ui.view.SearchActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white" />
+    <include layout="@layout/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="56dp"
         android:id="@+id/searchResult"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"/>
+        android:layout_marginTop="56dp"
+        android:overScrollMode="never" />
 
     <RelativeLayout
         android:id="@+id/emptyView"

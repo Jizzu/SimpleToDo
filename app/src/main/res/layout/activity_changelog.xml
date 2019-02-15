@@ -7,21 +7,7 @@
     android:background="@color/white"
     tools:context=".ui.view.ChangelogActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-
-        <TextView
-            android:id="@+id/toolbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/whats_new_title"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/featureOne"

@@ -1,8 +1,8 @@
-package apps.jizzu.simpletodo.ui.settings.fragment.base
+package apps.jizzu.simpletodo.ui.view.settings.fragment.base
 
 import androidx.fragment.app.Fragment
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.ui.settings.activity.SettingsActivity
+import apps.jizzu.simpletodo.ui.view.settings.activity.SettingsActivity
 
 abstract class BaseSettingsFragment : Fragment() {
 

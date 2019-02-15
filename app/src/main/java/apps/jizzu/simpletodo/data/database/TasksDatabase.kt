@@ -45,14 +45,12 @@ abstract class TasksDatabase : RoomDatabase() {
         }
 
         fun getInstance(context: Context): TasksDatabase {
-            if (mInstance == null) {
-                synchronized(TasksDatabase::class.java) {
-                    if (mInstance == null) {
-                        mInstance = Room.databaseBuilder(context,
-                                TasksDatabase::class.java, DATABASE_NAME)
-                                .addMigrations(MIGRATION_1_2)
-                                .build()
-                    }
+            synchronized(TasksDatabase::class.java) {
+                if (mInstance == null) {
+                    mInstance = Room.databaseBuilder(context,
+                            TasksDatabase::class.java, DATABASE_NAME)
+                            .addMigrations(MIGRATION_1_2)
+                            .build()
                 }
             }
             return mInstance!!

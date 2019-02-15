@@ -1,17 +1,13 @@
 package apps.jizzu.simpletodo.ui.view
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
+import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.utils.gone
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.SearchTasksViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 import kotterknife.bindView
 
-class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
     private val mRecyclerView: RecyclerView by bindView(R.id.searchResult)
     private lateinit var mViewModel: SearchTasksViewModel
     private lateinit var mAdapter: RecyclerViewAdapter
@@ -33,20 +30,7 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-
-        title = ""
-
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(this, R.color.grey_white)
-        }
-
-        if (toolbar != null) {
-            toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
-            setSupportActionBar(toolbar)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setHomeAsUpIndicator(R.drawable.round_arrow_back_black_24)
-        }
+        initToolbar()
 
         mViewModel = createViewModel()
         mViewModel.searchResultLiveData.observe(this, Observer<List<Task>> { response -> updateViewState(response) })

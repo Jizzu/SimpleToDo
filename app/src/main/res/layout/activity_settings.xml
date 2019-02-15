@@ -5,21 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white">
-
-        <TextView
-            android:id="@+id/toolbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar" />
 
     <FrameLayout
         android:id="@+id/fragment_container"

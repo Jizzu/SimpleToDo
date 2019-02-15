@@ -3,7 +3,6 @@ package apps.jizzu.simpletodo.ui.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R

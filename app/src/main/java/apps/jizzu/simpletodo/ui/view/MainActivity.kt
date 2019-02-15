@@ -7,15 +7,12 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -30,9 +27,10 @@ import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
-import apps.jizzu.simpletodo.ui.settings.activity.SettingsActivity
-import apps.jizzu.simpletodo.ui.settings.fragment.FragmentDateAndTime
-import apps.jizzu.simpletodo.ui.settings.fragment.FragmentNotifications
+import apps.jizzu.simpletodo.ui.view.base.BaseActivity
+import apps.jizzu.simpletodo.ui.view.settings.activity.SettingsActivity
+import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentDateAndTime
+import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentNotifications
 import apps.jizzu.simpletodo.utils.*
 import apps.jizzu.simpletodo.vm.TaskListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,7 +40,7 @@ import kotterknife.bindView
 import top.wefor.circularanim.CircularAnim
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private val mRecyclerView: RecyclerView by bindView(R.id.tasksList)
     private val mFab: FloatingActionButton by bindView(R.id.fab)
     private var mSnackbar: Snackbar? = null
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initToolbar()
+        initToolbar(getString(R.string.simple_todo_title), R.drawable.outline_settings_black_24)
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         AlarmHelper.getInstance().init(applicationContext)
 
@@ -73,7 +71,6 @@ class MainActivity : AppCompatActivity() {
 
         showChangelogActivity()
         showRecyclerViewAnimation()
-        restoreAlarmsAfterMigration()
         createItemTouchHelper()
         initListeners()
         initCallbacks()
@@ -88,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         if (isNeedToRecount) recountTaskPositions()
         emptyView.gone()
         mAdapter.updateData(mTaskList)
+        restoreAlarmsAfterMigration()
         updateGeneralNotification()
         updateWidget()
     }
@@ -215,22 +213,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             mPreferenceHelper.putBoolean(PreferenceHelper.IS_AFTER_DATABASE_MIGRATION, false)
-        }
-    }
-
-    private fun initToolbar() {
-        title = ""
-
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(this, R.color.grey_white)
-        }
-
-        if (toolbar != null) {
-            toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
-            setSupportActionBar(toolbar)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setHomeAsUpIndicator(R.drawable.outline_settings_black_24)
         }
     }
 

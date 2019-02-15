@@ -15,9 +15,7 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TimePicker
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
-import androidx.appcompat.widget.Toolbar
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.dialogs.DatePickerFragment
 import apps.jizzu.simpletodo.ui.dialogs.TimePickerFragment
@@ -27,10 +25,11 @@ import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.base.BaseViewModel
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_task_details.*
+import kotlinx.android.synthetic.main.toolbar.*
 import kotterknife.bindView
 import java.util.*
 
-abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     val mReminderLayout: RelativeLayout by bindView(R.id.reminderContainer)
     val mReminderSwitch: SwitchCompat by bindView(R.id.reminderSwitch)
     val mTitleEditText: TextInputEditText by bindView(R.id.taskTitle)
@@ -45,18 +44,6 @@ abstract class BaseTaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSe
         checkScreenResolution()
         showKeyboard()
         initListeners()
-    }
-
-    fun initToolbar(titleText: String) {
-        title = ""
-        toolbarTitle.text = titleText
-
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        if (toolbar != null) {
-            setSupportActionBar(toolbar)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setHomeAsUpIndicator(R.drawable.round_close_black_24)
-        }
     }
 
     private fun checkScreenResolution() {

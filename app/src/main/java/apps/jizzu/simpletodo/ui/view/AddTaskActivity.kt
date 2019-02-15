@@ -1,7 +1,6 @@
 package apps.jizzu.simpletodo.ui.view
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task

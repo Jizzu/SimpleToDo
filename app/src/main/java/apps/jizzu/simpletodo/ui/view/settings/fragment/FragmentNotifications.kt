@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.ui.settings.fragment
+package apps.jizzu.simpletodo.ui.view.settings.fragment
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,11 +11,11 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
-import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
+import apps.jizzu.simpletodo.ui.view.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.PreferenceHelper
-import apps.jizzu.simpletodo.utils.gone
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
 class FragmentNotifications : BaseSettingsFragment() {
@@ -74,7 +74,9 @@ class FragmentNotifications : BaseSettingsFragment() {
                 startActivity(intent)
             }
         } else {
-            buttonNotificationSound.gone()
+            rootLayout.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
+            tvNotificationSoundTitle.setTextColor(Color.TRANSPARENT)
+            tvNotificationSoundSummary.setTextColor(Color.TRANSPARENT)
         }
     }
 

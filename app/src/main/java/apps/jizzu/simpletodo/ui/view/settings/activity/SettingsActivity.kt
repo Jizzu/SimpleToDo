@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.ui.settings.activity
+package apps.jizzu.simpletodo.ui.view.settings.activity
 
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
@@ -8,30 +8,19 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.MenuItem
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
-import apps.jizzu.simpletodo.ui.settings.fragment.FragmentSettings
-import kotlinx.android.synthetic.main.activity_settings.*
+import apps.jizzu.simpletodo.ui.view.base.BaseActivity
+import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentSettings
+import kotlinx.android.synthetic.main.toolbar.*
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        initToolbar()
+        initToolbar(getString(R.string.settings), R.drawable.round_arrow_back_black_24)
         openSettingsFragment()
-    }
-
-    private fun initToolbar() {
-        title = ""
-        setToolbarTitle(getString(R.string.settings))
-
-        if (toolbar != null) {
-            setSupportActionBar(toolbar)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setHomeAsUpIndicator(R.drawable.round_arrow_back_black_24)
-        }
     }
 
     fun setToolbarTitle(title: String) {

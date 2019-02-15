@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.ui.settings.fragment
+package apps.jizzu.simpletodo.ui.view.settings.fragment
 
 import android.Manifest
 import android.app.Activity
@@ -17,7 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.ui.settings.fragment.base.BaseSettingsFragment
+import apps.jizzu.simpletodo.ui.view.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.toastLong
 import apps.jizzu.simpletodo.vm.BackupViewModel

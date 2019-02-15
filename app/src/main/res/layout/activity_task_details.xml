@@ -8,20 +8,7 @@
     android:background="@color/white"
     tools:context=".ui.view.AddTaskActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-
-        <TextView
-            android:id="@+id/toolbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/taskTitleLayout"
