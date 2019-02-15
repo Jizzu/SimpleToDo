@@ -1,74 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="apps.jizzu.simpletodo.activity.MainActivity">
+    android:background="@color/white"
+    tools:context=".ui.view.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@null">
+    <include layout="@layout/toolbar" />
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/simple_todo_title"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </android.support.v7.widget.Toolbar>
-
-    <com.miguelcatalan.materialsearchview.MaterialSearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/MaterialSearchViewStyle" />
-
-    <apps.jizzu.simpletodo.adapter.RecyclerViewEmptySupport
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:layout_marginTop="56dp"
-        android:scrollbars="none" />
+        android:overScrollMode="never" />
 
     <RelativeLayout
-        android:id="@+id/empty"
+        android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone">
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/empty_view_title"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/additionalText"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="75dp"
             android:gravity="center"
             android:text="@string/empty_view_text"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="15sp" />
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_white_24dp" />
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

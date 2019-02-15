@@ -1,18 +1,22 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "apps.jizzu.simpletodo"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 8
-        versionName "1.4"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -20,29 +24,43 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     lintOptions {
         disable 'MissingTranslation', 'ExtraTranslation', 'StringFormatInvalid', 'ValidFragment'
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
     // UI
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.github.XunMengWinter:CircularAnim:0.3.4'
-    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
-    implementation 'io.github.tonnyl:whatsnew:0.1.1'
-    implementation 'com.github.hotchemi:android-rate:1.0.1'
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
+    implementation "com.google.android.material:material:$rootProject.androidxVersion"
+    implementation "androidx.cardview:cardview:$rootProject.androidxVersion"
+    implementation "androidx.preference:preference:$rootProject.androidxVersion"
+    implementation "com.github.XunMengWinter:CircularAnim:$rootProject.circularAnimVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+
+    // Firebase Crashlytics
+    implementation "com.google.firebase:firebase-core:$rootProject.firebaseVersion"
+    implementation "com.crashlytics.sdk.android:crashlytics:$rootProject.crashlyticsVersion"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "com.jakewharton:kotterknife:$rootProject.kotterKnifeVersion"
 
-    testImplementation 'junit:junit:4.12'
+    // Room
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
+
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycleVersion"
+
+    // Tests
+    testImplementation "junit:junit:$rootProject.junitVersion"
 }

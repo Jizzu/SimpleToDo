@@ -1,26 +1,28 @@
 <resources>
-    <string name="app_name">Simple ToDo</string>
-    <string name="simple_todo_title">SIMPLE TODO</string>
+    <string name="app_name">To-Do</string>
+    <string name="simple_todo_title">S I M P L E \u0020\u0020 T O D O</string>
     <string name="empty_view_title">No tasks</string>
     <string name="empty_view_text">You can create new tasks \n using the + button</string>
-    <string name="create_task">NEW TASK</string>
+    <string name="search_view_empty_text">Search to find particular tasks</string>
+    <string name="search_view_not_found_text">No tasks found :(</string>
+    <string name="create_task">N E W \u0020\u0020 T A S K</string>
     <string name="set_reminder">Set reminder</string>
     <string name="set_reminder_short">Reminder</string>
     <string name="hint_title">Title</string>
     <string name="hint_date">Date</string>
     <string name="hint_time">Time</string>
-    <string name="add_task">ADD TASK</string>
-    <string name="update_task">UPDATE TASK</string>
-    <string name="edit_task">EDIT TASK</string>
+    <string name="add_task">A D D</string>
+    <string name="update_task">U P D A T E</string>
+    <string name="edit_task">E D I T \u0020\u0020 T A S K</string>
 
     <string name="toast_incorrect_time">Error! You have selected an incorrect time!</string>
-    <string name="error_text_input">Please, input some text!</string>
-    <string name="error_spaces">Error! The entered text consists only of spaces!</string>
+    <string name="error_text_input">Please, enter a title!</string>
+    <string name="error_spaces">Please, enter a valid title!</string>
 
     <string name="preferences_animation_title">Enable animations</string>
     <string name="preferences_animation_summary">Enable animations for UI elements</string>
     <string name="preferences_general_notification_title">Enable general notification</string>
-    <string name="preferences_general_notification_summary">Show general notification with you current task list</string>
+    <string name="preferences_general_notification_summary">Show notification with you current task list</string>
     <string name="preferences_notification_channel_title">Notifications options</string>
     <string name="preferences_notification_channel_summary">Set custom sound, vibration and etc.</string>
     <string name="preferences_notification_sound_title">Notification sound</string>
@@ -40,31 +42,46 @@
     <string name="preferences_other_apps_title">Other apps</string>
     <string name="preferences_other_apps_summary">Other developer\'s apps on Google Play</string>
     <string name="preferences_about_version_title">Version</string>
-    <string name="preferences_about_version_summary">1.4</string>
-    <string name="preferences_about_licenses_summary">Used libraries</string>
     <string name="preferences_about_licenses_title">Licenses</string>
+    <string name="preferences_about_licenses_summary">Used libraries</string>
+    <string name="preferences_kotter_knife_title">KotterKnife</string>
+    <string name="preferences_kotter_knife_summary">JakeWharton</string>
+    <string name="preferences_circular_anim_title">CircularAnim</string>
+    <string name="preferences_circular_anim_summary">XunMengWinter</string>
+    <string name="preferences_rx_java_title">RxJava</string>
+    <string name="preferences_rx_kotlin_title">RxKotlin</string>
+    <string name="preferences_reactive_libraries_summary">ReactiveX</string>
 
     <string name="feedback_title">Simple ToDo - Feedback</string>
     <string name="feedback_device_info">My device info: </string>
     <string name="feedback_app_version">App version: </string>
     <string name="feedback">Feedback: </string>
 
-    <string name="category_general">General settings</string>
-    <string name="category_date_and_time">Date &amp; Time</string>
-    <string name="category_backup_and_restore">Backup &amp; Restore</string>
-    <string name="category_additional">Additional</string>
-    <string name="category_about">About</string>
+    <string name="settings_user_interface">User Interface</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_date_and_time">Date &amp; Time</string>
+    <string name="settings_backup_and_restore">Backup &amp; Restore</string>
+    <string name="settings_rate">Rate this app</string>
+    <string name="settings_feedback">Send Feedback</string>
+    <string name="settings_other_apps">Other apps</string>
+    <string name="settings_git_hub">GitHub page</string>
+    <string name="settings_licenses">Licenses</string>
+    <string name="settings_no_email_apps">No email apps installed!</string>
 
-    <string name="settings">SETTINGS</string>
+    <string name="settings">S E T T I N G S</string>
+    <string name="settings_page_title_user_interface">I N T E R F A C E</string>
+    <string name="settings_page_title_notifications">N O T I F I C A T I O N S</string>
+    <string name="settings_page_title_date_and_time">D A T E \u0020\u0020 &amp; \u0020\u0020 T I M E</string>
+    <string name="settings_page_title_backup_and_restore">B A C K U P \u0020\u0020 &amp; \u0020\u0020 R E S T O R E</string>
+    <string name="settings_page_title_licenses">L I C E N S E S</string>
+
     <string name="settings_menu">Settings</string>
-    <string name="licenses">LICENSES</string>
     <string name="search">Search</string>
 
     <string name="reminder_text">Reminder</string>
-    <string name="reminder_today">Today at</string>
-    <string name="reminder_yesterday">Yesterday at</string>
-    <string name="reminder_tomorrow">Tomorrow at</string>
-    <string name="licenses_circular_anim_summary">This software distributed without a license</string>
+    <string name="reminder_today">Today at %1$s</string>
+    <string name="reminder_yesterday">Yesterday at %1$s</string>
+    <string name="reminder_tomorrow">Tomorrow at %1$s</string>
 
     <string name="snackbar_remove_task">Task is removed!</string>
     <string name="snackbar_undo">Undo</string>
@@ -75,7 +92,7 @@
 
     <string name="backup_create_dialog_message">Do you want to create new backup? \nThe previous backup file will be deleted</string>
     <string name="backup_create_dialog_button">Create backup</string>
-    <string name="backup_restore_dialog_message">Do you want to restore the backup? \nCurrent tasks will not be deleted</string>
+    <string name="backup_restore_dialog_message">Do you want to restore the backup? \nAll current tasks will be deleted!</string>
     <string name="backup_restore_dialog_button">Restore backup</string>
 
     <string name="backup_create_message_success">Backup created successfully!</string>
@@ -99,13 +116,15 @@
     <string name="notification_channel">Notifications</string>
     <string name="general_notification_channel">General Notification</string>
 
+    <string name="widget_title">TODO LIST</string>
+    <string name="author_gmail">ilya.ponomarenko.dev@gmail.com</string>
+
     ////////////////<!-- "What's New?" page -->////////////////
-    <string name="whats_new_title">What\'s New?</string>
-    <string name="whats_new_button_text">Continue</string>
-    <string name="whats_new_item_1_title">Fixes:</string>
-    <string name="whats_new_item_1_text">Bug fixes</string>
-    <string name="whats_new_item_2_title">Improvements:</string>
+    <string name="whats_new_title">W H A T \' S \u0020\u0020 N E W ?</string>
+    <string name="whats_new_button_text">Let\'s go!</string>
+    <string name="whats_new_item_1_text">New design in light colors</string>
     <string name="whats_new_item_2_text">Improved app stability</string>
+    <string name="whats_new_item_3_text">Some bugs have been fixed</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_message">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>
@@ -115,7 +134,7 @@
 
     ////////////////<!-- Date format dialog -->/////////////////
     <string name="date_format_dialog_title">Choose date format:</string>
-    <string name="date_format_at">" at "</string>
+    <string name="date_format_at">"%1$s at %2$s"</string>
     <string-array name="date_format_list">
         <item>Day.Month.Year</item>
         <item>Year.Month.Day</item>

@@ -3,9 +3,6 @@ package apps.jizzu.simpletodo.utils
 import android.os.Build
 import android.text.TextUtils
 
-/**
- * Class for getting information about the device.
- */
 object DeviceInfo {
 
     val deviceInfo: String?
@@ -18,11 +15,10 @@ object DeviceInfo {
 
             return if (model.startsWith(manufacturer)) {
                 capitalize(model)
-            } else capitalize(manufacturer) + " " + model + ", API " + version + ", Android " + versionRelease
+            } else "${capitalize(manufacturer)} $model, API $version, Android $versionRelease"
         }
 
     private fun capitalize(str: String): String? {
-
         if (TextUtils.isEmpty(str)) {
             return str
         }
@@ -32,7 +28,6 @@ object DeviceInfo {
         var phrase = ""
 
         for (c in arr) {
-
             if (capitalizeNext && Character.isLetter(c)) {
                 phrase += Character.toUpperCase(c)
                 capitalizeNext = false

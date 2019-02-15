@@ -2,18 +2,20 @@
 <resources>
     <string name="empty_view_title">Нет задач</string>
     <string name="empty_view_text">Создайте новые задачи \n с помощью кнопки +</string>
-    <string name="create_task">НОВАЯ ЗАДАЧА</string>
+    <string name="search_view_empty_text">Введите поисковый запрос</string>
+    <string name="search_view_not_found_text">Совпадения не найдены :(</string>
+    <string name="create_task">Н О В А Я \u0020\u0020 З А Д А Ч А</string>
     <string name="set_reminder">Добавить напоминание</string>
     <string name="set_reminder_short">Напоминание</string>
     <string name="hint_title">Заголовок</string>
     <string name="hint_date">Дата</string>
     <string name="hint_time">Время</string>
-    <string name="add_task">Добавить задачу</string>
-    <string name="update_task">Обновить задачу</string>
-    <string name="edit_task">ИЗМЕНИТЬ ЗАДАЧУ</string>
+    <string name="add_task">С О З Д А Т Ь</string>
+    <string name="update_task">О Б Н О В И Т Ь</string>
+    <string name="edit_task">Р Е Д А К Т И Р О В А Т Ь</string>
     <string name="toast_incorrect_time">Ошибка! Вы выбрали неправильное время!</string>
-    <string name="error_text_input">Пожалуйста, введите текст!</string>
-    <string name="error_spaces">Ошибка! Введённый текст состоит только из пробелов!</string>
+    <string name="error_text_input">Пожалуйста, введите заголовок!</string>
+    <string name="error_spaces">Пожалуйста, введите корректный заголовок!</string>
 
     <string name="preferences_animation_title">Включить анимацию</string>
     <string name="preferences_animation_summary">Включить анимацию для элементов интерфейса</string>
@@ -38,31 +40,39 @@
     <string name="preferences_other_apps_title">Другие приложения</string>
     <string name="preferences_other_apps_summary">Другие приложения разработчика в Google Play</string>
     <string name="preferences_about_version_title">Версия</string>
-    <string name="preferences_about_version_summary">1.4</string>
-    <string name="preferences_about_licenses_summary">Использованные библиотеки</string>
     <string name="preferences_about_licenses_title">Лицензии</string>
+    <string name="preferences_about_licenses_summary">Использованные библиотеки</string>
 
     <string name="feedback_title">Simple ToDo - Отзыв</string>
     <string name="feedback_device_info">Информация о моём устройстве: </string>
     <string name="feedback_app_version">Версия приложения: </string>
     <string name="feedback">Отзыв: </string>
 
-    <string name="category_general">Общие настройки</string>
-    <string name="category_date_and_time">Дата и время</string>
-    <string name="category_backup_and_restore">Резервное копирование данных</string>
-    <string name="category_additional">Дополнительно</string>
-    <string name="category_about">О приложении</string>
+    <string name="settings_user_interface">Интерфейс</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="settings_date_and_time">Дата и время</string>
+    <string name="settings_backup_and_restore">Резервная копия данных</string>
+    <string name="settings_rate">Оценить приложение</string>
+    <string name="settings_feedback">Написать автору</string>
+    <string name="settings_other_apps">Другие приложения</string>
+    <string name="settings_git_hub">Страница на GitHub</string>
+    <string name="settings_licenses">Лицензии</string>
+    <string name="settings_no_email_apps">Приложения для электронной почты не установлены!</string>
 
-    <string name="settings">НАСТРОЙКИ</string>
+    <string name="settings">Н А С Т Р О Й К И</string>
+    <string name="settings_page_title_user_interface">И Н Т Е Р Ф Е Й С</string>
+    <string name="settings_page_title_notifications">У В Е Д О М Л Е Н И Я</string>
+    <string name="settings_page_title_date_and_time">Д А Т А \u0020\u0020 И \u0020\u0020 В Р Е М Я</string>
+    <string name="settings_page_title_backup_and_restore">Р Е З Е Р В Н А Я \u0020\u0020 К О П И Я</string>
+    <string name="settings_page_title_licenses">Л И Ц Е Н З И И</string>
+
     <string name="settings_menu">Настройки</string>
-    <string name="licenses">ЛИЦЕНЗИИ</string>
     <string name="search">Поиск</string>
 
     <string name="reminder_text">Напоминание</string>
-    <string name="reminder_today">Сегодня в</string>
-    <string name="reminder_yesterday">Вчера в</string>
-    <string name="reminder_tomorrow">Завтра в</string>
-    <string name="licenses_circular_anim_summary">Распространяется без лицензии</string>
+    <string name="reminder_today">Сегодня в %1$s</string>
+    <string name="reminder_yesterday">Вчера в %1$s</string>
+    <string name="reminder_tomorrow">Завтра в %1$s</string>
 
     <string name="snackbar_remove_task">Задача удалена!</string>
     <string name="snackbar_undo">Отмена</string>
@@ -73,7 +83,7 @@
 
     <string name="backup_create_dialog_message">Создать новый бэкап? \nПредыдущий файл бэкапа будет удален</string>
     <string name="backup_create_dialog_button">Создать</string>
-    <string name="backup_restore_dialog_message">Восстановить бэкап? \nТекущие задачи не будут удалены</string>
+    <string name="backup_restore_dialog_message">Восстановить бэкап? \nВсе текущие задачи будут удалены!</string>
     <string name="backup_restore_dialog_button">Восстановить</string>
 
     <string name="backup_create_message_success">Бэкап успешно создан!</string>
@@ -97,13 +107,14 @@
     <string name="notification_channel">Уведомления</string>
     <string name="general_notification_channel">Общее уведомление</string>
 
+    <string name="widget_title">ЗАДАЧИ</string>
+
     ////////////////<!-- "What's New?" page -->////////////////
-    <string name="whats_new_title">Что нового?</string>
-    <string name="whats_new_button_text">Продолжить</string>
-    <string name="whats_new_item_1_title">Исправления:</string>
-    <string name="whats_new_item_1_text">Исправлены критические баги</string>
-    <string name="whats_new_item_2_title">Улучшения:</string>
-    <string name="whats_new_item_2_text">Улучшена стабильность приложения</string>
+    <string name="whats_new_title">Ч Т О \u0020\u0020 Н О В О Г О ?</string>
+    <string name="whats_new_button_text">Далее</string>
+    <string name="whats_new_item_1_text">Новый дизайн в светлых тонах</string>
+    <string name="whats_new_item_2_text">Улучшена стабильность</string>
+    <string name="whats_new_item_3_text">Исправлены некоторые ошибки</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
@@ -113,7 +124,7 @@
 
     ////////////////<!-- Date format dialog -->/////////////////
     <string name="date_format_dialog_title">Выберите формат даты:</string>
-    <string name="date_format_at">" в "</string>
+    <string name="date_format_at">"%1$s в %2$s"</string>
     <string-array name="date_format_list">
         <item>День.Месяц.Год</item>
         <item>Год.Месяц.День</item>
