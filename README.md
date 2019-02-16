@@ -15,15 +15,14 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 - Widget support
 - Backup & Restore feature
 - Drag & drop and swipe-to-dismiss features
-- No suspicious permissions is required (only storage permission is needed for backup)
 
 ## FAQ:
 If you have any questions — welcome to the [FAQs page](FAQs.md)!
 
-## Next update changes (v1.5):
-- [ ] Migrate to MVVM: ViewModel, LiveData, Room, RxJava
-- [ ] Redesign by Material 2.0
-- [ ] Implement Crashlytics
+## Next update changes (v1.6):
+- [ ] Continue redesign (BottomAppBar, rounded dialogs)
+- [ ] Add task description field
+- [ ] Add shortcuts
 
 ## Download links:
 <a href='https://play.google.com/store/apps/details?
