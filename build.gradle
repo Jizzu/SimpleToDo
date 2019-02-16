@@ -32,7 +32,7 @@ ext {
     buildToolsVersion = '28.0.3'
     minSdkVersion = 19
     targetSdkVersion = 28
-    versionCode = 9
+    versionCode = 11
     versionName = "1.5"
 
     // App dependencies
