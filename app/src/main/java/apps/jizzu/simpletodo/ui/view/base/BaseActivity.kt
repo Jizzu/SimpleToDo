@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    fun initToolbar(titleText: String = "", drawable: Int = R.drawable.round_close_black_24) {
+    fun initToolbar(titleText: String, drawable: Int = R.drawable.round_close_black_24) {
         title = ""
         toolbarTitle.text = titleText
 

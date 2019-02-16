@@ -30,7 +30,7 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        initToolbar()
+        initToolbar("", R.drawable.round_arrow_back_black_24)
 
         mViewModel = createViewModel()
         mViewModel.searchResultLiveData.observe(this, Observer<List<Task>> { response -> updateViewState(response) })
