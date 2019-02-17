@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
+import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
+import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.SearchTasksViewModel
@@ -31,6 +33,11 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         initToolbar("", R.drawable.round_arrow_back_black_24)
+
+        if (intent.getBooleanExtra("isShortcut", false)) {
+            PreferenceHelper.getInstance().init(applicationContext)
+            AlarmHelper.getInstance().init(applicationContext)
+        }
 
         mViewModel = createViewModel()
         mViewModel.searchResultLiveData.observe(this, Observer<List<Task>> { response -> updateViewState(response) })

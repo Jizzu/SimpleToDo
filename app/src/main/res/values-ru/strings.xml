@@ -137,4 +137,8 @@
         <item>24-часовой формат</item>
         <item>12-часовой формат</item>
     </string-array>
+
+    ///////////////<!-- Shortcuts -->///////////////
+    <string name="shortcut_add_new_task">Добавить задачу</string>
+    <string name="shortcut_search">Поиск</string>
 </resources>

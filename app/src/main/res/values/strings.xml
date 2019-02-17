@@ -132,7 +132,7 @@
     <string name="rate_dialog_cancel">Later</string>
     <string name="rate_dialog_no">No, Thanks</string>
 
-    ////////////////<!-- Date format dialog -->/////////////////
+    ////////////////<!-- Date/Time format dialog -->/////////////////
     <string name="date_format_dialog_title">Choose date format:</string>
     <string name="date_format_at">"%1$s at %2$s"</string>
     <string-array name="date_format_list">
@@ -147,4 +147,8 @@
         <item>24-hours format</item>
         <item>12-hours format</item>
     </string-array>
+
+    ///////////////<!-- Shortcuts -->///////////////
+    <string name="shortcut_add_new_task">Add new task</string>
+    <string name="shortcut_search">Search</string>
 </resources>

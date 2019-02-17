@@ -7,6 +7,9 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
@@ -74,6 +77,7 @@ class MainActivity : BaseActivity() {
         createItemTouchHelper()
         initListeners()
         initCallbacks()
+        initShortcuts()
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView() else showTaskList(tasks)
@@ -85,6 +89,7 @@ class MainActivity : BaseActivity() {
         if (isNeedToRecount) recountTaskPositions()
         emptyView.gone()
         mAdapter.updateData(mTaskList)
+        mPreferenceHelper.putInt(PreferenceHelper.NEW_TASK_POSITION, mAdapter.itemCount)
         restoreAlarmsAfterMigration()
         updateGeneralNotification()
         updateWidget()
@@ -341,6 +346,28 @@ class MainActivity : BaseActivity() {
             }
         }
         FragmentDateAndTime.callback = callbackDateAndTimeFormat
+    }
+
+    private fun initShortcuts() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+            val newTaskShortcut = ShortcutInfo.Builder(this, "newTask")
+                    .setShortLabel(getString(R.string.shortcut_add_new_task))
+                    .setLongLabel(getString(R.string.shortcut_add_new_task))
+                    .setIcon(Icon.createWithResource(this, R.drawable.ic_shortcut_add))
+                    .setIntents(arrayOf(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_VIEW),
+                            Intent(this, AddTaskActivity::class.java).setAction(Intent.ACTION_VIEW).putExtra("isShortcut", true)))
+                    .build()
+
+            val searchShortcut = ShortcutInfo.Builder(this, "searchTask")
+                    .setShortLabel(getString(R.string.shortcut_search))
+                    .setLongLabel(getString(R.string.shortcut_search))
+                    .setIcon(Icon.createWithResource(this, R.drawable.ic_shortcut_search))
+                    .setIntents(arrayOf(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_VIEW),
+                            Intent(this, SearchActivity::class.java).setAction(Intent.ACTION_VIEW).putExtra("isShortcut", true)))
+                    .build()
+
+            getSystemService(ShortcutManager::class.java).dynamicShortcuts = Arrays.asList(searchShortcut, newTaskShortcut)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
