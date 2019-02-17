@@ -22,6 +22,7 @@ If you have any questions — welcome to the [FAQs page](FAQs.md)!
 ## Next update changes (v1.6):
 - [ ] Continue redesign (BottomAppBar, rounded dialogs)
 - [ ] Add task description field
+- [x] Add adaptive icon
 - [x] Add shortcuts
 
 ## Download links:
