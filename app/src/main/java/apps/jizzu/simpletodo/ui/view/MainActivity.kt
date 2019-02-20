@@ -1,5 +1,7 @@
 package apps.jizzu.simpletodo.ui.view
 
+import android.animation.TimeInterpolator
+import android.animation.ValueAnimator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -15,7 +17,9 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -29,16 +33,20 @@ import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
+import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.ui.view.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentNotifications
-import apps.jizzu.simpletodo.utils.*
+import apps.jizzu.simpletodo.utils.PreferenceHelper
+import apps.jizzu.simpletodo.utils.gone
+import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.TaskListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
 import kotterknife.bindView
 import top.wefor.circularanim.CircularAnim
 import java.util.*
@@ -57,7 +65,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initToolbar(getString(R.string.simple_todo_title), R.drawable.outline_settings_black_24)
+        initToolbar(getString(R.string.simple_todo_title), null, bottomAppBar)
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         AlarmHelper.getInstance().init(applicationContext)
 
@@ -160,11 +168,26 @@ class MainActivity : BaseActivity() {
                 alarmHelper.setAlarm(deletedTask)
             }
             isUndoClicked = true
+
+            Handler().postDelayed({
+                val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                if (firstCompletelyVisibleItem != 0) {
+                    setToolbarShadow(0f, 10f)
+                    RecyclerViewScrollListener.isShadowShown = true
+                }
+            }, 200)
         }
 
         mSnackbar?.view?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(view: View) {
-                mFab.show()
+                val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                val lastCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+
+                if (firstCompletelyVisibleItem == 0 && lastCompletelyVisibleItem == mTaskList.size - 1 && RecyclerViewScrollListener.isShadowShown) {
+                    if (!mFab.isShown) mFab.show()
+                    setToolbarShadow(10f, 0f)
+                    RecyclerViewScrollListener.isShadowShown = false
+                }
             }
 
             override fun onViewDetachedFromWindow(view: View) {
@@ -245,16 +268,36 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && mFab.isVisible()) {
-                    mFab.hide()
-                } else if (dy < 0 && mFab.isNotVisible()) {
-                    mFab.show()
-                }
-            }
+        mRecyclerView.addOnScrollListener(object : RecyclerViewScrollListener() {
+
+            override fun onToolbarShow() = animateToolbar(0F, DecelerateInterpolator(2F))
+
+            override fun onToolbarHide() = animateToolbar(-toolbar.height.toFloat(), AccelerateInterpolator(2F))
+
+            override fun onShadowShow() = setToolbarShadow(0f, 10f)
+
+            override fun onShadowHide() = setToolbarShadow(10f, 0f)
+
+            override fun onFABShow() = mFab.show()
+
+            override fun onFABHide() = mFab.hide()
         })
+    }
+
+    private fun animateToolbar(translationValue: Float, interpolator: TimeInterpolator) {
+        toolbar.animate().translationY(translationValue).interpolator = interpolator
+    }
+
+    private fun setToolbarShadow(start: Float, end: Float) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ValueAnimator.ofFloat(start, end).apply {
+                addUpdateListener { updatedAnimation ->
+                    toolbar.elevation = updatedAnimation.animatedValue as Float
+                }
+                duration = 500
+                start()
+            }
+        }
     }
 
     fun showTaskDetailsActivity(task: Task) {
@@ -385,20 +428,20 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        mFab.gone()
-
-        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
-            val handler = Handler()
-            handler.postDelayed({
-                mFab.visible()
-                val animation = AnimationUtils.loadAnimation(this, R.anim.fab_animation)
-                val interpolator = Interpolator(0.2, 20.0)
-                animation.interpolator = interpolator
-                mFab.startAnimation(animation)
-            }, 300)
-        } else {
-            mFab.visible()
-        }
+//        mFab.gone()
+//
+//        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
+//            val handler = Handler()
+//            handler.postDelayed({
+//                mFab.visible()
+//                val animation = AnimationUtils.loadAnimation(this, R.anim.fab_animation)
+//                val interpolator = Interpolator(0.2, 20.0)
+//                animation.interpolator = interpolator
+//                mFab.startAnimation(animation)
+//            }, 300)
+//        } else {
+//            mFab.visible()
+//        }
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {
