@@ -257,7 +257,7 @@ class MainActivity : BaseActivity() {
                 intent.putExtra("position", position)
 
                 CircularAnim.fullActivity(this@MainActivity, view)
-                        .colorOrImageRes(R.color.colorPrimary)
+                        .colorOrImageRes(R.color.deepBlue)
                         .duration(300)
                         .go { startActivity(intent) }
             } else {
@@ -367,7 +367,7 @@ class MainActivity : BaseActivity() {
                 .setContentText(stringBuilder.toString())
                 .setNumber(mAdapter.itemCount)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(stringBuilder.toString()))
-                .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setColor(ContextCompat.getColor(this, R.color.deepBlue))
                 .setSmallIcon(R.drawable.ic_check_circle_white_24dp)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)

@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -99,6 +100,8 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         searchView.setOnQueryTextListener(this)
         searchView.queryHint = getString(R.string.search)
         searchText.setBackgroundResource(R.drawable.search_view_background)
+        val view: View = searchView.findViewById(androidx.appcompat.R.id.search_plate)
+        view.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         return true
     }
 

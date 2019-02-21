@@ -17,7 +17,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (toolbar != null) {
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP || Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                window.statusBarColor = ContextCompat.getColor(this, R.color.grey_white)
+                window.statusBarColor = ContextCompat.getColor(this, R.color.greyWhite)
             }
             setSupportActionBar(view)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -35,7 +35,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="10dp"
             android:text="@string/preferences_animation_summary"
-            android:textColor="@color/grey_white"
+            android:textColor="@color/greyWhite"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
