@@ -79,7 +79,7 @@
     <string name="action_cancel">Отмена</string>
     <string name="action_delete">Удалить</string>
     <string name="dialog_title"><b>Вы уверены?</b></string>
-    <string name="dialog_message">Удалить эту задачу?</string>
+    <string name="dialog_message">Удалённую задачу нельзя будет восстановить</string>
 
     <string name="backup_create_dialog_message">Создать новый бэкап? \nПредыдущий файл бэкапа будет удален</string>
     <string name="backup_create_dialog_button">Создать</string>

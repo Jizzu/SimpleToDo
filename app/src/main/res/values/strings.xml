@@ -88,7 +88,7 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_delete">Delete</string>
     <string name="dialog_title"><b>Are you sure?</b></string>
-    <string name="dialog_message">Delete this task?</string>
+    <string name="dialog_message">Deleted task cannot be restored</string>
 
     <string name="backup_create_dialog_message">Do you want to create new backup? \nThe previous backup file will be deleted</string>
     <string name="backup_create_dialog_button">Create backup</string>

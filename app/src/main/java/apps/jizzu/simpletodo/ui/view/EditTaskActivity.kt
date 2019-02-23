@@ -3,11 +3,11 @@ package apps.jizzu.simpletodo.ui.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
+import apps.jizzu.simpletodo.ui.dialogs.DeleteTaskDialogFragment
 import apps.jizzu.simpletodo.ui.view.base.BaseTaskActivity
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
 import apps.jizzu.simpletodo.utils.invisible
@@ -97,6 +97,8 @@ class EditTaskActivity : BaseTaskActivity() {
         }
     }
 
+    private fun showDeleteTaskDialog(task: Task) = DeleteTaskDialogFragment(task).show(supportFragmentManager, null)
+
     override fun createViewModel() = ViewModelProviders.of(this).get(EditTaskViewModel(application)::class.java)
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -113,22 +115,9 @@ class EditTaskActivity : BaseTaskActivity() {
             }
 
             R.id.action_delete -> {
-                val alertDialog = AlertDialog.Builder(this, R.style.DialogTheme)
-                alertDialog.setTitle(R.string.dialog_title)
-                alertDialog.setMessage(R.string.dialog_message)
-                alertDialog.setPositiveButton(R.string.action_delete) { _, _ ->
-                    hideKeyboard(mTitleEditText)
-                    val task = Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp)
-                    if (task.date != 0L) {
-                        val alarmHelper = AlarmHelper.getInstance()
-                        alarmHelper.removeAlarm(task.timeStamp)
-                        alarmHelper.removeNotification(task.timeStamp, this)
-                    }
-                    mViewModel.deleteTask(task)
-                    finish()
-                }
-                alertDialog.setNegativeButton(R.string.action_cancel) { _, _ -> }
-                alertDialog.show()
+                hideKeyboard(mTitleEditText)
+                showDeleteTaskDialog(Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp))
+
             }
         }
         return super.onOptionsItemSelected(item)

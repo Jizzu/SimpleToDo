@@ -16,8 +16,8 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TimePicker
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.ui.dialogs.DatePickerFragment
-import apps.jizzu.simpletodo.ui.dialogs.TimePickerFragment
+import apps.jizzu.simpletodo.ui.dialogs.DatePickerDialogFragment
+import apps.jizzu.simpletodo.ui.dialogs.TimePickerDialogFragment
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
 import apps.jizzu.simpletodo.utils.invisible
 import apps.jizzu.simpletodo.utils.visible
@@ -119,14 +119,14 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
 
         mDateEditText.setOnClickListener {
             mDateEditText.text = null
-            val datePickerFragment = DatePickerFragment()
-            datePickerFragment.show(fragmentManager, "DatePickerFragment")
+            val datePickerFragment = DatePickerDialogFragment()
+            datePickerFragment.show(fragmentManager, "DatePickerDialogFragment")
         }
 
         mTimeEditText.setOnClickListener {
             mTimeEditText.text = null
-            val timePickerFragment = TimePickerFragment()
-            timePickerFragment.show(fragmentManager, "TimePickerFragment")
+            val timePickerFragment = TimePickerDialogFragment()
+            timePickerFragment.show(fragmentManager, "TimePickerDialogFragment")
         }
 
         container.setOnClickListener { hideKeyboard(mTitleEditText) }
