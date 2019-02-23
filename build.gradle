@@ -37,6 +37,7 @@ ext {
 
     // App dependencies
     appcompatVersion = "1.0.2"
+    materialVersion = "1.1.0-alpha03"
     androidxVersion = "1.0.0"
     circularAnimVersion = "0.3.4"
     constraintLayoutVersion = "1.1.3"

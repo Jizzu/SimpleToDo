@@ -33,8 +33,8 @@ import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
-import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
+import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.ui.view.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentDateAndTime
@@ -171,11 +171,11 @@ class MainActivity : BaseActivity() {
 
             Handler().postDelayed({
                 val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
-                if (firstCompletelyVisibleItem != 0) {
+                if (firstCompletelyVisibleItem != 0 && !RecyclerViewScrollListener.isShadowShown) {
                     setToolbarShadow(0f, 10f)
                     RecyclerViewScrollListener.isShadowShown = true
                 }
-            }, 200)
+            }, 100)
         }
 
         mSnackbar?.view?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
@@ -184,7 +184,6 @@ class MainActivity : BaseActivity() {
                 val lastCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
 
                 if (firstCompletelyVisibleItem == 0 && lastCompletelyVisibleItem == mTaskList.size - 1 && RecyclerViewScrollListener.isShadowShown) {
-                    if (!mFab.isShown) mFab.show()
                     setToolbarShadow(10f, 0f)
                     RecyclerViewScrollListener.isShadowShown = false
                 }
@@ -197,6 +196,7 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+        mSnackbar?.anchorView = mFab
         mSnackbar?.show()
     }
 
@@ -277,10 +277,6 @@ class MainActivity : BaseActivity() {
             override fun onShadowShow() = setToolbarShadow(0f, 10f)
 
             override fun onShadowHide() = setToolbarShadow(10f, 0f)
-
-            override fun onFABShow() = mFab.show()
-
-            override fun onFABHide() = mFab.hide()
         })
     }
 
@@ -428,20 +424,6 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-//        mFab.gone()
-//
-//        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
-//            val handler = Handler()
-//            handler.postDelayed({
-//                mFab.visible()
-//                val animation = AnimationUtils.loadAnimation(this, R.anim.fab_animation)
-//                val interpolator = Interpolator(0.2, 20.0)
-//                animation.interpolator = interpolator
-//                mFab.startAnimation(animation)
-//            }, 300)
-//        } else {
-//            mFab.visible()
-//        }
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {

@@ -15,7 +15,8 @@
         android:layout_marginBottom="56dp"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingTop="?attr/actionBarSize" />
+        android:paddingTop="?attr/actionBarSize"
+        android:paddingBottom="28dp" />
 
     <include layout="@layout/toolbar" />
 
@@ -69,5 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_white_24dp"
-        app:layout_anchor="@id/bottomAppBar" />
+        app:backgroundTint="@color/deepBlue"
+        app:layout_anchor="@id/bottomAppBar"
+        app:layout_behavior=""
+        app:tint="@color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

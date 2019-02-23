@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/deepBlue</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/deepBlue</item>
         <item name="android:windowBackground">@color/white</item>
@@ -9,10 +9,6 @@
         <item name="android:fontFamily">@font/product_sans</item>
         <item name="searchViewStyle">@style/SearchViewStyle</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-    </style>
-
-    <style name="EditTextHint" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColorHint">@color/white</item>
     </style>
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
