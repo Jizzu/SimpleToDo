@@ -117,12 +117,13 @@
     <string name="whats_new_item_3_text">Исправлены некоторые ошибки</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
+    <string name="rate_dialog_title">Оцените это приложение</string>
     <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
     <string name="rate_dialog_ok">Оценить</string>
     <string name="rate_dialog_cancel">Позже</string>
     <string name="rate_dialog_no">Нет, спасибо</string>
 
-    ////////////////<!-- Date format dialog -->/////////////////
+    ////////////////<!-- Date/Time format dialog -->/////////////////
     <string name="date_format_dialog_title">Выберите формат даты:</string>
     <string name="date_format_at">"%1$s в %2$s"</string>
     <string-array name="date_format_list">

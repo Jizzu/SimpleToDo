@@ -127,6 +127,7 @@
     <string name="whats_new_item_3_text">Some bugs have been fixed</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
+    <string name="rate_dialog_title">Rate this app</string>
     <string name="rate_dialog_message">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>
     <string name="rate_dialog_ok">Rate now</string>
     <string name="rate_dialog_cancel">Later</string>

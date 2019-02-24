@@ -33,6 +33,7 @@ import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
+import apps.jizzu.simpletodo.ui.dialogs.RateThisAppDialogFragment
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
@@ -82,6 +83,7 @@ class MainActivity : BaseActivity() {
 
         showChangelogActivity()
         showRecyclerViewAnimation()
+        showRateThisAppDialog()
         createItemTouchHelper()
         initListeners()
         initCallbacks()
@@ -128,6 +130,15 @@ class MainActivity : BaseActivity() {
             val resId = R.anim.layout_animation
             val animation = AnimationUtils.loadLayoutAnimation(this, resId)
             mRecyclerView.layoutAnimation = animation
+        }
+    }
+
+    private fun showRateThisAppDialog() {
+        var counter = mPreferenceHelper.getInt(PreferenceHelper.LAUNCHES_COUNTER)
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.IS_NEED_TO_SHOW_RATE_DIALOG_LATER) && counter == 4) {
+            RateThisAppDialogFragment().show(supportFragmentManager, null)
+        } else {
+            mPreferenceHelper.putInt(PreferenceHelper.LAUNCHES_COUNTER, ++counter)
         }
     }
 

@@ -37,5 +37,5 @@ class DeleteTaskDialogFragment(val task: Task) : BaseDialogFragment() {
         buttonCancel.setOnClickListener { dismiss() }
     }
 
-    override fun createViewModel() = ViewModelProviders.of(this).get(DeleteTaskViewModel(activity!!.application)::class.java)
+    private fun createViewModel() = ViewModelProviders.of(this).get(DeleteTaskViewModel(activity!!.application)::class.java)
 }

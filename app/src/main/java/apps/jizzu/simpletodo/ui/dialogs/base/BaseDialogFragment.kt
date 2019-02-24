@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.vm.base.BaseViewModel
 
 abstract class BaseDialogFragment : DialogFragment() {
 
@@ -25,6 +24,4 @@ abstract class BaseDialogFragment : DialogFragment() {
         super.onStart()
         dialog?.window?.setLayout(resources.getDimensionPixelSize(R.dimen.dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT)
     }
-
-    abstract fun createViewModel(): BaseViewModel
 }

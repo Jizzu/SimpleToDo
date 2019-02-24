@@ -35,6 +35,8 @@ class PreferenceHelper private constructor() {
         const val IS_AFTER_DATABASE_MIGRATION = "is_after_database_migration"
         const val DATE_FORMAT_KEY = "date_format_key"
         const val TIME_FORMAT_KEY = "time_format_key"
+        const val LAUNCHES_COUNTER = "launches_counter"
+        const val IS_NEED_TO_SHOW_RATE_DIALOG_LATER = "is_need_to_show_rate_dialog_later"
 
         private var mInstance: PreferenceHelper? = null
 
