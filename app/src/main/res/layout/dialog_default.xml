@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="270dp"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/dialog_background"
     android:divider="@drawable/dialog_divider_horizontal"
     android:orientation="vertical"
@@ -23,23 +24,24 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/dialogMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:text="@string/dialog_message"
+            tools:text="@string/dialog_message"
             android:textSize="18sp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/buttonDeleteTask"
+        android:id="@+id/buttonConfirm"
         style="@style/DialogButtonTheme"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"
-        android:text="@string/action_delete" />
+        tools:text="@string/action_delete" />
 
     <TextView
         android:id="@+id/buttonCancel"

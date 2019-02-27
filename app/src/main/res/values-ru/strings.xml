@@ -81,9 +81,9 @@
     <string name="dialog_title"><b>Вы уверены?</b></string>
     <string name="dialog_message">Удалённую задачу нельзя будет восстановить</string>
 
-    <string name="backup_create_dialog_message">Создать новый бэкап? \nПредыдущий файл бэкапа будет удален</string>
+    <string name="backup_create_dialog_message">Предыдущий файл бэкапа будет удален</string>
     <string name="backup_create_dialog_button">Создать</string>
-    <string name="backup_restore_dialog_message">Восстановить бэкап? \nВсе текущие задачи будут удалены!</string>
+    <string name="backup_restore_dialog_message">Все текущие задачи будут удалены</string>
     <string name="backup_restore_dialog_button">Восстановить</string>
 
     <string name="backup_create_message_success">Бэкап успешно создан!</string>
