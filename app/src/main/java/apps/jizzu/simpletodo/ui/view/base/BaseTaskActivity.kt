@@ -4,21 +4,23 @@ import android.animation.Animator
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TimePicker
+import androidx.core.content.ContextCompat
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.ui.dialogs.DatePickerDialogFragment
-import apps.jizzu.simpletodo.ui.dialogs.TimePickerDialogFragment
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
+import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.invisible
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.base.BaseViewModel
@@ -118,18 +120,74 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
         })
 
         mDateEditText.setOnClickListener {
+            hideKeyboard(mTitleEditText)
             mDateEditText.text = null
-            val datePickerFragment = DatePickerDialogFragment()
-            datePickerFragment.show(fragmentManager, "DatePickerDialogFragment")
+            showDatePickerDialog()
         }
 
         mTimeEditText.setOnClickListener {
+            hideKeyboard(mTitleEditText)
             mTimeEditText.text = null
-            val timePickerFragment = TimePickerDialogFragment()
-            timePickerFragment.show(fragmentManager, "TimePickerDialogFragment")
+            showTimePickerDialog()
         }
 
         container.setOnClickListener { hideKeyboard(mTitleEditText) }
+    }
+
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            DatePickerDialog(this, R.style.DialogPicker, this, year, month, day).apply {
+                window?.attributes?.windowAnimations = R.style.DialogAnimation
+                show()
+                window?.setLayout(resources.getDimensionPixelSize(R.dimen.dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT)
+                getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.deepBlue))
+                getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.deepBlue))
+                getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
+                getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
+            }
+        } else {
+            DatePickerDialog(this, this, year, month, day).apply {
+                window?.attributes?.windowAnimations = R.style.DialogAnimation
+                show()
+                getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
+            }
+        }
+    }
+
+    private fun showTimePickerDialog() {
+        val timeFormatKey = PreferenceHelper.getInstance().getInt(PreferenceHelper.TIME_FORMAT_KEY)
+        lateinit var timePickerDialog: TimePickerDialog
+
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE) + 1
+
+        when(timeFormatKey) {
+            0 -> timePickerDialog = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                TimePickerDialog(this, R.style.DialogPicker,this, hour, minute, true)
+            } else TimePickerDialog(this,this, hour, minute, true)
+
+            1 -> timePickerDialog = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                TimePickerDialog(this, R.style.DialogPicker,this, hour, minute, false)
+            } else TimePickerDialog(this,this, hour, minute, false)
+        }
+        timePickerDialog.apply {
+            window?.attributes?.windowAnimations = R.style.DialogAnimation
+            show()
+            getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                window?.setLayout(resources.getDimensionPixelSize(R.dimen.dialog_picker_width), ViewGroup.LayoutParams.WRAP_CONTENT)
+                getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.deepBlue))
+                getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.deepBlue))
+                getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
+            }
+        }
     }
 
     private fun showKeyboard() {

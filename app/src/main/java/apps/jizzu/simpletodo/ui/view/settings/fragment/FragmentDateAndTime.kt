@@ -28,36 +28,34 @@ class FragmentDateAndTime : BaseSettingsFragment() {
     }
 
     private fun setOnClickListeners() {
-        val preferenceHelper = PreferenceHelper.getInstance()
-
         buttonDateFormat.setOnClickListener {
-            val listItems = resources.getStringArray(R.array.date_format_list)
-            var selectedItemPosition = preferenceHelper.getInt(PreferenceHelper.DATE_FORMAT_KEY)
-
-            AlertDialog.Builder(activity as Context, R.style.AlertDialogStyle).apply {
-                setTitle(getString(R.string.date_format_dialog_title))
-                setSingleChoiceItems(listItems, selectedItemPosition) { dialogInterface, i ->
-                    selectedItemPosition = i
-                    preferenceHelper.putInt(PreferenceHelper.DATE_FORMAT_KEY, i)
-                    dialogInterface.dismiss()
-                }
-                show()
-            }
+            showSingleChoiceDialog(R.array.date_format_list, getString(R.string.date_format_dialog_title),
+                    PreferenceHelper.DATE_FORMAT_KEY)
         }
 
         buttonTimeFormat.setOnClickListener {
-            val listItems = resources.getStringArray(R.array.time_format_list)
-            var selectedItemPosition = preferenceHelper.getInt(PreferenceHelper.TIME_FORMAT_KEY)
+            showSingleChoiceDialog(R.array.time_format_list, getString(R.string.time_format_dialog_title),
+                    PreferenceHelper.TIME_FORMAT_KEY)
+        }
+    }
 
-            AlertDialog.Builder(activity as Context, R.style.AlertDialogStyle).apply {
-                setTitle(getString(R.string.time_format_dialog_title))
-                setSingleChoiceItems(listItems, selectedItemPosition) { dialogInterface, i ->
-                    selectedItemPosition = i
-                    preferenceHelper.putInt(PreferenceHelper.TIME_FORMAT_KEY, i)
-                    dialogInterface.dismiss()
-                }
-                show()
+    private fun showSingleChoiceDialog(array: Int, title: String, formatKey: String) {
+        val listItems = resources.getStringArray(array)
+        val preferenceHelper = PreferenceHelper.getInstance()
+        var selectedItemPosition = preferenceHelper.getInt(formatKey)
+
+        val builder = AlertDialog.Builder(activity as Context, R.style.AlertDialogStyle).apply {
+            setTitle(title)
+            setSingleChoiceItems(listItems, selectedItemPosition) { dialogInterface, i ->
+                selectedItemPosition = i
+                preferenceHelper.putInt(formatKey, i)
+                dialogInterface.dismiss()
             }
+        }
+        builder.create().apply {
+            window?.attributes?.windowAnimations = R.style.DialogAnimation
+            show()
+            window?.setLayout(resources.getDimensionPixelSize(R.dimen.dialog_picker_width), ViewGroup.LayoutParams.WRAP_CONTENT)
         }
     }
 

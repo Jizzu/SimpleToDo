@@ -11,6 +11,15 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
+    <style name="DialogPicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="colorAccent">@color/deepBlue</item>
+    </style>
+
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/dialog_open_animation</item>
         <item name="android:windowExitAnimation">@anim/dialog_close_animation</item>
@@ -28,10 +37,6 @@
         <item name="closeIcon">@drawable/round_close_black_24</item>
     </style>
 
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
-    </style>
-
     <style name="DialogButtonStyle" parent="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/deepBlue</item>
         <item name="backgroundTint">@android:color/transparent</item>
@@ -42,5 +47,6 @@
         <item name="textColorAlertDialogListItem">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="colorControlActivated">@color/deepBlue</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
 </resources>
