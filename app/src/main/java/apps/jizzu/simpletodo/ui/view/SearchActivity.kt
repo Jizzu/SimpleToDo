@@ -22,6 +22,8 @@ import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.SearchTasksViewModel
+import daio.io.dresscode.dressCodeStyleId
+import daio.io.dresscode.matchDressCode
 import kotlinx.android.synthetic.main.activity_search.*
 import kotterknife.bindView
 
@@ -32,8 +34,10 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        matchDressCode()
         setContentView(R.layout.activity_search)
         initToolbar("", R.drawable.round_arrow_back_black_24)
+        initStatusBar()
 
         if (intent.getBooleanExtra("isShortcut", false)) {
             PreferenceHelper.getInstance().init(applicationContext)
@@ -101,7 +105,23 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         searchView.queryHint = getString(R.string.search)
         searchText.setBackgroundResource(R.drawable.search_view_background)
         val view: View = searchView.findViewById(androidx.appcompat.R.id.search_plate)
-        view.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+
+        when(dressCodeStyleId) {
+            R.style.AppTheme_Light -> {
+                searchText.setHintTextColor(ContextCompat.getColor(this, R.color.black))
+                view.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            }
+
+            R.style.AppTheme_Dark -> {
+                searchText.setHintTextColor(ContextCompat.getColor(this, R.color.white))
+                view.setBackgroundColor(ContextCompat.getColor(this, R.color.deepBlueGrey))
+            }
+
+            R.style.AppTheme_Black -> {
+                searchText.setHintTextColor(ContextCompat.getColor(this, R.color.white))
+                view.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+            }
+        }
         return true
     }
 

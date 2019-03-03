@@ -21,6 +21,8 @@
 
     <string name="preferences_animation_title">Enable animations</string>
     <string name="preferences_animation_summary">Enable animations for UI elements</string>
+    <string name="preferences_theme_title">Choose a theme</string>
+    <string name="preferences_theme_summary">Change application color scheme</string>
     <string name="preferences_general_notification_title">Enable general notification</string>
     <string name="preferences_general_notification_summary">Show notification with you current task list</string>
     <string name="preferences_notification_channel_title">Notifications options</string>
@@ -147,6 +149,13 @@
     <string-array name="time_format_list">
         <item>24-hours format</item>
         <item>12-hours format</item>
+    </string-array>
+
+    <string name="app_theme_dialog_title">Choose a theme:</string>
+    <string-array name="app_theme">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Black</item>
     </string-array>
 
     ///////////////<!-- Shortcuts -->///////////////

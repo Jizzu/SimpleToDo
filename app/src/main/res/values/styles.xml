@@ -1,14 +1,66 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+<resources>
+    <style name="AppTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/deepBlue</item>
-        <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/deepBlue</item>
-        <item name="android:windowBackground">@color/white</item>
         <item name="colorControlNormal">@color/deepBlue</item>
+        <item name="colorControlHighlight">@color/greyWhite</item>
         <item name="android:fontFamily">@font/product_sans</item>
         <item name="searchViewStyle">@style/SearchViewStyle</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <style name="AppTheme.Light" parent="AppTheme.Base">
+        <item name="colorBackground">@color/white</item>
+        <item name="colorBottomAppBar">@color/white</item>
+        <item name="colorToolbar">@color/whiteTransparent97</item>
+        <item name="colorDrawable">@color/black</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="colorSearchView">@color/deepGrey</item>
+        <item name="android:textAppearance">@style/TextAppearance.Light</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="AppTheme.Base">
+        <item name="colorBackground">@color/deepBlueGrey</item>
+        <item name="colorBottomAppBar">@color/lightBlueGrey</item>
+        <item name="colorToolbar">@color/deepBlueGrey</item>
+        <item name="colorDrawable">@color/white</item>
+        <item name="colorPrimaryDark">@color/deepBlueGrey</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorSearchView">@color/lightGrey</item>
+        <item name="tint">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.Dark</item>
+    </style>
+
+    <style name="AppTheme.Black" parent="AppTheme.Base">
+        <item name="colorBackground">@color/black</item>
+        <item name="colorBottomAppBar">@color/black</item>
+        <item name="colorToolbar">@color/black</item>
+        <item name="colorDrawable">@color/white</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorSearchView">@color/lightGrey</item>
+        <item name="tint">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.Dark</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">@color/deepBlue</item>
+        <item name="hintTextColor">@color/deepBlue</item>
+        <item name="boxStrokeColor">@color/greyWhite</item>
+    </style>
+
+    <style name="TextAppearance.Light" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.Dark" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="DialogPicker" parent="Theme.AppCompat.Light.Dialog">
@@ -35,11 +87,6 @@
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="searchHintIcon">@null</item>
         <item name="closeIcon">@drawable/round_close_black_24</item>
-    </style>
-
-    <style name="DialogButtonStyle" parent="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/deepBlue</item>
-        <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">

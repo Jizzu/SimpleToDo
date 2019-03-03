@@ -4,7 +4,7 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="15dp"
+    android:background="?attr/colorBackground"
     android:divider="@drawable/divider_horizontal"
     android:orientation="vertical"
     android:showDividers="middle|end">
@@ -13,6 +13,7 @@
         android:id="@+id/buttonGeneralNotification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
@@ -22,8 +23,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/preferences_general_notification_title"
-            android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textAppearance="?android:attr/android:textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvGeneralNotificationSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,8 +69,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_notification_channel_title"
-            android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textAppearance="?android:attr/android:textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvNotificationSoundSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

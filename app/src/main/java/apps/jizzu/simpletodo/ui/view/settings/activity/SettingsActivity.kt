@@ -12,14 +12,17 @@ import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentSettings
+import daio.io.dresscode.matchDressCode
 import kotlinx.android.synthetic.main.toolbar.*
 
 class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        matchDressCode()
         setContentView(R.layout.activity_settings)
         initToolbar(getString(R.string.settings), R.drawable.round_arrow_back_black_24)
+        initStatusBar()
         openSettingsFragment()
     }
 

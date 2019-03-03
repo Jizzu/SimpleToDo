@@ -25,6 +25,7 @@ import apps.jizzu.simpletodo.utils.invisible
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.base.BaseViewModel
 import com.google.android.material.textfield.TextInputEditText
+import daio.io.dresscode.matchDressCode
 import kotlinx.android.synthetic.main.activity_task_details.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotterknife.bindView
@@ -38,11 +39,13 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        matchDressCode()
         setContentView(R.layout.activity_task_details)
         mCalendar = Calendar.getInstance()
         checkScreenResolution()
         showKeyboard()
         initListeners()
+        initStatusBar()
     }
 
     private fun checkScreenResolution() {

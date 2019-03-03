@@ -37,6 +37,7 @@ dependencies {
     implementation "androidx.cardview:cardview:$rootProject.androidxVersion"
     implementation "androidx.preference:preference:$rootProject.androidxVersion"
     implementation "com.github.XunMengWinter:CircularAnim:$rootProject.circularAnimVersion"
+    implementation "com.github.Daio-io:dresscode:$rootProject.dresscodeVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
     // Firebase Crashlytics

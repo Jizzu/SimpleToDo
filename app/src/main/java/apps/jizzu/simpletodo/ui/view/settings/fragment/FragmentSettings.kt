@@ -23,6 +23,7 @@ class FragmentSettings : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initButtons()
+        checkThemeState()
     }
 
     private fun initButtons() {
@@ -35,6 +36,13 @@ class FragmentSettings : Fragment() {
         buttonOtherApps.setOnClickListener { openUri(GOOGLE_PLAY_PAGE) }
         buttonGitHub.setOnClickListener { openUri(GIT_HUB_PAGE) }
         buttonLicenses.setOnClickListener { openFragment(FragmentLicenses()) }
+    }
+
+    private fun checkThemeState() {
+        if (FragmentUI.isThemeChanged) {
+            openFragment(FragmentUI())
+            FragmentUI.isThemeChanged = false
+        }
     }
 
     private fun openFragment(fragment: BaseSettingsFragment) =

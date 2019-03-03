@@ -19,6 +19,8 @@
 
     <string name="preferences_animation_title">Включить анимацию</string>
     <string name="preferences_animation_summary">Включить анимацию для элементов интерфейса</string>
+    <string name="preferences_theme_title">Выбрать тему</string>
+    <string name="preferences_theme_summary">Изменить цветовую схему приложения</string>
     <string name="preferences_general_notification_title">Включить общее уведомление</string>
     <string name="preferences_general_notification_summary">Показывать отдельное уведомление с вашим текущим списком задач</string>
     <string name="preferences_notification_channel_title">Параметры уведомлений</string>
@@ -137,6 +139,13 @@
     <string-array name="time_format_list">
         <item>24-часовой формат</item>
         <item>12-часовой формат</item>
+    </string-array>
+
+    <string name="app_theme_dialog_title">Выберите тему оформления:</string>
+    <string-array name="app_theme">
+        <item>Светлая</item>
+        <item>Тёмная</item>
+        <item>Чёрная</item>
     </string-array>
 
     ///////////////<!-- Shortcuts -->///////////////

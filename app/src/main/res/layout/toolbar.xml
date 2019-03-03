@@ -3,14 +3,14 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/whiteTransparent97">
+    android:background="?attr/colorToolbar">
 
     <TextView
         android:id="@+id/toolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/android:textColorPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text="@string/simple_todo_title" />

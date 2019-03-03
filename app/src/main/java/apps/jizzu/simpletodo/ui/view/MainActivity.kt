@@ -21,7 +21,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -46,6 +46,7 @@ import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.TaskListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import daio.io.dresscode.matchDressCode
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotterknife.bindView
@@ -64,6 +65,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        matchDressCode()
         setContentView(R.layout.activity_main)
 
         initToolbar(getString(R.string.simple_todo_title), null, bottomAppBar)
@@ -88,6 +90,7 @@ class MainActivity : BaseActivity() {
         initListeners()
         initCallbacks()
         initShortcuts()
+        initStatusBar()
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView() else showTaskList(tasks)
@@ -374,7 +377,7 @@ class MainActivity : BaseActivity() {
                 .setContentText(stringBuilder.toString())
                 .setNumber(mAdapter.itemCount)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(stringBuilder.toString()))
-                .setColor(ContextCompat.getColor(this, R.color.deepBlue))
+                .setColor(getColor(this, R.color.deepBlue))
                 .setSmallIcon(R.drawable.ic_check_circle_white_24dp)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
