@@ -58,7 +58,7 @@ class FragmentUI : BaseSettingsFragment() {
                 setSingleChoiceItems(listItems, selectedItemPosition) { dialogInterface, i ->
                     selectedItemPosition = i
 
-                    activity?.dressCodeStyleId = when(selectedItemPosition) {
+                    activity?.dressCodeStyleId = when (selectedItemPosition) {
                         0 -> R.style.AppTheme_Light
                         1 -> R.style.AppTheme_Dark
                         2 -> R.style.AppTheme_Black
