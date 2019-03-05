@@ -18,7 +18,7 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:text="@string/rate_dialog_title"
-            android:textColor="@color/black"
+            android:textColor="?android:attr/android:textColorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -28,6 +28,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/rate_dialog_message"
+            android:textColor="?android:attr/android:textColorPrimary"
             android:textSize="18sp" />
     </LinearLayout>
 

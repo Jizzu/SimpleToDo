@@ -73,7 +73,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
             when {
                 // Today
                 DateUtils.isToday(task.date) -> {
-                    holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.deepBlue))
+                    holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.blue))
                     holder.date.text = mContext.getString(R.string.reminder_today, DateAndTimeFormatter.getTime(task.date))
                 }
 
@@ -85,7 +85,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
 
                 // Tomorrow
                 DateUtils.isToday(task.date - DateUtils.DAY_IN_MILLIS) -> {
-                    holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.deepBlue))
+                    holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.blue))
                     holder.date.text = mContext.getString(R.string.reminder_tomorrow, DateAndTimeFormatter.getTime(task.date))
                 }
 
@@ -97,7 +97,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
 
                 // Far future
                 else -> {
-                    holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.deepBlue))
+                    holder.date.setTextColor(ContextCompat.getColor(mContext, R.color.blue))
                     holder.date.text = mContext.getString(R.string.date_format_at, DateAndTimeFormatter.getFullDate(task.date), DateAndTimeFormatter.getTime(task.date))
                 }
             }

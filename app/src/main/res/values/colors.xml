@@ -2,8 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="lightBlueGrey">#1e2c37</color>
     <color name="deepBlueGrey">#17242d</color>
-    <color name="deepBlue">#215af7</color>
-    <color name="lightBlue">#2373fc</color>
+    <color name="blue">#2373fc</color>
     <color name="purple">#6812cb</color>
     <color name="red">#F44336</color>
     <color name="white">#FFFFFF</color>
@@ -13,6 +12,7 @@
     <color name="lightGrey">#1AFFFFFF</color>
     <color name="deepGrey">#1A000000</color>
     <color name="grey">#424242</color>
+    <color name="deepDarkGrey">#212121</color>
     <color name="black">#000000</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#BDBDBD</color>
 </resources>

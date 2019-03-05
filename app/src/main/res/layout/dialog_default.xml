@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="270dp"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/dialog_background"
     android:divider="@drawable/dialog_divider_horizontal"
     android:orientation="vertical"
@@ -19,7 +19,7 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:text="@string/dialog_title"
-            android:textColor="@color/black"
+            android:textColor="?android:attr/android:textColorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -30,8 +30,9 @@
             android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            tools:text="@string/dialog_message"
-            android:textSize="18sp" />
+            android:textColor="?android:attr/android:textColorPrimary"
+            android:textSize="18sp"
+            tools:text="@string/dialog_message" />
     </LinearLayout>
 
     <TextView

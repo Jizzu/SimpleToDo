@@ -1,8 +1,8 @@
 <resources>
     <style name="AppTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/deepBlue</item>
-        <item name="colorAccent">@color/deepBlue</item>
-        <item name="colorControlNormal">@color/deepBlue</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorAccent">@color/blue</item>
+        <item name="colorControlNormal">@color/blue</item>
         <item name="colorControlHighlight">@color/greyWhite</item>
         <item name="android:fontFamily">@font/product_sans</item>
         <item name="searchViewStyle">@style/SearchViewStyle</item>
@@ -10,17 +10,20 @@
 
     <style name="AppTheme.Light" parent="AppTheme.Base">
         <item name="colorBackground">@color/white</item>
+        <item name="colorDialogBackground">@color/whiteTransparent97</item>
         <item name="colorBottomAppBar">@color/white</item>
         <item name="colorToolbar">@color/whiteTransparent97</item>
         <item name="colorDrawable">@color/black</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="android:textColorPrimary">@color/black</item>
         <item name="colorSearchView">@color/deepGrey</item>
+        <item name="android:windowBackground">@color/white</item>
         <item name="android:textAppearance">@style/TextAppearance.Light</item>
     </style>
 
     <style name="AppTheme.Dark" parent="AppTheme.Base">
         <item name="colorBackground">@color/deepBlueGrey</item>
+        <item name="colorDialogBackground">@color/lightBlueGrey</item>
         <item name="colorBottomAppBar">@color/lightBlueGrey</item>
         <item name="colorToolbar">@color/deepBlueGrey</item>
         <item name="colorDrawable">@color/white</item>
@@ -29,11 +32,13 @@
         <item name="colorSearchView">@color/lightGrey</item>
         <item name="tint">@color/white</item>
         <item name="iconTint">@color/white</item>
+        <item name="android:windowBackground">@color/deepBlueGrey</item>
         <item name="android:textAppearance">@style/TextAppearance.Dark</item>
     </style>
 
     <style name="AppTheme.Black" parent="AppTheme.Base">
         <item name="colorBackground">@color/black</item>
+        <item name="colorDialogBackground">@color/deepDarkGrey</item>
         <item name="colorBottomAppBar">@color/black</item>
         <item name="colorToolbar">@color/black</item>
         <item name="colorDrawable">@color/white</item>
@@ -42,13 +47,14 @@
         <item name="colorSearchView">@color/lightGrey</item>
         <item name="tint">@color/white</item>
         <item name="iconTint">@color/white</item>
+        <item name="android:windowBackground">@color/black</item>
         <item name="android:textAppearance">@style/TextAppearance.Dark</item>
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:textColorHint">@color/deepBlue</item>
-        <item name="hintTextColor">@color/deepBlue</item>
+        <item name="android:textColorHint">@color/blue</item>
         <item name="boxStrokeColor">@color/greyWhite</item>
+        <item name="hintTextColor">@color/blue</item>
     </style>
 
     <style name="TextAppearance.Light" parent="TextAppearance.AppCompat.Title">
@@ -63,13 +69,43 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="DialogPicker" parent="Theme.AppCompat.Light.Dialog">
+    <style name="DatePicker.Light" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/blue</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@drawable/dialog_background</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="colorAccent">@color/deepBlue</item>
+    </style>
+
+    <style name="DatePicker.Dark" parent="Theme.AppCompat.Dialog">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/greyWhite</item>
+        <item name="colorControlActivated">@color/blue</item>
+        <item name="android:textColorPrimaryInverse">@color/white</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="TimePicker.Light" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="TimePicker.Dark" parent="Theme.AppCompat.Dialog">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="colorControlActivated">@color/blue</item>
+        <item name="android:textColorPrimaryInverse">@color/white</item>
+        <item name="android:textColorSecondaryInverse">@color/white</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
 
     <style name="DialogAnimation">
@@ -79,7 +115,7 @@
 
     <style name="DialogButtonTheme">
         <item name="android:background">@null</item>
-        <item name="android:textColor">@color/deepBlue</item>
+        <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textAllCaps">false</item>
     </style>
@@ -89,11 +125,20 @@
         <item name="closeIcon">@drawable/round_close_black_24</item>
     </style>
 
-    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="AlertDialogStyle.Light" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColorPrimary">@color/black</item>
         <item name="textColorAlertDialogListItem">@color/black</item>
         <item name="android:textColor">@color/black</item>
-        <item name="colorControlActivated">@color/deepBlue</item>
+        <item name="colorControlActivated">@color/blue</item>
         <item name="android:windowBackground">@drawable/dialog_background</item>
+    </style>
+
+    <style name="AlertDialogStyle.Dark" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="textColorAlertDialogListItem">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="colorControlActivated">@color/blue</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 </resources>

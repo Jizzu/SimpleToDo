@@ -53,7 +53,12 @@ class FragmentUI : BaseSettingsFragment() {
                 else -> 0
             }
 
-            val builder = AlertDialog.Builder(activity as Context, R.style.AlertDialogStyle).apply {
+            val builder = when (activity?.dressCodeStyleId) {
+                R.style.AppTheme_Light -> AlertDialog.Builder(activity as Context, R.style.AlertDialogStyle_Light)
+                R.style.AppTheme_Dark -> AlertDialog.Builder(activity as Context, R.style.AlertDialogStyle_Dark)
+                else -> AlertDialog.Builder(activity as Context, R.style.AlertDialogStyle_Dark)
+            }
+            builder.apply {
                 setTitle(getString(R.string.app_theme_dialog_title))
                 setSingleChoiceItems(listItems, selectedItemPosition) { dialogInterface, i ->
                     selectedItemPosition = i
