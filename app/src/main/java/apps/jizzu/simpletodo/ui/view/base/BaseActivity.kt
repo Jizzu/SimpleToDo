@@ -18,7 +18,7 @@ abstract class BaseActivity : AppCompatActivity() {
         toolbarTitle.text = titleText
 
         if (toolbar != null) {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window.statusBarColor = ContextCompat.getColor(this, R.color.greyWhite)
             }

@@ -144,26 +144,18 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            val datePickerStyle = when (dressCodeStyleId) {
-                R.style.AppTheme_Light -> R.style.DatePicker_Light
-                else -> R.style.DatePicker_Dark
-            }
-            DatePickerDialog(this, datePickerStyle, this, year, month, day).apply {
-                window?.attributes?.windowAnimations = R.style.DialogAnimation
-                show()
-                window?.setLayout(resources.getDimensionPixelSize(R.dimen.dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT)
-                getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.blue))
-                getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.blue))
-                getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
-                getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
-            }
-        } else {
-            DatePickerDialog(this, this, year, month, day).apply {
-                window?.attributes?.windowAnimations = R.style.DialogAnimation
-                show()
-                getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
-            }
+        val datePickerStyle = when (dressCodeStyleId) {
+            R.style.AppTheme_Light -> R.style.DatePicker_Light
+            else -> R.style.DatePicker_Dark
+        }
+        DatePickerDialog(this, datePickerStyle, this, year, month, day).apply {
+            window?.attributes?.windowAnimations = R.style.DialogAnimation
+            show()
+            window?.setLayout(resources.getDimensionPixelSize(R.dimen.dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT)
+            getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.blue))
+            getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.blue))
+            getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
+            getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
@@ -175,34 +167,31 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE) + 1
 
-        when(timeFormatKey) {
-            0 -> timePickerDialog = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        when (timeFormatKey) {
+            0 -> {
                 val timePickerStyle = when (dressCodeStyleId) {
                     R.style.AppTheme_Light -> R.style.TimePicker_Light
                     else -> R.style.TimePicker_Dark
                 }
-                TimePickerDialog(this, timePickerStyle,this, hour, minute, true)
-            } else TimePickerDialog(this,this, hour, minute, true)
+                timePickerDialog = TimePickerDialog(this, timePickerStyle, this, hour, minute, true)
+            }
 
-            1 -> timePickerDialog = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            1 -> {
                 val timePickerStyle = when (dressCodeStyleId) {
                     R.style.AppTheme_Light -> R.style.TimePicker_Light
                     else -> R.style.TimePicker_Dark
                 }
-                TimePickerDialog(this, timePickerStyle,this, hour, minute, false)
-            } else TimePickerDialog(this,this, hour, minute, false)
+                timePickerDialog = TimePickerDialog(this, timePickerStyle, this, hour, minute, false)
+            }
         }
         timePickerDialog.apply {
             window?.attributes?.windowAnimations = R.style.DialogAnimation
             show()
+            window?.setLayout(resources.getDimensionPixelSize(R.dimen.dialog_picker_width), ViewGroup.LayoutParams.WRAP_CONTENT)
+            getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.blue))
+            getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.blue))
             getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                window?.setLayout(resources.getDimensionPixelSize(R.dimen.dialog_picker_width), ViewGroup.LayoutParams.WRAP_CONTENT)
-                getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.blue))
-                getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this@BaseTaskActivity, R.color.blue))
-                getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
-            }
+            getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
