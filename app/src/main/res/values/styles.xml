@@ -55,6 +55,7 @@
         <item name="android:textColorHint">@color/blue</item>
         <item name="boxStrokeColor">@color/greyWhite</item>
         <item name="hintTextColor">@color/blue</item>
+        <item name="errorTextColor">@color/red</item>
     </style>
 
     <style name="TextAppearance.Light" parent="TextAppearance.AppCompat.Title">

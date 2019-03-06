@@ -53,6 +53,8 @@
     <string name="preferences_rx_java_title">RxJava</string>
     <string name="preferences_rx_kotlin_title">RxKotlin</string>
     <string name="preferences_reactive_libraries_summary">ReactiveX</string>
+    <string name="preferences_dresscode_title">DressCode</string>
+    <string name="preferences_dresscode_summary">Daio-io</string>
 
     <string name="feedback_title">Simple ToDo - Feedback</string>
     <string name="feedback_device_info">My device info: </string>
