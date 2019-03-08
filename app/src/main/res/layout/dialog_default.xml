@@ -19,7 +19,6 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:text="@string/dialog_title"
-            android:textColor="?android:attr/android:textColorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -30,7 +29,6 @@
             android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:textColor="?android:attr/android:textColorPrimary"
             android:textSize="18sp"
             tools:text="@string/dialog_message" />
     </LinearLayout>

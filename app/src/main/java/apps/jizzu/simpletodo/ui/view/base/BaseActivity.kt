@@ -19,8 +19,14 @@ abstract class BaseActivity : AppCompatActivity() {
 
         if (toolbar != null) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                val color = when (dressCodeStyleId) {
+                    R.style.AppTheme_Light -> R.color.greyWhite
+                    R.style.AppTheme_Dark -> R.color.deepBlueGrey
+                    R.style.AppTheme_Black -> R.color.black
+                    else -> R.color.greyWhite
+                }
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                window.statusBarColor = ContextCompat.getColor(this, R.color.greyWhite)
+                window.statusBarColor = ContextCompat.getColor(this, color)
             }
             setSupportActionBar(view)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)

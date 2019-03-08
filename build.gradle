@@ -36,7 +36,7 @@ ext {
     versionName = "1.5"
 
     // App dependencies
-    appcompatVersion = "1.1.0-alpha02"
+    appcompatVersion = "1.0.2"
     materialVersion = "1.1.0-alpha04"
     androidxVersion = "1.0.0"
     circularAnimVersion = "0.3.4"
