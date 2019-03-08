@@ -41,6 +41,17 @@
         android:textColor="?android:attr/android:textColorPrimary"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/featureFour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/featureThree"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/whats_new_item_4_text"
+        android:textColor="?android:attr/android:textColorPrimary"
+        android:textSize="20sp" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirmButton"
         android:layout_width="150dp"
