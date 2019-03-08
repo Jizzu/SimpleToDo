@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="15dp"
+    android:background="?attr/colorBackground"
     android:divider="@drawable/divider_horizontal"
     android:orientation="vertical"
-    android:showDividers="end">
+    android:showDividers="middle|end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonAnimations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
@@ -21,8 +22,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/preferences_animation_title"
-            android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textAppearance="?android:attr/android:textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvAnimationsSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="10dp"
             android:text="@string/preferences_animation_summary"
-            android:textColor="@color/grey_white"
+            android:textColor="@color/greyWhite"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -52,5 +52,42 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonChooseTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/tvChooseThemeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/preferences_theme_title"
+            android:textAppearance="?android:attr/android:textAppearance"
+            app:layout_constraintBottom_toTopOf="@id/tvChooseThemeSummary"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvChooseThemeSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/preferences_theme_summary"
+            android:textColor="@color/greyWhite"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvChooseThemeTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

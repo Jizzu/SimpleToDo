@@ -44,7 +44,7 @@ class AlarmReceiver : BroadcastReceiver() {
             setContentTitle(context.getString(R.string.reminder_text))
             setContentText(title)
             setStyle(NotificationCompat.BigTextStyle().bigText(title))
-            color = ContextCompat.getColor(context, R.color.colorAccent)
+            color = ContextCompat.getColor(context, R.color.blue)
             setSmallIcon(R.drawable.ic_check_circle_white_24dp)
             setDefaults(Notification.DEFAULT_ALL)
             setContentIntent(pendingIntent)

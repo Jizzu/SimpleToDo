@@ -2,8 +2,6 @@ package apps.jizzu.simpletodo.ui.view.settings.fragment
 
 import android.Manifest
 import android.app.Activity
-import android.app.Application
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -13,19 +11,18 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.ui.dialogs.CreateBackupDialogFragment
+import apps.jizzu.simpletodo.ui.dialogs.RestoreBackupDialogFragment
+import apps.jizzu.simpletodo.ui.dialogs.base.BaseDialogFragment
 import apps.jizzu.simpletodo.ui.view.settings.fragment.base.BaseSettingsFragment
 import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.toastLong
-import apps.jizzu.simpletodo.vm.BackupViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_backup_and_restore.*
 
 class FragmentBackupAndRestore : BaseSettingsFragment() {
-    private lateinit var mViewModel: BackupViewModel
     private var mIsCreatingProcess = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,60 +36,17 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.let { mViewModel = createViewModel(it.application) }
         setOnClickListeners()
     }
 
-    private fun showCreateDialog() {
-        AlertDialog.Builder(activity as Context, R.style.DialogTheme).apply {
-            setMessage(R.string.backup_create_dialog_message)
-            setPositiveButton(R.string.backup_create_dialog_button) { _, _ -> createBackup() }
-            setNegativeButton(R.string.action_cancel) { _, _ -> }
-            show()
-        }
-    }
-
-    private fun showRestoreDialog() {
-        AlertDialog.Builder(activity as Context, R.style.DialogTheme).apply {
-            setMessage(R.string.backup_restore_dialog_message)
-            setPositiveButton(R.string.backup_restore_dialog_button) { _, _ -> restoreBackup() }
-            setNegativeButton(R.string.action_cancel) { _, _ -> }
-            show()
-        }
-    }
-
-    private fun createBackup() {
-        mViewModel.createBackup()
-
-        if (mViewModel.isBackupCreatedSuccessfully()) {
-            toast(getString(R.string.backup_create_message_success))
-        } else {
-            toast(getString(R.string.backup_create_message_failure))
-        }
-    }
-
-    private fun restoreBackup() {
-        if (mViewModel.isBackupExist()) {
-            mViewModel.restoreBackup()
-
-            if (mViewModel.isBackupRestoredSuccessfully()) {
-                toast(getString(R.string.backup_restore_message_success))
-            } else {
-                toast(getString(R.string.backup_restore_message_failure))
-            }
-        } else {
-            toast(getString(R.string.backup_restore_message_nothing))
-        }
-    }
+    private fun showDialog(dialog: BaseDialogFragment) = activity?.let { dialog.show(it.supportFragmentManager, null) }
 
     private fun setOnClickListeners() {
         buttonCreateBackup.setOnClickListener {
             mIsCreatingProcess = true
 
             if (isHasPermissions()) {
-                if (mViewModel.isBackupExist()) {
-                    showCreateDialog()
-                } else mViewModel.createBackup()
+                showDialog(CreateBackupDialogFragment())
             } else {
                 requestPermissionWithRationale()
             }
@@ -100,7 +54,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
         buttonRestoreBackup.setOnClickListener {
             if (isHasPermissions()) {
-                showRestoreDialog()
+                showDialog(RestoreBackupDialogFragment())
             } else {
                 requestPermissionWithRationale()
             }
@@ -147,9 +101,9 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
         if (isAllowed) {
             if (mIsCreatingProcess) {
-                showCreateDialog()
+                showDialog(CreateBackupDialogFragment())
             } else {
-                showRestoreDialog()
+                showDialog(RestoreBackupDialogFragment())
             }
         } else {
             // We will give warning to user that they haven't granted permissions.
@@ -186,8 +140,6 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
             requestPerms()
         }
     }
-
-    private fun createViewModel(application: Application) = ViewModelProviders.of(this).get(BackupViewModel(application)::class.java)
 
     private companion object {
         private const val PERMISSION_REQUEST_CODE = 123

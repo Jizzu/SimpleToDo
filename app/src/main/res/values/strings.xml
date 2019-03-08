@@ -21,6 +21,8 @@
 
     <string name="preferences_animation_title">Enable animations</string>
     <string name="preferences_animation_summary">Enable animations for UI elements</string>
+    <string name="preferences_theme_title">Choose a theme</string>
+    <string name="preferences_theme_summary">Change application color scheme</string>
     <string name="preferences_general_notification_title">Enable general notification</string>
     <string name="preferences_general_notification_summary">Show notification with you current task list</string>
     <string name="preferences_notification_channel_title">Notifications options</string>
@@ -51,6 +53,8 @@
     <string name="preferences_rx_java_title">RxJava</string>
     <string name="preferences_rx_kotlin_title">RxKotlin</string>
     <string name="preferences_reactive_libraries_summary">ReactiveX</string>
+    <string name="preferences_dresscode_title">DressCode</string>
+    <string name="preferences_dresscode_summary">Daio-io</string>
 
     <string name="feedback_title">Simple ToDo - Feedback</string>
     <string name="feedback_device_info">My device info: </string>
@@ -88,11 +92,11 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_delete">Delete</string>
     <string name="dialog_title"><b>Are you sure?</b></string>
-    <string name="dialog_message">Delete this task?</string>
+    <string name="dialog_message">Deleted task cannot be restored</string>
 
-    <string name="backup_create_dialog_message">Do you want to create new backup? \nThe previous backup file will be deleted</string>
+    <string name="backup_create_dialog_message">The previous backup file will be deleted</string>
     <string name="backup_create_dialog_button">Create backup</string>
-    <string name="backup_restore_dialog_message">Do you want to restore the backup? \nAll current tasks will be deleted!</string>
+    <string name="backup_restore_dialog_message">All current tasks will be deleted</string>
     <string name="backup_restore_dialog_button">Restore backup</string>
 
     <string name="backup_create_message_success">Backup created successfully!</string>
@@ -121,18 +125,20 @@
 
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">W H A T \' S \u0020\u0020 N E W ?</string>
-    <string name="whats_new_button_text">Let\'s go!</string>
-    <string name="whats_new_item_1_text">New design in light colors</string>
-    <string name="whats_new_item_2_text">Improved app stability</string>
-    <string name="whats_new_item_3_text">Some bugs have been fixed</string>
+    <string name="whats_new_button_text">That\'s cool!</string>
+    <string name="whats_new_item_1_text">Added shortcuts support</string>
+    <string name="whats_new_item_2_text">Added themes support</string>
+    <string name="whats_new_item_3_text">UI improvements</string>
+    <string name="whats_new_item_4_text">New app icon</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
+    <string name="rate_dialog_title">Rate this app</string>
     <string name="rate_dialog_message">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>
     <string name="rate_dialog_ok">Rate now</string>
     <string name="rate_dialog_cancel">Later</string>
     <string name="rate_dialog_no">No, Thanks</string>
 
-    ////////////////<!-- Date format dialog -->/////////////////
+    ////////////////<!-- Date/Time format dialog -->/////////////////
     <string name="date_format_dialog_title">Choose date format:</string>
     <string name="date_format_at">"%1$s at %2$s"</string>
     <string-array name="date_format_list">
@@ -147,4 +153,15 @@
         <item>24-hours format</item>
         <item>12-hours format</item>
     </string-array>
+
+    <string name="app_theme_dialog_title">Choose a theme:</string>
+    <string-array name="app_theme">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Black</item>
+    </string-array>
+
+    ///////////////<!-- Shortcuts -->///////////////
+    <string name="shortcut_add_new_task">Add new task</string>
+    <string name="shortcut_search">Search</string>
 </resources>

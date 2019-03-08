@@ -31,6 +31,7 @@ class FragmentLicenses : BaseSettingsFragment() {
         buttonCircularAnim.setOnClickListener { openUri(CIRCULAR_ANIM_PAGE) }
         buttonRxJava.setOnClickListener { openUri(RX_JAVA_PAGE) }
         buttonRxKotlin.setOnClickListener { openUri(RX_KOTLIN_PAGE) }
+        buttonDressCode.setOnClickListener { openUri(DRESS_CODE_PAGE) }
     }
 
     private fun openUri(uri: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
@@ -40,5 +41,6 @@ class FragmentLicenses : BaseSettingsFragment() {
         private const val CIRCULAR_ANIM_PAGE = "https://github.com/XunMengWinter/CircularAnim"
         private const val RX_JAVA_PAGE = "https://github.com/ReactiveX/RxJava"
         private const val RX_KOTLIN_PAGE = "https://github.com/ReactiveX/RxKotlin"
+        private const val DRESS_CODE_PAGE = "https://github.com/Daio-io/dresscode"
     }
 }

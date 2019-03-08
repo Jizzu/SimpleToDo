@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:divider="@drawable/dialog_divider_horizontal"
+    android:orientation="vertical"
+    android:showDividers="middle">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="@string/dialog_title"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dialogMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:textSize="18sp"
+            tools:text="@string/dialog_message" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/buttonConfirm"
+        style="@style/DialogButtonTheme"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        tools:text="@string/action_delete" />
+
+    <TextView
+        android:id="@+id/buttonCancel"
+        style="@style/DialogButtonTheme"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/action_cancel" />
+</LinearLayout>

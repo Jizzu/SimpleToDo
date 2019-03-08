@@ -1,5 +1,7 @@
 package apps.jizzu.simpletodo.ui.view
 
+import android.animation.TimeInterpolator
+import android.animation.ValueAnimator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -7,14 +9,19 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -26,16 +33,22 @@ import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.service.alarm.AlarmReceiver
 import apps.jizzu.simpletodo.service.widget.WidgetProvider
+import apps.jizzu.simpletodo.ui.dialogs.RateThisAppDialogFragment
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
+import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.ui.view.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentNotifications
-import apps.jizzu.simpletodo.utils.*
+import apps.jizzu.simpletodo.utils.PreferenceHelper
+import apps.jizzu.simpletodo.utils.gone
+import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.TaskListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import daio.io.dresscode.matchDressCode
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
 import kotterknife.bindView
 import top.wefor.circularanim.CircularAnim
 import java.util.*
@@ -52,9 +65,10 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        matchDressCode()
         setContentView(R.layout.activity_main)
 
-        initToolbar(getString(R.string.simple_todo_title), R.drawable.outline_settings_black_24)
+        initToolbar(getString(R.string.simple_todo_title), null, bottomAppBar)
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         AlarmHelper.getInstance().init(applicationContext)
 
@@ -71,9 +85,12 @@ class MainActivity : BaseActivity() {
 
         showChangelogActivity()
         showRecyclerViewAnimation()
+        showRateThisAppDialog()
         createItemTouchHelper()
         initListeners()
         initCallbacks()
+        initShortcuts()
+        initStatusBar()
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView() else showTaskList(tasks)
@@ -85,6 +102,7 @@ class MainActivity : BaseActivity() {
         if (isNeedToRecount) recountTaskPositions()
         emptyView.gone()
         mAdapter.updateData(mTaskList)
+        mPreferenceHelper.putInt(PreferenceHelper.NEW_TASK_POSITION, mAdapter.itemCount)
         restoreAlarmsAfterMigration()
         updateGeneralNotification()
         updateWidget()
@@ -115,6 +133,15 @@ class MainActivity : BaseActivity() {
             val resId = R.anim.layout_animation
             val animation = AnimationUtils.loadLayoutAnimation(this, resId)
             mRecyclerView.layoutAnimation = animation
+        }
+    }
+
+    private fun showRateThisAppDialog() {
+        var counter = mPreferenceHelper.getInt(PreferenceHelper.LAUNCHES_COUNTER)
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.IS_NEED_TO_SHOW_RATE_DIALOG_LATER) && counter == 4) {
+            RateThisAppDialogFragment().show(supportFragmentManager, null)
+        } else {
+            mPreferenceHelper.putInt(PreferenceHelper.LAUNCHES_COUNTER, ++counter)
         }
     }
 
@@ -155,11 +182,25 @@ class MainActivity : BaseActivity() {
                 alarmHelper.setAlarm(deletedTask)
             }
             isUndoClicked = true
+
+            Handler().postDelayed({
+                val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                if (firstCompletelyVisibleItem != 0 && !RecyclerViewScrollListener.isShadowShown) {
+                    setToolbarShadow(0f, 10f)
+                    RecyclerViewScrollListener.isShadowShown = true
+                }
+            }, 100)
         }
 
         mSnackbar?.view?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(view: View) {
-                mFab.show()
+                val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                val lastCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+
+                if (firstCompletelyVisibleItem == 0 && lastCompletelyVisibleItem == mTaskList.size - 1 && RecyclerViewScrollListener.isShadowShown) {
+                    setToolbarShadow(10f, 0f)
+                    RecyclerViewScrollListener.isShadowShown = false
+                }
             }
 
             override fun onViewDetachedFromWindow(view: View) {
@@ -169,6 +210,7 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+        mSnackbar?.anchorView = mFab
         mSnackbar?.show()
     }
 
@@ -229,7 +271,7 @@ class MainActivity : BaseActivity() {
                 intent.putExtra("position", position)
 
                 CircularAnim.fullActivity(this@MainActivity, view)
-                        .colorOrImageRes(R.color.colorPrimary)
+                        .colorOrImageRes(R.color.blue)
                         .duration(300)
                         .go { startActivity(intent) }
             } else {
@@ -240,16 +282,32 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && mFab.isVisible()) {
-                    mFab.hide()
-                } else if (dy < 0 && mFab.isNotVisible()) {
-                    mFab.show()
-                }
-            }
+        mRecyclerView.addOnScrollListener(object : RecyclerViewScrollListener() {
+
+            override fun onToolbarShow() = animateToolbar(0F, DecelerateInterpolator(2F))
+
+            override fun onToolbarHide() = animateToolbar(-toolbar.height.toFloat(), AccelerateInterpolator(2F))
+
+            override fun onShadowShow() = setToolbarShadow(0f, 10f)
+
+            override fun onShadowHide() = setToolbarShadow(10f, 0f)
         })
+    }
+
+    private fun animateToolbar(translationValue: Float, interpolator: TimeInterpolator) {
+        toolbar.animate().translationY(translationValue).interpolator = interpolator
+    }
+
+    private fun setToolbarShadow(start: Float, end: Float) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ValueAnimator.ofFloat(start, end).apply {
+                addUpdateListener { updatedAnimation ->
+                    toolbar.elevation = updatedAnimation.animatedValue as Float
+                }
+                duration = 500
+                start()
+            }
+        }
     }
 
     fun showTaskDetailsActivity(task: Task) {
@@ -319,7 +377,7 @@ class MainActivity : BaseActivity() {
                 .setContentText(stringBuilder.toString())
                 .setNumber(mAdapter.itemCount)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(stringBuilder.toString()))
-                .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setColor(getColor(this, R.color.blue))
                 .setSmallIcon(R.drawable.ic_check_circle_white_24dp)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
@@ -343,6 +401,28 @@ class MainActivity : BaseActivity() {
         FragmentDateAndTime.callback = callbackDateAndTimeFormat
     }
 
+    private fun initShortcuts() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+            val newTaskShortcut = ShortcutInfo.Builder(this, "newTask")
+                    .setShortLabel(getString(R.string.shortcut_add_new_task))
+                    .setLongLabel(getString(R.string.shortcut_add_new_task))
+                    .setIcon(Icon.createWithResource(this, R.drawable.ic_shortcut_add))
+                    .setIntents(arrayOf(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_VIEW),
+                            Intent(this, AddTaskActivity::class.java).setAction(Intent.ACTION_VIEW).putExtra("isShortcut", true)))
+                    .build()
+
+            val searchShortcut = ShortcutInfo.Builder(this, "searchTask")
+                    .setShortLabel(getString(R.string.shortcut_search))
+                    .setLongLabel(getString(R.string.shortcut_search))
+                    .setIcon(Icon.createWithResource(this, R.drawable.ic_shortcut_search))
+                    .setIntents(arrayOf(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_VIEW),
+                            Intent(this, SearchActivity::class.java).setAction(Intent.ACTION_VIEW).putExtra("isShortcut", true)))
+                    .build()
+
+            getSystemService(ShortcutManager::class.java).dynamicShortcuts = Arrays.asList(searchShortcut, newTaskShortcut)
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
@@ -358,20 +438,6 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        mFab.gone()
-
-        if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
-            val handler = Handler()
-            handler.postDelayed({
-                mFab.visible()
-                val animation = AnimationUtils.loadAnimation(this, R.anim.fab_animation)
-                val interpolator = Interpolator(0.2, 20.0)
-                animation.interpolator = interpolator
-                mFab.startAnimation(animation)
-            }, 300)
-        } else {
-            mFab.visible()
-        }
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {

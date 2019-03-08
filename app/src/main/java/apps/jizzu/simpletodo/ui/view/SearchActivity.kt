@@ -8,17 +8,22 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
+import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
+import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.SearchTasksViewModel
+import daio.io.dresscode.dressCodeStyleId
+import daio.io.dresscode.matchDressCode
 import kotlinx.android.synthetic.main.activity_search.*
 import kotterknife.bindView
 
@@ -29,8 +34,15 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        matchDressCode()
         setContentView(R.layout.activity_search)
         initToolbar("", R.drawable.round_arrow_back_black_24)
+        initStatusBar()
+
+        if (intent.getBooleanExtra("isShortcut", false)) {
+            PreferenceHelper.getInstance().init(applicationContext)
+            AlarmHelper.getInstance().init(applicationContext)
+        }
 
         mViewModel = createViewModel()
         mViewModel.searchResultLiveData.observe(this, Observer<List<Task>> { response -> updateViewState(response) })
@@ -92,6 +104,24 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         searchView.setOnQueryTextListener(this)
         searchView.queryHint = getString(R.string.search)
         searchText.setBackgroundResource(R.drawable.search_view_background)
+        val view: View = searchView.findViewById(androidx.appcompat.R.id.search_plate)
+
+        when(dressCodeStyleId) {
+            R.style.AppTheme_Light -> {
+                searchText.setHintTextColor(ContextCompat.getColor(this, R.color.black))
+                view.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            }
+
+            R.style.AppTheme_Dark -> {
+                searchText.setHintTextColor(ContextCompat.getColor(this, R.color.white))
+                view.setBackgroundColor(ContextCompat.getColor(this, R.color.deepBlueGrey))
+            }
+
+            R.style.AppTheme_Black -> {
+                searchText.setHintTextColor(ContextCompat.getColor(this, R.color.white))
+                view.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+            }
+        }
         return true
     }
 

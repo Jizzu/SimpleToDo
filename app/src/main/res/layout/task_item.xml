@@ -34,7 +34,7 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@id/tvTaskTitle"
             android:layout_marginBottom="3dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/blue"
             android:textSize="12sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

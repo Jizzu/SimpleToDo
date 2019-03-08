@@ -6,6 +6,7 @@ import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.view.base.BaseTaskActivity
+import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.invisible
 import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.vm.AddTaskViewModel
@@ -22,7 +23,12 @@ class AddTaskActivity : BaseTaskActivity() {
 
         // If the user specified only the date (without time), then the notification of the event will appear in an hour
         mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1)
-        val position = intent.getIntExtra("position", 0)
+
+        val position = if (intent.getBooleanExtra("isShortcut", false)) {
+            AlarmHelper.getInstance().init(applicationContext)
+            PreferenceHelper.getInstance().init(applicationContext)
+            PreferenceHelper.getInstance().getInt(PreferenceHelper.NEW_TASK_POSITION)
+        } else intent.getIntExtra("position", 0)
 
         addTaskButton.setOnClickListener {
             when {

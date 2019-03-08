@@ -19,6 +19,8 @@
 
     <string name="preferences_animation_title">Включить анимацию</string>
     <string name="preferences_animation_summary">Включить анимацию для элементов интерфейса</string>
+    <string name="preferences_theme_title">Выбрать тему</string>
+    <string name="preferences_theme_summary">Изменить цветовую схему приложения</string>
     <string name="preferences_general_notification_title">Включить общее уведомление</string>
     <string name="preferences_general_notification_summary">Показывать отдельное уведомление с вашим текущим списком задач</string>
     <string name="preferences_notification_channel_title">Параметры уведомлений</string>
@@ -79,11 +81,11 @@
     <string name="action_cancel">Отмена</string>
     <string name="action_delete">Удалить</string>
     <string name="dialog_title"><b>Вы уверены?</b></string>
-    <string name="dialog_message">Удалить эту задачу?</string>
+    <string name="dialog_message">Удалённую задачу нельзя будет восстановить</string>
 
-    <string name="backup_create_dialog_message">Создать новый бэкап? \nПредыдущий файл бэкапа будет удален</string>
+    <string name="backup_create_dialog_message">Предыдущий файл бэкапа будет удален</string>
     <string name="backup_create_dialog_button">Создать</string>
-    <string name="backup_restore_dialog_message">Восстановить бэкап? \nВсе текущие задачи будут удалены!</string>
+    <string name="backup_restore_dialog_message">Все текущие задачи будут удалены</string>
     <string name="backup_restore_dialog_button">Восстановить</string>
 
     <string name="backup_create_message_success">Бэкап успешно создан!</string>
@@ -111,18 +113,20 @@
 
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Ч Т О \u0020\u0020 Н О В О Г О ?</string>
-    <string name="whats_new_button_text">Далее</string>
-    <string name="whats_new_item_1_text">Новый дизайн в светлых тонах</string>
-    <string name="whats_new_item_2_text">Улучшена стабильность</string>
-    <string name="whats_new_item_3_text">Исправлены некоторые ошибки</string>
+    <string name="whats_new_button_text">Отлично!</string>
+    <string name="whats_new_item_1_text">Добавлена поддержка шорткатов</string>
+    <string name="whats_new_item_2_text">Добавлена поддержка тем</string>
+    <string name="whats_new_item_3_text">Новая иконка приложения</string>
+    <string name="whats_new_item_4_text">Улучшения интерфейса</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
+    <string name="rate_dialog_title">Оцените это приложение</string>
     <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
     <string name="rate_dialog_ok">Оценить</string>
     <string name="rate_dialog_cancel">Позже</string>
     <string name="rate_dialog_no">Нет, спасибо</string>
 
-    ////////////////<!-- Date format dialog -->/////////////////
+    ////////////////<!-- Date/Time format dialog -->/////////////////
     <string name="date_format_dialog_title">Выберите формат даты:</string>
     <string name="date_format_at">"%1$s в %2$s"</string>
     <string-array name="date_format_list">
@@ -137,4 +141,15 @@
         <item>24-часовой формат</item>
         <item>12-часовой формат</item>
     </string-array>
+
+    <string name="app_theme_dialog_title">Выберите тему:</string>
+    <string-array name="app_theme">
+        <item>Светлая</item>
+        <item>Тёмная</item>
+        <item>Чёрная</item>
+    </string-array>
+
+    ///////////////<!-- Shortcuts -->///////////////
+    <string name="shortcut_add_new_task">Добавить задачу</string>
+    <string name="shortcut_search">Поиск</string>
 </resources>

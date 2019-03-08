@@ -22,7 +22,7 @@ If you have any questions — welcome to the [FAQs page](FAQs.md)!
 ## Next update changes (v1.6):
 - [x] Continue redesign (BottomAppBar, rounded dialogs)
 - [x] Add adaptive icon
-- [ ] Add dark theme
+- [x] Add dark theme
 - [x] Add shortcuts
 
 ## Download links:

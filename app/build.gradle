@@ -33,10 +33,11 @@ android {
 dependencies {
     // UI
     implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
-    implementation "com.google.android.material:material:$rootProject.androidxVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "androidx.cardview:cardview:$rootProject.androidxVersion"
     implementation "androidx.preference:preference:$rootProject.androidxVersion"
     implementation "com.github.XunMengWinter:CircularAnim:$rootProject.circularAnimVersion"
+    implementation "com.github.Daio-io:dresscode:$rootProject.dresscodeVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
     // Firebase Crashlytics
