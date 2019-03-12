@@ -350,7 +350,7 @@ class MainActivity : BaseActivity() {
             stringBuilder.append("• ").append(task.title)
 
             if (task.position < mAdapter.itemCount - 1) {
-                stringBuilder.append("\n\n")
+                stringBuilder.append("\n")
             }
         }
 

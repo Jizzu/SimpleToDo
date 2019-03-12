@@ -61,7 +61,7 @@ class FragmentNotifications : BaseSettingsFragment() {
             if (notificationChannel == null) {
                 val channel = NotificationChannel(AlarmReceiver.NOTIFICATION_CHANNEL_ID, context?.getString(R.string.notification_channel), NotificationManager.IMPORTANCE_HIGH).apply {
                     enableLights(true)
-                    lightColor = Color.GREEN
+                    lightColor = Color.BLUE
                     enableVibration(true)
                 }
                 notificationManager.createNotificationChannel(channel)
