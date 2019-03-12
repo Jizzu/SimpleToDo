@@ -16,7 +16,7 @@ class WidgetProvider : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
 
         val onTitleClickPendingIntent = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_UPDATE_CURRENT)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_UPDATE_CURRENT)
 
         for (appWidgetId in appWidgetIds) {
             val adapter = Intent(context, WidgetService::class.java)
@@ -47,15 +47,16 @@ class WidgetProvider : AppWidgetProvider() {
 
         if (itemPosition != -1) {
             val mainActivity = Intent(context, MainActivity::class.java)
-            mainActivity.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            mainActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(mainActivity)
 
             val editTaskActivity = Intent(context, EditTaskActivity::class.java)
-                .putExtra(ITEM_ID, itemID)
-                .putExtra(ITEM_TITLE, itemTitle)
-                .putExtra(ITEM_POSITION, itemPosition)
-                .putExtra(ITEM_TIME_STAMP, itemTimeStamp)
-                .putExtra(ITEM_DATE, itemDate)
+                    .putExtra(ITEM_ID, itemID)
+                    .putExtra(ITEM_TITLE, itemTitle)
+                    .putExtra(ITEM_POSITION, itemPosition)
+                    .putExtra(ITEM_TIME_STAMP, itemTimeStamp)
+                    .putExtra(ITEM_DATE, itemDate)
+            editTaskActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(editTaskActivity)
         }
     }
