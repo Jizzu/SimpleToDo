@@ -24,7 +24,6 @@ import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.invisible
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.base.BaseViewModel
-import com.google.android.material.textfield.TextInputEditText
 import daio.io.dresscode.dressCodeStyleId
 import daio.io.dresscode.matchDressCode
 import kotlinx.android.synthetic.main.activity_task_details.*
@@ -33,9 +32,9 @@ import kotterknife.bindView
 import java.util.*
 
 abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    val mTitleEditText: TextInputEditText by bindView(R.id.taskTitle)
-    val mDateEditText: TextInputEditText by bindView(R.id.taskDate)
-    val mTimeEditText: TextInputEditText by bindView(R.id.taskTime)
+    val mTitleEditText: EditText by bindView(R.id.taskTitle)
+    val mDateEditText: EditText by bindView(R.id.taskDate)
+    val mTimeEditText: EditText by bindView(R.id.taskTime)
     lateinit var mCalendar: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {

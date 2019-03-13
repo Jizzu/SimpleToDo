@@ -130,6 +130,21 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
+            android:id="@+id/buttonPrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:drawableStart="@drawable/drawable_privacy_policy"
+            android:drawableEnd="@drawable/drawable_arrow"
+            android:drawablePadding="9.95dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/settings_privacy_policy"
+            android:textAppearance="?android:attr/android:textAppearance" />
+
+        <TextView
             android:id="@+id/buttonLicenses"
             android:layout_width="match_parent"
             android:layout_height="48dp"
