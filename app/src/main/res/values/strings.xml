@@ -69,6 +69,7 @@
     <string name="settings_feedback">Send Feedback</string>
     <string name="settings_other_apps">Other apps</string>
     <string name="settings_git_hub">GitHub page</string>
+    <string name="settings_privacy_policy">Privacy policy</string>
     <string name="settings_licenses">Licenses</string>
     <string name="settings_no_email_apps">No email apps installed!</string>
 

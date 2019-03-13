@@ -34,6 +34,7 @@ class FragmentSettings : Fragment() {
         buttonFeedback.setOnClickListener { sendFeedback() }
         buttonOtherApps.setOnClickListener { openUri(GOOGLE_PLAY_PAGE) }
         buttonGitHub.setOnClickListener { openUri(GIT_HUB_PAGE) }
+        buttonPrivacyPolicy.setOnClickListener { openUri(PRIVACY_POLICY_PAGE) }
         buttonLicenses.setOnClickListener { openFragment(FragmentLicenses()) }
     }
 
@@ -71,6 +72,7 @@ class FragmentSettings : Fragment() {
     private companion object {
         const val GOOGLE_PLAY_PAGE = "https://play.google.com/store/apps/developer?id=Ilya+Ponomarenko"
         const val GIT_HUB_PAGE = "https://github.com/Jizzu/SimpleToDo"
+        const val PRIVACY_POLICY_PAGE = "https://github.com/Jizzu/SimpleToDo/blob/master/PRIVACY_POLICY.md"
         const val APP_PAGE_SHORT_LINK = "market://details?id="
         const val APP_PAGE_LONG_LINK = "https://play.google.com/store/apps/details?id="
         const val SCHEME = "mailto"

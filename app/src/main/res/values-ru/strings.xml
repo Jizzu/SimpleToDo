@@ -58,6 +58,7 @@
     <string name="settings_feedback">Написать автору</string>
     <string name="settings_other_apps">Другие приложения</string>
     <string name="settings_git_hub">Страница на GitHub</string>
+    <string name="settings_privacy_policy">Политика конфиденциальности</string>
     <string name="settings_licenses">Лицензии</string>
     <string name="settings_no_email_apps">Приложения для электронной почты не установлены!</string>
 
