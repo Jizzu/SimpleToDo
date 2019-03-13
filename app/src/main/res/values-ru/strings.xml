@@ -114,11 +114,9 @@
 
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Ч Т О \u0020\u0020 Н О В О Г О ?</string>
-    <string name="whats_new_button_text">Отлично!</string>
-    <string name="whats_new_item_1_text">Добавлена поддержка шорткатов</string>
-    <string name="whats_new_item_2_text">Добавлена поддержка тем</string>
-    <string name="whats_new_item_3_text">Новая иконка приложения</string>
-    <string name="whats_new_item_4_text">Улучшения интерфейса</string>
+    <string name="whats_new_button_text">Далее</string>
+    <string name="whats_new_item_1_text">Исправление ошибок</string>
+    <string name="whats_new_item_2_text">Добавлена политика\nконфиденциальности</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Оцените это приложение</string>
