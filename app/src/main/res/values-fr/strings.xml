@@ -67,6 +67,7 @@
     <string name="settings_feedback">Envoyer commentaire</string>
     <string name="settings_other_apps">Autres applis</string>
     <string name="settings_git_hub">Page GitHub</string>
+    <string name="settings_privacy_policy">Politique de confidentialité</string>
     <string name="settings_licenses">Licenses</string>
     <string name="settings_no_email_apps">Aucune application email n\'est installée!</string>
     <string name="settings_no_browser_apps">Aucune application navigateur n\'est installée!</string>
@@ -124,10 +125,9 @@
 
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Q U O I \u0020\u0020 D E \u0020\u0020 N E U F ?</string>
-    <string name="whats_new_button_text">Alons-y!</string>
-    <string name="whats_new_item_1_text">Nouveau design aux couleurs claires</string>
-    <string name="whats_new_item_2_text">Améliorations de la stabilité</string>
-    <string name="whats_new_item_3_text">Corrections de bugs mineurs</string>
+    <string name="whats_new_button_text">Bien!</string>
+    <string name="whats_new_item_1_text">Correction de bugs</string>
+    <string name="whats_new_item_2_text">Ajout de la traduction française</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Noter cette appli</string>
@@ -140,10 +140,10 @@
     <string name="date_format_dialog_title">Choisir le format de date:</string>
     <string name="date_format_at">"%1$s à %2$s"</string>
     <string-array name="date_format_list">
-        <item>Day.Month.Year</item>
-        <item>Year.Month.Day</item>
-        <item>Month.Day.Year</item>
-        <item>Year.Day.Month</item>
+        <item>Jour.Mois.Année</item>
+        <item>Année.Mois.Jour</item>
+        <item>Mois.Jour.Année</item>
+        <item>Année.Jour.Mois</item>
     </string-array>
 
     <string name="time_format_dialog_title">Choisir le format de l\'heure:</string>
@@ -154,9 +154,9 @@
 
     <string name="app_theme_dialog_title">Choisir un thème:</string>
     <string-array name="app_theme">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
+        <item>Lumière</item>
+        <item>Foncée</item>
+        <item>Noire</item>
     </string-array>
 
     ///////////////<!-- Shortcuts -->///////////////
