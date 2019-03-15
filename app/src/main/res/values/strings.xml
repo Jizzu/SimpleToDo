@@ -72,6 +72,7 @@
     <string name="settings_privacy_policy">Privacy policy</string>
     <string name="settings_licenses">Licenses</string>
     <string name="settings_no_email_apps">No email apps installed!</string>
+    <string name="settings_no_browser_apps">No browser apps installed!</string>
 
     <string name="settings">S E T T I N G S</string>
     <string name="settings_page_title_user_interface">I N T E R F A C E</string>

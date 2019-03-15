@@ -69,6 +69,7 @@
     <string name="settings_git_hub">Page GitHub</string>
     <string name="settings_licenses">Licenses</string>
     <string name="settings_no_email_apps">Aucune application email n\'est installée!</string>
+    <string name="settings_no_browser_apps">Aucune application navigateur n\'est installée!</string>
 
     <string name="settings">R E G L A G E S</string>
     <string name="settings_page_title_user_interface">I N T E R F A C E</string>

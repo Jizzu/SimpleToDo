@@ -61,6 +61,7 @@
     <string name="settings_privacy_policy">Политика конфиденциальности</string>
     <string name="settings_licenses">Лицензии</string>
     <string name="settings_no_email_apps">Приложения для электронной почты не установлены!</string>
+    <string name="settings_no_browser_apps">Приложения для просмотра веб-страниц не установлены!</string>
 
     <string name="settings">Н А С Т Р О Й К И</string>
     <string name="settings_page_title_user_interface">И Н Т Е Р Ф Е Й С</string>
