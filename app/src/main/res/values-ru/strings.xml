@@ -25,8 +25,6 @@
     <string name="preferences_general_notification_summary">Показывать отдельное уведомление с вашим текущим списком задач</string>
     <string name="preferences_notification_channel_title">Параметры уведомлений</string>
     <string name="preferences_notification_channel_summary">Настройка звука, вибрации и т.д.</string>
-    <string name="preferences_notification_sound_title">Звук уведомления</string>
-    <string name="preferences_notification_sound_summary">Настройка звука уведомления</string>
     <string name="preferences_date_format_title">Формат даты</string>
     <string name="preferences_date_format_summary">Изменить формат даты</string>
     <string name="preferences_time_format_title">Формат времени</string>
@@ -35,15 +33,6 @@
     <string name="preferences_backup_create_summary">Экспорт задач в память устройства</string>
     <string name="preferences_backup_restore_title">Восстановить резервную копию</string>
     <string name="preferences_backup_restore_summary">Импорт задач из памяти устройства</string>
-    <string name="preferences_rate_app_title">Оценить приложение</string>
-    <string name="preferences_rate_app_summary">Оцените это приложение в Google Play</string>
-    <string name="preferences_send_feedback_title">Написать автору</string>
-    <string name="preferences_send_feedback_summary">Предлагайте свои идеи и сообщайте о багах</string>
-    <string name="preferences_other_apps_title">Другие приложения</string>
-    <string name="preferences_other_apps_summary">Другие приложения разработчика в Google Play</string>
-    <string name="preferences_about_version_title">Версия</string>
-    <string name="preferences_about_licenses_title">Лицензии</string>
-    <string name="preferences_about_licenses_summary">Использованные библиотеки</string>
 
     <string name="feedback_title">Simple ToDo - Отзыв</string>
     <string name="feedback_device_info">Информация о моём устройстве: </string>

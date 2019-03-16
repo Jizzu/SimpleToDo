@@ -5,78 +5,60 @@
     <string name="empty_view_text">Vous pouvez créer de nouvelles tâches \n en utilisant le bouton +</string>
     <string name="search_view_empty_text">Rechercher des tâches particulières</string>
     <string name="search_view_not_found_text">Aucune tâche trouvée :(</string>
-    <string name="create_task">N O U V E L L E \u0020\u0020 T A C H E </string>
-    <string name="set_reminder">Ajouter un rappel</string>
+    <string name="create_task">N O U V E L L E \u0020\u0020 T Â C H E</string>
+    <string name="set_reminder">Définir un rappel</string>
     <string name="set_reminder_short">Rappel</string>
     <string name="hint_title">Titre</string>
     <string name="hint_date">Date</string>
     <string name="hint_time">Heure</string>
     <string name="add_task">A J O U T E R</string>
-    <string name="update_task">M I S E  A  J O U R</string>
-    <string name="edit_task">M O D I F I E R \u0020\u0020  L A \u0020\u0020 T A C H E</string>
+    <string name="update_task">M I S E \u0020\u0020 À \u0020\u0020 J O U R</string>
+    <string name="edit_task">M O D I F I E R \u0020\u0020 L A \u0020\u0020 T Â C H E</string>
 
-    <string name="toast_incorrect_time">Erreur! Vous avez choisi une heure incorrecte!</string>
-    <string name="error_text_input">Merci de saisir un titre!</string>
-    <string name="error_spaces">Merci de saisir un titre valide!</string>
+    <string name="toast_incorrect_time">Erreur ! Vous avez sélectionné un temps incorrect !</string>
+    <string name="error_text_input">S\'il vous plaît, entrez un titre !</string>
+    <string name="error_spaces">S\'il vous plaît, entrez un titre valide !</string>
 
     <string name="preferences_animation_title">Activer les animations</string>
     <string name="preferences_animation_summary">Activer les animations de l\'interface utilisateur</string>
     <string name="preferences_theme_title">Sélectionnez un thème</string>
     <string name="preferences_theme_summary">Modifier le mode de couleurs de l\'application</string>
-    <string name="preferences_general_notification_title">Activer la notification principale</string>
-    <string name="preferences_general_notification_summary">Afficher la liste des tâches dans le volet principal des notifications</string>
+    <string name="preferences_general_notification_title">Activer la notification générale</string>
+    <string name="preferences_general_notification_summary">Afficher une notification avec votre liste de tâches actuelle</string>
     <string name="preferences_notification_channel_title">Options des notifications</string>
     <string name="preferences_notification_channel_summary">Régler le son, les vibrations, etc.</string>
-    <string name="preferences_notification_sound_title">Son des notifications</string>
-    <string name="preferences_notification_sound_summary">Régler le son des notifications</string>
-    <string name="preferences_date_format_title">Format Date</string>
-    <string name="preferences_date_format_summary">Régler le format de la date</string>
-    <string name="preferences_time_format_title">Format Heure</string>
-    <string name="preferences_time_format_summary">Régler le format de l\'heure</string>
+    <string name="preferences_date_format_title">Format de date</string>
+    <string name="preferences_date_format_summary">Définir le format de date</string>
+    <string name="preferences_time_format_title">Format de l\'heure</string>
+    <string name="preferences_time_format_summary">Définir le format de l\'heure</string>
     <string name="preferences_backup_create_title">Créer une sauvegarde</string>
-    <string name="preferences_backup_create_summary">Exporter des tâches vers le stockage du périphérique</string>
-    <string name="preferences_backup_restore_title">Restaurer la sauvegarde</string>
-    <string name="preferences_backup_restore_summary">Importer des tâches à partir de la mémoire de l\'appareil</string>
-    <string name="preferences_rate_app_title">Noter cette application</string>
-    <string name="preferences_rate_app_summary">Notez cette application sur Google Play store</string>
-    <string name="preferences_send_feedback_title">Envoyer un commentaire</string>
-    <string name="preferences_send_feedback_summary">Suggérez des idées ou parlez des bugs</string>
-    <string name="preferences_other_apps_title">Autres applications</string>
-    <string name="preferences_other_apps_summary">Les applications des autres développeurs sur Google Play</string>
-    <string name="preferences_about_version_title">Version</string>
-    <string name="preferences_about_licenses_title">Licenses</string>
-    <string name="preferences_about_licenses_summary">Bases de données utilisées</string>
-    <string name="preferences_kotter_knife_title">KotterKnife</string>
-    <string name="preferences_kotter_knife_summary">JakeWharton</string>
-    <string name="preferences_circular_anim_title">CircularAnim</string>
-    <string name="preferences_circular_anim_summary">XunMengWinter</string>
-    <string name="preferences_rx_java_title">RxJava</string>
-    <string name="preferences_rx_kotlin_title">RxKotlin</string>
-    <string name="preferences_reactive_libraries_summary">ReactiveX</string>
+    <string name="preferences_backup_create_summary">Exporter les tâches vers le stockage de l\'appareil</string>
+    <string name="preferences_backup_restore_title">Restaurer une sauvegarde</string>
+    <string name="preferences_backup_restore_summary">Importer les tâches depuis le stockage de l\'appareil</string>
 
     <string name="feedback_title">Simple ToDo - Commentaires</string>
-    <string name="feedback_device_info">Mes informations d\'appareil: </string>
-    <string name="feedback_app_version">version de l\'appli: </string>
-    <string name="feedback">Commentaire: </string>
+    <string name="feedback_device_info">Mes informations d\'appareil : </string>
+    <string name="feedback_app_version">Version de l\'appli : </string>
+    <string name="feedback">Commentaire : </string>
 
     <string name="settings_user_interface">Apparence</string>
     <string name="settings_notifications">Notifications</string>
     <string name="settings_date_and_time">Date &amp; Heure</string>
-    <string name="settings_backup_and_restore">Sauvegarder &amp; Restaurer</string>
-    <string name="settings_rate">Noter cette appli</string>
-    <string name="settings_feedback">Envoyer commentaire</string>
+    <string name="settings_backup_and_restore">Sauvegarde &amp; Restauration</string>
+    <string name="settings_rate">Évaluer l\'application</string>
+    <string name="settings_feedback">Envoyer des commentaires</string>
     <string name="settings_other_apps">Autres applis</string>
     <string name="settings_git_hub">Page GitHub</string>
     <string name="settings_privacy_policy">Politique de confidentialité</string>
     <string name="settings_licenses">Licenses</string>
-    <string name="settings_no_email_apps">Aucune application email n\'est installée!</string>
-    <string name="settings_no_browser_apps">Aucune application navigateur n\'est installée!</string>
+    <string name="settings_no_email_apps">Aucune application email n\'est installée !</string>
+    <string name="settings_no_browser_apps">Aucune application navigateur n\'est installée !</string>
 
     <string name="settings">R E G L A G E S</string>
-    <string name="settings_page_title_user_interface">I N T E R F A C E</string>
+    <string name="settings_page_title_user_interface">A P P A R E N C E</string>
     <string name="settings_page_title_notifications">N O T I F I C A T I O N S</string>
     <string name="settings_page_title_date_and_time">D A T E \u0020\u0020 &amp; \u0020\u0020 H E U R E</string>
-    <string name="settings_page_title_backup_and_restore">S A U V E G A R D E R \u0020\u0020 &amp; \u0020\u0020 R E S T A U R E R</string>
+    <string name="settings_page_title_backup_and_restore">S A U V E G A R D E \u0020\u0020 &amp; \u0020\u0020 R E S T A U R A T I O N</string>
     <string name="settings_page_title_licenses">L I C E N S E S</string>
 
     <string name="settings_menu">Réglages</string>
@@ -87,38 +69,38 @@
     <string name="reminder_yesterday">Hier à %1$s</string>
     <string name="reminder_tomorrow">Demain à %1$s</string>
 
-    <string name="snackbar_remove_task">Tâche supprimée!</string>
+    <string name="snackbar_remove_task">Tâche supprimée !</string>
     <string name="snackbar_undo">Annuler</string>
     <string name="action_cancel">Annuler</string>
     <string name="action_delete">Supprimer</string>
-    <string name="dialog_title"><b>Vous êtes sûr?</b></string>
+    <string name="dialog_title"><b>Êtes-vous sûr?</b></string>
     <string name="dialog_message">La tâche supprimée ne peut pas être restaurée</string>
 
     <string name="backup_create_dialog_message">Le fichier de sauvegarde précédent sera supprimé</string>
     <string name="backup_create_dialog_button">Créer une sauvegarde</string>
-    <string name="backup_restore_dialog_message">Toutes les tâches seront supprimées</string>
+    <string name="backup_restore_dialog_message">Toutes les tâches en cours seront supprimées</string>
     <string name="backup_restore_dialog_button">Restaurer une sauvegarde</string>
 
-    <string name="backup_create_message_success">Sauvegarde créée avec succès!</string>
-    <string name="backup_create_message_failure">Impossible de créer des sauvegardes!</string>
-    <string name="backup_restore_message_success">La sauvegarde est restaurée!</string>
-    <string name="backup_restore_message_failure">Impossible de restaurer les sauvegardes!</string>
+    <string name="backup_create_message_success">Sauvegarde créée avec succès !</string>
+    <string name="backup_create_message_failure">Échec de la création de la sauvegarde !</string>
+    <string name="backup_restore_message_success">La sauvegarde est restaurée !</string>
+    <string name="backup_restore_message_failure">La restauration de la sauvegarde a échoué !</string>
     <string name="backup_restore_message_nothing">Rien à restaurer</string>
 
     <string name="settings_permission_denied_toast">Autorisation de stockage refusée</string>
-    <string name="settings_permission_settings_toast">Accorder l\'accès au contenu de stockage de l\'appareil</string>
+    <string name="settings_permission_settings_toast">Ouvrez "Autorisations" et accordez "Stockage"</string>
     <string name="settings_permission_snackbar_with_rationale">L\'autorisation de stockage est nécessaire pour écrire une sauvegarde dans un fichier</string>
-    <string name="settings_permission_snackbar_button_grant">DON</string>
+    <string name="settings_permission_snackbar_button_grant">CONTINUER</string>
     <string name="settings_permission_snackbar_no_permission">L\'autorisation de stockage n\'est pas accordée</string>
-    <string name="settings_permission_snackbar_button_settings">PARAMETRES</string>
+    <string name="settings_permission_snackbar_button_settings">PARAMÈTRES</string>
 
     <string name="general_notification_1">Vous avez</string>
-    <string name="general_notification_2">une tâche active:</string>
-    <string name="general_notification_3">des tâches actives:</string>
-    <string name="general_notification_4">des tâches actives:</string>
+    <string name="general_notification_2">une tâche active :</string>
+    <string name="general_notification_3">des tâches actives :</string>
+    <string name="general_notification_4">des tâches actives :</string>
 
     <string name="notification_channel">Notifications</string>
-    <string name="general_notification_channel">Notification principal</string>
+    <string name="general_notification_channel">Notification générale</string>
 
     <string name="widget_title">TODO LIST</string>
     <string name="author_gmail">ilya.ponomarenko.dev@gmail.com</string>
@@ -131,13 +113,13 @@
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Noter cette appli</string>
-    <string name="rate_dialog_message">Si vous aimez utiliser cette application, pourriez-vous prendre un moment pour l\'évaluer? Ca ne prendra pas plus d\'une minute. Merci de votre soutien!</string>
-    <string name="rate_dialog_ok">Evaluer maintenant</string>
+    <string name="rate_dialog_message">Si vous aimez utiliser cette application, pourriez-vous prendre un moment pour l\'évaluer ? Ca ne prendra pas plus d\'une minute. Merci de votre soutien !</string>
+    <string name="rate_dialog_ok">Évaluer maintenant</string>
     <string name="rate_dialog_cancel">Plus tard</string>
     <string name="rate_dialog_no">Non, Merci</string>
 
     ////////////////<!-- Date/Time format dialog -->/////////////////
-    <string name="date_format_dialog_title">Choisir le format de date:</string>
+    <string name="date_format_dialog_title">Choisir le format de date :</string>
     <string name="date_format_at">"%1$s à %2$s"</string>
     <string-array name="date_format_list">
         <item>Jour.Mois.Année</item>
@@ -146,17 +128,17 @@
         <item>Année.Jour.Mois</item>
     </string-array>
 
-    <string name="time_format_dialog_title">Choisir le format de l\'heure:</string>
+    <string name="time_format_dialog_title">Choisir le format de l\'heure :</string>
     <string-array name="time_format_list">
-        <item>24-heures format</item>
-        <item>12-heures format</item>
+        <item>Format 24 heures</item>
+        <item>Format 12 heures</item>
     </string-array>
 
-    <string name="app_theme_dialog_title">Choisir un thème:</string>
+    <string name="app_theme_dialog_title">Choisir un thème :</string>
     <string-array name="app_theme">
-        <item>Lumière</item>
-        <item>Foncée</item>
-        <item>Noire</item>
+        <item>Clair</item>
+        <item>Sombre</item>
+        <item>Noir</item>
     </string-array>
 
     ///////////////<!-- Shortcuts -->///////////////
