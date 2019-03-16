@@ -15,6 +15,7 @@ import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.EditTaskViewModel
 import kotlinx.android.synthetic.main.activity_task_details.*
+import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
 class EditTaskActivity : BaseTaskActivity() {
@@ -28,6 +29,9 @@ class EditTaskActivity : BaseTaskActivity() {
         super.onCreate(savedInstanceState)
 
         initToolbar(getString(R.string.edit_task))
+        if (Locale.getDefault().displayLanguage == "français") {
+            toolbarTitle.textSize = 18F
+        }
         mViewModel = createViewModel()
 
         // Get Intent data

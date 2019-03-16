@@ -116,7 +116,7 @@
     <string name="rate_dialog_message">Si vous aimez utiliser cette application, pourriez-vous prendre un moment pour l\'évaluer ? Ca ne prendra pas plus d\'une minute. Merci de votre soutien !</string>
     <string name="rate_dialog_ok">Évaluer maintenant</string>
     <string name="rate_dialog_cancel">Plus tard</string>
-    <string name="rate_dialog_no">Non, Merci</string>
+    <string name="rate_dialog_no">Non, merci</string>
 
     ////////////////<!-- Date/Time format dialog -->/////////////////
     <string name="date_format_dialog_title">Choisir le format de date :</string>
