@@ -62,12 +62,18 @@ class FragmentSettings : Fragment() {
 
         try {
             startActivity(Intent.createChooser(email, getString(R.string.settings_feedback)))
-        } catch (ex: android.content.ActivityNotFoundException) {
+        } catch (exception: android.content.ActivityNotFoundException) {
             toast(getString(R.string.settings_no_email_apps))
         }
     }
 
-    private fun openUri(uri: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+    private fun openUri(uri: String) {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+        } catch (exception: android.content.ActivityNotFoundException) {
+            toast(getString(R.string.settings_no_browser_apps))
+        }
+    }
 
     private companion object {
         const val GOOGLE_PLAY_PAGE = "https://play.google.com/store/apps/developer?id=Ilya+Ponomarenko"

@@ -27,8 +27,6 @@
     <string name="preferences_general_notification_summary">Show notification with you current task list</string>
     <string name="preferences_notification_channel_title">Notifications options</string>
     <string name="preferences_notification_channel_summary">Set custom sound, vibration and etc.</string>
-    <string name="preferences_notification_sound_title">Notification sound</string>
-    <string name="preferences_notification_sound_summary">Set the notification sound</string>
     <string name="preferences_date_format_title">Date format</string>
     <string name="preferences_date_format_summary">Change date format</string>
     <string name="preferences_time_format_title">Time format</string>
@@ -37,15 +35,6 @@
     <string name="preferences_backup_create_summary">Export tasks to the device storage</string>
     <string name="preferences_backup_restore_title">Restore backup</string>
     <string name="preferences_backup_restore_summary">Import tasks from the device storage</string>
-    <string name="preferences_rate_app_title">Rate this app</string>
-    <string name="preferences_rate_app_summary">Rate this app on Google Play store</string>
-    <string name="preferences_send_feedback_title">Send feedback</string>
-    <string name="preferences_send_feedback_summary">Suggest ideas or tell about bugs</string>
-    <string name="preferences_other_apps_title">Other apps</string>
-    <string name="preferences_other_apps_summary">Other developer\'s apps on Google Play</string>
-    <string name="preferences_about_version_title">Version</string>
-    <string name="preferences_about_licenses_title">Licenses</string>
-    <string name="preferences_about_licenses_summary">Used libraries</string>
     <string name="preferences_kotter_knife_title">KotterKnife</string>
     <string name="preferences_kotter_knife_summary">JakeWharton</string>
     <string name="preferences_circular_anim_title">CircularAnim</string>
@@ -72,6 +61,7 @@
     <string name="settings_privacy_policy">Privacy policy</string>
     <string name="settings_licenses">Licenses</string>
     <string name="settings_no_email_apps">No email apps installed!</string>
+    <string name="settings_no_browser_apps">No browser apps installed!</string>
 
     <string name="settings">S E T T I N G S</string>
     <string name="settings_page_title_user_interface">I N T E R F A C E</string>
@@ -128,7 +118,7 @@
     <string name="whats_new_title">W H A T \' S \u0020\u0020 N E W ?</string>
     <string name="whats_new_button_text">Okay</string>
     <string name="whats_new_item_1_text">Bug fixes</string>
-    <string name="whats_new_item_2_text">Added privacy policy</string>
+    <string name="whats_new_item_2_text">Added French translation</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Rate this app</string>

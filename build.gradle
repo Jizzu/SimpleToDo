@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath 'com.google.gms:google-services:4.2.0'
         classpath 'io.fabric.tools:gradle:1.27.1'
     }
@@ -32,8 +32,8 @@ ext {
     buildToolsVersion = '28.0.3'
     minSdkVersion = 21
     targetSdkVersion = 28
-    versionCode = 14
-    versionName = "1.6.5"
+    versionCode = 15
+    versionName = "1.6.7"
 
     // App dependencies
     appcompatVersion = "1.0.2"
