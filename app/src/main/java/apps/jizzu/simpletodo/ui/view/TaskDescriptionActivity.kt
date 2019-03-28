@@ -1,14 +1,11 @@
 package apps.jizzu.simpletodo.ui.view
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.core.content.ContextCompat
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
@@ -25,17 +22,14 @@ class TaskDescriptionActivity : BaseActivity() {
         restoreData()
     }
 
-    fun hideKeyboard(editText: EditText) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editText.windowToken, 0)
-    }
-
     private fun restoreData() {
         val note = intent.getStringExtra("note")
-        taskNote.apply {
-            setText(note)
-            setSelection(note.length)
-        }
+        if (!note.isEmpty()) {
+            taskNote.apply {
+                setText(note)
+                setSelection(note.length)
+            }
+        } else showKeyboard(taskNote)
     }
 
     private fun saveNote() {
@@ -57,7 +51,10 @@ class TaskDescriptionActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> onBackPressed()
+            android.R.id.home -> {
+                hideKeyboard(taskNote)
+                onBackPressed()
+            }
             R.id.action_save -> saveNote()
         }
         return super.onOptionsItemSelected(item)

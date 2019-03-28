@@ -46,7 +46,7 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
         mCalendar = Calendar.getInstance()
         checkScreenResolution()
         initTheme()
-        showKeyboard()
+        showKeyboard(mTitleEditText)
         initListeners()
     }
 
@@ -195,16 +195,6 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
             getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
             getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
         }
-    }
-
-    private fun showKeyboard() {
-        val inputMethodManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-    }
-
-    fun hideKeyboard(editText: EditText) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editText.windowToken, 0)
     }
 
     abstract fun createViewModel(): BaseViewModel

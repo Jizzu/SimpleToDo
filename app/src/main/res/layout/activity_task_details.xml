@@ -14,8 +14,8 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
         android:layout_below="@id/toolbar"
+        android:overScrollMode="never"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -24,7 +24,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/taskTitleLayout"
-                style="@style/TextInputLayoutOutlinedBox.Light"
+                style="@style/TextInputLayoutOutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -39,15 +39,12 @@
                     android:hint="@string/hint_title"
                     android:inputType="textAutoCorrect|textCapSentences"
                     android:textColor="?android:attr/android:textColorPrimary"
-                    android:textSize="19sp">
-
-                    <requestFocus />
-                </androidx.appcompat.widget.AppCompatEditText>
+                    android:textSize="19sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/taskDescriptionLayout"
-                style="@style/TextInputLayoutOutlinedBox.Light"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taskTitleLayout"
@@ -69,7 +66,7 @@
                     android:hint="Add a note"
                     android:maxLines="8"
                     android:textColor="?android:attr/android:textColorPrimary"
-                    android:textColorHint="?android:attr/android:textColor"
+                    android:textColorHint="@color/dullGray"
                     android:textSize="19sp" />
             </com.google.android.material.card.MaterialCardView>
 
@@ -98,7 +95,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/taskReminderLayout"
-                style="@style/TextInputLayoutOutlinedBox.Light"
+                style="@style/TextInputLayoutOutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taskDescriptionLayout"
@@ -117,6 +114,7 @@
                     android:id="@+id/taskReminder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:cursorVisible="false"
                     android:drawableStart="@drawable/drawable_reminder"
                     android:drawablePadding="10dp"
@@ -124,7 +122,7 @@
                     android:hint="Reminder"
                     android:inputType="none"
                     android:textColor="?android:attr/android:textColorPrimary"
-                    android:layout_marginBottom="16dp"
+                    android:textColorHint="@color/dullGray"
                     android:textSize="19sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>

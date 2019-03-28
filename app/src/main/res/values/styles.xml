@@ -64,14 +64,8 @@
         <item name="errorTextColor">@color/red</item>
     </style>
 
-    <style name="TextInputLayoutOutlinedBox.Light" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/greyWhite</item>
-        <item name="errorTextColor">@color/red</item>
-    </style>
-
-    <style name="TextInputLayoutOutlinedBox.Dark" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:textColorHint">@color/white</item>
-        <item name="hintTextColor">@color/white</item>
+    <style name="TextInputLayoutOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="colorControlHighlight">@color/red</item>
         <item name="boxStrokeColor">@color/greyWhite</item>
         <item name="errorTextColor">@color/red</item>
     </style>

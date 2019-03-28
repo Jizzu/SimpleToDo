@@ -1,9 +1,12 @@
 package apps.jizzu.simpletodo.ui.view.base
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -54,5 +57,17 @@ abstract class BaseActivity : AppCompatActivity() {
                 R.style.AppTheme_Black -> ContextCompat.getColor(this, R.color.black)
             }
         }
+    }
+
+    fun showKeyboard(editText: EditText) {
+        editText.requestFocus()
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
+
+    fun hideKeyboard(editText: EditText) {
+        editText.clearFocus()
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(editText.windowToken, 0)
     }
 }
