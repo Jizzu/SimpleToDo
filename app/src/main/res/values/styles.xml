@@ -20,6 +20,7 @@
         <item name="colorSearchView">@color/deepGrey</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textAppearance">@style/TextAppearance.Light</item>
+        <item name="android:timePickerDialogTheme">@style/TimePicker.Light</item>
     </style>
 
     <style name="AppTheme.Dark" parent="AppTheme.Base">
@@ -36,6 +37,7 @@
         <item name="iconTint">@color/white</item>
         <item name="android:windowBackground">@color/deepBlueGrey</item>
         <item name="android:textAppearance">@style/TextAppearance.Dark</item>
+        <item name="android:timePickerDialogTheme">@style/TimePicker.Dark</item>
     </style>
 
     <style name="AppTheme.Black" parent="AppTheme.Base">
@@ -52,12 +54,25 @@
         <item name="iconTint">@color/white</item>
         <item name="android:windowBackground">@color/black</item>
         <item name="android:textAppearance">@style/TextAppearance.Dark</item>
+        <item name="android:timePickerDialogTheme">@style/TimePicker.Dark</item>
     </style>
 
-    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:textColorHint">@color/blue</item>
+    <style name="TextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColorHint">@color/greyWhite</item>
+        <item name="hintTextColor">@color/greyWhite</item>
+        <item name="colorControlActivated">@color/blue</item>
+        <item name="errorTextColor">@color/red</item>
+    </style>
+
+    <style name="TextInputLayoutOutlinedBox.Light" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/greyWhite</item>
-        <item name="hintTextColor">@color/blue</item>
+        <item name="errorTextColor">@color/red</item>
+    </style>
+
+    <style name="TextInputLayoutOutlinedBox.Dark" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="boxStrokeColor">@color/greyWhite</item>
         <item name="errorTextColor">@color/red</item>
     </style>
 

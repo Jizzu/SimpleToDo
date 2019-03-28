@@ -19,7 +19,7 @@ class AddTaskActivity : BaseTaskActivity() {
         super.onCreate(savedInstanceState)
 
         initToolbar(getString(R.string.create_task))
-        reminderContainer.invisible()
+        //reminderContainer.invisible()
 
         // If the user specified only the date (without time), then the notification of the event will appear in an hour
         mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1)
@@ -39,9 +39,9 @@ class AddTaskActivity : BaseTaskActivity() {
                     task.title = mTitleEditText.text.toString()
                     task.position = position
 
-                    if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
-                        task.date = mCalendar.timeInMillis
-                    }
+//                    if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
+//                        task.date = mCalendar.timeInMillis
+//                    }
 
                     if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
                         task.date = 0

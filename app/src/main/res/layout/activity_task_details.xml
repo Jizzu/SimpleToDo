@@ -10,111 +10,125 @@
 
     <include layout="@layout/toolbar" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/taskTitleLayout"
-        style="@style/TextInputLayout"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
         android:layout_below="@id/toolbar"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        app:errorEnabled="true">
+        android:scrollbars="none">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/taskTitle"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_title"
-            android:inputType="textAutoCorrect|textCapSentences"
-            android:textColor="?android:attr/android:textColorPrimary"
-            android:textSize="19sp">
+            android:layout_height="wrap_content">
 
-            <requestFocus />
-        </androidx.appcompat.widget.AppCompatEditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageButton
-        android:id="@+id/addAlarmIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/taskTitleLayout"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/drawable_reminder" />
-
-    <TextView
-        android:id="@+id/tvSetReminder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/taskTitleLayout"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="24dp"
-        android:layout_toEndOf="@id/addAlarmIcon"
-        android:text="@string/set_reminder"
-        android:textColor="?android:attr/android:textColorPrimary"
-        android:textSize="15sp" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/reminderSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_below="@+id/taskTitleLayout"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp" />
-
-    <RelativeLayout
-        android:id="@+id/reminderContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/reminderSwitch">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/taskDateLayout"
-            style="@style/TextInputLayout"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp">
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/taskDate"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/taskTitleLayout"
+                style="@style/TextInputLayoutOutlinedBox.Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusableInTouchMode="false"
-                android:hint="@string/hint_date"
-                android:inputType="none"
-                android:textColor="?android:attr/android:textColorPrimary"
-                android:textSize="18sp"
-                tools:ignore="TextFields" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="20dp"
+                app:errorEnabled="true">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/taskTimeLayout"
-            style="@style/TextInputLayout"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="32dp">
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/taskTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_title"
+                    android:inputType="textAutoCorrect|textCapSentences"
+                    android:textColor="?android:attr/android:textColorPrimary"
+                    android:textSize="19sp">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/taskTime"
+                    <requestFocus />
+                </androidx.appcompat.widget.AppCompatEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/taskDescriptionLayout"
+                style="@style/TextInputLayoutOutlinedBox.Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="true"
-                android:focusableInTouchMode="false"
-                android:hint="@string/hint_time"
-                android:inputType="none"
-                android:textColor="?android:attr/android:textColorPrimary"
-                android:textSize="18sp"
-                tools:ignore="TextFields" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </RelativeLayout>
+                android:layout_below="@id/taskTitleLayout"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/greyWhite"
+                card_view:cardBackgroundColor="?attr/colorBackground"
+                card_view:cardCornerRadius="5dp"
+                card_view:contentPadding="16dp"
+                card_view:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/taskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:focusableInTouchMode="false"
+                    android:hint="Add a note"
+                    android:maxLines="8"
+                    android:textColor="?android:attr/android:textColorPrimary"
+                    android:textColorHint="?android:attr/android:textColor"
+                    android:textSize="19sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--<com.google.android.material.textfield.TextInputLayout-->
+            <!--android:id="@+id/taskDescriptionLayout"-->
+            <!--style="@style/TextInputLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/taskTitleLayout"-->
+            <!--android:layout_marginLeft="26dp"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:layout_marginRight="26dp"-->
+            <!--app:errorEnabled="true">-->
+
+            <!--<androidx.appcompat.widget.AppCompatEditText-->
+            <!--android:id="@+id/taskDescription"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Description"-->
+            <!--android:maxLines="10"-->
+            <!--app:backgroundTint="@color/greyWhite"-->
+            <!--android:textColor="?android:attr/android:textColorPrimary"-->
+            <!--android:textSize="19sp">-->
+            <!--</androidx.appcompat.widget.AppCompatEditText>-->
+            <!--</com.google.android.material.textfield.TextInputLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/taskReminderLayout"
+                style="@style/TextInputLayoutOutlinedBox.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskDescriptionLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="26dp"
+                app:boxCornerRadiusBottomEnd="30dp"
+                app:boxCornerRadiusBottomStart="30dp"
+                app:boxCornerRadiusTopEnd="30dp"
+                app:boxCornerRadiusTopStart="30dp"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/taskReminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:drawableStart="@drawable/drawable_reminder"
+                    android:drawablePadding="10dp"
+                    android:focusableInTouchMode="false"
+                    android:hint="Reminder"
+                    android:inputType="none"
+                    android:textColor="?android:attr/android:textColorPrimary"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="19sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addTaskButton"

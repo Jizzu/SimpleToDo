@@ -90,7 +90,6 @@ class MainActivity : BaseActivity() {
         initListeners()
         initCallbacks()
         initShortcuts()
-        initStatusBar()
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView() else showTaskList(tasks)

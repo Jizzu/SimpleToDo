@@ -43,28 +43,28 @@ class EditTaskActivity : BaseTaskActivity() {
 
         mTitleEditText.setText(title)
         mTitleEditText.setSelection(mTitleEditText.text!!.length)
-        if (mDate != 0L) {
-            mDateEditText.setText(DateAndTimeFormatter.getDate(mDate))
-            mTimeEditText.setText(DateAndTimeFormatter.getTime(mDate))
-        }
-
-        if (mDate == 0L) {
-            reminderContainer.invisible()
-            reminderSwitch.isChecked = false
-            mDateEditText.text = null
-            mTimeEditText.text = null
-        } else {
-            reminderContainer.visible()
-            reminderSwitch.isChecked = true
-        }
-
-        if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
-            mCalendar.timeInMillis = mDate
-        }
-        // If the user specified only the date (without time), then the notification of the event will appear in an hour.
-        if (mTimeEditText.length() == 0) {
-            mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1)
-        }
+//        if (mDate != 0L) {
+//            mDateEditText.setText(DateAndTimeFormatter.getDate(mDate))
+//            mTimeEditText.setText(DateAndTimeFormatter.getTime(mDate))
+//        }
+//
+//        if (mDate == 0L) {
+//            reminderContainer.invisible()
+//            reminderSwitch.isChecked = false
+//            mDateEditText.text = null
+//            mTimeEditText.text = null
+//        } else {
+//            reminderContainer.visible()
+//            reminderSwitch.isChecked = true
+//        }
+//
+//        if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
+//            mCalendar.timeInMillis = mDate
+//        }
+//        // If the user specified only the date (without time), then the notification of the event will appear in an hour.
+//        if (mTimeEditText.length() == 0) {
+//            mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1)
+//        }
 
         addTaskButton.text = getString(R.string.update_task)
         addTaskButton.setOnClickListener {
@@ -74,13 +74,13 @@ class EditTaskActivity : BaseTaskActivity() {
                 else -> {
                     val task = Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp)
 
-                    if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
-                        task.date = mCalendar.timeInMillis
-                    }
+//                    if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
+//                        task.date = mCalendar.timeInMillis
+//                    }
 
-                    if (!reminderSwitch.isChecked || mDateEditText.length() == 0 && mTimeEditText.length() == 0) {
-                        task.date = 0
-                    }
+//                    if (!reminderSwitch.isChecked || mDateEditText.length() == 0 && mTimeEditText.length() == 0) {
+//                        task.date = 0
+//                    }
 
                     if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
                         task.date = 0

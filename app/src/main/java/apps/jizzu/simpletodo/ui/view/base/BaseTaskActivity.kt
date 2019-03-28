@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -19,6 +20,7 @@ import android.widget.EditText
 import android.widget.TimePicker
 import androidx.core.content.ContextCompat
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.ui.view.TaskDescriptionActivity
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.invisible
@@ -33,8 +35,8 @@ import java.util.*
 
 abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     val mTitleEditText: EditText by bindView(R.id.taskTitle)
-    val mDateEditText: EditText by bindView(R.id.taskDate)
-    val mTimeEditText: EditText by bindView(R.id.taskTime)
+//    val mDateEditText: EditText by bindView(R.id.taskDate)
+//    val mTimeEditText: EditText by bindView(R.id.taskTime)
     lateinit var mCalendar: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +45,16 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
         setContentView(R.layout.activity_task_details)
         mCalendar = Calendar.getInstance()
         checkScreenResolution()
+        initTheme()
         showKeyboard()
         initListeners()
-        initStatusBar()
+    }
+
+    private fun initTheme() {
+        when (this.dressCodeStyleId) {
+            R.style.AppTheme_Light -> taskTitle.setHintTextColor(ContextCompat.getColor(this, R.color.black))
+            R.style.AppTheme_Dark -> taskTitle.setHintTextColor(ContextCompat.getColor(this, R.color.white))
+        }
     }
 
     private fun checkScreenResolution() {
@@ -54,87 +63,94 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
         val width = displayMetrics.widthPixels
         val height = displayMetrics.heightPixels
 
-        if (width <= 480 || height <= 800) {
-            if (Locale.getDefault().displayLanguage == RU) toolbarTitle.textSize = 18f
-            tvSetReminder.setText(R.string.set_reminder_short)
-            taskDateLayout.layoutParams.width = 150
-            taskTimeLayout.layoutParams.width = 150
-        }
+//        if (width <= 480 || height <= 800) {
+//            if (Locale.getDefault().displayLanguage == RU) toolbarTitle.textSize = 18f
+//            tvSetReminder.setText(R.string.set_reminder_short)
+//            taskDateLayout.layoutParams.width = 150
+//            taskTimeLayout.layoutParams.width = 150
+//        }
     }
 
     private fun initListeners() {
-        reminderSwitch.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
-        reminderSwitch.setOnClickListener {
-            if (reminderSwitch.isChecked) {
-                hideKeyboard(mTitleEditText)
-                reminderContainer.animate().alpha(1.0f).setDuration(500).setListener(
-                        object : Animator.AnimatorListener {
-                            override fun onAnimationStart(animation: Animator) {
-                                reminderContainer.visible()
+//        reminderSwitch.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
+//        reminderSwitch.setOnClickListener {
+//            if (reminderSwitch.isChecked) {
+//                hideKeyboard(mTitleEditText)
+//                reminderContainer.animate().alpha(1.0f).setDuration(500).setListener(
+//                        object : Animator.AnimatorListener {
+//                            override fun onAnimationStart(animation: Animator) {
+//                                reminderContainer.visible()
+//
+//                            }
+//
+//                            override fun onAnimationEnd(animation: Animator) {}
+//
+//                            override fun onAnimationCancel(animation: Animator) {}
+//
+//                            override fun onAnimationRepeat(animation: Animator) {}
+//                        }
+//                )
+//            } else {
+//                reminderContainer.animate().alpha(0.0f).setDuration(500).setListener(
+//                        object : Animator.AnimatorListener {
+//                            override fun onAnimationStart(animation: Animator) {
+//
+//                            }
+//
+//                            override fun onAnimationEnd(animation: Animator) {
+//                                reminderContainer.invisible()
+//                            }
+//
+//                            override fun onAnimationCancel(animation: Animator) {
+//
+//                            }
+//
+//                            override fun onAnimationRepeat(animation: Animator) {
+//
+//                            }
+//                        }
+//                )
+//                mDateEditText.text = null
+//                mTimeEditText.text = null
+//            }
+//        }
+//
+//        mTitleEditText.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+//
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {
+//                if (mTitleEditText.length() != 0) {
+//                    taskTitleLayout.error = null
+//                }
+//            }
+//        })
+//
+//        mDateEditText.setOnClickListener {
+//            hideKeyboard(mTitleEditText)
+//            mDateEditText.text = null
+//            showDatePickerDialog()
+//        }
+//
+//        mTimeEditText.setOnClickListener {
+//            hideKeyboard(mTitleEditText)
+//            mTimeEditText.text = null
+//            showTimePickerDialog()
+//        }
 
-                            }
-
-                            override fun onAnimationEnd(animation: Animator) {}
-
-                            override fun onAnimationCancel(animation: Animator) {}
-
-                            override fun onAnimationRepeat(animation: Animator) {}
-                        }
-                )
-            } else {
-                reminderContainer.animate().alpha(0.0f).setDuration(500).setListener(
-                        object : Animator.AnimatorListener {
-                            override fun onAnimationStart(animation: Animator) {
-
-                            }
-
-                            override fun onAnimationEnd(animation: Animator) {
-                                reminderContainer.invisible()
-                            }
-
-                            override fun onAnimationCancel(animation: Animator) {
-
-                            }
-
-                            override fun onAnimationRepeat(animation: Animator) {
-
-                            }
-                        }
-                )
-                mDateEditText.text = null
-                mTimeEditText.text = null
-            }
-        }
-
-        mTitleEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                if (mTitleEditText.length() != 0) {
-                    taskTitleLayout.error = null
-                }
-            }
-        })
-
-        mDateEditText.setOnClickListener {
+        //taskDescription.movementMethod = null
+        taskDescription.setOnClickListener {
             hideKeyboard(mTitleEditText)
-            mDateEditText.text = null
-            showDatePickerDialog()
+            startActivityForResult(Intent(this, TaskDescriptionActivity::class.java).putExtra("note",
+                    taskDescription.text.toString()), 1)
         }
-
-        mTimeEditText.setOnClickListener {
-            hideKeyboard(mTitleEditText)
-            mTimeEditText.text = null
-            showTimePickerDialog()
-        }
-
         container.setOnClickListener { hideKeyboard(mTitleEditText) }
+        taskReminder.setOnClickListener { showDatePickerDialog() }
     }
 
     private fun showDatePickerDialog() {
@@ -167,21 +183,8 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
         val minute = calendar.get(Calendar.MINUTE) + 1
 
         when (timeFormatKey) {
-            0 -> {
-                val timePickerStyle = when (dressCodeStyleId) {
-                    R.style.AppTheme_Light -> R.style.TimePicker_Light
-                    else -> R.style.TimePicker_Dark
-                }
-                timePickerDialog = TimePickerDialog(this, timePickerStyle, this, hour, minute, true)
-            }
-
-            1 -> {
-                val timePickerStyle = when (dressCodeStyleId) {
-                    R.style.AppTheme_Light -> R.style.TimePicker_Light
-                    else -> R.style.TimePicker_Dark
-                }
-                timePickerDialog = TimePickerDialog(this, timePickerStyle, this, hour, minute, false)
-            }
+            0 -> timePickerDialog = TimePickerDialog(this, this, hour, minute, true)
+            1 -> timePickerDialog = TimePickerDialog(this, this, hour, minute, false)
         }
         timePickerDialog.apply {
             window?.attributes?.windowAnimations = R.style.DialogAnimation
@@ -224,7 +227,8 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
             set(Calendar.MONTH, monthOfYear)
             set(Calendar.DAY_OF_MONTH, dayOfMonth)
         }
-        mDateEditText.setText(DateAndTimeFormatter.getDate(mCalendar.timeInMillis))
+        showTimePickerDialog()
+        //mDateEditText.setText(DateAndTimeFormatter.getDate(mCalendar.timeInMillis))
     }
 
     override fun onTimeSet(timePicker: TimePicker, hourOfDay: Int, minute: Int) {
@@ -233,7 +237,13 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
             set(Calendar.MINUTE, minute)
             set(Calendar.SECOND, 0)
         }
-        mTimeEditText.setText(DateAndTimeFormatter.getTime(mCalendar.timeInMillis))
+        //mTimeEditText.setText(DateAndTimeFormatter.getTime(mCalendar.timeInMillis))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == RESULT_OK) {
+            taskDescription.text = data?.getStringExtra("note")
+        }
     }
 
     private companion object {

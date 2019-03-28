@@ -13,6 +13,11 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    override fun onResume() {
+        super.onResume()
+        initStatusBar()
+    }
+
     fun initToolbar(titleText: String, drawable: Int? = R.drawable.round_close_black_24, view: Toolbar? = toolbar) {
         title = ""
         toolbarTitle.text = titleText
@@ -36,7 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun initStatusBar() {
+    private fun initStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             when(dressCodeStyleId) {
                 R.style.AppTheme_Light -> {
