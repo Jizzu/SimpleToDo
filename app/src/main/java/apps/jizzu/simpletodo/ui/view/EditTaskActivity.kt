@@ -10,7 +10,6 @@ import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.dialogs.DeleteTaskDialogFragment
 import apps.jizzu.simpletodo.ui.view.base.BaseTaskActivity
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
-import apps.jizzu.simpletodo.utils.invisible
 import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.EditTaskViewModel
@@ -43,28 +42,16 @@ class EditTaskActivity : BaseTaskActivity() {
 
         mTitleEditText.setText(title)
         mTitleEditText.setSelection(mTitleEditText.text!!.length)
-//        if (mDate != 0L) {
-//            mDateEditText.setText(DateAndTimeFormatter.getDate(mDate))
-//            mTimeEditText.setText(DateAndTimeFormatter.getTime(mDate))
-//        }
-//
-//        if (mDate == 0L) {
-//            reminderContainer.invisible()
-//            reminderSwitch.isChecked = false
-//            mDateEditText.text = null
-//            mTimeEditText.text = null
-//        } else {
-//            reminderContainer.visible()
-//            reminderSwitch.isChecked = true
-//        }
-//
-//        if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
-//            mCalendar.timeInMillis = mDate
-//        }
-//        // If the user specified only the date (without time), then the notification of the event will appear in an hour.
-//        if (mTimeEditText.length() == 0) {
-//            mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1)
-//        }
+
+        if (mDate != 0L) {
+            taskReminder.text = getString(R.string.date_format_at, DateAndTimeFormatter.getDate(mDate),
+                    DateAndTimeFormatter.getTime(mDate))
+            buttonDeleteReminder.visible()
+        }
+
+        if (taskReminder.length() != 0) {
+            mCalendar.timeInMillis = mDate
+        }
 
         addTaskButton.text = getString(R.string.update_task)
         addTaskButton.setOnClickListener {
@@ -74,13 +61,9 @@ class EditTaskActivity : BaseTaskActivity() {
                 else -> {
                     val task = Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp)
 
-//                    if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
-//                        task.date = mCalendar.timeInMillis
-//                    }
-
-//                    if (!reminderSwitch.isChecked || mDateEditText.length() == 0 && mTimeEditText.length() == 0) {
-//                        task.date = 0
-//                    }
+                    if (taskReminder.length() != 0) {
+                        task.date = mCalendar.timeInMillis
+                    }
 
                     if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
                         task.date = 0

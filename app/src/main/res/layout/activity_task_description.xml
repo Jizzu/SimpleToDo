@@ -37,7 +37,7 @@
                 android:maxLength="500"
                 android:minHeight="48dp"
                 android:textColor="?android:attr/android:textColorPrimary"
-                android:textColorHint="@color/dullGray"
+                android:textColorHint="@color/dullGrey"
                 android:textSize="19sp" />
         </com.google.android.material.textfield.TextInputLayout>
     </ScrollView>
