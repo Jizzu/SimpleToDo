@@ -19,11 +19,8 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 ## FAQ:
 If you have any questions — welcome to the [FAQs page](FAQs.md)!
 
-## Next update changes (v1.6):
-- [x] Continue redesign (BottomAppBar, rounded dialogs)
-- [x] Add adaptive icon
-- [x] Add dark theme
-- [x] Add shortcuts
+## Next update changes (v1.7):
+- [ ] Add task description field
 
 ## Download links:
 <a href='https://play.google.com/store/apps/details?
