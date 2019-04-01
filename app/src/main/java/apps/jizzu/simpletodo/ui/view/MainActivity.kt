@@ -1,7 +1,6 @@
 package apps.jizzu.simpletodo.ui.view
 
 import android.animation.TimeInterpolator
-import android.animation.ValueAnimator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -295,18 +294,6 @@ class MainActivity : BaseActivity() {
 
     private fun animateToolbar(translationValue: Float, interpolator: TimeInterpolator) {
         toolbar.animate().translationY(translationValue).interpolator = interpolator
-    }
-
-    private fun setToolbarShadow(start: Float, end: Float) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ValueAnimator.ofFloat(start, end).apply {
-                addUpdateListener { updatedAnimation ->
-                    toolbar.elevation = updatedAnimation.animatedValue as Float
-                }
-                duration = 500
-                start()
-            }
-        }
     }
 
     fun showTaskDetailsActivity(task: Task) {

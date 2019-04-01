@@ -1,5 +1,6 @@
 package apps.jizzu.simpletodo.ui.view.base
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -55,6 +56,18 @@ abstract class BaseActivity : AppCompatActivity() {
                 }
                 R.style.AppTheme_Dark -> ContextCompat.getColor(this, R.color.deepBlueGrey)
                 R.style.AppTheme_Black -> ContextCompat.getColor(this, R.color.black)
+            }
+        }
+    }
+
+    fun setToolbarShadow(start: Float, end: Float) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ValueAnimator.ofFloat(start, end).apply {
+                addUpdateListener { updatedAnimation ->
+                    toolbar.elevation = updatedAnimation.animatedValue as Float
+                }
+                duration = 500
+                start()
             }
         }
     }

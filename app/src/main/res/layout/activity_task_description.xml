@@ -9,6 +9,7 @@
     <include layout="@layout/toolbar" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
@@ -20,16 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hintAnimationEnabled="false"
+            android:padding="16dp"
             app:hintEnabled="false">
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/taskNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="26dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
                 android:background="@null"
                 android:gravity="top|start"
                 android:hint="Add a note"
