@@ -63,18 +63,18 @@ class EditTaskActivity : BaseTaskActivity() {
 
                     if (taskReminder.length() != 0) {
                         task.date = mCalendar.timeInMillis
-                    }
+                    } else task.date = 0L
 
                     if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
                         task.date = 0
                         toast(getString(R.string.toast_incorrect_time))
                     } else if (task.date != 0L) {
-                        val alarmHelper = AlarmHelper.getInstance()
-                        alarmHelper.setAlarm(task)
+                        AlarmHelper.getInstance().setAlarm(task)
                     } else if (task.date == 0L) {
-                        val alarmHelper = AlarmHelper.getInstance()
-                        alarmHelper.removeAlarm(task.timeStamp)
-                        alarmHelper.removeNotification(task.timeStamp, this)
+                        AlarmHelper.getInstance().apply {
+                            removeAlarm(task.timeStamp)
+                            removeNotification(task.timeStamp, this@EditTaskActivity)
+                        }
                     }
                     mViewModel.updateTask(task)
                     finish()
