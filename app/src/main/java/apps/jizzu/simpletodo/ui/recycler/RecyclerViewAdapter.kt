@@ -6,6 +6,7 @@ import android.text.format.DateUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -51,10 +52,11 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
         val title = v.findViewById<TextView>(R.id.tvTaskTitle)
+        val note = v.findViewById<ImageView>(R.id.ivTaskNote)
         val date = v.findViewById<TextView>(R.id.tvTaskDate)
         mContext = parent.context
 
-        return TaskViewHolder(v, title, date)
+        return TaskViewHolder(v, title, note, date)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
@@ -65,6 +67,10 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
 
         holder.itemView.isEnabled = true
         holder.title.text = task.title
+
+        if (!task.note.isEmpty()) {
+            holder.note.visible()
+        } else holder.note.gone()
 
         if (task.date != 0L) {
             holder.title.setPadding(0, 0, 0, 0)
@@ -131,7 +137,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
         fun onTaskClick(v: View, position: Int)
     }
 
-    inner class TaskViewHolder internal constructor(itemView: View, internal var title: TextView, internal var date: TextView) : RecyclerView.ViewHolder(itemView)
+    inner class TaskViewHolder internal constructor(itemView: View, internal var title: TextView, internal var note: ImageView, internal var date: TextView) : RecyclerView.ViewHolder(itemView)
 
     companion object {
         private var clickListener: ClickListener? = null
