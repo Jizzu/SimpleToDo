@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:focusableInTouchMode="false"
-                    android:hint="Add a note"
+                    android:hint="@string/hint_note"
                     android:maxLines="7"
                     android:textColor="?android:attr/android:textColorPrimary"
                     android:textColorHint="@color/dullGrey"
@@ -115,7 +115,7 @@
                         android:layout_toStartOf="@id/buttonDeleteReminder"
                         android:layout_toEndOf="@id/iconReminder"
                         android:focusableInTouchMode="false"
-                        android:hint="Reminder"
+                        android:hint="@string/hint_reminder"
                         android:textColor="?android:attr/android:textColorPrimary"
                         android:textColorHint="@color/dullGrey"
                         android:textSize="19sp" />

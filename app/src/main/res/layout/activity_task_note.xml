@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:gravity="top|start"
-                android:hint="Add a note"
+                android:hint="@string/hint_note"
                 android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
                 android:maxLength="500"
                 android:minHeight="48dp"
