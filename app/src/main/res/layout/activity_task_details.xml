@@ -44,7 +44,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/taskDescriptionLayout"
+                android:id="@+id/taskNoteLayout"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 card_view:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/taskDescription"
+                    android:id="@+id/taskNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -78,7 +78,7 @@
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskDescriptionLayout"
+                android:layout_below="@id/taskNoteLayout"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="22dp"
                 android:layout_marginRight="20dp"
@@ -94,7 +94,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/taskDescriptionLayout">
+                    android:layout_below="@id/taskNoteLayout">
 
                     <ImageView
                         android:id="@+id/iconReminder"
@@ -144,7 +144,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_gradient_backgound"
+        android:background="@drawable/button_gradient_background"
         android:text="@string/add_task"
         android:textColor="@color/white"
         android:textSize="16sp"

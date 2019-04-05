@@ -39,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_gradient_backgound"
+        android:background="@drawable/button_gradient_background"
         android:text="@string/whats_new_button_text"
         android:textColor="@color/white"
         android:textSize="16sp"

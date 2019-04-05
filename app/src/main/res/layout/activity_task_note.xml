@@ -20,8 +20,8 @@
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintAnimationEnabled="false"
             android:padding="16dp"
+            app:hintAnimationEnabled="false"
             app:hintEnabled="false">
 
             <androidx.appcompat.widget.AppCompatEditText

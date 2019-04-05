@@ -14,7 +14,7 @@ import android.widget.EditText
 import android.widget.TimePicker
 import androidx.core.content.ContextCompat
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.ui.view.TaskDescriptionActivity
+import apps.jizzu.simpletodo.ui.view.TaskNoteActivity
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
@@ -55,10 +55,10 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
             }
         })
 
-        taskDescription.setOnClickListener {
+        taskNote.setOnClickListener {
             hideKeyboard(mTitleEditText)
-            startActivityForResult(Intent(this, TaskDescriptionActivity::class.java).putExtra("note",
-                    taskDescription.text.toString()), 1)
+            startActivityForResult(Intent(this, TaskNoteActivity::class.java).putExtra("note",
+                    taskNote.text.toString()), 1)
         }
         taskReminder.setOnClickListener {
             hideKeyboard(mTitleEditText)
@@ -152,7 +152,7 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK) {
-            taskDescription.text = data?.getStringExtra("note")
+            taskNote.text = data?.getStringExtra("note")
         }
     }
 }

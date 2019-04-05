@@ -35,8 +35,8 @@ class AddTaskActivity : BaseTaskActivity() {
                         this.position = position
                     }
 
-                    if (taskDescription.length() != 0) {
-                        task.note = taskDescription.text.toString()
+                    if (taskNote.length() != 0) {
+                        task.note = taskNote.text.toString()
                     }
 
                     if (taskReminder.length() != 0) {

@@ -10,14 +10,14 @@ import androidx.core.content.ContextCompat
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import daio.io.dresscode.matchDressCode
-import kotlinx.android.synthetic.main.activity_task_description.*
+import kotlinx.android.synthetic.main.activity_task_note.*
 
-class TaskDescriptionActivity : BaseActivity() {
+class TaskNoteActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         matchDressCode()
-        setContentView(R.layout.activity_task_description)
+        setContentView(R.layout.activity_task_note)
         initToolbar("N O T E", R.drawable.round_arrow_back_black_24)
         initScrollViewListener(scrollView)
         restoreData()
@@ -44,7 +44,7 @@ class TaskDescriptionActivity : BaseActivity() {
 
         menu.getItem(0).icon.apply {
             mutate()
-            setColorFilter(ContextCompat.getColor(this@TaskDescriptionActivity, R.color.blue),
+            setColorFilter(ContextCompat.getColor(this@TaskNoteActivity, R.color.blue),
                     PorterDuff.Mode.SRC_IN)
         }
         return true
