@@ -69,6 +69,7 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
             buttonDeleteReminder.gone()
         }
         container.setOnClickListener { hideKeyboard(mTitleEditText) }
+        initScrollViewListener(scrollView)
     }
 
     private fun showDatePickerDialog() {

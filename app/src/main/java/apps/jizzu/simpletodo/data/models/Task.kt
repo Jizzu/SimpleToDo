@@ -19,6 +19,9 @@ class Task : Serializable {
     @ColumnInfo(name = "task_title")
     var title: String = ""
 
+    @ColumnInfo(name = "task_note")
+    var note: String = ""
+
     @ColumnInfo(name = "task_date")
     @NonNull
     var date: Long = 0
@@ -36,9 +39,10 @@ class Task : Serializable {
         this.timeStamp = Date().time
     }
 
-    constructor(id: Long, title: String, date: Long, position: Int, timeStamp: Long) {
+    constructor(id: Long, title: String, note: String, date: Long, position: Int, timeStamp: Long) {
         this.id = id
         this.title = title
+        this.note = note
         this.date = date
         this.position = position
         this.timeStamp = timeStamp

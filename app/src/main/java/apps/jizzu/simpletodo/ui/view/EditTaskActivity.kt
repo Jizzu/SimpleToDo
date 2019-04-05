@@ -22,10 +22,14 @@ class EditTaskActivity : BaseTaskActivity() {
     private var mDate: Long = 0
     private var mPosition: Int = 0
     private var mTimeStamp: Long = 0
+    private lateinit var mTitle: String
+    private lateinit var mNote: String
     private lateinit var mViewModel: EditTaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        taskDescription.maxLines = 7
 
         initToolbar(getString(R.string.edit_task))
         if (Locale.getDefault().displayLanguage == "français") {
@@ -35,13 +39,17 @@ class EditTaskActivity : BaseTaskActivity() {
 
         // Get Intent data
         mId = intent.getLongExtra("id", 0)
-        val title = intent.getStringExtra("title")
+        mTitle = intent.getStringExtra("title")
+        mNote = intent.getStringExtra("note")
         mDate = intent.getLongExtra("date", 0)
         mPosition = intent.getIntExtra("position", 0)
         mTimeStamp = intent.getLongExtra("time_stamp", 0)
 
-        mTitleEditText.setText(title)
-        mTitleEditText.setSelection(mTitleEditText.text!!.length)
+        mTitleEditText.setText(mTitle)
+
+        if (!mNote.isEmpty()) {
+            taskDescription.text = mNote
+        }
 
         if (mDate != 0L) {
             taskReminder.text = getString(R.string.date_format_at, DateAndTimeFormatter.getDate(mDate),
@@ -59,7 +67,7 @@ class EditTaskActivity : BaseTaskActivity() {
                 mTitleEditText.length() == 0 -> taskTitleLayout.error = getString(R.string.error_text_input)
                 mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> taskTitleLayout.error = getString(R.string.error_spaces)
                 else -> {
-                    val task = Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp)
+                    val task = Task(mId, mTitleEditText.text.toString(), taskDescription.text.toString(), mDate, mPosition, mTimeStamp)
 
                     if (taskReminder.length() != 0) {
                         task.date = mCalendar.timeInMillis
@@ -103,8 +111,7 @@ class EditTaskActivity : BaseTaskActivity() {
 
             R.id.action_delete -> {
                 hideKeyboard(mTitleEditText)
-                showDeleteTaskDialog(Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp))
-
+                showDeleteTaskDialog(Task(mId, mTitle, mNote, mDate, mPosition, mTimeStamp))
             }
         }
         return super.onOptionsItemSelected(item)

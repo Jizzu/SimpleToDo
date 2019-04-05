@@ -19,22 +19,8 @@ class TaskDescriptionActivity : BaseActivity() {
         matchDressCode()
         setContentView(R.layout.activity_task_description)
         initToolbar("N O T E", R.drawable.round_arrow_back_black_24)
-        initListeners()
+        initScrollViewListener(scrollView)
         restoreData()
-    }
-
-    private fun initListeners() {
-        var isShadowShown = false
-
-        scrollView.viewTreeObserver.addOnScrollChangedListener {
-            if (scrollView.scrollY > 0 && !isShadowShown) {
-                setToolbarShadow(0f, 10f)
-                isShadowShown = true
-            } else if (scrollView.scrollY == 0 && isShadowShown) {
-                setToolbarShadow(10f, 0f)
-                isShadowShown = false
-            }
-        }
     }
 
     private fun restoreData() {

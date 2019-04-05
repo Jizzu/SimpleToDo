@@ -30,9 +30,14 @@ class AddTaskActivity : BaseTaskActivity() {
                 mTitleEditText.length() == 0 -> taskTitleLayout.error = getString(R.string.error_text_input)
                 mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> taskTitleLayout.error = getString(R.string.error_spaces)
                 else -> {
-                    val task = Task()
-                    task.title = mTitleEditText.text.toString()
-                    task.position = position
+                    val task = Task().apply {
+                        title = mTitleEditText.text.toString()
+                        this.position = position
+                    }
+
+                    if (taskDescription.length() != 0) {
+                        task.note = taskDescription.text.toString()
+                    }
 
                     if (taskReminder.length() != 0) {
                         task.date = mCalendar.timeInMillis

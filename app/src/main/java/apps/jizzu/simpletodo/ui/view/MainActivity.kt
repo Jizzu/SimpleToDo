@@ -301,6 +301,7 @@ class MainActivity : BaseActivity() {
 
         intent.putExtra("id", task.id)
         intent.putExtra("title", task.title)
+        intent.putExtra("note", task.note)
         intent.putExtra("position", task.position)
         intent.putExtra("time_stamp", task.timeStamp)
 

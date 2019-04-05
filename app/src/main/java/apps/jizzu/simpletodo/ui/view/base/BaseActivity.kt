@@ -8,6 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -68,6 +69,20 @@ abstract class BaseActivity : AppCompatActivity() {
                 }
                 duration = 500
                 start()
+            }
+        }
+    }
+
+    fun initScrollViewListener(scrollView: ScrollView) {
+        var isShadowShown = false
+
+        scrollView.viewTreeObserver.addOnScrollChangedListener {
+            if (scrollView.scrollY > 0 && !isShadowShown) {
+                setToolbarShadow(0f, 10f)
+                isShadowShown = true
+            } else if (scrollView.scrollY == 0 && isShadowShown) {
+                setToolbarShadow(10f, 0f)
+                isShadowShown = false
             }
         }
     }
