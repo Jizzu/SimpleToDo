@@ -142,6 +142,11 @@
         <item name="closeIcon">@drawable/round_close_black_24</item>
     </style>
 
+    <style name="IconTintGrey">
+        <item name="tint">@color/dullGrey</item>
+        <item name="iconTint">@color/dullGrey</item>
+    </style>
+
     <style name="AlertDialogStyle.Light" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColorPrimary">@color/black</item>
         <item name="textColorAlertDialogListItem">@color/black</item>

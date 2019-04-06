@@ -11,6 +11,8 @@
     <string name="add_task">С О З Д А Т Ь</string>
     <string name="update_task">О Б Н О В И Т Ь</string>
     <string name="edit_task">Р Е Д А К Т И Р О В А Т Ь</string>
+    <string name="task_note">З А М Е Т К А</string>
+
     <string name="toast_incorrect_time">Ошибка! Вы выбрали неправильное время!</string>
     <string name="error_text_input">Пожалуйста, введите заголовок!</string>
     <string name="error_spaces">Пожалуйста, введите корректный заголовок!</string>

@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
@@ -45,13 +44,13 @@
 
         <ImageView
             android:id="@+id/ivTaskNote"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            style="@style/IconTintGrey"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/round_arrow_drop_down_black_24"
-            android:tint="@color/dullGrey"
+            android:src="@drawable/round_notes_black_24"
             android:visibility="gone" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

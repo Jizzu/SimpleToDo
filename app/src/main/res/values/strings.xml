@@ -12,6 +12,7 @@
     <string name="add_task">A D D</string>
     <string name="update_task">U P D A T E</string>
     <string name="edit_task">E D I T \u0020\u0020 T A S K</string>
+    <string name="task_note">N O T E</string>
 
     <string name="toast_incorrect_time">Error! You have selected an incorrect time!</string>
     <string name="error_text_input">Please, enter a title!</string>
