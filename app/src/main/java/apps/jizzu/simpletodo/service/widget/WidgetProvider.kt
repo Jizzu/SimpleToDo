@@ -41,6 +41,7 @@ class WidgetProvider : AppWidgetProvider() {
 
         val itemID = intent.getLongExtra(ITEM_ID, 0)
         val itemTitle = intent.getStringExtra(ITEM_TITLE)
+        val itemNote = intent.getStringExtra(ITEM_NOTE)
         val itemPosition = intent.getIntExtra(ITEM_POSITION, -1)
         val itemTimeStamp = intent.getLongExtra(ITEM_TIME_STAMP, 0)
         val itemDate = intent.getLongExtra(ITEM_DATE, 0)
@@ -53,6 +54,7 @@ class WidgetProvider : AppWidgetProvider() {
             val editTaskActivity = Intent(context, EditTaskActivity::class.java)
                     .putExtra(ITEM_ID, itemID)
                     .putExtra(ITEM_TITLE, itemTitle)
+                    .putExtra(ITEM_NOTE, itemNote)
                     .putExtra(ITEM_POSITION, itemPosition)
                     .putExtra(ITEM_TIME_STAMP, itemTimeStamp)
                     .putExtra(ITEM_DATE, itemDate)
@@ -64,6 +66,7 @@ class WidgetProvider : AppWidgetProvider() {
     companion object {
         internal const val ITEM_ID = "id"
         internal const val ITEM_TITLE = "title"
+        internal const val ITEM_NOTE = "note"
         internal const val ITEM_POSITION = "position"
         internal const val ITEM_TIME_STAMP = "time_stamp"
         internal const val ITEM_DATE = "date"

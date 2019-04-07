@@ -34,6 +34,11 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
         val remoteViews = RemoteViews(mContext.packageName, R.layout.widget_task_item)
         remoteViews.setTextViewText(R.id.item_title, mWidgetData[position].title)
 
+        if (!mWidgetData[position].note.isEmpty()) {
+            remoteViews.setViewVisibility(R.id.item_note_icon, View.VISIBLE)
+        } else remoteViews.setViewVisibility(R.id.item_note_icon, View.GONE)
+
+
         if (mWidgetData[position].date != 0L) {
             remoteViews.apply {
                 setViewPadding(R.id.item_title, 0, 0, 0, 0)
@@ -101,6 +106,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
         val fillInIntent = Intent()
             .putExtra(WidgetProvider.ITEM_ID, mWidgetData[position].id)
             .putExtra(WidgetProvider.ITEM_TITLE, mWidgetData[position].title)
+            .putExtra(WidgetProvider.ITEM_NOTE, mWidgetData[position].note)
             .putExtra(WidgetProvider.ITEM_POSITION, position)
             .putExtra(WidgetProvider.ITEM_TIME_STAMP, mWidgetData[position].timeStamp)
 
