@@ -16,7 +16,6 @@ class ChangelogActivity : BaseActivity() {
         matchDressCode()
         setContentView(R.layout.activity_changelog)
         initToolbar(getString(R.string.whats_new_title))
-        initStatusBar()
         confirmButton.setOnClickListener { onBackPressed() }
     }
 

@@ -6,14 +6,13 @@
     <string name="search_view_empty_text">Search to find particular tasks</string>
     <string name="search_view_not_found_text">No tasks found :(</string>
     <string name="create_task">N E W \u0020\u0020 T A S K</string>
-    <string name="set_reminder">Set reminder</string>
-    <string name="set_reminder_short">Reminder</string>
+    <string name="hint_reminder">Reminder</string>
     <string name="hint_title">Title</string>
-    <string name="hint_date">Date</string>
-    <string name="hint_time">Time</string>
+    <string name="hint_note">Add a note</string>
     <string name="add_task">A D D</string>
     <string name="update_task">U P D A T E</string>
     <string name="edit_task">E D I T \u0020\u0020 T A S K</string>
+    <string name="task_note">N O T E</string>
 
     <string name="toast_incorrect_time">Error! You have selected an incorrect time!</string>
     <string name="error_text_input">Please, enter a title!</string>
@@ -82,6 +81,7 @@
     <string name="snackbar_undo">Undo</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
     <string name="dialog_title"><b>Are you sure?</b></string>
     <string name="dialog_message">Deleted task cannot be restored</string>
 
@@ -117,8 +117,8 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">W H A T \' S \u0020\u0020 N E W ?</string>
     <string name="whats_new_button_text">Okay</string>
-    <string name="whats_new_item_1_text">Bug fixes</string>
-    <string name="whats_new_item_2_text">Added French translation</string>
+    <string name="whats_new_item_1_text">Added task note field</string>
+    <string name="whats_new_item_2_text">Minor UI improvements</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Rate this app</string>

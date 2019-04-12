@@ -15,6 +15,7 @@
         android:layout_above="@id/featureTwo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="@string/whats_new_item_1_text"
         android:textColor="?android:attr/android:textColorPrimary"
         android:textSize="20sp" />
@@ -26,6 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="@string/whats_new_item_2_text"
         android:textColor="?android:attr/android:textColorPrimary"
         android:textSize="20sp" />
@@ -37,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_gradient_backgound"
+        android:background="@drawable/button_gradient_background"
         android:text="@string/whats_new_button_text"
         android:textColor="@color/white"
         android:textSize="16sp"

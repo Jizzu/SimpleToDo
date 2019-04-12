@@ -6,14 +6,13 @@
     <string name="search_view_empty_text">Rechercher des tâches particulières</string>
     <string name="search_view_not_found_text">Aucune tâche trouvée :(</string>
     <string name="create_task">N O U V E L L E \u0020\u0020 T Â C H E</string>
-    <string name="set_reminder">Définir un rappel</string>
-    <string name="set_reminder_short">Rappel</string>
+    <string name="hint_reminder">Rappel</string>
     <string name="hint_title">Titre</string>
-    <string name="hint_date">Date</string>
-    <string name="hint_time">Heure</string>
+    <string name="hint_note">Ajouter une note</string>
     <string name="add_task">A J O U T E R</string>
     <string name="update_task">M I S E \u0020\u0020 À \u0020\u0020 J O U R</string>
     <string name="edit_task">M O D I F I E R \u0020\u0020 L A \u0020\u0020 T Â C H E</string>
+    <string name="task_note">N O T E</string>
 
     <string name="toast_incorrect_time">Erreur ! Vous avez sélectionné un temps incorrect !</string>
     <string name="error_text_input">S\'il vous plaît, entrez un titre !</string>
@@ -73,6 +72,7 @@
     <string name="snackbar_undo">Annuler</string>
     <string name="action_cancel">Annuler</string>
     <string name="action_delete">Supprimer</string>
+    <string name="action_save">Sauvegarder</string>
     <string name="dialog_title"><b>Êtes-vous sûr?</b></string>
     <string name="dialog_message">La tâche supprimée ne peut pas être restaurée</string>
 
@@ -108,8 +108,8 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Q U O I \u0020\u0020 D E \u0020\u0020 N E U F ?</string>
     <string name="whats_new_button_text">Bien!</string>
-    <string name="whats_new_item_1_text">Correction de bugs</string>
-    <string name="whats_new_item_2_text">Ajout de la traduction française</string>
+    <string name="whats_new_item_1_text">Champ ajouté avec une note sur la tâche</string>
+    <string name="whats_new_item_2_text">Améliorations mineures de l\'interface utilisateur</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Noter cette appli</string>

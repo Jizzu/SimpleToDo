@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
@@ -24,6 +23,10 @@
             android:id="@+id/tvTaskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@id/ivTaskNote"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -31,10 +34,22 @@
             android:id="@+id/tvTaskDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_below="@id/tvTaskTitle"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
             android:layout_marginBottom="3dp"
             android:textColor="@color/blue"
             android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/ivTaskNote"
+            style="@style/IconTintGrey"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/round_notes_black_24"
+            android:visibility="gone" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

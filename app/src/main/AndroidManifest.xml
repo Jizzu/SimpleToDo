@@ -31,6 +31,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".ui.view.TaskNoteActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.view.settings.activity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity

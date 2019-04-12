@@ -10,7 +10,6 @@ import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.dialogs.DeleteTaskDialogFragment
 import apps.jizzu.simpletodo.ui.view.base.BaseTaskActivity
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
-import apps.jizzu.simpletodo.utils.invisible
 import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.EditTaskViewModel
@@ -23,6 +22,8 @@ class EditTaskActivity : BaseTaskActivity() {
     private var mDate: Long = 0
     private var mPosition: Int = 0
     private var mTimeStamp: Long = 0
+    private lateinit var mTitle: String
+    private lateinit var mNote: String
     private lateinit var mViewModel: EditTaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,34 +37,26 @@ class EditTaskActivity : BaseTaskActivity() {
 
         // Get Intent data
         mId = intent.getLongExtra("id", 0)
-        val title = intent.getStringExtra("title")
+        mTitle = intent.getStringExtra("title")
+        mNote = intent.getStringExtra("note")
         mDate = intent.getLongExtra("date", 0)
         mPosition = intent.getIntExtra("position", 0)
         mTimeStamp = intent.getLongExtra("time_stamp", 0)
 
-        mTitleEditText.setText(title)
-        mTitleEditText.setSelection(mTitleEditText.text!!.length)
+        mTitleEditText.setText(mTitle)
+
+        if (!mNote.isEmpty()) {
+            taskNote.text = mNote
+        }
+
         if (mDate != 0L) {
-            mDateEditText.setText(DateAndTimeFormatter.getDate(mDate))
-            mTimeEditText.setText(DateAndTimeFormatter.getTime(mDate))
+            taskReminder.text = getString(R.string.date_format_at, DateAndTimeFormatter.getDate(mDate),
+                    DateAndTimeFormatter.getTime(mDate))
+            buttonDeleteReminder.visible()
         }
 
-        if (mDate == 0L) {
-            reminderContainer.invisible()
-            reminderSwitch.isChecked = false
-            mDateEditText.text = null
-            mTimeEditText.text = null
-        } else {
-            reminderContainer.visible()
-            reminderSwitch.isChecked = true
-        }
-
-        if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
+        if (taskReminder.length() != 0) {
             mCalendar.timeInMillis = mDate
-        }
-        // If the user specified only the date (without time), then the notification of the event will appear in an hour.
-        if (mTimeEditText.length() == 0) {
-            mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR_OF_DAY) + 1)
         }
 
         addTaskButton.text = getString(R.string.update_task)
@@ -72,26 +65,22 @@ class EditTaskActivity : BaseTaskActivity() {
                 mTitleEditText.length() == 0 -> taskTitleLayout.error = getString(R.string.error_text_input)
                 mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> taskTitleLayout.error = getString(R.string.error_spaces)
                 else -> {
-                    val task = Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp)
+                    val task = Task(mId, mTitleEditText.text.toString(), taskNote.text.toString(), mDate, mPosition, mTimeStamp)
 
-                    if (mDateEditText.length() != 0 || mTimeEditText.length() != 0) {
+                    if (taskReminder.length() != 0) {
                         task.date = mCalendar.timeInMillis
-                    }
-
-                    if (!reminderSwitch.isChecked || mDateEditText.length() == 0 && mTimeEditText.length() == 0) {
-                        task.date = 0
-                    }
+                    } else task.date = 0L
 
                     if (task.date != 0L && task.date <= Calendar.getInstance().timeInMillis) {
                         task.date = 0
                         toast(getString(R.string.toast_incorrect_time))
                     } else if (task.date != 0L) {
-                        val alarmHelper = AlarmHelper.getInstance()
-                        alarmHelper.setAlarm(task)
+                        AlarmHelper.getInstance().setAlarm(task)
                     } else if (task.date == 0L) {
-                        val alarmHelper = AlarmHelper.getInstance()
-                        alarmHelper.removeAlarm(task.timeStamp)
-                        alarmHelper.removeNotification(task.timeStamp, this)
+                        AlarmHelper.getInstance().apply {
+                            removeAlarm(task.timeStamp)
+                            removeNotification(task.timeStamp, this@EditTaskActivity)
+                        }
                     }
                     mViewModel.updateTask(task)
                     finish()
@@ -120,8 +109,7 @@ class EditTaskActivity : BaseTaskActivity() {
 
             R.id.action_delete -> {
                 hideKeyboard(mTitleEditText)
-                showDeleteTaskDialog(Task(mId, mTitleEditText.text.toString(), mDate, mPosition, mTimeStamp))
-
+                showDeleteTaskDialog(Task(mId, mTitle, mNote, mDate, mPosition, mTimeStamp))
             }
         }
         return super.onOptionsItemSelected(item)

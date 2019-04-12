@@ -5,14 +5,14 @@
     <string name="search_view_empty_text">Введите поисковый запрос</string>
     <string name="search_view_not_found_text">Совпадения не найдены :(</string>
     <string name="create_task">Н О В А Я \u0020\u0020 З А Д А Ч А</string>
-    <string name="set_reminder">Добавить напоминание</string>
-    <string name="set_reminder_short">Напоминание</string>
+    <string name="hint_reminder">Напоминание</string>
     <string name="hint_title">Заголовок</string>
-    <string name="hint_date">Дата</string>
-    <string name="hint_time">Время</string>
+    <string name="hint_note">Добавить заметку</string>
     <string name="add_task">С О З Д А Т Ь</string>
     <string name="update_task">О Б Н О В И Т Ь</string>
     <string name="edit_task">Р Е Д А К Т И Р О В А Т Ь</string>
+    <string name="task_note">З А М Е Т К А</string>
+
     <string name="toast_incorrect_time">Ошибка! Вы выбрали неправильное время!</string>
     <string name="error_text_input">Пожалуйста, введите заголовок!</string>
     <string name="error_spaces">Пожалуйста, введите корректный заголовок!</string>
@@ -71,6 +71,7 @@
     <string name="snackbar_undo">Отмена</string>
     <string name="action_cancel">Отмена</string>
     <string name="action_delete">Удалить</string>
+    <string name="action_save">Сохранить</string>
     <string name="dialog_title"><b>Вы уверены?</b></string>
     <string name="dialog_message">Удалённую задачу нельзя будет восстановить</string>
 
@@ -105,8 +106,8 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Ч Т О \u0020\u0020 Н О В О Г О ?</string>
     <string name="whats_new_button_text">Далее</string>
-    <string name="whats_new_item_1_text">Исправление ошибок</string>
-    <string name="whats_new_item_2_text">Добавлен перевод на французский</string>
+    <string name="whats_new_item_1_text">Добавлено поле с заметкой о задаче</string>
+    <string name="whats_new_item_2_text">Незначительные улучшения интерфейса</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Оцените это приложение</string>

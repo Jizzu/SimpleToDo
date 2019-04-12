@@ -23,7 +23,6 @@ class SettingsActivity : BaseActivity() {
         matchDressCode()
         setContentView(R.layout.activity_settings)
         initToolbar(getString(R.string.settings), R.drawable.round_arrow_back_black_24)
-        initStatusBar()
         openSettingsFragment()
     }
 

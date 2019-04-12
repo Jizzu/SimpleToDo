@@ -1,7 +1,6 @@
 package apps.jizzu.simpletodo.ui.view
 
 import android.animation.TimeInterpolator
-import android.animation.ValueAnimator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -90,7 +89,6 @@ class MainActivity : BaseActivity() {
         initListeners()
         initCallbacks()
         initShortcuts()
-        initStatusBar()
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView() else showTaskList(tasks)
@@ -298,23 +296,12 @@ class MainActivity : BaseActivity() {
         toolbar.animate().translationY(translationValue).interpolator = interpolator
     }
 
-    private fun setToolbarShadow(start: Float, end: Float) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ValueAnimator.ofFloat(start, end).apply {
-                addUpdateListener { updatedAnimation ->
-                    toolbar.elevation = updatedAnimation.animatedValue as Float
-                }
-                duration = 500
-                start()
-            }
-        }
-    }
-
     fun showTaskDetailsActivity(task: Task) {
         val intent = Intent(this, EditTaskActivity::class.java)
 
         intent.putExtra("id", task.id)
         intent.putExtra("title", task.title)
+        intent.putExtra("note", task.note)
         intent.putExtra("position", task.position)
         intent.putExtra("time_stamp", task.timeStamp)
 

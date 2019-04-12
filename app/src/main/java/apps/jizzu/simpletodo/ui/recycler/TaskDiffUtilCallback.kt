@@ -18,7 +18,8 @@ class TaskDiffUtilCallback constructor(private val oldList: List<Task>, private 
         val updatedTask = updatedList[newItemPosition]
         val isTitleTheSame = oldTask.title == updatedTask.title
         val isDateTheSame = oldTask.date == updatedTask.date
+        val isNoteTheSame = oldTask.note == updatedTask.note
 
-        return isTitleTheSame && isDateTheSame
+        return isTitleTheSame && isDateTheSame && isNoteTheSame
     }
 }
