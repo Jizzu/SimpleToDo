@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
@@ -11,7 +10,7 @@
     <include layout="@layout/toolbar" />
 
     <ScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/svTaskDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
@@ -23,7 +22,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/taskTitleLayout"
+                android:id="@+id/tilTaskTitle"
                 style="@style/TextInputLayoutOutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +32,7 @@
                 app:errorEnabled="true">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/taskTitle"
+                    android:id="@+id/tvTaskTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_title"
@@ -44,11 +43,11 @@
 
             <com.google.android.material.card.MaterialCardView
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/taskNoteLayout"
+                android:id="@+id/cvTaskNote"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskTitleLayout"
+                android:layout_below="@id/tilTaskTitle"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="20dp"
@@ -60,7 +59,7 @@
                 card_view:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/taskNote"
+                    android:id="@+id/tvTaskNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -74,11 +73,11 @@
 
             <com.google.android.material.card.MaterialCardView
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/taskReminderLayout"
+                android:id="@+id/cvTaskReminder"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskNoteLayout"
+                android:layout_below="@id/cvTaskNote"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="22dp"
                 android:layout_marginRight="20dp"
@@ -94,10 +93,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/taskNoteLayout">
+                    android:layout_below="@id/cvTaskNote">
 
                     <ImageView
-                        android:id="@+id/iconReminder"
+                        android:id="@+id/ivTaskReminderIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -106,14 +105,14 @@
                         android:src="@drawable/drawable_reminder" />
 
                     <TextView
-                        android:id="@+id/taskReminder"
+                        android:id="@+id/tvTaskReminder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_toStartOf="@id/buttonDeleteReminder"
-                        android:layout_toEndOf="@id/iconReminder"
+                        android:layout_toStartOf="@id/ivDeleteTaskReminder"
+                        android:layout_toEndOf="@id/ivTaskReminderIcon"
                         android:focusableInTouchMode="false"
                         android:hint="@string/hint_reminder"
                         android:textColor="?android:attr/android:textColorPrimary"
@@ -121,7 +120,7 @@
                         android:textSize="19sp" />
 
                     <ImageView
-                        android:id="@+id/buttonDeleteReminder"
+                        android:id="@+id/ivDeleteTaskReminder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -136,7 +135,7 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addTaskButton"
+        android:id="@+id/btnTaskConfirm"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

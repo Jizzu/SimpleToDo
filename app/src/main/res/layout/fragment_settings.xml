@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
@@ -12,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/buttonUI"
+            android:id="@+id/tvUI"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -27,7 +26,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonNotifications"
+            android:id="@+id/tvNotifications"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -42,7 +41,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonDateAndTime"
+            android:id="@+id/tvDateAndTime"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -57,7 +56,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonBackupAndRestore"
+            android:id="@+id/tvBackupAndRestore"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -72,7 +71,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonRate"
+            android:id="@+id/tvRate"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -87,7 +86,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonFeedback"
+            android:id="@+id/tvFeedback"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -102,7 +101,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonOtherApps"
+            android:id="@+id/tvOtherApps"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -117,7 +116,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonGitHub"
+            android:id="@+id/tvGitHub"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -132,7 +131,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonPrivacyPolicy"
+            android:id="@+id/tvPrivacyPolicy"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -147,7 +146,7 @@
             android:textAppearance="?android:attr/android:textAppearance" />
 
         <TextView
-            android:id="@+id/buttonLicenses"
+            android:id="@+id/tvLicenses"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"

@@ -25,10 +25,10 @@ class RestoreBackupDialogFragment : BaseDialogFragment() {
     }
 
     private fun initDialog() {
-        dialogMessage.setText(R.string.backup_restore_dialog_message)
-        buttonConfirm.setText(R.string.backup_restore_dialog_button)
-        buttonConfirm.setOnClickListener { restoreBackup() }
-        buttonCancel.setOnClickListener { dismiss() }
+        tvDialogMessage.setText(R.string.backup_restore_dialog_message)
+        tvConfirm.setText(R.string.backup_restore_dialog_button)
+        tvConfirm.setOnClickListener { restoreBackup() }
+        tvCancel.setOnClickListener { dismiss() }
     }
 
     private fun restoreBackup() {

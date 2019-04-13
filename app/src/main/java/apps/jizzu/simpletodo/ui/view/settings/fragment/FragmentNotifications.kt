@@ -38,17 +38,17 @@ class FragmentNotifications : BaseSettingsFragment() {
     }
 
     private fun initGeneralNotificationSwitch() {
-        switchGeneralNotification.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
-        switchGeneralNotification.isChecked = mPreferenceHelper.getBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON)
+        swGeneralNotification.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
+        swGeneralNotification.isChecked = mPreferenceHelper.getBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON)
 
-        switchGeneralNotification.setOnClickListener {
-            mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, switchGeneralNotification.isChecked)
+        swGeneralNotification.setOnClickListener {
+            mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, swGeneralNotification.isChecked)
             callback?.onGeneralNotificationStateChanged()
         }
 
-        buttonGeneralNotification.setOnClickListener {
-            switchGeneralNotification.isChecked = !switchGeneralNotification.isChecked
-            mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, switchGeneralNotification.isChecked)
+        clGeneralNotification.setOnClickListener {
+            swGeneralNotification.isChecked = !swGeneralNotification.isChecked
+            mPreferenceHelper.putBoolean(PreferenceHelper.GENERAL_NOTIFICATION_IS_ON, swGeneralNotification.isChecked)
             callback?.onGeneralNotificationStateChanged()
         }
     }
@@ -67,14 +67,14 @@ class FragmentNotifications : BaseSettingsFragment() {
                 notificationManager.createNotificationChannel(channel)
             }
 
-            buttonNotificationSound.setOnClickListener {
+            clNotificationSound.setOnClickListener {
                 val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
                         .putExtra(Settings.EXTRA_APP_PACKAGE, context?.packageName)
                         .putExtra(Settings.EXTRA_CHANNEL_ID, AlarmReceiver.NOTIFICATION_CHANNEL_ID)
                 startActivity(intent)
             }
         } else {
-            rootLayout.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
+            llNotifications.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
             tvNotificationSoundTitle.setTextColor(Color.TRANSPARENT)
             tvNotificationSoundSummary.setTextColor(Color.TRANSPARENT)
         }

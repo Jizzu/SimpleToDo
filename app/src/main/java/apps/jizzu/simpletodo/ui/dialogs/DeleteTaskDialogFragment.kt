@@ -26,9 +26,9 @@ class DeleteTaskDialogFragment(val task: Task) : BaseDialogFragment() {
     }
 
     private fun initDialog() {
-        dialogMessage.setText(R.string.dialog_message)
-        buttonConfirm.setText(R.string.action_delete)
-        buttonConfirm.setOnClickListener {
+        tvDialogMessage.setText(R.string.dialog_message)
+        tvConfirm.setText(R.string.action_delete)
+        tvConfirm.setOnClickListener {
             mViewModel.deleteTask(task)
             if (task.date != 0L) {
                 val alarmHelper = AlarmHelper.getInstance()
@@ -37,7 +37,7 @@ class DeleteTaskDialogFragment(val task: Task) : BaseDialogFragment() {
             }
             activity?.finish()
         }
-        buttonCancel.setOnClickListener { dismiss() }
+        tvCancel.setOnClickListener { dismiss() }
     }
 
     private fun createViewModel(application: Application) = ViewModelProviders.of(this).get(DeleteTaskViewModel(application)::class.java)

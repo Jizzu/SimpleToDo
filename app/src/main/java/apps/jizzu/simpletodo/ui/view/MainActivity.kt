@@ -53,8 +53,8 @@ import top.wefor.circularanim.CircularAnim
 import java.util.*
 
 class MainActivity : BaseActivity() {
-    private val mRecyclerView: RecyclerView by bindView(R.id.tasksList)
-    private val mFab: FloatingActionButton by bindView(R.id.fab)
+    private val mRecyclerView: RecyclerView by bindView(R.id.rvTasksList)
+    private val mFab: FloatingActionButton by bindView(R.id.fabCreateNewTask)
     private var mSnackbar: Snackbar? = null
 
     private lateinit var mAdapter: RecyclerViewAdapter
@@ -67,7 +67,7 @@ class MainActivity : BaseActivity() {
         matchDressCode()
         setContentView(R.layout.activity_main)
 
-        initToolbar(getString(R.string.simple_todo_title), null, bottomAppBar)
+        initToolbar(getString(R.string.simple_todo_title), null, babMainMenu)
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         AlarmHelper.getInstance().init(applicationContext)
 
@@ -98,7 +98,7 @@ class MainActivity : BaseActivity() {
         if (mTaskList.size > tasks.size) isNeedToRecount = true
         mTaskList = tasks as ArrayList<Task>
         if (isNeedToRecount) recountTaskPositions()
-        emptyView.gone()
+        llEmptyView.gone()
         mAdapter.updateData(mTaskList)
         mPreferenceHelper.putInt(PreferenceHelper.NEW_TASK_POSITION, mAdapter.itemCount)
         restoreAlarmsAfterMigration()
@@ -116,14 +116,14 @@ class MainActivity : BaseActivity() {
     private fun showEmptyView() {
         mTaskList = arrayListOf()
         mAdapter.updateData(mTaskList)
-        emptyView.visible()
+        llEmptyView.visible()
         val anim = AnimationUtils.loadAnimation(this, R.anim.empty_view_animation).apply {
             startOffset = 300
             duration = 300
         }
         updateGeneralNotification()
         updateWidget()
-        emptyView.startAnimation(anim)
+        llEmptyView.startAnimation(anim)
     }
 
     private fun showRecyclerViewAnimation() {

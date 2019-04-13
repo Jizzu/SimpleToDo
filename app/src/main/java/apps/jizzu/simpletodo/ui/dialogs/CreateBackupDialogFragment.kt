@@ -25,10 +25,10 @@ class CreateBackupDialogFragment : BaseDialogFragment() {
     }
 
     private fun initDialog() {
-        dialogMessage.setText(R.string.backup_create_dialog_message)
-        buttonConfirm.setText(R.string.backup_create_dialog_button)
-        buttonConfirm.setOnClickListener { createBackup() }
-        buttonCancel.setOnClickListener { dismiss() }
+        tvDialogMessage.setText(R.string.backup_create_dialog_message)
+        tvConfirm.setText(R.string.backup_create_dialog_button)
+        tvConfirm.setOnClickListener { createBackup() }
+        tvCancel.setOnClickListener { dismiss() }
     }
 
     private fun createBackup() {

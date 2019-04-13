@@ -25,7 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun initToolbar(titleText: String, drawable: Int? = R.drawable.round_close_black_24, view: Toolbar? = toolbar) {
         title = ""
-        toolbarTitle.text = titleText
+        tvToolbarTitle.text = titleText
 
         if (toolbar != null) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {

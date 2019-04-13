@@ -6,7 +6,7 @@
     android:background="?attr/colorToolbar">
 
     <TextView
-        android:id="@+id/toolbarTitle"
+        android:id="@+id/tvToolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

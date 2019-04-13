@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
@@ -10,31 +9,31 @@
     <include layout="@layout/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchResult"
+        android:id="@+id/rvSearchResultsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
         android:overScrollMode="never" />
 
     <LinearLayout
-        android:id="@+id/emptyView"
+        android:id="@+id/llEmptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <ImageView
+            android:id="@+id/ivEmptyIllustration"
             style="@style/ImageViewNoTint"
-            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:gravity="center_horizontal"
             android:src="@drawable/illustration_search" />
 
         <TextView
-            android:id="@+id/emptyViewTitle"
+            android:id="@+id/tvEmptyTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

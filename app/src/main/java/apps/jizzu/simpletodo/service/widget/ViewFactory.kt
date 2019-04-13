@@ -32,57 +32,57 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
 
     override fun getViewAt(position: Int): RemoteViews {
         val remoteViews = RemoteViews(mContext.packageName, R.layout.widget_task_item)
-        remoteViews.setTextViewText(R.id.item_title, mWidgetData[position].title)
+        remoteViews.setTextViewText(R.id.tvItemTitle, mWidgetData[position].title)
 
         if (!mWidgetData[position].note.isEmpty()) {
-            remoteViews.setViewVisibility(R.id.item_note_icon, View.VISIBLE)
-        } else remoteViews.setViewVisibility(R.id.item_note_icon, View.GONE)
+            remoteViews.setViewVisibility(R.id.ivItemNoteIcon, View.VISIBLE)
+        } else remoteViews.setViewVisibility(R.id.ivItemNoteIcon, View.GONE)
 
 
         if (mWidgetData[position].date != 0L) {
             remoteViews.apply {
-                setViewPadding(R.id.item_title, 0, 0, 0, 0)
-                setViewVisibility(R.id.item_date, View.VISIBLE)
+                setViewPadding(R.id.tvItemTitle, 0, 0, 0, 0)
+                setViewVisibility(R.id.tvItemDate, View.VISIBLE)
             }
 
             when {
                 // Today
                 DateUtils.isToday(mWidgetData[position].date) -> {
                     remoteViews.apply {
-                        setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.blue))
-                        setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_today, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
+                        setTextColor(R.id.tvItemDate, ContextCompat.getColor(mContext, R.color.blue))
+                        setTextViewText(R.id.tvItemDate, mContext.getString(R.string.reminder_today, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
                     }
                 }
 
                 // Yesterday
                 DateUtils.isToday(mWidgetData[position].date + DateUtils.DAY_IN_MILLIS) -> {
                     remoteViews.apply {
-                        setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red))
-                        setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_yesterday, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
+                        setTextColor(R.id.tvItemDate, ContextCompat.getColor(mContext, R.color.red))
+                        setTextViewText(R.id.tvItemDate, mContext.getString(R.string.reminder_yesterday, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
                     }
                 }
 
                 // Tomorrow
                 DateUtils.isToday(mWidgetData[position].date - DateUtils.DAY_IN_MILLIS) -> {
                     remoteViews.apply {
-                        setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.blue))
-                        setTextViewText(R.id.item_date, mContext.getString(R.string.reminder_tomorrow, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
+                        setTextColor(R.id.tvItemDate, ContextCompat.getColor(mContext, R.color.blue))
+                        setTextViewText(R.id.tvItemDate, mContext.getString(R.string.reminder_tomorrow, DateAndTimeFormatter.getTime(mWidgetData[position].date)))
                     }
                 }
 
                 // Far past
                 mWidgetData[position].date < Calendar.getInstance().timeInMillis -> {
                     remoteViews.apply {
-                        setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.red))
-                        setTextViewText(R.id.item_date, DateAndTimeFormatter.getFullDate(mWidgetData[position].date))
+                        setTextColor(R.id.tvItemDate, ContextCompat.getColor(mContext, R.color.red))
+                        setTextViewText(R.id.tvItemDate, DateAndTimeFormatter.getFullDate(mWidgetData[position].date))
                     }
                 }
 
                 // Far future
                 else -> {
                     remoteViews.apply {
-                        setTextColor(R.id.item_date, ContextCompat.getColor(mContext, R.color.blue))
-                        setTextViewText(R.id.item_date, mContext.getString(R.string.date_format_at, DateAndTimeFormatter.getFullDate(mWidgetData[position].date), DateAndTimeFormatter.getTime(mWidgetData[position].date)))
+                        setTextColor(R.id.tvItemDate, ContextCompat.getColor(mContext, R.color.blue))
+                        setTextViewText(R.id.tvItemDate, mContext.getString(R.string.date_format_at, DateAndTimeFormatter.getFullDate(mWidgetData[position].date), DateAndTimeFormatter.getTime(mWidgetData[position].date)))
                     }
                 }
             }
@@ -93,13 +93,13 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
             val height = displayMetrics.heightPixels
             Log.d(TAG, "width = $width, height = $height")
 
-            remoteViews.setViewVisibility(R.id.item_date, View.GONE)
+            remoteViews.setViewVisibility(R.id.tvItemDate, View.GONE)
             if (width >= 1080 || height >= 1776) {
-                remoteViews.setViewPadding(R.id.item_title, 0, 27, 0, 27)
+                remoteViews.setViewPadding(R.id.tvItemTitle, 0, 27, 0, 27)
             } else if (width >= 720 || height >= 1184) {
-                remoteViews.setViewPadding(R.id.item_title, 0, 20, 0, 20)
+                remoteViews.setViewPadding(R.id.tvItemTitle, 0, 20, 0, 20)
             } else if (width >= 480 || height >= 800) {
-                remoteViews.setViewPadding(R.id.item_title, 0, 15, 0, 15)
+                remoteViews.setViewPadding(R.id.tvItemTitle, 0, 15, 0, 15)
             }
         }
 
@@ -113,7 +113,7 @@ class ViewFactory internal constructor(private val mContext: Context) : RemoteVi
         if (mWidgetData[position].date != 0L) {
             fillInIntent.putExtra(WidgetProvider.ITEM_DATE, mWidgetData[position].date)
         }
-        remoteViews.setOnClickFillInIntent(R.id.item, fillInIntent)
+        remoteViews.setOnClickFillInIntent(R.id.rvWidgetItem, fillInIntent)
 
         return remoteViews
     }

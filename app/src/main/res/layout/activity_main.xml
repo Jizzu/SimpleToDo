@@ -2,14 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
     tools:context=".ui.view.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tasksList"
+        android:id="@+id/rvTasksList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp"
@@ -21,24 +20,22 @@
     <include layout="@layout/toolbar" />
 
     <LinearLayout
-        android:id="@+id/emptyView"
+        android:id="@+id/llEmptyView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <ImageView
             style="@style/ImageViewNoTint"
-            android:id="@+id/title"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:gravity="center_horizontal"
             android:src="@drawable/illustration_no_tasks" />
 
         <TextView
-            android:id="@+id/additionalText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
@@ -53,11 +50,11 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="@drawable/bottom_app_bar_shadow"
-        app:layout_anchor="@+id/bottomAppBar"
+        app:layout_anchor="@+id/babMainMenu"
         app:layout_anchorGravity="top" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
+        android:id="@+id/babMainMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -68,12 +65,12 @@
         app:navigationIcon="@drawable/outline_settings_black_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabCreateNewTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/round_add_white_24"
         app:backgroundTint="@color/blue"
-        app:layout_anchor="@id/bottomAppBar"
+        app:layout_anchor="@id/babMainMenu"
         app:layout_behavior=""
         app:tint="@color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

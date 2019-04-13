@@ -9,10 +9,10 @@
     <include layout="@layout/toolbar" />
 
     <TextView
-        android:id="@+id/featureOne"
+        android:id="@+id/tvFeatureOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/featureTwo"
+        android:layout_above="@id/tvFeatureTwo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:gravity="center"
@@ -21,7 +21,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/featureTwo"
+        android:id="@+id/tvFeatureTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -33,7 +33,7 @@
         android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/confirmButton"
+        android:id="@+id/btnConfirm"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -32,19 +32,19 @@ class FragmentUI : BaseSettingsFragment() {
     private fun initAnimationSwitch() {
         val preferenceHelper = PreferenceHelper.getInstance()
 
-        switchAnimation.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
-        switchAnimation.isChecked = preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)
+        swAnimation.setOnTouchListener { _, event -> event.actionMasked == MotionEvent.ACTION_MOVE }
+        swAnimation.isChecked = preferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)
 
-        switchAnimation.setOnClickListener {
-            preferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, switchAnimation.isChecked)
+        swAnimation.setOnClickListener {
+            preferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, swAnimation.isChecked)
         }
 
-        buttonAnimations.setOnClickListener {
-            switchAnimation.isChecked = !switchAnimation.isChecked
-            preferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, switchAnimation.isChecked)
+        clAnimations.setOnClickListener {
+            swAnimation.isChecked = !swAnimation.isChecked
+            preferenceHelper.putBoolean(PreferenceHelper.ANIMATION_IS_ON, swAnimation.isChecked)
         }
 
-        buttonChooseTheme.setOnClickListener {
+        clChooseTheme.setOnClickListener {
             val listItems = resources.getStringArray(R.array.app_theme)
             var selectedItemPosition = when (activity?.dressCodeStyleId) {
                 R.style.AppTheme_Light -> 0

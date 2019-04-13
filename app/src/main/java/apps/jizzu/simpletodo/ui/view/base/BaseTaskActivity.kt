@@ -27,7 +27,7 @@ import kotterknife.bindView
 import java.util.*
 
 abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    val mTitleEditText: EditText by bindView(R.id.taskTitle)
+    val mTitleEditText: EditText by bindView(R.id.tvTaskTitle)
     lateinit var mCalendar: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,26 +50,25 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
 
             override fun afterTextChanged(s: Editable) {
                 if (mTitleEditText.length() != 0) {
-                    taskTitleLayout.error = null
+                    tilTaskTitle.error = null
                 }
             }
         })
 
-        taskNote.setOnClickListener {
+        tvTaskNote.setOnClickListener {
             hideKeyboard(mTitleEditText)
             startActivityForResult(Intent(this, TaskNoteActivity::class.java).putExtra("note",
-                    taskNote.text.toString()), 1)
+                    tvTaskNote.text.toString()), 1)
         }
-        taskReminder.setOnClickListener {
+        tvTaskReminder.setOnClickListener {
             hideKeyboard(mTitleEditText)
             showDatePickerDialog()
         }
-        buttonDeleteReminder.setOnClickListener {
-            taskReminder.text = null
-            buttonDeleteReminder.gone()
+        ivDeleteTaskReminder.setOnClickListener {
+            tvTaskReminder.text = null
+            ivDeleteTaskReminder.gone()
         }
-        container.setOnClickListener { hideKeyboard(mTitleEditText) }
-        initScrollViewListener(scrollView)
+        initScrollViewListener(svTaskDetails)
     }
 
     private fun showDatePickerDialog() {
@@ -145,14 +144,14 @@ abstract class BaseTaskActivity : BaseActivity(), DatePickerDialog.OnDateSetList
             set(Calendar.MINUTE, minute)
             set(Calendar.SECOND, 0)
         }
-        taskReminder.text = getString(R.string.date_format_at, DateAndTimeFormatter.getDate(mCalendar.timeInMillis),
+        tvTaskReminder.text = getString(R.string.date_format_at, DateAndTimeFormatter.getDate(mCalendar.timeInMillis),
                 DateAndTimeFormatter.getTime(mCalendar.timeInMillis))
-        buttonDeleteReminder.visible()
+        ivDeleteTaskReminder.visible()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK) {
-            taskNote.text = data?.getStringExtra("note")
+            tvTaskNote.text = data?.getStringExtra("note")
         }
     }
 }

@@ -27,11 +27,11 @@ class FragmentLicenses : BaseSettingsFragment() {
     }
 
     private fun initButtons() {
-        buttonKotterKnife.setOnClickListener { openUri(KOTTER_KNIFE_PAGE) }
-        buttonCircularAnim.setOnClickListener { openUri(CIRCULAR_ANIM_PAGE) }
-        buttonRxJava.setOnClickListener { openUri(RX_JAVA_PAGE) }
-        buttonRxKotlin.setOnClickListener { openUri(RX_KOTLIN_PAGE) }
-        buttonDressCode.setOnClickListener { openUri(DRESS_CODE_PAGE) }
+        clKotterKnife.setOnClickListener { openUri(KOTTER_KNIFE_PAGE) }
+        clCircularAnim.setOnClickListener { openUri(CIRCULAR_ANIM_PAGE) }
+        clRxJava.setOnClickListener { openUri(RX_JAVA_PAGE) }
+        clRxKotlin.setOnClickListener { openUri(RX_KOTLIN_PAGE) }
+        clDressCode.setOnClickListener { openUri(DRESS_CODE_PAGE) }
     }
 
     private fun openUri(uri: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))

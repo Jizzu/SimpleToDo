@@ -31,7 +31,7 @@ class EditTaskActivity : BaseTaskActivity() {
 
         initToolbar(getString(R.string.edit_task))
         if (Locale.getDefault().displayLanguage == "français") {
-            toolbarTitle.textSize = 18F
+            tvToolbarTitle.textSize = 18F
         }
         mViewModel = createViewModel()
 
@@ -46,28 +46,28 @@ class EditTaskActivity : BaseTaskActivity() {
         mTitleEditText.setText(mTitle)
 
         if (!mNote.isEmpty()) {
-            taskNote.text = mNote
+            tvTaskNote.text = mNote
         }
 
         if (mDate != 0L) {
-            taskReminder.text = getString(R.string.date_format_at, DateAndTimeFormatter.getDate(mDate),
+            tvTaskReminder.text = getString(R.string.date_format_at, DateAndTimeFormatter.getDate(mDate),
                     DateAndTimeFormatter.getTime(mDate))
-            buttonDeleteReminder.visible()
+            ivDeleteTaskReminder.visible()
         }
 
-        if (taskReminder.length() != 0) {
+        if (tvTaskReminder.length() != 0) {
             mCalendar.timeInMillis = mDate
         }
 
-        addTaskButton.text = getString(R.string.update_task)
-        addTaskButton.setOnClickListener {
+        btnTaskConfirm.text = getString(R.string.update_task)
+        btnTaskConfirm.setOnClickListener {
             when {
-                mTitleEditText.length() == 0 -> taskTitleLayout.error = getString(R.string.error_text_input)
-                mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> taskTitleLayout.error = getString(R.string.error_spaces)
+                mTitleEditText.length() == 0 -> tilTaskTitle.error = getString(R.string.error_text_input)
+                mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> tilTaskTitle.error = getString(R.string.error_spaces)
                 else -> {
-                    val task = Task(mId, mTitleEditText.text.toString(), taskNote.text.toString(), mDate, mPosition, mTimeStamp)
+                    val task = Task(mId, mTitleEditText.text.toString(), tvTaskNote.text.toString(), mDate, mPosition, mTimeStamp)
 
-                    if (taskReminder.length() != 0) {
+                    if (tvTaskReminder.length() != 0) {
                         task.date = mCalendar.timeInMillis
                     } else task.date = 0L
 

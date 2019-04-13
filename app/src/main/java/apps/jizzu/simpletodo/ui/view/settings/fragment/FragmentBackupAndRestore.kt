@@ -42,7 +42,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
     private fun showDialog(dialog: BaseDialogFragment) = activity?.let { dialog.show(it.supportFragmentManager, null) }
 
     private fun setOnClickListeners() {
-        buttonCreateBackup.setOnClickListener {
+        clCreateBackup.setOnClickListener {
             mIsCreatingProcess = true
 
             if (isHasPermissions()) {
@@ -52,7 +52,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
             }
         }
 
-        buttonRestoreBackup.setOnClickListener {
+        clRestoreBackup.setOnClickListener {
             if (isHasPermissions()) {
                 showDialog(RestoreBackupDialogFragment())
             } else {
@@ -119,7 +119,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
     }
 
     private fun showNoStoragePermissionSnackbar() {
-        Snackbar.make(rootLayout, R.string.settings_permission_snackbar_no_permission, Snackbar.LENGTH_LONG)
+        Snackbar.make(llBackupAndRestore, R.string.settings_permission_snackbar_no_permission, Snackbar.LENGTH_LONG)
                 .setAction(R.string.settings_permission_snackbar_button_settings) {
                     openApplicationSettings()
                     toastLong(getString(R.string.settings_permission_settings_toast))
@@ -133,7 +133,7 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
     private fun requestPermissionWithRationale() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity as Activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             val message = getString(R.string.settings_permission_snackbar_with_rationale)
-            Snackbar.make(rootLayout, message, Snackbar.LENGTH_LONG)
+            Snackbar.make(llBackupAndRestore, message, Snackbar.LENGTH_LONG)
                     .setAction(R.string.settings_permission_snackbar_button_grant) { requestPerms() }
                     .show()
         } else {

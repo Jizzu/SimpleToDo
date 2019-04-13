@@ -33,7 +33,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/buttonRate"
+        android:id="@+id/tvRate"
         style="@style/DialogButtonTheme"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -42,7 +42,7 @@
         android:text="@string/rate_dialog_ok" />
 
     <TextView
-        android:id="@+id/buttonNo"
+        android:id="@+id/tvNeverShow"
         style="@style/DialogButtonTheme"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -51,7 +51,7 @@
         android:text="@string/rate_dialog_no" />
 
     <TextView
-        android:id="@+id/buttonLater"
+        android:id="@+id/tvShowLater"
         style="@style/DialogButtonTheme"
         android:layout_width="match_parent"
         android:layout_height="44dp"

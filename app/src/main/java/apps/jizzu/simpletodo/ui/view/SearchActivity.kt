@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 import kotterknife.bindView
 
 class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
-    private val mRecyclerView: RecyclerView by bindView(R.id.searchResult)
+    private val mRecyclerView: RecyclerView by bindView(R.id.rvSearchResultsList)
     private lateinit var mViewModel: SearchTasksViewModel
     private lateinit var mAdapter: RecyclerViewAdapter
 
@@ -50,7 +50,7 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mAdapter = RecyclerViewAdapter()
         mRecyclerView.adapter = mAdapter
-        emptyView.visible()
+        llEmptyView.visible()
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {
@@ -78,18 +78,18 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     private fun showEmptyView(isSearchFieldEmpty: Boolean) {
         mAdapter.updateData(arrayListOf())
-        emptyView.visible()
+        llEmptyView.visible()
         if (isSearchFieldEmpty) {
-            image.setImageResource(R.drawable.illustration_search)
-            emptyViewTitle.text = getString(R.string.search_view_empty_text)
+            ivEmptyIllustration.setImageResource(R.drawable.illustration_search)
+            tvEmptyTitle.text = getString(R.string.search_view_empty_text)
         } else {
-            image.setImageResource(R.drawable.illustration_not_found)
-            emptyViewTitle.text = getString(R.string.search_view_not_found_text)
+            ivEmptyIllustration.setImageResource(R.drawable.illustration_not_found)
+            tvEmptyTitle.text = getString(R.string.search_view_not_found_text)
         }
     }
 
     private fun showTaskList(tasks: List<Task>) {
-        emptyView.gone()
+        llEmptyView.gone()
         mAdapter.updateData(tasks)
     }
 
