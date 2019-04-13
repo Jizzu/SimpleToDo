@@ -20,32 +20,34 @@
 
     <include layout="@layout/toolbar" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:visibility="gone">
 
-        <TextView
+        <ImageView
+            style="@style/ImageViewNoTint"
             android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/empty_view_title"
-            android:textColor="?android:attr/android:textColorPrimary"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:gravity="center_horizontal"
+            android:src="@drawable/illustration_no_tasks" />
 
         <TextView
             android:id="@+id/additionalText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="@string/empty_view_text"
-            android:textColor="?android:attr/android:textColorPrimary"
-            android:textSize="15sp" />
-    </RelativeLayout>
+            android:textColor="@color/greyWhite"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

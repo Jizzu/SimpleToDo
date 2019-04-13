@@ -61,15 +61,14 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
     }
 
     fun showTaskDetailsActivity(task: Task) {
-        val intent = Intent(this, EditTaskActivity::class.java)
-
-        intent.putExtra("id", task.id)
-        intent.putExtra("title", task.title)
-        intent.putExtra("position", task.position)
-        intent.putExtra("time_stamp", task.timeStamp)
-
-        if (task.date != 0L) {
-            intent.putExtra("date", task.date)
+        val intent = Intent(this, EditTaskActivity::class.java).apply {
+            putExtra("id", task.id)
+            putExtra("title", task.title)
+            putExtra("position", task.position)
+            putExtra("time_stamp", task.timeStamp)
+            if (task.date != 0L) {
+                putExtra("date", task.date)
+            }
         }
         startActivity(intent)
     }
@@ -81,8 +80,12 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         mAdapter.updateData(arrayListOf())
         emptyView.visible()
         if (isSearchFieldEmpty) {
+            image.setImageResource(R.drawable.illustration_search)
             emptyViewTitle.text = getString(R.string.search_view_empty_text)
-        } else emptyViewTitle.text = getString(R.string.search_view_not_found_text)
+        } else {
+            image.setImageResource(R.drawable.illustration_not_found)
+            emptyViewTitle.text = getString(R.string.search_view_not_found_text)
+        }
     }
 
     private fun showTaskList(tasks: List<Task>) {
