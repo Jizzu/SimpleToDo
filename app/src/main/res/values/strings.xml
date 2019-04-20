@@ -97,10 +97,13 @@
     <string name="backup_restore_message_nothing">Nothing to restore</string>
 
     <string name="settings_permission_denied_toast">Storage permission denied</string>
-    <string name="settings_permission_settings_toast">Open "Permissions" and grant the "Storage permission"</string>
+    <string name="permission_settings_toast">Open Permissions and grant the %1$s permission</string>
+    <string name="permission_storage">Storage</string>
+    <string name="permission_record_audio">Microphone</string>
     <string name="settings_permission_snackbar_with_rationale">Storage permission is needed to write a backup to a file</string>
+    <string name="permission_record_audio_snackbar_with_rationale">Microphone permission is needed to add new task using voice</string>
     <string name="settings_permission_snackbar_button_grant">GRANT</string>
-    <string name="settings_permission_snackbar_no_permission">Storage permission isn\'t granted</string>
+    <string name="settings_permission_snackbar_no_permission">%1$s permission isn\'t granted</string>
     <string name="settings_permission_snackbar_button_settings">SETTINGS</string>
 
     <string name="general_notification_1">You have</string>

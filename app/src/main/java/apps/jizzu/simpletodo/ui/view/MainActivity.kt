@@ -1,18 +1,23 @@
 package apps.jizzu.simpletodo.ui.view
 
+import android.Manifest
 import android.animation.TimeInterpolator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
+import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.speech.RecognizerIntent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -41,6 +46,7 @@ import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentNotifications
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
+import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.TaskListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -265,19 +271,29 @@ class MainActivity : BaseActivity() {
 
             if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
                 val position = mAdapter.itemCount
-                val intent = Intent(this@MainActivity, AddTaskActivity::class.java)
+                val intent = Intent(this, AddTaskActivity::class.java)
                 intent.putExtra("position", position)
 
-                CircularAnim.fullActivity(this@MainActivity, view)
+                CircularAnim.fullActivity(this, view)
                         .colorOrImageRes(R.color.blue)
                         .duration(300)
                         .go { startActivity(intent) }
             } else {
                 val position = mAdapter.itemCount
-                val intent = Intent(this@MainActivity, AddTaskActivity::class.java)
+                val intent = Intent(this, AddTaskActivity::class.java)
                 intent.putExtra("position", position)
                 startActivity(intent)
             }
+        }
+
+        mFab.setOnLongClickListener {
+            if (isHasPermissions(Manifest.permission.RECORD_AUDIO)) {
+                showVoiceInput()
+            } else {
+                requestPermissionWithRationale(clMain, getString(R.string.permission_record_audio_snackbar_with_rationale),
+                        Manifest.permission.RECORD_AUDIO, null, mFab)
+            }
+            true
         }
 
         mRecyclerView.addOnScrollListener(object : RecyclerViewScrollListener() {
@@ -311,13 +327,26 @@ class MainActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    private fun createViewModel() = ViewModelProviders.of(this@MainActivity).get(TaskListViewModel(application)::class.java)
+    private fun showVoiceInput() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Please, say the task text...")
+        }
+        try {
+            startActivityForResult(intent, SPEECH_INPUT_CODE)
+        } catch (exception: ActivityNotFoundException) {
+            toast("Error!")
+        }
+    }
+
+    private fun createViewModel() = ViewModelProviders.of(this).get(TaskListViewModel(application)::class.java)
 
     private fun updateWidget() {
         val intent = Intent(this, WidgetProvider::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        val ids = AppWidgetManager.getInstance(this@MainActivity)
-                .getAppWidgetIds(ComponentName(this@MainActivity, WidgetProvider::class.java))
+        val ids = AppWidgetManager.getInstance(this)
+                .getAppWidgetIds(ComponentName(this, WidgetProvider::class.java))
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
         sendBroadcast(intent)
     }
@@ -351,7 +380,7 @@ class MainActivity : BaseActivity() {
         }
 
         // Set NotificationChannel for Android Oreo and higher
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(AlarmReceiver.GENERAL_NOTIFICATION_CHANNEL_ID, getString(R.string.general_notification_channel),
                     NotificationManager.IMPORTANCE_LOW)
             channel.enableLights(false)
@@ -389,7 +418,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initShortcuts() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             val newTaskShortcut = ShortcutInfo.Builder(this, "newTask")
                     .setShortLabel(getString(R.string.shortcut_add_new_task))
                     .setLongLabel(getString(R.string.shortcut_add_new_task))
@@ -407,6 +436,34 @@ class MainActivity : BaseActivity() {
                     .build()
 
             getSystemService(ShortcutManager::class.java).dynamicShortcuts = Arrays.asList(searchShortcut, newTaskShortcut)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        var isAllowed = true
+
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                for (res in grantResults) {
+                    // If user granted all permissions.
+                    isAllowed = isAllowed && res == PackageManager.PERMISSION_GRANTED
+                }
+            }
+
+            else -> {
+                // If user not granted permissions.
+                isAllowed = false
+            }
+        }
+
+        if (isAllowed) {
+            showVoiceInput()
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
+                toast("Microphone permission denied")
+            } else {
+                showNoPermissionSnackbar(clMain, getString(R.string.permission_record_audio), mFab)
+            }
         }
     }
 
@@ -428,13 +485,26 @@ class MainActivity : BaseActivity() {
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {
-                val task = mAdapter.getTaskAtPosition(position)
-                showTaskDetailsActivity(task)
+                showTaskDetailsActivity(mAdapter.getTaskAtPosition(position))
             }
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == SPEECH_INPUT_CODE && resultCode == RESULT_OK && data != null) {
+            val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val task = Task().apply {
+                title = result[0].capitalize()
+                this.position = mAdapter.itemCount
+            }
+            mViewModel.saveTask(task)
+        }
+    }
+
     companion object {
         var mTaskList = arrayListOf<Task>()
+        private const val SPEECH_INPUT_CODE = 111
     }
 }

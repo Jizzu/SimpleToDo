@@ -2,8 +2,12 @@ package apps.jizzu.simpletodo.ui.view.base
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -11,8 +15,12 @@ import android.widget.EditText
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.utils.toastLong
+import com.google.android.material.snackbar.Snackbar
 import daio.io.dresscode.dressCodeStyleId
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -48,7 +56,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun initStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            when(dressCodeStyleId) {
+            when (dressCodeStyleId) {
                 R.style.AppTheme_Light -> {
                     var flags = toolbar.systemUiVisibility
                     flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -61,8 +69,20 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    private fun openApplicationSettings() =
+            startActivityForResult(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.parse("package:$packageName")), PERMISSION_REQUEST_CODE)
+
+    fun requestPerms(permission: String, fragment: Fragment? = null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (fragment != null) {
+                fragment.requestPermissions(arrayOf(permission), PERMISSION_REQUEST_CODE)
+            } else requestPermissions(arrayOf(permission), PERMISSION_REQUEST_CODE)
+        }
+    }
+
     fun setToolbarShadow(start: Float, end: Float) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ValueAnimator.ofFloat(start, end).apply {
                 addUpdateListener { updatedAnimation ->
                     toolbar.elevation = updatedAnimation.animatedValue as Float
@@ -87,6 +107,49 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun isHasPermissions(permission: String): Boolean {
+        var result: Int
+
+        for (currentPermission in arrayOf(permission)) {
+            result = checkCallingOrSelfPermission(currentPermission)
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                return false
+            }
+        }
+        return true
+    }
+
+    fun showNoPermissionSnackbar(view: View, message: String, anchorView: View? = null) {
+        val snackbar = Snackbar.make(view, getString(R.string.settings_permission_snackbar_no_permission, message), Snackbar.LENGTH_LONG)
+                .setAction(R.string.settings_permission_snackbar_button_settings) {
+                    openApplicationSettings()
+                    toastLong(getString(R.string.permission_settings_toast, message))
+                }
+        if (anchorView != null) {
+            snackbar.anchorView = anchorView
+        }
+        snackbar.show()
+    }
+
+    fun requestPermissionWithRationale(view: View, message: String, permission: String, callback: PermissionRequestListener? = null, anchorView: View? = null) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.settings_permission_snackbar_button_grant) {
+                        if (callback != null) {
+                            callback.onPermissionRequest()
+                        } else requestPerms(permission)
+                    }
+            if (anchorView != null) {
+                snackbar.anchorView = anchorView
+            }
+            snackbar.show()
+        } else {
+            if (callback != null) {
+                callback.onPermissionRequest()
+            } else requestPerms(permission)
+        }
+    }
+
     fun showKeyboard(editText: EditText) {
         editText.requestFocus()
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -97,5 +160,13 @@ abstract class BaseActivity : AppCompatActivity() {
         editText.clearFocus()
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(editText.windowToken, 0)
+    }
+
+    interface PermissionRequestListener {
+        fun onPermissionRequest()
+    }
+
+    companion object {
+        const val PERMISSION_REQUEST_CODE = 123
     }
 }

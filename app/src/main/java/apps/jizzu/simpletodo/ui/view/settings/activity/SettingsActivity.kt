@@ -66,8 +66,8 @@ class SettingsActivity : BaseActivity() {
 
         val intent = Intent(this, WidgetProvider::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        val ids = AppWidgetManager.getInstance(this@SettingsActivity)
-                .getAppWidgetIds(ComponentName(this@SettingsActivity, WidgetProvider::class.java))
+        val ids = AppWidgetManager.getInstance(this)
+                .getAppWidgetIds(ComponentName(this, WidgetProvider::class.java))
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
         sendBroadcast(intent)
     }
