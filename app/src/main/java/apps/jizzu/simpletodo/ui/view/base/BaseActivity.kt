@@ -19,6 +19,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import apps.jizzu.simpletodo.R
+import apps.jizzu.simpletodo.data.models.Task
+import apps.jizzu.simpletodo.ui.view.EditTaskActivity
 import apps.jizzu.simpletodo.utils.toastLong
 import com.google.android.material.snackbar.Snackbar
 import daio.io.dresscode.dressCodeStyleId
@@ -79,6 +81,20 @@ abstract class BaseActivity : AppCompatActivity() {
                 fragment.requestPermissions(arrayOf(permission), PERMISSION_REQUEST_CODE)
             } else requestPermissions(arrayOf(permission), PERMISSION_REQUEST_CODE)
         }
+    }
+
+    fun showTaskDetailsActivity(task: Task) {
+        val intent = Intent(this, EditTaskActivity::class.java).apply {
+            putExtra("id", task.id)
+            putExtra("title", task.title)
+            putExtra("note", task.note)
+            putExtra("position", task.position)
+            putExtra("time_stamp", task.timeStamp)
+            if (task.date != 0L) {
+                putExtra("date", task.date)
+            }
+        }
+        startActivity(intent)
     }
 
     fun setToolbarShadow(start: Float, end: Float) {

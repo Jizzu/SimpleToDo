@@ -60,19 +60,6 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         })
     }
 
-    fun showTaskDetailsActivity(task: Task) {
-        val intent = Intent(this, EditTaskActivity::class.java).apply {
-            putExtra("id", task.id)
-            putExtra("title", task.title)
-            putExtra("position", task.position)
-            putExtra("time_stamp", task.timeStamp)
-            if (task.date != 0L) {
-                putExtra("date", task.date)
-            }
-        }
-        startActivity(intent)
-    }
-
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView(false)
         else showTaskList(tasks)
 

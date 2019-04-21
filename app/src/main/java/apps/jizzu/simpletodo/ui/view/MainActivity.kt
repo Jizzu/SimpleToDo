@@ -312,21 +312,6 @@ class MainActivity : BaseActivity() {
         toolbar.animate().translationY(translationValue).interpolator = interpolator
     }
 
-    fun showTaskDetailsActivity(task: Task) {
-        val intent = Intent(this, EditTaskActivity::class.java)
-
-        intent.putExtra("id", task.id)
-        intent.putExtra("title", task.title)
-        intent.putExtra("note", task.note)
-        intent.putExtra("position", task.position)
-        intent.putExtra("time_stamp", task.timeStamp)
-
-        if (task.date != 0L) {
-            intent.putExtra("date", task.date)
-        }
-        startActivity(intent)
-    }
-
     private fun showVoiceInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
