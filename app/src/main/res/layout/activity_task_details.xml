@@ -29,20 +29,19 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="20dp"
+                android:hint="@string/hint_title"
                 app:errorEnabled="true">
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/tvTaskTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_title"
                     android:inputType="textAutoCorrect|textCapSentences"
                     android:textColor="?android:attr/android:textColorPrimary"
                     android:textSize="21sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.card.MaterialCardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cvTaskNote"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
@@ -71,8 +70,7 @@
                     android:textSize="19sp" />
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cvTaskReminder"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"

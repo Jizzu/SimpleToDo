@@ -72,6 +72,5 @@
         android:src="@drawable/round_add_white_24"
         app:backgroundTint="@color/blue"
         app:layout_anchor="@id/babMainMenu"
-        app:layout_behavior=""
         app:tint="@color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

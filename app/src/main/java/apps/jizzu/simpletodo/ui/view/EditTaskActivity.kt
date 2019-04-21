@@ -45,7 +45,7 @@ class EditTaskActivity : BaseTaskActivity() {
 
         mTitleEditText.setText(mTitle)
 
-        if (!mNote.isEmpty()) {
+        if (mNote.isNotEmpty()) {
             tvTaskNote.text = mNote
         }
 
