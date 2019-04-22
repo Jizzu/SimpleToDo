@@ -113,8 +113,10 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">N E L E R \u0020\u0020 Y E N İ ?</string>
     <string name="whats_new_button_text">Tamam</string>
-    <string name="whats_new_item_1_text">Hata düzeltmeleri</string>
-    <string name="whats_new_item_2_text">Fransızca çevirisi eklendi</string>
+    <string name="whats_new_item_1_text">Ses kullanarak görev ekleme yeteneği eklendi \n(+ Düğmesine uzun basın)</string>
+    <string name="whats_new_item_2_text">Güzel resimler eklendi</string>
+    <string name="whats_new_item_3_text">Türkçe çeviri eklendi</string>
+    <string name="whats_new_item_4_text">Hata düzeltmeleri</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Bu uygulamaya oy ver</string>

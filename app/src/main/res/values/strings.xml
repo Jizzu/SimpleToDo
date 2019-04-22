@@ -124,8 +124,10 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">W H A T \' S \u0020\u0020 N E W ?</string>
     <string name="whats_new_button_text">Okay</string>
-    <string name="whats_new_item_1_text">Added task note field</string>
-    <string name="whats_new_item_2_text">Minor UI improvements</string>
+    <string name="whats_new_item_1_text">Implemented the ability to add tasks using voice \n(Long press the + button)</string>
+    <string name="whats_new_item_2_text">Added beautiful illustrations</string>
+    <string name="whats_new_item_3_text">Added Turkish translation</string>
+    <string name="whats_new_item_4_text">Bug fixes</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Rate this app</string>
