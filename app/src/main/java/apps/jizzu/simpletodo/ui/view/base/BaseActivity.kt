@@ -135,11 +135,11 @@ abstract class BaseActivity : AppCompatActivity() {
         return true
     }
 
-    fun showNoPermissionSnackbar(view: View, message: String, anchorView: View? = null) {
-        val snackbar = Snackbar.make(view, getString(R.string.settings_permission_snackbar_no_permission, message), Snackbar.LENGTH_LONG)
-                .setAction(R.string.settings_permission_snackbar_button_settings) {
+    fun showNoPermissionSnackbar(view: View, snackbarMessage: String, toastMessage: String, anchorView: View? = null) {
+        val snackbar = Snackbar.make(view, snackbarMessage, Snackbar.LENGTH_LONG)
+                .setAction(R.string.permission_snackbar_button_settings) {
                     openApplicationSettings()
-                    toastLong(getString(R.string.permission_settings_toast, message))
+                    toastLong(toastMessage)
                 }
         if (anchorView != null) {
             snackbar.anchorView = anchorView
@@ -150,7 +150,7 @@ abstract class BaseActivity : AppCompatActivity() {
     fun requestPermissionWithRationale(view: View, message: String, permission: String, callback: PermissionRequestListener? = null, anchorView: View? = null) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
             val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.settings_permission_snackbar_button_grant) {
+                    .setAction(R.string.permission_snackbar_button_grant) {
                         if (callback != null) {
                             callback.onPermissionRequest()
                         } else requestPerms(permission)

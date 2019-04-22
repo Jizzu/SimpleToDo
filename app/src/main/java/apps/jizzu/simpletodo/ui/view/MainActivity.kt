@@ -290,7 +290,7 @@ class MainActivity : BaseActivity() {
             if (isHasPermissions(Manifest.permission.RECORD_AUDIO)) {
                 showVoiceInput()
             } else {
-                requestPermissionWithRationale(clMain, getString(R.string.permission_record_audio_snackbar_with_rationale),
+                requestPermissionWithRationale(clMain, getString(R.string.permission_microphone_snackbar_with_rationale),
                         Manifest.permission.RECORD_AUDIO, null, mFab)
             }
             true
@@ -316,12 +316,12 @@ class MainActivity : BaseActivity() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            putExtra(RecognizerIntent.EXTRA_PROMPT, "Please, say the task text...")
+            putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_to_text_hint))
         }
         try {
             startActivityForResult(intent, SPEECH_INPUT_CODE)
         } catch (exception: ActivityNotFoundException) {
-            toast("Error!")
+            toast(getString(R.string.speech_to_text_error))
         }
     }
 
@@ -445,9 +445,10 @@ class MainActivity : BaseActivity() {
             showVoiceInput()
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
-                toast("Microphone permission denied")
+                toast(getString(R.string.permission_microphone_denied_toast))
             } else {
-                showNoPermissionSnackbar(clMain, getString(R.string.permission_record_audio), mFab)
+                showNoPermissionSnackbar(clMain, getString(R.string.permission_microphone_snackbar_no_permission),
+                        getString(R.string.permission_microphone_toast), mFab)
             }
         }
     }

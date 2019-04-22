@@ -61,9 +61,10 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
 
     private fun requestPermissionWithRationale() =
         mSettingsActivity.requestPermissionWithRationale(llBackupAndRestore,
-                getString(R.string.settings_permission_snackbar_with_rationale),
+                getString(R.string.permission_storage_snackbar_with_rationale),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, object : BaseActivity.PermissionRequestListener {
-                    override fun onPermissionRequest() = mSettingsActivity.requestPerms(Manifest.permission.WRITE_EXTERNAL_STORAGE, this@FragmentBackupAndRestore)
+                    override fun onPermissionRequest() = mSettingsActivity.requestPerms(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            this@FragmentBackupAndRestore)
                 })
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -91,9 +92,11 @@ class FragmentBackupAndRestore : BaseSettingsFragment() {
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                toast(getString(R.string.settings_permission_denied_toast))
+                toast(getString(R.string.permission_storage_denied_toast))
             } else {
-                mSettingsActivity.showNoPermissionSnackbar(llBackupAndRestore, getString(R.string.permission_storage))
+                mSettingsActivity.showNoPermissionSnackbar(llBackupAndRestore,
+                        getString(R.string.permission_storage_snackbar_no_permission),
+                        getString(R.string.permission_storage_toast))
             }
         }
         mIsCreatingProcess = false

@@ -53,6 +53,9 @@
     <string name="settings_no_email_apps">Aucune application email n\'est installée !</string>
     <string name="settings_no_browser_apps">Aucune application navigateur n\'est installée !</string>
 
+    <string name="speech_to_text_hint">S\'il vous plaît, dites le texte de la tâche…</string>
+    <string name="speech_to_text_error">Erreur! Quelque chose a mal tourné…</string>
+
     <string name="settings">R E G L A G E S</string>
     <string name="settings_page_title_user_interface">A P P A R E N C E</string>
     <string name="settings_page_title_notifications">N O T I F I C A T I O N S</string>
@@ -87,12 +90,16 @@
     <string name="backup_restore_message_failure">La restauration de la sauvegarde a échoué !</string>
     <string name="backup_restore_message_nothing">Rien à restaurer</string>
 
-    <string name="settings_permission_denied_toast">Autorisation de stockage refusée</string>
-    <string name="settings_permission_settings_toast">Ouvrez "Autorisations" et accordez "Stockage"</string>
-    <string name="settings_permission_snackbar_with_rationale">L\'autorisation de stockage est nécessaire pour écrire une sauvegarde dans un fichier</string>
-    <string name="settings_permission_snackbar_button_grant">CONTINUER</string>
-    <string name="settings_permission_snackbar_no_permission">L\'autorisation de stockage n\'est pas accordée</string>
-    <string name="settings_permission_snackbar_button_settings">PARAMÈTRES</string>
+    <string name="permission_storage_denied_toast">Autorisation de stockage refusée</string>
+    <string name="permission_microphone_denied_toast">Autorisation de microphone refusée</string>
+    <string name="permission_storage_toast">Ouvrez "Autorisations" et accordez "Stockage"</string>
+    <string name="permission_microphone_toast">Ouvrez "Autorisations" et accordez "Microphone"</string>
+    <string name="permission_storage_snackbar_with_rationale">L\'autorisation de stockage est nécessaire pour écrire une sauvegarde dans un fichier</string>
+    <string name="permission_microphone_snackbar_with_rationale">L\'autorisation de microphone est nécessaire pour ajouter une nouvelle tâche à l\'aide de la voix</string>
+    <string name="permission_storage_snackbar_no_permission">L\'autorisation de stockage n\'est pas accordée</string>
+    <string name="permission_microphone_snackbar_no_permission">L\'autorisation de microphone n\'est pas accordée</string>
+    <string name="permission_snackbar_button_grant">CONTINUER</string>
+    <string name="permission_snackbar_button_settings">PARAMÈTRES</string>
 
     <string name="general_notification_1">Vous avez</string>
     <string name="general_notification_2">une tâche active :</string>
