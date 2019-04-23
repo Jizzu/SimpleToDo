@@ -68,7 +68,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
         holder.itemView.isEnabled = true
         holder.title.text = task.title
 
-        if (!task.note.isEmpty()) {
+        if (task.note.isNotEmpty()) {
             holder.note.visible()
         } else holder.note.gone()
 

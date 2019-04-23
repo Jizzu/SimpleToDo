@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
@@ -10,26 +9,38 @@
     <include layout="@layout/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchResult"
+        android:id="@+id/rvSearchResultsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
         android:overScrollMode="never" />
 
-    <RelativeLayout
-        android:id="@+id/emptyView"
+    <LinearLayout
+        android:id="@+id/llEmptyView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
 
-        <TextView
-            android:id="@+id/emptyViewTitle"
+        <ImageView
+            android:id="@+id/ivEmptyIllustration"
+            style="@style/ImageViewNoTint"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="130dp"
+            android:gravity="center_horizontal"
+            android:src="@drawable/illustration_search" />
+
+        <TextView
+            android:id="@+id/tvEmptyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="@string/search_view_empty_text"
             android:textColor="@color/greyWhite"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

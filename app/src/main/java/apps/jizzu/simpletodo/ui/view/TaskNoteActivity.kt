@@ -19,23 +19,23 @@ class TaskNoteActivity : BaseActivity() {
         matchDressCode()
         setContentView(R.layout.activity_task_note)
         initToolbar(getString(R.string.task_note), R.drawable.round_arrow_back_black_24)
-        initScrollViewListener(scrollView)
+        initScrollViewListener(svTaskDetails)
         restoreData()
     }
 
     private fun restoreData() {
         val note = intent.getStringExtra("note")
         if (!note.isEmpty()) {
-            taskNote.apply {
+            tvTaskNote.apply {
                 setText(note)
                 setSelection(note.length)
             }
-        } else showKeyboard(taskNote)
+        } else showKeyboard(tvTaskNote)
     }
 
     private fun saveNote() {
-        setResult(Activity.RESULT_OK, Intent().putExtra("note", taskNote.text.toString()))
-        hideKeyboard(taskNote)
+        setResult(Activity.RESULT_OK, Intent().putExtra("note", tvTaskNote.text.toString()))
+        hideKeyboard(tvTaskNote)
         finish()
     }
 
@@ -53,7 +53,7 @@ class TaskNoteActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                hideKeyboard(taskNote)
+                hideKeyboard(tvTaskNote)
                 onBackPressed()
             }
             R.id.action_save -> saveNote()

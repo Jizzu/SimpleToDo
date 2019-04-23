@@ -26,20 +26,20 @@ class FragmentSettings : Fragment() {
     }
 
     private fun initButtons() {
-        buttonUI.setOnClickListener { openFragment(FragmentUI()) }
-        buttonNotifications.setOnClickListener { openFragment(FragmentNotifications()) }
-        buttonDateAndTime.setOnClickListener { openFragment(FragmentDateAndTime()) }
-        buttonBackupAndRestore.setOnClickListener { openFragment(FragmentBackupAndRestore()) }
-        buttonRate.setOnClickListener { rateThisApp() }
-        buttonFeedback.setOnClickListener { sendFeedback() }
-        buttonOtherApps.setOnClickListener { openUri(GOOGLE_PLAY_PAGE) }
-        buttonGitHub.setOnClickListener { openUri(GIT_HUB_PAGE) }
-        buttonPrivacyPolicy.setOnClickListener { openUri(PRIVACY_POLICY_PAGE) }
-        buttonLicenses.setOnClickListener { openFragment(FragmentLicenses()) }
+        tvUI.setOnClickListener { openFragment(FragmentUI()) }
+        tvNotifications.setOnClickListener { openFragment(FragmentNotifications()) }
+        tvDateAndTime.setOnClickListener { openFragment(FragmentDateAndTime()) }
+        tvBackupAndRestore.setOnClickListener { openFragment(FragmentBackupAndRestore()) }
+        tvRate.setOnClickListener { rateThisApp() }
+        tvFeedback.setOnClickListener { sendFeedback() }
+        tvOtherApps.setOnClickListener { openUri(GOOGLE_PLAY_PAGE) }
+        tvGitHub.setOnClickListener { openUri(GIT_HUB_PAGE) }
+        tvPrivacyPolicy.setOnClickListener { openUri(PRIVACY_POLICY_PAGE) }
+        tvLicenses.setOnClickListener { openFragment(FragmentLicenses()) }
     }
 
     private fun openFragment(fragment: BaseSettingsFragment) =
-            fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, fragment)?.addToBackStack(null)?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.flFragmentContainer, fragment)?.addToBackStack(null)?.commit()
 
     private fun rateThisApp() {
         val appPackageName = activity?.packageName

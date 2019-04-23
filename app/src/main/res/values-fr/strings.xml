@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">To-Do</string>
     <string name="simple_todo_title">S I M P L E \u0020\u0020 T O D O</string>
     <string name="empty_view_title">Pas de tâches</string>
     <string name="empty_view_text">Vous pouvez créer de nouvelles tâches \n en utilisant le bouton +</string>
@@ -87,12 +86,19 @@
     <string name="backup_restore_message_failure">La restauration de la sauvegarde a échoué !</string>
     <string name="backup_restore_message_nothing">Rien à restaurer</string>
 
-    <string name="settings_permission_denied_toast">Autorisation de stockage refusée</string>
-    <string name="settings_permission_settings_toast">Ouvrez "Autorisations" et accordez "Stockage"</string>
-    <string name="settings_permission_snackbar_with_rationale">L\'autorisation de stockage est nécessaire pour écrire une sauvegarde dans un fichier</string>
-    <string name="settings_permission_snackbar_button_grant">CONTINUER</string>
-    <string name="settings_permission_snackbar_no_permission">L\'autorisation de stockage n\'est pas accordée</string>
-    <string name="settings_permission_snackbar_button_settings">PARAMÈTRES</string>
+    <string name="permission_storage_denied_toast">Autorisation de stockage refusée</string>
+    <string name="permission_microphone_denied_toast">Autorisation de microphone refusée</string>
+    <string name="permission_storage_toast">Ouvrez "Autorisations" et accordez "Stockage"</string>
+    <string name="permission_microphone_toast">Ouvrez "Autorisations" et accordez "Microphone"</string>
+    <string name="permission_storage_snackbar_with_rationale">L\'autorisation de stockage est nécessaire pour écrire une sauvegarde dans un fichier</string>
+    <string name="permission_microphone_snackbar_with_rationale">L\'autorisation de microphone est nécessaire pour ajouter une nouvelle tâche à l\'aide de la voix</string>
+    <string name="permission_storage_snackbar_no_permission">L\'autorisation de stockage n\'est pas accordée</string>
+    <string name="permission_microphone_snackbar_no_permission">L\'autorisation de microphone n\'est pas accordée</string>
+    <string name="permission_snackbar_button_grant">CONTINUER</string>
+    <string name="permission_snackbar_button_settings">PARAMÈTRES</string>
+
+    <string name="speech_to_text_hint">S\'il vous plaît, dites le texte de la tâche…</string>
+    <string name="speech_to_text_error">Erreur! Quelque chose a mal tourné…</string>
 
     <string name="general_notification_1">Vous avez</string>
     <string name="general_notification_2">une tâche active :</string>
@@ -103,13 +109,14 @@
     <string name="general_notification_channel">Notification générale</string>
 
     <string name="widget_title">TODO LIST</string>
-    <string name="author_gmail">ilya.ponomarenko.dev@gmail.com</string>
 
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Q U O I \u0020\u0020 D E \u0020\u0020 N E U F ?</string>
     <string name="whats_new_button_text">Bien!</string>
-    <string name="whats_new_item_1_text">Champ ajouté avec une note sur la tâche</string>
-    <string name="whats_new_item_2_text">Améliorations mineures de l\'interface utilisateur</string>
+    <string name="whats_new_item_1_text">Implémentation de la possibilité d\'ajouter des tâches en utilisant la voix \n(appuyez longuement sur le bouton +)</string>
+    <string name="whats_new_item_2_text">Ajout de belles illustrations</string>
+    <string name="whats_new_item_3_text">Ajout de la traduction turque</string>
+    <string name="whats_new_item_4_text">Correction de bugs</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Noter cette appli</string>

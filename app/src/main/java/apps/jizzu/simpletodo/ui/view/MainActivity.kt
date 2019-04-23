@@ -1,18 +1,23 @@
 package apps.jizzu.simpletodo.ui.view
 
+import android.Manifest
 import android.animation.TimeInterpolator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
+import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.speech.RecognizerIntent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -41,6 +46,7 @@ import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentNotifications
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
+import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.TaskListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -53,8 +59,8 @@ import top.wefor.circularanim.CircularAnim
 import java.util.*
 
 class MainActivity : BaseActivity() {
-    private val mRecyclerView: RecyclerView by bindView(R.id.tasksList)
-    private val mFab: FloatingActionButton by bindView(R.id.fab)
+    private val mRecyclerView: RecyclerView by bindView(R.id.rvTasksList)
+    private val mFab: FloatingActionButton by bindView(R.id.fabCreateNewTask)
     private var mSnackbar: Snackbar? = null
 
     private lateinit var mAdapter: RecyclerViewAdapter
@@ -67,7 +73,7 @@ class MainActivity : BaseActivity() {
         matchDressCode()
         setContentView(R.layout.activity_main)
 
-        initToolbar(getString(R.string.simple_todo_title), null, bottomAppBar)
+        initToolbar(getString(R.string.simple_todo_title), null, babMainMenu)
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         AlarmHelper.getInstance().init(applicationContext)
 
@@ -98,7 +104,7 @@ class MainActivity : BaseActivity() {
         if (mTaskList.size > tasks.size) isNeedToRecount = true
         mTaskList = tasks as ArrayList<Task>
         if (isNeedToRecount) recountTaskPositions()
-        emptyView.gone()
+        llEmptyView.gone()
         mAdapter.updateData(mTaskList)
         mPreferenceHelper.putInt(PreferenceHelper.NEW_TASK_POSITION, mAdapter.itemCount)
         restoreAlarmsAfterMigration()
@@ -116,14 +122,14 @@ class MainActivity : BaseActivity() {
     private fun showEmptyView() {
         mTaskList = arrayListOf()
         mAdapter.updateData(mTaskList)
-        emptyView.visible()
+        llEmptyView.visible()
         val anim = AnimationUtils.loadAnimation(this, R.anim.empty_view_animation).apply {
             startOffset = 300
             duration = 300
         }
         updateGeneralNotification()
         updateWidget()
-        emptyView.startAnimation(anim)
+        llEmptyView.startAnimation(anim)
     }
 
     private fun showRecyclerViewAnimation() {
@@ -265,19 +271,29 @@ class MainActivity : BaseActivity() {
 
             if (mPreferenceHelper.getBoolean(PreferenceHelper.ANIMATION_IS_ON)) {
                 val position = mAdapter.itemCount
-                val intent = Intent(this@MainActivity, AddTaskActivity::class.java)
+                val intent = Intent(this, AddTaskActivity::class.java)
                 intent.putExtra("position", position)
 
-                CircularAnim.fullActivity(this@MainActivity, view)
+                CircularAnim.fullActivity(this, view)
                         .colorOrImageRes(R.color.blue)
                         .duration(300)
                         .go { startActivity(intent) }
             } else {
                 val position = mAdapter.itemCount
-                val intent = Intent(this@MainActivity, AddTaskActivity::class.java)
+                val intent = Intent(this, AddTaskActivity::class.java)
                 intent.putExtra("position", position)
                 startActivity(intent)
             }
+        }
+
+        mFab.setOnLongClickListener {
+            if (isHasPermissions(Manifest.permission.RECORD_AUDIO)) {
+                showVoiceInput()
+            } else {
+                requestPermissionWithRationale(clMain, getString(R.string.permission_microphone_snackbar_with_rationale),
+                        Manifest.permission.RECORD_AUDIO, null, mFab)
+            }
+            true
         }
 
         mRecyclerView.addOnScrollListener(object : RecyclerViewScrollListener() {
@@ -296,28 +312,26 @@ class MainActivity : BaseActivity() {
         toolbar.animate().translationY(translationValue).interpolator = interpolator
     }
 
-    fun showTaskDetailsActivity(task: Task) {
-        val intent = Intent(this, EditTaskActivity::class.java)
-
-        intent.putExtra("id", task.id)
-        intent.putExtra("title", task.title)
-        intent.putExtra("note", task.note)
-        intent.putExtra("position", task.position)
-        intent.putExtra("time_stamp", task.timeStamp)
-
-        if (task.date != 0L) {
-            intent.putExtra("date", task.date)
+    private fun showVoiceInput() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_to_text_hint))
         }
-        startActivity(intent)
+        try {
+            startActivityForResult(intent, SPEECH_INPUT_CODE)
+        } catch (exception: ActivityNotFoundException) {
+            toast(getString(R.string.speech_to_text_error))
+        }
     }
 
-    private fun createViewModel() = ViewModelProviders.of(this@MainActivity).get(TaskListViewModel(application)::class.java)
+    private fun createViewModel() = ViewModelProviders.of(this).get(TaskListViewModel(application)::class.java)
 
     private fun updateWidget() {
         val intent = Intent(this, WidgetProvider::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        val ids = AppWidgetManager.getInstance(this@MainActivity)
-                .getAppWidgetIds(ComponentName(this@MainActivity, WidgetProvider::class.java))
+        val ids = AppWidgetManager.getInstance(this)
+                .getAppWidgetIds(ComponentName(this, WidgetProvider::class.java))
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
         sendBroadcast(intent)
     }
@@ -351,7 +365,7 @@ class MainActivity : BaseActivity() {
         }
 
         // Set NotificationChannel for Android Oreo and higher
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(AlarmReceiver.GENERAL_NOTIFICATION_CHANNEL_ID, getString(R.string.general_notification_channel),
                     NotificationManager.IMPORTANCE_LOW)
             channel.enableLights(false)
@@ -389,7 +403,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initShortcuts() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             val newTaskShortcut = ShortcutInfo.Builder(this, "newTask")
                     .setShortLabel(getString(R.string.shortcut_add_new_task))
                     .setLongLabel(getString(R.string.shortcut_add_new_task))
@@ -407,6 +421,35 @@ class MainActivity : BaseActivity() {
                     .build()
 
             getSystemService(ShortcutManager::class.java).dynamicShortcuts = Arrays.asList(searchShortcut, newTaskShortcut)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        var isAllowed = true
+
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                for (res in grantResults) {
+                    // If user granted all permissions.
+                    isAllowed = isAllowed && res == PackageManager.PERMISSION_GRANTED
+                }
+            }
+
+            else -> {
+                // If user not granted permissions.
+                isAllowed = false
+            }
+        }
+
+        if (isAllowed) {
+            showVoiceInput()
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
+                toast(getString(R.string.permission_microphone_denied_toast))
+            } else {
+                showNoPermissionSnackbar(clMain, getString(R.string.permission_microphone_snackbar_no_permission),
+                        getString(R.string.permission_microphone_toast), mFab)
+            }
         }
     }
 
@@ -428,13 +471,26 @@ class MainActivity : BaseActivity() {
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {
-                val task = mAdapter.getTaskAtPosition(position)
-                showTaskDetailsActivity(task)
+                showTaskDetailsActivity(mAdapter.getTaskAtPosition(position))
             }
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == SPEECH_INPUT_CODE && resultCode == RESULT_OK && data != null) {
+            val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val task = Task().apply {
+                title = result[0].capitalize()
+                this.position = mAdapter.itemCount
+            }
+            mViewModel.saveTask(task)
+        }
+    }
+
     companion object {
         var mTaskList = arrayListOf<Task>()
+        private const val SPEECH_INPUT_CODE = 111
     }
 }

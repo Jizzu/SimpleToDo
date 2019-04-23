@@ -1,0 +1,154 @@
+<resources>
+    <string name="simple_todo_title">S I M P L E \u0020\u0020 T O D O</string>
+    <string name="empty_view_title">Hiç görev yok</string>
+    <string name="empty_view_text">Yeni görevleri \n + tuşunu kullanarak ekleyebilirsiniz</string>
+    <string name="search_view_empty_text">Belirli bir görev ara</string>
+    <string name="search_view_not_found_text">Hiç görev bulunamadı :(</string>
+    <string name="create_task">Y E N İ \u0020\u0020 G Ö R E V</string>
+    <string name="hint_reminder">Hatırlatıcı</string>
+    <string name="hint_title">Başlık</string>
+    <string name="hint_note">Bir not ekle</string>
+    <string name="add_task">E K L E</string>
+    <string name="update_task">G Ü N C E L L E</string>
+    <string name="edit_task">G Ö R E V İ \u0020\u0020 D Ü Z E N L E</string>
+    <string name="task_note">N O T</string>
+
+    <string name="toast_incorrect_time">Hata! Hatalı zaman yazdınız!</string>
+    <string name="error_text_input">Lütfen bir başlık girin!</string>
+    <string name="error_spaces">Lütfen geçerli bir başlık girin!</string>
+
+    <string name="preferences_animation_title">Animasyonları etkinleşir</string>
+    <string name="preferences_animation_summary">UI elemanları için animasyonları etkinleştir</string>
+    <string name="preferences_theme_title">Tema seçin</string>
+    <string name="preferences_theme_summary">Uygulamanın renk temasını değiştirin</string>
+    <string name="preferences_general_notification_title">Genel bildirimleri etkinleştir</string>
+    <string name="preferences_general_notification_summary">Şu anki görev listesini bildirim olarak göster</string>
+    <string name="preferences_notification_channel_title">Bildirim ayarları</string>
+    <string name="preferences_notification_channel_summary">Özel sesi, titreşimi ve diğerlerini ayarla</string>
+    <string name="preferences_date_format_title">Tarih biçimi</string>
+    <string name="preferences_date_format_summary">Tarih biçimini değiştir</string>
+    <string name="preferences_time_format_title">Saat biçimi</string>
+    <string name="preferences_time_format_summary">Saat biçimini değiştir</string>
+    <string name="preferences_backup_create_title">Yedek oluştur</string>
+    <string name="preferences_backup_create_summary">Görevleri cihazın hafızasına kaydet</string>
+    <string name="preferences_backup_restore_title">Yedekten geri getir</string>
+    <string name="preferences_backup_restore_summary">Görevleri cihaz hafızasından içe aktar</string>
+
+    <string name="feedback_title">Simple ToDo - Geri bildirim</string>
+    <string name="feedback_device_info">Cihaz bilgisi: </string>
+    <string name="feedback_app_version">Uygulama versiyonu: </string>
+    <string name="feedback">Geri bildirim: </string>
+
+    <string name="settings_user_interface">Kullanıcı Arayüzü</string>
+    <string name="settings_notifications">Bildirimler</string>
+    <string name="settings_date_and_time">Tarih &amp; Saat</string>
+    <string name="settings_backup_and_restore">Yedekle &amp; Yedekten geri getir</string>
+    <string name="settings_rate">Bu uygulamaya puan verin</string>
+    <string name="settings_feedback">Geri bildirim gönder</string>
+    <string name="settings_other_apps">Diğer uygulamalar</string>
+    <string name="settings_git_hub">GitHub sayfası</string>
+    <string name="settings_privacy_policy">Gizlilik politikası</string>
+    <string name="settings_licenses">Lisanslar</string>
+    <string name="settings_no_email_apps">Kurulu e-posta uygulamanız yok!</string>
+    <string name="settings_no_browser_apps">Kurulu tarayıcı uygulamanız yok!</string>
+
+    <string name="settings">A Y A R L A R</string>
+    <string name="settings_page_title_user_interface">A R A Y Ü Z</string>
+    <string name="settings_page_title_notifications">B İ L D İ R İ M L E R</string>
+    <string name="settings_page_title_date_and_time">T A R İ H \u0020\u0020 &amp; \u0020\u0020 Z A M A N</string>
+    <string name="settings_page_title_backup_and_restore">Y E D E K \u0020\u0020 &amp; \u0020\u0020 G E R İ  Y Ü K L E M E</string>
+    <string name="settings_page_title_licenses">L İ S A N S L A R</string>
+
+    <string name="settings_menu">Ayarlar</string>
+    <string name="search">Ara</string>
+
+    <string name="reminder_text">Hatırlatıcı</string>
+    <string name="reminder_today">Bugün %1$s</string>
+    <string name="reminder_yesterday">Dün %1$s</string>
+    <string name="reminder_tomorrow">Yarın %1$s</string>
+
+    <string name="snackbar_remove_task">Görev kaldırıldı!</string>
+    <string name="snackbar_undo">Geri al</string>
+    <string name="action_cancel">Vazgeç</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_save">Kayıt etmek</string>
+    <string name="dialog_title"><b>Emin misiniz?</b></string>
+    <string name="dialog_message">Silinen görev geri yüklenemez</string>
+
+    <string name="backup_create_dialog_message">Eski yedek dosyası silinecek</string>
+    <string name="backup_create_dialog_button">Yedek oluştur</string>
+    <string name="backup_restore_dialog_message">Şu anki tüm görevler silinecek</string>
+    <string name="backup_restore_dialog_button">Yedeği geri yükle</string>
+
+    <string name="backup_create_message_success">Yedek başarıyla oluşturuldu!</string>
+    <string name="backup_create_message_failure">Yedek oluşturma başarısız!</string>
+    <string name="backup_restore_message_success">Yedek geri yüklendi!</string>
+    <string name="backup_restore_message_failure">Yedeğin geri yüklenmesi başarısız!</string>
+    <string name="backup_restore_message_nothing">Geri yüklenecek bir şey yok</string>
+
+    <string name="permission_storage_denied_toast">Depolama alanına erişim engellendi</string>
+    <string name="permission_microphone_denied_toast">Mikrofona erişim engellendi</string>
+    <string name="permission_storage_toast">"İzinler"i açın ve "Depolama"ya izin verin</string>
+    <string name="permission_microphone_toast">"İzinler"i açın ve "Mikrofon"ya izin verin</string>
+    <string name="permission_storage_snackbar_with_rationale">Depolama izni, yedeği bir dosyaya yazmak için gereklidir</string>
+    <string name="permission_microphone_snackbar_with_rationale">Ses kullanarak yeni görev eklemek için mikrofon iznine ihtiyaç var</string>
+    <string name="permission_storage_snackbar_no_permission">Depolama izni verilmedi</string>
+    <string name="permission_microphone_snackbar_no_permission">Mikrofona izni verilmedi</string>
+    <string name="permission_snackbar_button_grant">İZİN</string>
+    <string name="permission_snackbar_button_settings">AYARLAR</string>
+
+    <string name="speech_to_text_hint">Lütfen görev metnini söyleyin…</string>
+    <string name="speech_to_text_error">Hata! Bir şeyler yanlış gitti…</string>
+
+    <string name="general_notification_1">Sizin</string>
+    <string name="general_notification_2">göreviniz var:</string>
+    <string name="general_notification_3">görevleriniz var:</string>
+    <string name="general_notification_4">görevleriniz var:</string>
+
+    <string name="notification_channel">Bildirimler</string>
+    <string name="general_notification_channel">Genel bildirim</string>
+
+    <string name="widget_title">Görevler</string>
+
+    ////////////////<!-- "What's New?" page -->////////////////
+    <string name="whats_new_title">N E L E R \u0020\u0020 Y E N İ ?</string>
+    <string name="whats_new_button_text">Tamam</string>
+    <string name="whats_new_item_1_text">Ses kullanarak görev ekleme yeteneği eklendi \n(+ Düğmesine uzun basın)</string>
+    <string name="whats_new_item_2_text">Güzel resimler eklendi</string>
+    <string name="whats_new_item_3_text">Türkçe çeviri eklendi</string>
+    <string name="whats_new_item_4_text">Hata düzeltmeleri</string>
+
+    ///////////////<!-- Rate this app dialog -->///////////////
+    <string name="rate_dialog_title">Bu uygulamaya oy ver</string>
+    <string name="rate_dialog_message">Bu uygulamayı kullanmaktan hoşlandıysan puan vermek için kısa süreni ayırabilir misin? Bir dakikadan fazla süreni almayacaktır. Desteğin için teşekkürler!</string>
+    <string name="rate_dialog_ok">Şimdi puan ver</string>
+    <string name="rate_dialog_cancel">Sonra</string>
+    <string name="rate_dialog_no">Hayır, teşekkür ederim</string>
+
+    ////////////////<!-- Date/Time format dialog -->/////////////////
+    <string name="date_format_dialog_title">Tarih biçimi seçin:</string>
+    <string name="date_format_at">"%2$s\'de/da %1$s"</string>
+    <string-array name="date_format_list">
+        <item>Gün.Ay.Yıl</item>
+        <item>Yıl.Ay.Gün</item>
+        <item>Ay.Gün.Yıl</item>
+        <item>Yıl.Gün.Ay</item>
+    </string-array>
+
+    <string name="time_format_dialog_title">Saat biçimi seçin:</string>
+    <string-array name="time_format_list">
+        <item>24 saat biçimi</item>
+        <item>12 saat biçimi</item>
+    </string-array>
+
+    <string name="app_theme_dialog_title">Bir tema seçin:</string>
+    <string-array name="app_theme">
+        <item>Aydınlık</item>
+        <item>Karanlık</item>
+        <item>Siyah</item>
+    </string-array>
+
+    ///////////////<!-- Shortcuts -->///////////////
+    <string name="shortcut_add_new_task">Yeni görev ekle</string>
+    <string name="shortcut_search">Ara</string>
+</resources>

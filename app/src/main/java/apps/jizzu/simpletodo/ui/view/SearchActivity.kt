@@ -1,6 +1,5 @@
 package apps.jizzu.simpletodo.ui.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -28,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 import kotterknife.bindView
 
 class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
-    private val mRecyclerView: RecyclerView by bindView(R.id.searchResult)
+    private val mRecyclerView: RecyclerView by bindView(R.id.rvSearchResultsList)
     private lateinit var mViewModel: SearchTasksViewModel
     private lateinit var mAdapter: RecyclerViewAdapter
 
@@ -50,7 +49,7 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mAdapter = RecyclerViewAdapter()
         mRecyclerView.adapter = mAdapter
-        emptyView.visible()
+        llEmptyView.visible()
 
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {
@@ -60,33 +59,23 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         })
     }
 
-    fun showTaskDetailsActivity(task: Task) {
-        val intent = Intent(this, EditTaskActivity::class.java)
-
-        intent.putExtra("id", task.id)
-        intent.putExtra("title", task.title)
-        intent.putExtra("position", task.position)
-        intent.putExtra("time_stamp", task.timeStamp)
-
-        if (task.date != 0L) {
-            intent.putExtra("date", task.date)
-        }
-        startActivity(intent)
-    }
-
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView(false)
         else showTaskList(tasks)
 
     private fun showEmptyView(isSearchFieldEmpty: Boolean) {
         mAdapter.updateData(arrayListOf())
-        emptyView.visible()
+        llEmptyView.visible()
         if (isSearchFieldEmpty) {
-            emptyViewTitle.text = getString(R.string.search_view_empty_text)
-        } else emptyViewTitle.text = getString(R.string.search_view_not_found_text)
+            ivEmptyIllustration.setImageResource(R.drawable.illustration_search)
+            tvEmptyTitle.text = getString(R.string.search_view_empty_text)
+        } else {
+            ivEmptyIllustration.setImageResource(R.drawable.illustration_not_found)
+            tvEmptyTitle.text = getString(R.string.search_view_not_found_text)
+        }
     }
 
     private fun showTaskList(tasks: List<Task>) {
-        emptyView.gone()
+        llEmptyView.gone()
         mAdapter.updateData(tasks)
     }
 

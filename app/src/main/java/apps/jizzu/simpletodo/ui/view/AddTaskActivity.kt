@@ -25,21 +25,21 @@ class AddTaskActivity : BaseTaskActivity() {
             PreferenceHelper.getInstance().getInt(PreferenceHelper.NEW_TASK_POSITION)
         } else intent.getIntExtra("position", 0)
 
-        addTaskButton.setOnClickListener {
+        btnTaskConfirm.setOnClickListener {
             when {
-                mTitleEditText.length() == 0 -> taskTitleLayout.error = getString(R.string.error_text_input)
-                mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> taskTitleLayout.error = getString(R.string.error_spaces)
+                mTitleEditText.length() == 0 -> tilTaskTitle.error = getString(R.string.error_text_input)
+                mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> tilTaskTitle.error = getString(R.string.error_spaces)
                 else -> {
                     val task = Task().apply {
                         title = mTitleEditText.text.toString()
                         this.position = position
                     }
 
-                    if (taskNote.length() != 0) {
-                        task.note = taskNote.text.toString()
+                    if (tvTaskNote.length() != 0) {
+                        task.note = tvTaskNote.text.toString()
                     }
 
-                    if (taskReminder.length() != 0) {
+                    if (tvTaskReminder.length() != 0) {
                         task.date = mCalendar.timeInMillis
                     }
 

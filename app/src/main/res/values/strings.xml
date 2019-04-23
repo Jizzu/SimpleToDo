@@ -96,12 +96,19 @@
     <string name="backup_restore_message_failure">Failed to restore backup!</string>
     <string name="backup_restore_message_nothing">Nothing to restore</string>
 
-    <string name="settings_permission_denied_toast">Storage permission denied</string>
-    <string name="settings_permission_settings_toast">Open "Permissions" and grant the "Storage permission"</string>
-    <string name="settings_permission_snackbar_with_rationale">Storage permission is needed to write a backup to a file</string>
-    <string name="settings_permission_snackbar_button_grant">GRANT</string>
-    <string name="settings_permission_snackbar_no_permission">Storage permission isn\'t granted</string>
-    <string name="settings_permission_snackbar_button_settings">SETTINGS</string>
+    <string name="permission_storage_denied_toast">Storage permission denied</string>
+    <string name="permission_microphone_denied_toast">Microphone permission denied</string>
+    <string name="permission_storage_toast">Open "Permissions" and grant the "Storage" permission</string>
+    <string name="permission_microphone_toast">Open "Permissions" and grant the "Microphone" permission</string>
+    <string name="permission_storage_snackbar_with_rationale">Storage permission is needed to write a backup to a file</string>
+    <string name="permission_microphone_snackbar_with_rationale">Microphone permission is needed to add new task using voice</string>
+    <string name="permission_storage_snackbar_no_permission">Storage permission isn\'t granted</string>
+    <string name="permission_microphone_snackbar_no_permission">Microphone permission isn\'t granted</string>
+    <string name="permission_snackbar_button_grant">GRANT</string>
+    <string name="permission_snackbar_button_settings">SETTINGS</string>
+
+    <string name="speech_to_text_hint">Please, say the task text…</string>
+    <string name="speech_to_text_error">Error! Something went wrong…</string>
 
     <string name="general_notification_1">You have</string>
     <string name="general_notification_2">active task:</string>
@@ -117,8 +124,10 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">W H A T \' S \u0020\u0020 N E W ?</string>
     <string name="whats_new_button_text">Okay</string>
-    <string name="whats_new_item_1_text">Added task note field</string>
-    <string name="whats_new_item_2_text">Minor UI improvements</string>
+    <string name="whats_new_item_1_text">Implemented the ability to add tasks using voice \n(Long press the + button)</string>
+    <string name="whats_new_item_2_text">Added beautiful illustrations</string>
+    <string name="whats_new_item_3_text">Added Turkish translation</string>
+    <string name="whats_new_item_4_text">Bug fixes</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Rate this app</string>

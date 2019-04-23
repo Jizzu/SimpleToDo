@@ -24,16 +24,16 @@ class RateThisAppDialogFragment : BaseDialogFragment() {
     private fun initButtons() {
         val preferenceHelper = PreferenceHelper.getInstance()
 
-        buttonRate.setOnClickListener {
+        tvRate.setOnClickListener {
             preferenceHelper.putBoolean(PreferenceHelper.IS_NEED_TO_SHOW_RATE_DIALOG_LATER, false)
             rateThisApp()
             dismiss()
         }
-        buttonNo.setOnClickListener {
+        tvNeverShow.setOnClickListener {
             preferenceHelper.putBoolean(PreferenceHelper.IS_NEED_TO_SHOW_RATE_DIALOG_LATER, false)
             dismiss()
         }
-        buttonLater.setOnClickListener {
+        tvShowLater.setOnClickListener {
             preferenceHelper.putInt(PreferenceHelper.LAUNCHES_COUNTER, 0)
             dismiss()
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/rootLayout"
+    android:id="@+id/llNotifications"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
@@ -10,7 +10,7 @@
     android:showDividers="middle|end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonGeneralNotification"
+        android:id="@+id/clGeneralNotification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -41,11 +41,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/switchGeneralNotification"
+            app:layout_constraintRight_toLeftOf="@id/swGeneralNotification"
             app:layout_constraintTop_toBottomOf="@id/tvGeneralNotificationTitle" />
 
         <Switch
-            android:id="@+id/switchGeneralNotification"
+            android:id="@+id/swGeneralNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -56,7 +56,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonNotificationSound"
+        android:id="@+id/clNotificationSound"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">

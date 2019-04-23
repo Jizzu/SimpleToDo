@@ -29,12 +29,12 @@ class FragmentDateAndTime : BaseSettingsFragment() {
     }
 
     private fun setOnClickListeners() {
-        buttonDateFormat.setOnClickListener {
+        clDateFormat.setOnClickListener {
             showSingleChoiceDialog(R.array.date_format_list, getString(R.string.date_format_dialog_title),
                     PreferenceHelper.DATE_FORMAT_KEY)
         }
 
-        buttonTimeFormat.setOnClickListener {
+        clTimeFormat.setOnClickListener {
             showSingleChoiceDialog(R.array.time_format_list, getString(R.string.time_format_dialog_title),
                     PreferenceHelper.TIME_FORMAT_KEY)
         }

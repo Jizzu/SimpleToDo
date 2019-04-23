@@ -16,7 +16,7 @@ class ChangelogActivity : BaseActivity() {
         matchDressCode()
         setContentView(R.layout.activity_changelog)
         initToolbar(getString(R.string.whats_new_title))
-        confirmButton.setOnClickListener { onBackPressed() }
+        btnConfirm.setOnClickListener { onBackPressed() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =

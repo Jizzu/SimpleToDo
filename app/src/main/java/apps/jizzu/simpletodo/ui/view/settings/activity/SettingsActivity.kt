@@ -27,7 +27,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     fun setToolbarTitle(title: String) {
-        toolbarTitle.text = title
+        tvToolbarTitle.text = title
         checkScreenResolution()
     }
 
@@ -38,13 +38,13 @@ class SettingsActivity : BaseActivity() {
         val height = displayMetrics.heightPixels
 
         if (width <= 480 || height <= 800) {
-            toolbarTitle.textSize = 18F
+            tvToolbarTitle.textSize = 18F
         }
     }
 
     private fun openSettingsFragment() {
         if (!FragmentUI.isThemeChanged) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, FragmentSettings()).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.flFragmentContainer, FragmentSettings()).commit()
         } else FragmentUI.isThemeChanged = false
     }
 
@@ -66,8 +66,8 @@ class SettingsActivity : BaseActivity() {
 
         val intent = Intent(this, WidgetProvider::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        val ids = AppWidgetManager.getInstance(this@SettingsActivity)
-                .getAppWidgetIds(ComponentName(this@SettingsActivity, WidgetProvider::class.java))
+        val ids = AppWidgetManager.getInstance(this)
+                .getAppWidgetIds(ComponentName(this, WidgetProvider::class.java))
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
         sendBroadcast(intent)
     }

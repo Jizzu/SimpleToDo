@@ -8,32 +8,53 @@
 
     <include layout="@layout/toolbar" />
 
-    <TextView
-        android:id="@+id/featureOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/featureTwo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:gravity="center"
-        android:text="@string/whats_new_item_1_text"
-        android:textColor="?android:attr/android:textColorPrimary"
-        android:textSize="20sp" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/featureTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/whats_new_item_2_text"
-        android:textColor="?android:attr/android:textColorPrimary"
-        android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/whats_new_item_1_text"
+            android:textColor="?android:attr/android:textColorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/whats_new_item_2_text"
+            android:textColor="?android:attr/android:textColorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/whats_new_item_3_text"
+            android:textColor="?android:attr/android:textColorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/whats_new_item_4_text"
+            android:textColor="?android:attr/android:textColorPrimary"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/confirmButton"
+        android:id="@+id/btnConfirm"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

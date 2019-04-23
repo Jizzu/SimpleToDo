@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/dialogMessage"
+            android:id="@+id/tvDialogMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/buttonConfirm"
+        android:id="@+id/tvConfirm"
         style="@style/DialogButtonTheme"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -43,7 +43,7 @@
         tools:text="@string/action_delete" />
 
     <TextView
-        android:id="@+id/buttonCancel"
+        android:id="@+id/tvCancel"
         style="@style/DialogButtonTheme"
         android:layout_width="match_parent"
         android:layout_height="44dp"

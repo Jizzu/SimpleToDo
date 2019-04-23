@@ -24,13 +24,13 @@ class WidgetProvider : AppWidgetProvider() {
             adapter.data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME))
 
             val widget = RemoteViews(context.packageName, R.layout.widget_list)
-            widget.setRemoteAdapter(R.id.widgetList, adapter)
-            widget.setOnClickPendingIntent(R.id.toolbarTitle, onTitleClickPendingIntent)
+            widget.setRemoteAdapter(R.id.lvWidgetTasksList, adapter)
+            widget.setOnClickPendingIntent(R.id.tvWidgetTitle, onTitleClickPendingIntent)
 
             val onTaskClickPendingIntent = PendingIntent.getBroadcast(context, 0, Intent(context, WidgetProvider::class.java), 0)
-            widget.setPendingIntentTemplate(R.id.widgetList, onTaskClickPendingIntent)
+            widget.setPendingIntentTemplate(R.id.lvWidgetTasksList, onTaskClickPendingIntent)
 
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetList)
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.lvWidgetTasksList)
             appWidgetManager.updateAppWidget(appWidgetId, widget)
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds)

@@ -9,7 +9,7 @@
     android:showDividers="middle|end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonAnimations"
+        android:id="@+id/clAnimations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -40,11 +40,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/switchAnimation"
+            app:layout_constraintRight_toLeftOf="@id/swAnimation"
             app:layout_constraintTop_toBottomOf="@id/tvAnimationsTitle" />
 
         <Switch
-            android:id="@+id/switchAnimation"
+            android:id="@+id/swAnimation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -55,7 +55,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonChooseTheme"
+        android:id="@+id/clChooseTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">
