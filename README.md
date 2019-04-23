@@ -19,8 +19,10 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 ## FAQ:
 If you have any questions — welcome to the [FAQs page](FAQs.md)!
 
-## Next update changes (v1.7):
-- [x] Add task description field
+## Next update changes (v1.8):
+- [x] Ability to add tasks using voice
+- [x] UI improvements
+- [ ] Bug fixes
 
 ## Download links:
 <a href='https://play.google.com/store/apps/details?
