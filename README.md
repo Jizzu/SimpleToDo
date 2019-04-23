@@ -13,6 +13,8 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 - Reminder feature
 - Search feature
 - Widget support
+- Themes support
+- Adding task by voice
 - Backup & Restore feature
 - Drag & drop and swipe-to-dismiss features
 
@@ -22,7 +24,7 @@ If you have any questions — welcome to the [FAQs page](FAQs.md)!
 ## Next update changes (v1.8):
 - [x] Ability to add tasks using voice
 - [x] UI improvements
-- [ ] Bug fixes
+- [x] Bug fixes
 
 ## Download links:
 <a href='https://play.google.com/store/apps/details?
