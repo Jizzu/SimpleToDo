@@ -44,6 +44,7 @@ import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.ui.view.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentNotifications
+import apps.jizzu.simpletodo.ui.view.task.AddTaskActivity
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
 import apps.jizzu.simpletodo.utils.toast
@@ -88,6 +89,7 @@ class MainActivity : BaseActivity() {
         mAdapter = RecyclerViewAdapter()
         mRecyclerView.adapter = mAdapter
 
+        startActivity(Intent(this, MainIntroActivity::class.java))
         showChangelogActivity()
         showRecyclerViewAnimation()
         showRateThisAppDialog()

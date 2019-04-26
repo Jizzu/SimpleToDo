@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
-    tools:context=".ui.view.AddTaskActivity">
+    tools:context=".ui.view.task.AddTaskActivity">
 
     <include layout="@layout/toolbar" />
 

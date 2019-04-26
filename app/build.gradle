@@ -17,6 +17,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -38,6 +42,7 @@ dependencies {
     implementation "androidx.preference:preference:$rootProject.androidxVersion"
     implementation "com.github.XunMengWinter:CircularAnim:$rootProject.circularAnimVersion"
     implementation "com.github.Daio-io:dresscode:$rootProject.dresscodeVersion"
+    implementation "com.heinrichreimersoftware:material-intro:$rootProject.materialIntroVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
     // Firebase Crashlytics

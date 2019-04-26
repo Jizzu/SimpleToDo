@@ -20,7 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
-import apps.jizzu.simpletodo.ui.view.EditTaskActivity
+import apps.jizzu.simpletodo.ui.view.task.EditTaskActivity
 import apps.jizzu.simpletodo.utils.toastLong
 import com.google.android.material.snackbar.Snackbar
 import daio.io.dresscode.dressCodeStyleId
