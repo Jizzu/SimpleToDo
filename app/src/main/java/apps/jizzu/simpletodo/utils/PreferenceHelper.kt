@@ -37,6 +37,7 @@ class PreferenceHelper private constructor() {
         const val TIME_FORMAT_KEY = "time_format_key"
         const val LAUNCHES_COUNTER = "launches_counter"
         const val IS_NEED_TO_SHOW_RATE_DIALOG_LATER = "is_need_to_show_rate_dialog_later"
+        const val IS_FIRST_LAUNCH = "is_first_launch"
 
         private var mInstance: PreferenceHelper? = null
 
