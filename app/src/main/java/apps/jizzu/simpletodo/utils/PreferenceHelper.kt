@@ -11,9 +11,10 @@ class PreferenceHelper private constructor() {
     }
 
     fun putBoolean(key: String, value: Boolean) {
-        val editor = mPreferences.edit()
-        editor.putBoolean(key, value)
-        editor.apply()
+        mPreferences.edit().apply {
+            putBoolean(key, value)
+            apply()
+        }
     }
 
     fun getBoolean(key: String) = mPreferences.getBoolean(key, true)
