@@ -12,4 +12,6 @@ class TaskListViewModel(app: Application) : BaseViewModel(app) {
     fun deleteTask(task: Task) = repository.deleteTask(task)
 
     fun saveTask(task: Task) = repository.saveTask(task)
+
+    fun updateTask(task: Task) = repository.updateTask(task)
 }

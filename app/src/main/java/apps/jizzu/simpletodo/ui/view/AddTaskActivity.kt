@@ -49,6 +49,7 @@ class AddTaskActivity : BaseTaskActivity() {
                     } else if (task.date != 0L) {
                         AlarmHelper.getInstance().setAlarm(task)
                     }
+                    task.taskStatus = 0
                     val viewModel = createViewModel()
                     viewModel.saveTask(task)
                     finish()

@@ -162,4 +162,5 @@
     ///////////////<!-- Shortcuts -->///////////////
     <string name="shortcut_add_new_task">Add new task</string>
     <string name="shortcut_search">Search</string>
+    <string name="complete_task_status">Completed the task</string>
 </resources>

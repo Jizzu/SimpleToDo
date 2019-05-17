@@ -474,6 +474,15 @@ class MainActivity : BaseActivity() {
                 showTaskDetailsActivity(mAdapter.getTaskAtPosition(position))
             }
         })
+
+        mAdapter.setTaskCompletionListener(object : RecyclerViewAdapter.TaskCompletionListener {
+            override fun onTaskComplete(v: View, position: Int) {
+                toast(getString(R.string.complete_task_status))
+                val task = mAdapter.getTaskAtPosition(position)
+                task.taskStatus = 1
+                mViewModel.updateTask(task)
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
