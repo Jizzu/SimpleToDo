@@ -27,7 +27,7 @@
     <string name="error_spaces">Пожалуйста, введите корректный заголовок!</string>
 
     <string name="preferences_animation_title">Включить анимацию</string>
-    <string name="preferences_animation_summary">Включить анимацию для элементов интерфейса</string>
+    <string name="preferences_animation_summary">Включить анимацию в интерфейсе</string>
     <string name="preferences_theme_title">Выбрать тему</string>
     <string name="preferences_theme_summary">Изменить цветовую схему приложения</string>
     <string name="preferences_general_notification_title">Включить общее уведомление</string>
