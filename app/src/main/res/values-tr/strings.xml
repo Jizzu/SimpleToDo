@@ -13,6 +13,15 @@
     <string name="edit_task">G Ö R E V İ \u0020\u0020 D Ü Z E N L E</string>
     <string name="task_note">N O T</string>
 
+    <string name="intro_1_title">Gününü planla</string>
+    <string name="intro_1_description">Görevlerinizi organize ve önemli şeyleri unutmayın!</string>
+    <string name="intro_2_title">Görevlerinizi kolayca yönetin</string>
+    <string name="intro_2_description">Görevi kaldırmak için sol veya sağ kaydırma fırçalamak ve listedeki konumunu değiştirmek için yukarı veya aşağı kaydırma</string>
+    <string name="intro_3_title">Ses kullanarak görev ekle</string>
+    <string name="intro_3_description">+ Düğmesine uzun basarak ses girişini kullanarak hızlı bir şekilde yeni görevler ekleyin</string>
+    <string name="intro_4_title">Başlayalım</string>
+    <string name="intro_4_description">Erteleme kurtulun ve verimliliğinizi artırın!</string>
+
     <string name="toast_incorrect_time">Hata! Hatalı zaman yazdınız!</string>
     <string name="error_text_input">Lütfen bir başlık girin!</string>
     <string name="error_spaces">Lütfen geçerli bir başlık girin!</string>

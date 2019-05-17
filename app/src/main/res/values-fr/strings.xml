@@ -13,6 +13,15 @@
     <string name="edit_task">M O D I F I E R \u0020\u0020 L A \u0020\u0020 T Â C H E</string>
     <string name="task_note">N O T E</string>
 
+    <string name="intro_1_title">Planifiez votre journée</string>
+    <string name="intro_1_description">Organisez vos tâches et n\'oubliez pas les choses importantes!</string>
+    <string name="intro_2_title">Gérez vos tâches facilement</string>
+    <string name="intro_2_description">Utilisez des balayages à gauche ou à droite pour supprimer une tâche et de haut en bas pour changer sa position dans la liste</string>
+    <string name="intro_3_title">Ajouter une tâche en utilisant la voix</string>
+    <string name="intro_3_description">Ajouter de nouvelles tâches rapidement en utilisant la saisie vocale en appuyant longuement sur le bouton +</string>
+    <string name="intro_4_title">Commençons</string>
+    <string name="intro_4_description">Éliminez la procrastination et améliorez votre productivité!</string>
+
     <string name="toast_incorrect_time">Erreur ! Vous avez sélectionné un temps incorrect !</string>
     <string name="error_text_input">S\'il vous plaît, entrez un titre !</string>
     <string name="error_spaces">S\'il vous plaît, entrez un titre valide !</string>

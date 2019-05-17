@@ -14,6 +14,15 @@
     <string name="edit_task">E D I T \u0020\u0020 T A S K</string>
     <string name="task_note">N O T E</string>
 
+    <string name="intro_1_title">Plan your day</string>
+    <string name="intro_1_description">Organize your tasks and don\'t forget about important things!</string>
+    <string name="intro_2_title">Manage your tasks easily</string>
+    <string name="intro_2_description">Use left or right swipes to remove task and up or down to change it\'s position in the list</string>
+    <string name="intro_3_title">Add task using voice</string>
+    <string name="intro_3_description">Add new tasks quickly using the voice input by long press the + button</string>
+    <string name="intro_4_title">Let\'s get started</string>
+    <string name="intro_4_description">Get rid of procrastination and improve your productivity!</string>
+
     <string name="toast_incorrect_time">Error! You have selected an incorrect time!</string>
     <string name="error_text_input">Please, enter a title!</string>
     <string name="error_spaces">Please, enter a valid title!</string>
@@ -23,16 +32,16 @@
     <string name="preferences_theme_title">Choose a theme</string>
     <string name="preferences_theme_summary">Change application color scheme</string>
     <string name="preferences_general_notification_title">Enable general notification</string>
-    <string name="preferences_general_notification_summary">Show notification with you current task list</string>
+    <string name="preferences_general_notification_summary">Show notification with your current task list</string>
     <string name="preferences_notification_channel_title">Notifications options</string>
     <string name="preferences_notification_channel_summary">Set custom sound, vibration and etc.</string>
     <string name="preferences_date_format_title">Date format</string>
     <string name="preferences_date_format_summary">Change date format</string>
     <string name="preferences_time_format_title">Time format</string>
     <string name="preferences_time_format_summary">Change time format</string>
-    <string name="preferences_backup_create_title">Create backup</string>
+    <string name="preferences_backup_create_title">Create a backup</string>
     <string name="preferences_backup_create_summary">Export tasks to the device storage</string>
-    <string name="preferences_backup_restore_title">Restore backup</string>
+    <string name="preferences_backup_restore_title">Restore a backup</string>
     <string name="preferences_backup_restore_summary">Import tasks from the device storage</string>
     <string name="preferences_kotter_knife_title">KotterKnife</string>
     <string name="preferences_kotter_knife_summary">JakeWharton</string>

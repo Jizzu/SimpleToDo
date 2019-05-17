@@ -10,8 +10,8 @@ class MainIntroActivity : IntroActivity() {
         super.onCreate(savedInstanceState)
 
         addSlide(SimpleSlide.Builder()
-                .title("Plan your day")
-                .description("Organize your tasks and don't forget about important things!")
+                .title(getString(R.string.intro_1_title))
+                .description(getString(R.string.intro_1_description))
                 .image(R.drawable.illustration_intro_1)
                 .background(R.color.white)
                 .backgroundDark(R.color.white)
@@ -19,8 +19,8 @@ class MainIntroActivity : IntroActivity() {
                 .build())
 
         addSlide(SimpleSlide.Builder()
-                .title("Manage your tasks easily")
-                .description("Use left/right swipes to remove task and up/down to change it's position in the list")
+                .title(getString(R.string.intro_2_title))
+                .description(getString(R.string.intro_2_description))
                 .image(R.drawable.illustration_intro_2)
                 .background(R.color.white)
                 .backgroundDark(R.color.white)
@@ -28,8 +28,8 @@ class MainIntroActivity : IntroActivity() {
                 .build())
 
         addSlide(SimpleSlide.Builder()
-                .title("Add task using voice")
-                .description("Add new tasks quickly using the voice input by long press the + button")
+                .title(getString(R.string.intro_3_title))
+                .description(getString(R.string.intro_3_description))
                 .image(R.drawable.illustration_intro_3)
                 .background(R.color.white)
                 .backgroundDark(R.color.white)
@@ -37,8 +37,8 @@ class MainIntroActivity : IntroActivity() {
                 .build())
 
         addSlide(SimpleSlide.Builder()
-                .title("Get started")
-                .description("Get rid of procrastination and improve your productivity")
+                .title(getString(R.string.intro_4_title))
+                .description(getString(R.string.intro_4_description))
                 .image(R.drawable.illustration_intro_4)
                 .background(R.color.white)
                 .backgroundDark(R.color.white)
