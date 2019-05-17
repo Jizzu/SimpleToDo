@@ -35,7 +35,7 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
         matchDressCode()
         setContentView(R.layout.activity_search)
-        initToolbar("", R.drawable.round_arrow_back_black_24)
+        initToolbar()
 
         if (intent.getBooleanExtra("isShortcut", false)) {
             PreferenceHelper.getInstance().init(applicationContext)

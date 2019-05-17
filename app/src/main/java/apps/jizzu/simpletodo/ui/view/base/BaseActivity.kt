@@ -33,7 +33,7 @@ abstract class BaseActivity : AppCompatActivity() {
         initStatusBar()
     }
 
-    fun initToolbar(titleText: String, drawable: Int? = R.drawable.round_close_black_24, view: Toolbar? = toolbar) {
+    fun initToolbar(titleText: String = "", drawable: Int? = R.drawable.round_arrow_back_black_24, view: Toolbar? = toolbar) {
         title = ""
         tvToolbarTitle.text = titleText
 

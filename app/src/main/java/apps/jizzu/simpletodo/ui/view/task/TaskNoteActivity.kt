@@ -18,14 +18,14 @@ class TaskNoteActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         matchDressCode()
         setContentView(R.layout.activity_task_note)
-        initToolbar(getString(R.string.task_note), R.drawable.round_arrow_back_black_24)
+        initToolbar(getString(R.string.task_note), R.drawable.round_close_black_24)
         initScrollViewListener(svTaskDetails)
         restoreData()
     }
 
     private fun restoreData() {
         val note = intent.getStringExtra("note")
-        if (!note.isEmpty()) {
+        if (note.isNotEmpty()) {
             tvTaskNote.apply {
                 setText(note)
                 setSelection(note.length)
