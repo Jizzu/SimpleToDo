@@ -43,7 +43,7 @@
     <string name="preferences_backup_create_summary">Export tasks to the device storage</string>
     <string name="preferences_backup_restore_title">Restore a backup</string>
     <string name="preferences_backup_restore_summary">Import tasks from the device storage</string>
-    <string name="preferences_kotter_knife_title">KotterKnife</string>
+    <string name="preferences_kotter_knife_title">Kotter Knife</string>
     <string name="preferences_kotter_knife_summary">JakeWharton</string>
     <string name="preferences_circular_anim_title">CircularAnim</string>
     <string name="preferences_circular_anim_summary">XunMengWinter</string>
@@ -52,6 +52,8 @@
     <string name="preferences_reactive_libraries_summary">ReactiveX</string>
     <string name="preferences_dresscode_title">DressCode</string>
     <string name="preferences_dresscode_summary">Daio-io</string>
+    <string name="preferences_material_intro_title">Material-Intro</string>
+    <string name="preferences_material_intro_summary">heinrichreimer</string>
 
     <string name="feedback_title">Simple ToDo - Feedback</string>
     <string name="feedback_device_info">My device info: </string>
