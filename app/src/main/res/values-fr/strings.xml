@@ -122,10 +122,8 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Q U O I \u0020\u0020 D E \u0020\u0020 N E U F ?</string>
     <string name="whats_new_button_text">Bien!</string>
-    <string name="whats_new_item_1_text">Implémentation de la possibilité d\'ajouter des tâches en utilisant la voix \n(appuyez longuement sur le bouton +)</string>
-    <string name="whats_new_item_2_text">Ajout de belles illustrations</string>
-    <string name="whats_new_item_3_text">Ajout de la traduction turque</string>
-    <string name="whats_new_item_4_text">Correction de bugs</string>
+    <string name="whats_new_item_1_text">Ajout de l\'intro de l\'application</string>
+    <string name="whats_new_item_2_text">Améliorations mineures de l\'interface utilisateur</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Noter cette appli</string>

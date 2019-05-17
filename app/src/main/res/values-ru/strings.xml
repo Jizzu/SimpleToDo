@@ -122,10 +122,8 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Ч Т О \u0020\u0020 Н О В О Г О ?</string>
     <string name="whats_new_button_text">Далее</string>
-    <string name="whats_new_item_1_text">Реализована возможность добавления задач с помощью голоса \n(Долгое нажатие на кнопку +)</string>
-    <string name="whats_new_item_2_text">Добавлен перевод на турецкий язык</string>
-    <string name="whats_new_item_3_text">Добавлены красивые иллюстрации</string>
-    <string name="whats_new_item_4_text">Исправление ошибок</string>
+    <string name="whats_new_item_1_text">Добавлены вступительные экраны</string>
+    <string name="whats_new_item_2_text">Незначительные улучшения интерфейса</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Оцените это приложение</string>
