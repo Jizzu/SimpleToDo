@@ -36,14 +36,14 @@ class Task : Serializable {
 
     @ColumnInfo(name = "task_status")
     @NonNull
-    var taskStatus: Int = 0
+    var taskStatus: Boolean = false
 
     @Ignore
     constructor() {
         this.timeStamp = Date().time
     }
 
-    constructor(id: Long, title: String, note: String, date: Long, position: Int, timeStamp: Long, taskStatus: Int = 0) {
+    constructor(id: Long, title: String, note: String, date: Long, position: Int, timeStamp: Long, taskStatus: Boolean = false) {
         this.id = id
         this.title = title
         this.note = note

@@ -71,11 +71,10 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
         holder.itemView.isEnabled = true
         holder.title.text = task.title
 
-        holder.status.setOnCheckedChangeListener{ buttonView: CompoundButton?, isChecked: Boolean ->
-            if (isChecked) {
-               taskCompletionListener?.onTaskComplete(itemView, holder.adapterPosition)
-            }
+        holder.status.setOnClickListener {
+            taskCompletionListener?.onTaskStatusChanged(itemView, holder.adapterPosition)
         }
+        holder.status.isChecked = task.taskStatus
 
         if (task.note.isNotEmpty()) {
             holder.note.visible()
@@ -151,7 +150,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
     }
 
     interface TaskCompletionListener {
-        fun onTaskComplete(v: View, position: Int)
+        fun onTaskStatusChanged(v: View, position: Int)
     }
 
     inner class TaskViewHolder internal constructor(itemView: View, internal var status: AppCompatCheckBox, internal var title: TextView, internal var note: ImageView, internal var date: TextView) : RecyclerView.ViewHolder(itemView)
