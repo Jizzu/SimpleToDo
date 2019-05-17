@@ -12,7 +12,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
         classpath 'com.android.tools.build:gradle:3.4.0'
         classpath 'com.google.gms:google-services:4.2.0'
-        classpath 'io.fabric.tools:gradle:1.27.1'
+        classpath 'io.fabric.tools:gradle:1.29.0'
     }
 }
 
@@ -36,14 +36,14 @@ ext {
     versionName = "1.8"
 
     // App dependencies
-    appcompatVersion = "1.0.2"
-    materialVersion = "1.1.0-alpha04"
+    appcompatVersion = "1.1.0-alpha05"
+    materialVersion = "1.1.0-alpha06"
     androidxVersion = "1.0.0"
     circularAnimVersion = "0.3.4"
     dresscodeVersion = "1.0.0"
     constraintLayoutVersion = "1.1.3"
-    firebaseVersion = "16.0.7"
-    crashlyticsVersion = "2.9.9"
+    firebaseVersion = "16.0.9"
+    crashlyticsVersion = "2.10.0"
     kotterKnifeVersion = "0.1.0-SNAPSHOT"
     roomVersion = "2.1.0-alpha02"
     rxJavaVersion = '2.2.3'
