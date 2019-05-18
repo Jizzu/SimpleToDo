@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -66,10 +67,12 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         mAdapter.updateData(arrayListOf())
         llEmptyView.visible()
         if (isSearchFieldEmpty) {
-            ivEmptyIllustration.setImageResource(R.drawable.illustration_search)
+            ivEmptyIllustration.setImageDrawable(AppCompatResources.getDrawable(this,
+                    R.drawable.illustration_search))
             tvEmptyTitle.text = getString(R.string.search_view_empty_text)
         } else {
-            ivEmptyIllustration.setImageResource(R.drawable.illustration_not_found)
+            ivEmptyIllustration.setImageDrawable(AppCompatResources.getDrawable(this,
+                    R.drawable.illustration_not_found))
             tvEmptyTitle.text = getString(R.string.search_view_not_found_text)
         }
     }
