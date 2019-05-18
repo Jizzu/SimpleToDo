@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/colorBackground"
     tools:context=".ui.view.SearchActivity">
 
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:gravity="center_horizontal"
-            android:src="@drawable/illustration_search" />
+            app:srcCompat="@drawable/illustration_search" />
 
         <TextView
             android:id="@+id/tvEmptyTitle"

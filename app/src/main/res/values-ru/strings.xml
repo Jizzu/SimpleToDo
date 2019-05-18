@@ -13,12 +13,21 @@
     <string name="edit_task">Р Е Д А К Т И Р О В А Т Ь</string>
     <string name="task_note">З А М Е Т К А</string>
 
+    <string name="intro_1_title">Планируйте свой день</string>
+    <string name="intro_1_description">Организуйте свои задачи и вы больше не забудете о важных вещах!</string>
+    <string name="intro_2_title">Управляйте своими задачами легко</string>
+    <string name="intro_2_description">Чтобы удалить задачу — просто смахните её влево или вправо. Также вы можете перемещать задачи вверх или вниз по списку</string>
+    <string name="intro_3_title">Добавляйте задачи с помощью голоса</string>
+    <string name="intro_3_description">Используйте долгое нажатие на кнопку + для быстрого добавления новой задачи с помощью голоса</string>
+    <string name="intro_4_title">Давайте начнём</string>
+    <string name="intro_4_description">Настала пора избавиться от прокрастинации и улучшить свою продуктивность!</string>
+
     <string name="toast_incorrect_time">Ошибка! Вы выбрали неправильное время!</string>
     <string name="error_text_input">Пожалуйста, введите заголовок!</string>
     <string name="error_spaces">Пожалуйста, введите корректный заголовок!</string>
 
     <string name="preferences_animation_title">Включить анимацию</string>
-    <string name="preferences_animation_summary">Включить анимацию для элементов интерфейса</string>
+    <string name="preferences_animation_summary">Включить анимацию в интерфейсе</string>
     <string name="preferences_theme_title">Выбрать тему</string>
     <string name="preferences_theme_summary">Изменить цветовую схему приложения</string>
     <string name="preferences_general_notification_title">Включить общее уведомление</string>
@@ -91,7 +100,7 @@
     <string name="permission_storage_toast">Откройте "Разрешения" и активируйте переключатель "Память"</string>
     <string name="permission_microphone_toast">Откройте "Разрешения" и активируйте переключатель "Микрофон"</string>
     <string name="permission_storage_snackbar_with_rationale">Доступ к памяти нужен для записи бэкапа в файл</string>
-    <string name="permission_microphone_snackbar_with_rationale">Доступ к микрофону нужен для добавления задачи с помощью голоса</string>
+    <string name="permission_microphone_snackbar_with_rationale">Микрофон нужен для добавления задачи голосом</string>
     <string name="permission_storage_snackbar_no_permission">Разрешение на доступ к памяти отклонено</string>
     <string name="permission_microphone_snackbar_no_permission">Разрешение на доступ к микрофону отклонено</string>
     <string name="permission_snackbar_button_grant">РАЗРЕШИТЬ</string>
@@ -113,10 +122,8 @@
     ////////////////<!-- "What's New?" page -->////////////////
     <string name="whats_new_title">Ч Т О \u0020\u0020 Н О В О Г О ?</string>
     <string name="whats_new_button_text">Далее</string>
-    <string name="whats_new_item_1_text">Реализована возможность добавления задач с помощью голоса \n(Долгое нажатие на кнопку +)</string>
-    <string name="whats_new_item_2_text">Добавлен перевод на турецкий язык</string>
-    <string name="whats_new_item_3_text">Добавлены красивые иллюстрации</string>
-    <string name="whats_new_item_4_text">Исправление ошибок</string>
+    <string name="whats_new_item_1_text">Добавлены вступительные экраны</string>
+    <string name="whats_new_item_2_text">Незначительные улучшения интерфейса</string>
 
     ///////////////<!-- Rate this app dialog -->///////////////
     <string name="rate_dialog_title">Оцените это приложение</string>

@@ -24,15 +24,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.view.AddTaskActivity"
+            android:name=".ui.view.task.AddTaskActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.view.EditTaskActivity"
+            android:name=".ui.view.task.EditTaskActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.view.TaskNoteActivity"
+            android:name=".ui.view.task.TaskNoteActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.view.settings.activity.SettingsActivity"
@@ -41,11 +41,17 @@
             android:name=".ui.view.ChangelogActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.view.MainIntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Intro" />
+        <activity
             android:name=".ui.view.SearchActivity"
             android:screenOrientation="portrait" />
+
         <service
             android:name=".service.widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <receiver
             android:name=".service.alarm.AlarmReceiver"
             android:process=":remote" />

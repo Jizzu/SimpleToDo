@@ -19,8 +19,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="test" />
-                            <entry key="sourceFile" value="D:\Downloads\undraw_analysis_4jis.svg" />
+                            <entry key="height" value="790" />
+                            <entry key="outputName" value="illustration_not_found_1" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="D:\Downloads\undraw_empty_xct9.svg" />
+                            <entry key="width" value="1010" />
                           </map>
                         </option>
                       </PersistentState>

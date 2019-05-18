@@ -34,7 +34,7 @@
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:gravity="center_horizontal"
-            android:src="@drawable/illustration_no_tasks" />
+            app:srcCompat="@drawable/illustration_no_tasks" />
 
         <TextView
             android:layout_width="match_parent"

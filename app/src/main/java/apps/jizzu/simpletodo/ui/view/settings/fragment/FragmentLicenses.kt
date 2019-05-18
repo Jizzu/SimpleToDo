@@ -32,6 +32,7 @@ class FragmentLicenses : BaseSettingsFragment() {
         clRxJava.setOnClickListener { openUri(RX_JAVA_PAGE) }
         clRxKotlin.setOnClickListener { openUri(RX_KOTLIN_PAGE) }
         clDressCode.setOnClickListener { openUri(DRESS_CODE_PAGE) }
+        clMaterialIntro.setOnClickListener { openUri(MATERIAL_INTRO_PAGE) }
     }
 
     private fun openUri(uri: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
@@ -42,5 +43,6 @@ class FragmentLicenses : BaseSettingsFragment() {
         private const val RX_JAVA_PAGE = "https://github.com/ReactiveX/RxJava"
         private const val RX_KOTLIN_PAGE = "https://github.com/ReactiveX/RxKotlin"
         private const val DRESS_CODE_PAGE = "https://github.com/Daio-io/dresscode"
+        private const val MATERIAL_INTRO_PAGE = "https://github.com/heinrichreimer/material-intro"
     }
 }

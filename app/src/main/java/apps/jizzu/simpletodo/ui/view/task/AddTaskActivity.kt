@@ -1,4 +1,4 @@
-package apps.jizzu.simpletodo.ui.view
+package apps.jizzu.simpletodo.ui.view.task
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders

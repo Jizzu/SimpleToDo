@@ -44,6 +44,7 @@ import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.ui.view.settings.activity.SettingsActivity
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentDateAndTime
 import apps.jizzu.simpletodo.ui.view.settings.fragment.FragmentNotifications
+import apps.jizzu.simpletodo.ui.view.task.AddTaskActivity
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
 import apps.jizzu.simpletodo.utils.toast
@@ -244,7 +245,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showChangelogActivity() {
-        if (mPreferenceHelper.getInt(PreferenceHelper.VERSION_CODE) != BuildConfig.VERSION_CODE) {
+        if (mPreferenceHelper.getBoolean(PreferenceHelper.IS_FIRST_LAUNCH) && mPreferenceHelper.getInt(PreferenceHelper.VERSION_CODE) == 0) {
+            startActivityForResult(Intent(this, MainIntroActivity::class.java), APP_INTRO_CODE)
+        } else if (mPreferenceHelper.getInt(PreferenceHelper.VERSION_CODE) != BuildConfig.VERSION_CODE) {
             startActivity(Intent(this, ChangelogActivity::class.java))
         }
     }
@@ -479,6 +482,15 @@ class MainActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        if (requestCode == APP_INTRO_CODE) {
+            if (resultCode == RESULT_OK) {
+                mPreferenceHelper.putBoolean(PreferenceHelper.IS_FIRST_LAUNCH, false)
+                mPreferenceHelper.putInt(PreferenceHelper.VERSION_CODE, BuildConfig.VERSION_CODE)
+            } else {
+                finish()
+            }
+        }
+
         if (requestCode == SPEECH_INPUT_CODE && resultCode == RESULT_OK && data != null) {
             val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             val task = Task().apply {
@@ -492,5 +504,6 @@ class MainActivity : BaseActivity() {
     companion object {
         var mTaskList = arrayListOf<Task>()
         private const val SPEECH_INPUT_CODE = 111
+        private const val APP_INTRO_CODE = 222
     }
 }

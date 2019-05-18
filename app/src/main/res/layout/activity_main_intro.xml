@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.heinrichreimersoftware.materialintro.view.parallax.ParallaxLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="false"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/mi_baseline">
+
+        <ImageView
+            android:id="@id/mi_image"
+            android:layout_width="350dp"
+            android:layout_height="240dp"
+            android:layout_marginBottom="@dimen/mi_baseline"
+            android:adjustViewBounds="true"
+            android:gravity="center"
+            android:paddingLeft="36dp"
+            android:paddingRight="36dp"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@id/mi_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mi_baseline"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_parallaxFactor="0.5" />
+
+        <TextView
+            android:id="@id/mi_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mi_baseline"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="15sp"
+            app:layout_parallaxFactor="0.4" />
+    </com.heinrichreimersoftware.materialintro.view.parallax.ParallaxLinearLayout>
+</layout>

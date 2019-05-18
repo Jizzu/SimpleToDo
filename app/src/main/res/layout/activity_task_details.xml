@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
-    tools:context=".ui.view.AddTaskActivity">
+    tools:context=".ui.view.task.AddTaskActivity">
 
     <include layout="@layout/toolbar" />
 
@@ -27,7 +27,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginRight="20dp"
                 android:hint="@string/hint_title"
                 app:errorEnabled="true">
@@ -48,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tilTaskTitle"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginRight="20dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/greyWhite"
@@ -77,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cvTaskNote"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="84dp"
                 app:cardElevation="0dp"

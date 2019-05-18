@@ -14,7 +14,7 @@ import android.widget.EditText
 import android.widget.TimePicker
 import androidx.core.content.ContextCompat
 import apps.jizzu.simpletodo.R
-import apps.jizzu.simpletodo.ui.view.TaskNoteActivity
+import apps.jizzu.simpletodo.ui.view.task.TaskNoteActivity
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
