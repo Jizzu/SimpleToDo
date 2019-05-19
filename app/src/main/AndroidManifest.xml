@@ -42,7 +42,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.view.MainIntroActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.Intro" />
         <activity
             android:name=".ui.view.SearchActivity"
