@@ -20,7 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
-import apps.jizzu.simpletodo.ui.view.EditTaskActivity
+import apps.jizzu.simpletodo.ui.view.task.EditTaskActivity
 import apps.jizzu.simpletodo.utils.toastLong
 import com.google.android.material.snackbar.Snackbar
 import daio.io.dresscode.dressCodeStyleId
@@ -33,7 +33,7 @@ abstract class BaseActivity : AppCompatActivity() {
         initStatusBar()
     }
 
-    fun initToolbar(titleText: String, drawable: Int? = R.drawable.round_close_black_24, view: Toolbar? = toolbar) {
+    fun initToolbar(titleText: String = "", drawable: Int? = R.drawable.round_arrow_back_black_24, view: Toolbar? = toolbar) {
         title = ""
         tvToolbarTitle.text = titleText
 

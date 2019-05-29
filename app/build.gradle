@@ -15,6 +15,11 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     buildTypes {
@@ -38,6 +43,7 @@ dependencies {
     implementation "androidx.preference:preference:$rootProject.androidxVersion"
     implementation "com.github.XunMengWinter:CircularAnim:$rootProject.circularAnimVersion"
     implementation "com.github.Daio-io:dresscode:$rootProject.dresscodeVersion"
+    implementation "com.heinrichreimersoftware:material-intro:$rootProject.materialIntroVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
     // Firebase Crashlytics

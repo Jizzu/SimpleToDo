@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/tvGeneralNotificationSummary"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
@@ -38,6 +38,7 @@
             android:text="@string/preferences_general_notification_summary"
             android:textColor="@color/greyWhite"
             android:textSize="14sp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
