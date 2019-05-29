@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
 class EditTaskActivity : BaseTaskActivity() {
+    private var mTaskStatus: Boolean = false
     private var mId: Long = 0
     private var mDate: Long = 0
     private var mPosition: Int = 0
@@ -41,6 +42,7 @@ class EditTaskActivity : BaseTaskActivity() {
         mNote = intent.getStringExtra("note")
         mDate = intent.getLongExtra("date", 0)
         mPosition = intent.getIntExtra("position", 0)
+        mTaskStatus = intent.getBooleanExtra("task_status", false)
         mTimeStamp = intent.getLongExtra("time_stamp", 0)
 
         mTitleEditText.setText(mTitle)
@@ -65,7 +67,7 @@ class EditTaskActivity : BaseTaskActivity() {
                 mTitleEditText.length() == 0 -> tilTaskTitle.error = getString(R.string.error_text_input)
                 mTitleEditText.text.toString().trim { it <= ' ' }.isEmpty() -> tilTaskTitle.error = getString(R.string.error_spaces)
                 else -> {
-                    val task = Task(mId, mTitleEditText.text.toString(), tvTaskNote.text.toString(), mDate, mPosition, mTimeStamp)
+                    val task = Task(mId, mTitleEditText.text.toString(), tvTaskNote.text.toString(), mDate, mPosition, mTimeStamp, mTaskStatus)
 
                     if (tvTaskReminder.length() != 0) {
                         task.date = mCalendar.timeInMillis
@@ -109,7 +111,7 @@ class EditTaskActivity : BaseTaskActivity() {
 
             R.id.action_delete -> {
                 hideKeyboard(mTitleEditText)
-                showDeleteTaskDialog(Task(mId, mTitle, mNote, mDate, mPosition, mTimeStamp))
+                showDeleteTaskDialog(Task(mId, mTitle, mNote, mDate, mPosition, mTimeStamp, mTaskStatus))
             }
         }
         return super.onOptionsItemSelected(item)

@@ -481,6 +481,10 @@ class MainActivity : BaseActivity() {
                 val task = mAdapter.getTaskAtPosition(position)
                 task.taskStatus = task.taskStatus.not()
                 mViewModel.updateTask(task)
+                // todo: delete the task for now, find alternative approach
+                if (task.taskStatus) {
+                    deleteTask(position)
+                }
             }
         })
     }
