@@ -102,7 +102,7 @@ class MainActivity : BaseActivity() {
 
     private fun showTaskList(tasks: List<Task>) {
         var isNeedToRecount = false
-        if (mTaskList.size > tasks.size) isNeedToRecount = true
+        if (mTaskList.size > tasks.size || tasks[0].position < 0) isNeedToRecount = true
         mTaskList = tasks as ArrayList<Task>
         if (isNeedToRecount) recountTaskPositions()
         llEmptyView.gone()
