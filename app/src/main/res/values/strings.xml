@@ -10,6 +10,7 @@
     <string name="hint_title">Title</string>
     <string name="hint_note">Add a note</string>
     <string name="add_task">A D D</string>
+    <string name="add_task_to_top">^</string>
     <string name="update_task">U P D A T E</string>
     <string name="edit_task">E D I T \u0020\u0020 T A S K</string>
     <string name="task_note">N O T E</string>
