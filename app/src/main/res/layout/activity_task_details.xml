@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textAutoCorrect|textCapSentences"
-                    android:textColor="?android:attr/android:textColorPrimary"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="21sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +64,7 @@
                     android:focusableInTouchMode="false"
                     android:hint="@string/hint_note"
                     android:maxLines="7"
-                    android:textColor="?android:attr/android:textColorPrimary"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textColorHint="@color/dullGrey"
                     android:textSize="19sp" />
             </com.google.android.material.card.MaterialCardView>
@@ -112,7 +112,7 @@
                         android:layout_toEndOf="@id/ivTaskReminderIcon"
                         android:focusableInTouchMode="false"
                         android:hint="@string/hint_reminder"
-                        android:textColor="?android:attr/android:textColorPrimary"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textColorHint="@color/dullGrey"
                         android:textSize="19sp" />
 

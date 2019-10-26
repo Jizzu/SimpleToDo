@@ -23,7 +23,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_date_format_title"
-            android:textAppearance="?android:attr/android:textAppearance"
+            android:textAppearance="?android:attr/textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvDateFormatSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_time_format_title"
-            android:textAppearance="?android:attr/android:textAppearance"
+            android:textAppearance="?android:attr/textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvTimeFormatSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

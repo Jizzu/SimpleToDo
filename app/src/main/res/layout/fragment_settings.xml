@@ -23,7 +23,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_user_interface"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvNotifications"
@@ -38,7 +38,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_notifications"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvDateAndTime"
@@ -53,7 +53,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_date_and_time"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvBackupAndRestore"
@@ -68,7 +68,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_backup_and_restore"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvRate"
@@ -83,7 +83,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_rate"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvFeedback"
@@ -98,7 +98,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_feedback"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvOtherApps"
@@ -113,7 +113,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_other_apps"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvGitHub"
@@ -128,7 +128,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_git_hub"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvPrivacyPolicy"
@@ -143,7 +143,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_privacy_policy"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
 
         <TextView
             android:id="@+id/tvLicenses"
@@ -158,6 +158,6 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/settings_licenses"
-            android:textAppearance="?android:attr/android:textAppearance" />
+            android:textAppearance="?android:attr/textAppearance" />
     </LinearLayout>
 </ScrollView>

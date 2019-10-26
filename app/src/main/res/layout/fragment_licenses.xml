@@ -23,7 +23,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_kotter_knife_title"
-            android:textAppearance="?android:attr/android:textAppearance"
+            android:textAppearance="?android:attr/textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvKotterKnifeSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_circular_anim_title"
-            android:textAppearance="?android:attr/android:textAppearance"
+            android:textAppearance="?android:attr/textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvCircularAnimSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +97,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_rx_java_title"
-            android:textAppearance="?android:attr/android:textAppearance"
+            android:textAppearance="?android:attr/textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvRxJavaSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -134,7 +134,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_rx_kotlin_title"
-            android:textAppearance="?android:attr/android:textAppearance"
+            android:textAppearance="?android:attr/textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvRxKotlinSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -171,7 +171,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_dresscode_title"
-            android:textAppearance="?android:attr/android:textAppearance"
+            android:textAppearance="?android:attr/textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvDressCodeSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -208,7 +208,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/preferences_material_intro_title"
-            android:textAppearance="?android:attr/android:textAppearance"
+            android:textAppearance="?android:attr/textAppearance"
             app:layout_constraintBottom_toTopOf="@id/tvMaterialIntroSummary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
