@@ -158,4 +158,5 @@
     ///////////////<!-- Shortcuts -->///////////////
     <string name="shortcut_add_new_task">Добавить задачу</string>
     <string name="shortcut_search">Поиск</string>
+    <string name="complete_task_status">Выполнено задание</string>
 </resources>

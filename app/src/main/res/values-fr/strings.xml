@@ -158,4 +158,5 @@
     ///////////////<!-- Shortcuts -->///////////////
     <string name="shortcut_add_new_task">Ajouter une nouvelle tâche</string>
     <string name="shortcut_search">Rechercher</string>
+    <string name="complete_task_status">Terminé la tâche</string>
 </resources>
