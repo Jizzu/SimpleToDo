@@ -32,16 +32,52 @@ class TaskDAOTest {
 
     @Test
     fun testSaveTask() {
+        val task = Task(1, "", "", Date().time, 1, Date().time)
+        taskDao.saveTask(task)
+
+        val tasks = taskDao.getAllTasks()
+        assertEquals(1, tasks.size)
+    }
+
+    @Test
+    fun testGetAllTasks() {
         var task = Task(1, "", "", Date().time, 1, Date().time)
         taskDao.saveTask(task)
 
         var tasks = taskDao.getAllTasks()
         assertEquals(1, tasks.size)
 
-        task = Task(2, "", "", Date().time, 2, Date().time, true)
+        task = Task(2, "", "", Date().time, 2, Date().time, false)
         taskDao.saveTask(task)
 
         tasks = taskDao.getAllTasks()
+        assertEquals(2, tasks.size)
+
+        task = Task(3, "", "", Date().time, 2, Date().time, true)
+        taskDao.saveTask(task)
+
+        tasks = taskDao.getAllTasks()
+        assertEquals(3, tasks.size)
+    }
+
+    @Test
+    fun testGetAllOpenTasks() {
+        var task = Task(1, "", "", Date().time, 1, Date().time)
+        taskDao.saveTask(task)
+
+        var tasks = taskDao.getAllOpenTasks()
+        assertEquals(1, tasks.size)
+
+        task = Task(2, "", "", Date().time, 2, Date().time, false)
+        taskDao.saveTask(task)
+
+        tasks = taskDao.getAllOpenTasks()
+        assertEquals(2, tasks.size)
+
+        task = Task(3, "", "", Date().time, 2, Date().time, true)
+        taskDao.saveTask(task)
+
+        tasks = taskDao.getAllOpenTasks()
         assertEquals(2, tasks.size)
     }
 
@@ -53,22 +89,33 @@ class TaskDAOTest {
         val task = Task(1, "", "", Date().time, 1, Date().time)
         taskDao.saveTask(task)
 
+        tasks = taskDao.getAllOpenTasks()
+        assertEquals("", tasks[0].title)
+
+        tasks[0].title = "Test"
+        taskDao.updateTask(tasks[0])
+
         tasks = taskDao.getAllTasks()
+        assertEquals(1, tasks.size)
+        assertEquals("Test", tasks[0].title)
+    }
+
+    @Test
+    fun testUpdateStatusTask() {
+        var tasks = taskDao.getAllTasks()
+        assertEquals(0, tasks.size)
+
+        val task = Task(1, "Test Me", "Task to Complete", Date().time, 1, Date().time)
+        taskDao.saveTask(task)
+
+        tasks = taskDao.getAllOpenTasks()
         assertFalse(tasks[0].taskStatus)
 
         tasks[0].taskStatus = tasks[0].taskStatus.not()
         taskDao.updateTask(tasks[0])
 
-        tasks = taskDao.getAllTasks()
-        assertEquals(1, tasks.size)
-        assertTrue(tasks[0].taskStatus)
-
-        tasks[0].taskStatus = tasks[0].taskStatus.not()
-        taskDao.updateTask(tasks[0])
-
-        tasks = taskDao.getAllTasks()
-        assertEquals(1, tasks.size)
-        assertFalse(tasks[0].taskStatus)
+        tasks = taskDao.getAllOpenTasks()
+        assertEquals(0, tasks.size)
     }
 
     @After
