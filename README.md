@@ -21,18 +21,16 @@ Simple ToDo will help manage your daily tasks and don't forget about important t
 ## FAQ:
 If you have any questions — welcome to the [FAQs page](FAQs.md)!
 
-## Next update changes (v1.8):
-- [x] Ability to add tasks using voice
-- [x] UI improvements
-- [x] Bug fixes
+## Next update changes (v1.9):
+- [ ] Splash screen
+- [ ] Native dark theme support
+- [ ] Adding new task to the top of the list
 
-## Download links:
+## Download:
 <a href='https://play.google.com/store/apps/details?
 id=apps.jizzu.simpletodo&pcampaignid=MKT-Other-
 global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play'
 src='https://play.google.com/intl/ru_ru/badges/images/generic/en_badge_web_generic.png' width="40%" height="40%" /></a>
-<a href="https://f-droid.org/en/packages/apps.jizzu.simpletodo/" target="_blank">
-<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" width="40%" height="40%" /></a>
 
 
 ## License:
