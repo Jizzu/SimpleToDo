@@ -39,7 +39,7 @@ dependencies {
     // UI
     implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "androidx.cardview:cardview:$rootProject.androidxVersion"
+    implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
     implementation "androidx.preference:preference:$rootProject.androidxVersion"
     implementation "com.github.XunMengWinter:CircularAnim:$rootProject.circularAnimVersion"
     implementation "com.github.Daio-io:dresscode:$rootProject.dresscodeVersion"
