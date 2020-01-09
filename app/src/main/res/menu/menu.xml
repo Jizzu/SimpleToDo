@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/action_view_completed_tasks"
-        android:icon="@drawable/drawable_git_hub"
+        android:icon="@drawable/drawable_completed_task"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
