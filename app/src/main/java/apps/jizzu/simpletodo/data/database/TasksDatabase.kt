@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 
-@Database(entities = [Task::class], version = 5)
+@Database(entities = [Task::class], version = 4)
 abstract class TasksDatabase : RoomDatabase() {
 
     abstract fun taskDAO(): TaskDao
