@@ -532,9 +532,7 @@ class MainActivity : BaseActivity() {
                 val task = mAdapter.getTaskAtPosition(position)
                 task.taskStatus = task.taskStatus.not()
                 mViewModel.updateTask(task)
-                if (task.taskStatus) {  //todo: does it require to check task status?
-                    completeTask(position)
-                }
+                completeTask(position)
             }
         })
     }
