@@ -9,9 +9,11 @@ import io.reactivex.schedulers.Schedulers
 
 class TaskListRepository(app: Application) {
     private val mTaskDao = TasksDatabase.getInstance(app).taskDAO()
-    private val mAllTasksLiveData = mTaskDao.getAllOpenTasksLiveData()
+    private val mAllOpenTasksLiveData = mTaskDao.getAllOpenTasksLiveData()
+    private val mAllCompletedTasksLiveData = mTaskDao.getAllCompletedTasksLiveData()
 
-    fun getAllTasksLiveData() = mAllTasksLiveData
+    fun getAllOpenTasksLiveData() = mAllOpenTasksLiveData
+    fun getAllCompletedTasksLiveData() = mAllCompletedTasksLiveData
 
     fun deleteAllTasks() = Completable.fromCallable { mTaskDao.deleteAllTasks() }.subscribeOn(Schedulers.io()).subscribe()!!
 

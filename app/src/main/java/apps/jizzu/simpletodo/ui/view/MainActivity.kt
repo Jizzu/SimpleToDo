@@ -79,7 +79,7 @@ class MainActivity : BaseActivity() {
         AlarmHelper.getInstance().init(applicationContext)
 
         mViewModel = createViewModel()
-        mViewModel.liveData.observe(this, Observer<List<Task>> { response -> updateViewState(response) })
+        mViewModel.allOpenTasksLiveData.observe(this, Observer<List<Task>> { response -> updateViewState(response) })
 
         PreferenceHelper.getInstance().init(applicationContext)
         mPreferenceHelper = PreferenceHelper.getInstance()
@@ -512,6 +512,7 @@ class MainActivity : BaseActivity() {
         when (item.itemId) {
             android.R.id.home -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_search -> startActivity(Intent(this, SearchActivity::class.java))
+            R.id.action_view_completed_tasks -> startActivity(Intent(this, CompletedTasksActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

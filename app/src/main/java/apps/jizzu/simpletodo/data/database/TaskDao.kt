@@ -24,6 +24,9 @@ interface TaskDao {
     @Query("SELECT * FROM tasks_table where task_status=0 ORDER BY task_position")
     fun getAllOpenTasksLiveData(): LiveData<List<Task>>
 
+    @Query("SELECT * FROM tasks_table where task_status=1 ORDER BY task_position")
+    fun getAllCompletedTasksLiveData(): LiveData<List<Task>>
+
     @Query("SELECT * FROM tasks_table ORDER BY task_position")
     fun getAllTasksLiveData(): LiveData<List<Task>>
 
