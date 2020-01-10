@@ -3,6 +3,7 @@ package apps.jizzu.simpletodo.ui.view.task
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
@@ -10,6 +11,7 @@ import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.dialogs.DeleteTaskDialogFragment
 import apps.jizzu.simpletodo.ui.view.base.BaseTaskActivity
 import apps.jizzu.simpletodo.utils.DateAndTimeFormatter
+import apps.jizzu.simpletodo.utils.gone
 import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.EditTaskViewModel
@@ -90,6 +92,11 @@ class EditTaskActivity : BaseTaskActivity() {
             }
             hideKeyboard(mTitleEditText)
         }
+
+        mTitleEditText.isEnabled = !mTaskStatus
+        tvTaskNote.isEnabled = !mTaskStatus
+        tvTaskReminder.isEnabled = !mTaskStatus
+        btnTaskConfirm.visibility = if (!mTaskStatus) View.VISIBLE else View.GONE
     }
 
     private fun showDeleteTaskDialog(task: Task) = DeleteTaskDialogFragment(task).show(supportFragmentManager, null)
