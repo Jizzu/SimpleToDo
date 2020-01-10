@@ -160,5 +160,5 @@
     <string name="shortcut_add_new_task">Yeni görev ekle</string>
     <string name="shortcut_search">Ara</string>
     <string name="complete_task_status">Görev tamamlandı</string>
-    <string name="move_task_to_open">Görevi Aç\'a taşıdı</string>
+    <string name="move_task_to_open">Görev Açık konumuna taşındı</string>
 </resources>

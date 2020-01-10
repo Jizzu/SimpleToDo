@@ -159,6 +159,6 @@
     ///////////////<!-- Shortcuts -->///////////////
     <string name="shortcut_add_new_task">Добавить задачу</string>
     <string name="shortcut_search">Поиск</string>
-    <string name="complete_task_status">Выполнено задание</string>
-    <string name="move_task_to_open">Переместил задачу в Открыть</string>
+    <string name="complete_task_status">Задача выполнена</string>
+    <string name="move_task_to_open">Задача перемещена в Открыть</string>
 </resources>

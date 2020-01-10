@@ -159,6 +159,6 @@
     ///////////////<!-- Shortcuts -->///////////////
     <string name="shortcut_add_new_task">Ajouter une nouvelle tâche</string>
     <string name="shortcut_search">Rechercher</string>
-    <string name="complete_task_status">Terminé la tâche</string>
-    <string name="move_task_to_open">Déplacement de la tâche vers l\'ouverture</string>
+    <string name="complete_task_status">La tâche est terminée</string>
+    <string name="move_task_to_open">La tâche est déplacée vers Ouvrir</string>
 </resources>
