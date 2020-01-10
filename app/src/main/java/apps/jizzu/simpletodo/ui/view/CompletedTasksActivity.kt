@@ -65,7 +65,7 @@ class CompletedTasksActivity : BaseActivity() {
 
         mAdapter.setTaskCompletionListener(object : RecyclerViewAdapter.TaskCompletionListener {
             override fun onTaskStatusChanged(v: View, position: Int) {
-                completeTask(position)
+                moveTaskToOpen(position)
             }
         })
     }
@@ -85,7 +85,7 @@ class CompletedTasksActivity : BaseActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 if (direction == ItemTouchHelper.END) {
-                    completeTask(viewHolder.adapterPosition)
+                    moveTaskToOpen(viewHolder.adapterPosition)
                 } else if (direction == ItemTouchHelper.START){
                     deleteTask(viewHolder.adapterPosition)
                 }
@@ -94,7 +94,7 @@ class CompletedTasksActivity : BaseActivity() {
         helper.attachToRecyclerView(mRecyclerView)
     }
 
-    private fun completeTask(position: Int) {
+    private fun moveTaskToOpen(position: Int) {
         val completedTask = mAdapter.getTaskAtPosition(position)
         val isCompletedTaskHasLastPosition = completedTask.position == mAdapter.itemCount - 1
         mAdapter.removeTask(position)
@@ -105,7 +105,7 @@ class CompletedTasksActivity : BaseActivity() {
 
         var isUndoClicked = false
 
-         mSnackbar = Snackbar.make(mRecyclerView, R.string.complete_task_status, Snackbar.LENGTH_LONG)
+         mSnackbar = Snackbar.make(mRecyclerView, R.string.move_task_to_open, Snackbar.LENGTH_LONG)
          mSnackbar?.setAction(R.string.snackbar_undo) {
              completedTask.taskStatus = completedTask.taskStatus.not()
              mViewModel.saveTask(completedTask)
