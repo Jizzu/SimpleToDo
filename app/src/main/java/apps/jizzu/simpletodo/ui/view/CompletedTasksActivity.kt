@@ -1,31 +1,36 @@
 package apps.jizzu.simpletodo.ui.view
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import apps.jizzu.simpletodo.R
 import apps.jizzu.simpletodo.data.models.Task
 import apps.jizzu.simpletodo.service.alarm.AlarmHelper
 import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
+import apps.jizzu.simpletodo.ui.recycler.RecyclerViewScrollListener
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
-import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.TaskListViewModel
+import com.google.android.material.snackbar.Snackbar
 import daio.io.dresscode.matchDressCode
 import kotlinx.android.synthetic.main.activity_search.*
 import kotterknife.bindView
+import java.util.*
 
 class CompletedTasksActivity : BaseActivity() {
     private val mRecyclerView: RecyclerView by bindView(R.id.rvCompletedTasksList)
     private lateinit var mViewModel: TaskListViewModel
     private lateinit var mAdapter: RecyclerViewAdapter
+    private var mSnackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +51,7 @@ class CompletedTasksActivity : BaseActivity() {
         mAdapter = RecyclerViewAdapter()
         mRecyclerView.adapter = mAdapter
         llEmptyView.visible()
+        createItemTouchHelper()
     }
 
     override fun onResume() {
@@ -59,13 +65,33 @@ class CompletedTasksActivity : BaseActivity() {
 
         mAdapter.setTaskCompletionListener(object : RecyclerViewAdapter.TaskCompletionListener {
             override fun onTaskStatusChanged(v: View, position: Int) {
-                toast(getString(R.string.move_task_to_open))
-                val task = mAdapter.getTaskAtPosition(position)
-                task.taskStatus = task.taskStatus.not()
-                mViewModel.updateTask(task)
                 completeTask(position)
             }
         })
+    }
+
+    private fun createItemTouchHelper() {
+        val helper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+            override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+                val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN // Flags for up and down movement
+                val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END // Flags for left and right movement
+                return ItemTouchHelper.Callback.makeMovementFlags(dragFlags, swipeFlags)
+            }
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                if (direction == ItemTouchHelper.END) {
+                    completeTask(viewHolder.adapterPosition)
+                } else if (direction == ItemTouchHelper.START){
+                    deleteTask(viewHolder.adapterPosition)
+                }
+            }
+        })
+        helper.attachToRecyclerView(mRecyclerView)
     }
 
     private fun completeTask(position: Int) {
@@ -74,10 +100,14 @@ class CompletedTasksActivity : BaseActivity() {
         mAdapter.removeTask(position)
         val alarmHelper = AlarmHelper.getInstance()
         alarmHelper.removeAlarm(completedTask.timeStamp)
-//        var isUndoClicked = false
+        completedTask.taskStatus = completedTask.taskStatus.not()
+        mViewModel.updateTask(completedTask)
 
-        /* mSnackbar = Snackbar.make(mRecyclerView, R.string.complete_task_status, Snackbar.LENGTH_LONG)
+        var isUndoClicked = false
+
+         mSnackbar = Snackbar.make(mRecyclerView, R.string.complete_task_status, Snackbar.LENGTH_LONG)
          mSnackbar?.setAction(R.string.snackbar_undo) {
+             completedTask.taskStatus = completedTask.taskStatus.not()
              mViewModel.saveTask(completedTask)
              if (completedTask.date != 0L && completedTask.date > Calendar.getInstance().timeInMillis) {
                  alarmHelper.setAlarm(completedTask)
@@ -106,13 +136,66 @@ class CompletedTasksActivity : BaseActivity() {
 
              override fun onViewDetachedFromWindow(view: View) {
                  if (!isUndoClicked) {
-                     alarmHelper.removeNotification(completedTask.timeStamp, this@MainActivity)
+                     alarmHelper.removeNotification(completedTask.timeStamp, this@CompletedTasksActivity)
                      if (!isCompletedTaskHasLastPosition) recountTaskPositions()
                  }
              }
          })
-         mSnackbar?.anchorView = mFab
-         mSnackbar?.show()*/
+         mSnackbar?.show()
+    }
+
+    private fun deleteTask(position: Int) {
+        val deletedTask = mAdapter.getTaskAtPosition(position)
+        val isDeletedTaskHasLastPosition = deletedTask.position == mAdapter.itemCount - 1
+        val alarmHelper = AlarmHelper.getInstance()
+        alarmHelper.removeAlarm(deletedTask.timeStamp)
+        mAdapter.removeTask(position)
+        mViewModel.deleteTask(deletedTask)
+        var isUndoClicked = false
+
+        mSnackbar = Snackbar.make(mRecyclerView, R.string.snackbar_remove_task, Snackbar.LENGTH_LONG)
+        mSnackbar?.setAction(R.string.snackbar_undo) {
+            mViewModel.saveTask(deletedTask)
+            if (deletedTask.date != 0L && deletedTask.date > Calendar.getInstance().timeInMillis) {
+                alarmHelper.setAlarm(deletedTask)
+            }
+            isUndoClicked = true
+
+            Handler().postDelayed({
+                val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                if (firstCompletelyVisibleItem != 0 && !RecyclerViewScrollListener.isShadowShown) {
+                    setToolbarShadow(0f, 10f)
+                    RecyclerViewScrollListener.isShadowShown = true
+                }
+            }, 100)
+        }
+
+        mSnackbar?.view?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(view: View) {
+                val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                val lastCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+
+                if (firstCompletelyVisibleItem == 0 && lastCompletelyVisibleItem == MainActivity.mTaskList.size - 1 && RecyclerViewScrollListener.isShadowShown) {
+                    setToolbarShadow(10f, 0f)
+                    RecyclerViewScrollListener.isShadowShown = false
+                }
+            }
+
+            override fun onViewDetachedFromWindow(view: View) {
+                if (!isUndoClicked) {
+                    alarmHelper.removeNotification(deletedTask.timeStamp, this@CompletedTasksActivity)
+                    if (!isDeletedTaskHasLastPosition) recountTaskPositions()
+                }
+            }
+        })
+        mSnackbar?.show()
+    }
+
+    private fun recountTaskPositions() {
+        for ((newPosition, task) in MainActivity.mTaskList.withIndex()) {
+            task.position = newPosition
+        }
+        mViewModel.updateTaskOrder(MainActivity.mTaskList)
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView()
