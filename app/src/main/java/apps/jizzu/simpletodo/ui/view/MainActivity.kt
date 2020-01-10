@@ -165,7 +165,11 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                deleteTask(viewHolder.adapterPosition)
+                if (direction == ItemTouchHelper.END) {
+                    completeTask(viewHolder.adapterPosition)
+                } else if (direction == ItemTouchHelper.START){
+                    deleteTask(viewHolder.adapterPosition)
+                }
             }
         })
         helper.attachToRecyclerView(mRecyclerView)
@@ -176,11 +180,14 @@ class MainActivity : BaseActivity() {
         val isCompletedTaskHasLastPosition = completedTask.position == mAdapter.itemCount - 1
         val alarmHelper = AlarmHelper.getInstance()
         alarmHelper.removeAlarm(completedTask.timeStamp)
+        completedTask.taskStatus = completedTask.taskStatus.not()
+        mViewModel.updateTask(completedTask)
         mAdapter.removeTask(position)
         var isUndoClicked = false
 
         mSnackbar = Snackbar.make(mRecyclerView, R.string.complete_task_status, Snackbar.LENGTH_LONG)
         mSnackbar?.setAction(R.string.snackbar_undo) {
+            completedTask.taskStatus = completedTask.taskStatus.not()
             mViewModel.saveTask(completedTask)
             if (completedTask.date != 0L && completedTask.date > Calendar.getInstance().timeInMillis) {
                 alarmHelper.setAlarm(completedTask)
@@ -529,9 +536,6 @@ class MainActivity : BaseActivity() {
         mAdapter.setTaskCompletionListener(object : RecyclerViewAdapter.TaskCompletionListener {
             override fun onTaskStatusChanged(v: View, position: Int) {
                 toast(getString(R.string.complete_task_status))
-                val task = mAdapter.getTaskAtPosition(position)
-                task.taskStatus = task.taskStatus.not()
-                mViewModel.updateTask(task)
                 completeTask(position)
             }
         })
