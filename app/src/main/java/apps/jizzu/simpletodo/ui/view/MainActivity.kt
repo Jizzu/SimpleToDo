@@ -535,7 +535,6 @@ class MainActivity : BaseActivity() {
 
         mAdapter.setTaskCompletionListener(object : RecyclerViewAdapter.TaskCompletionListener {
             override fun onTaskStatusChanged(v: View, position: Int) {
-                toast(getString(R.string.complete_task_status))
                 completeTask(position)
             }
         })
