@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
@@ -39,7 +39,7 @@ dependencies {
     // UI
     implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "androidx.cardview:cardview:$rootProject.androidxVersion"
+    implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
     implementation "androidx.preference:preference:$rootProject.androidxVersion"
     implementation "com.github.XunMengWinter:CircularAnim:$rootProject.circularAnimVersion"
     implementation "com.github.Daio-io:dresscode:$rootProject.dresscodeVersion"
@@ -66,8 +66,18 @@ dependencies {
 
     // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycleVersion"
+    kapt "android.arch.lifecycle:compiler:$rootProject.lifecycleVersion"
 
     // Tests
     testImplementation "junit:junit:$rootProject.junitVersion"
+
+    // Core library
+    androidTestImplementation 'androidx.test:core:1.1.0'
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+
+    // Assertions
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
 }

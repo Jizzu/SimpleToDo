@@ -6,8 +6,10 @@ import android.text.format.DateUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
+import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -50,13 +52,14 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
     fun getTaskAtPosition(position: Int) = mTaskList[position]
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.task_item_view, parent, false)
+        val status = v.findViewById<AppCompatCheckBox>(R.id.cbTaskStatus)
         val title = v.findViewById<TextView>(R.id.tvTaskTitle)
         val note = v.findViewById<ImageView>(R.id.ivTaskNote)
         val date = v.findViewById<TextView>(R.id.tvTaskDate)
         mContext = parent.context
 
-        return TaskViewHolder(v, title, note, date)
+        return TaskViewHolder(v, status, title, note, date)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
@@ -67,6 +70,11 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
 
         holder.itemView.isEnabled = true
         holder.title.text = task.title
+
+        holder.status.setOnClickListener {
+            taskCompletionListener?.onTaskStatusChanged(itemView, holder.adapterPosition)
+        }
+        holder.status.isChecked = task.taskStatus
 
         if (task.note.isNotEmpty()) {
             holder.note.visible()
@@ -133,13 +141,22 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.TaskViewHol
         RecyclerViewAdapter.clickListener = clickListener
     }
 
+    fun setTaskCompletionListener(completionListener: TaskCompletionListener) {
+        taskCompletionListener = completionListener
+    }
+
     interface ClickListener {
         fun onTaskClick(v: View, position: Int)
     }
 
-    inner class TaskViewHolder internal constructor(itemView: View, internal var title: TextView, internal var note: ImageView, internal var date: TextView) : RecyclerView.ViewHolder(itemView)
+    interface TaskCompletionListener {
+        fun onTaskStatusChanged(v: View, position: Int)
+    }
+
+    inner class TaskViewHolder internal constructor(itemView: View, internal var status: AppCompatCheckBox, internal var title: TextView, internal var note: ImageView, internal var date: TextView) : RecyclerView.ViewHolder(itemView)
 
     companion object {
         private var clickListener: ClickListener? = null
+        private var taskCompletionListener: TaskCompletionListener? = null
     }
 }

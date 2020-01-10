@@ -1,6 +1,7 @@
 <resources>
     <string name="simple_todo_title">S I M P L E \u0020\u0020 T O D O</string>
     <string name="empty_view_title">Pas de tâches</string>
+    <string name="completed_tasks_title">Tâches terminées</string>
     <string name="empty_view_text">Vous pouvez créer de nouvelles tâches \n en utilisant le bouton +</string>
     <string name="search_view_empty_text">Rechercher des tâches particulières</string>
     <string name="search_view_not_found_text">Aucune tâche trouvée :(</string>
@@ -158,4 +159,6 @@
     ///////////////<!-- Shortcuts -->///////////////
     <string name="shortcut_add_new_task">Ajouter une nouvelle tâche</string>
     <string name="shortcut_search">Rechercher</string>
+    <string name="complete_task_status">La tâche est terminée</string>
+    <string name="move_task_to_open">La tâche est déplacée vers Ouvrir</string>
 </resources>

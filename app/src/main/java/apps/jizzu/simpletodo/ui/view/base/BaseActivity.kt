@@ -90,6 +90,7 @@ abstract class BaseActivity : AppCompatActivity() {
             putExtra("note", task.note)
             putExtra("position", task.position)
             putExtra("time_stamp", task.timeStamp)
+            putExtra("task_status", task.taskStatus)
             if (task.date != 0L) {
                 putExtra("date", task.date)
             }

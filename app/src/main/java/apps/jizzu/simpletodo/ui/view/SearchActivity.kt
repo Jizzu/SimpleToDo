@@ -20,6 +20,7 @@ import apps.jizzu.simpletodo.ui.recycler.RecyclerViewAdapter
 import apps.jizzu.simpletodo.ui.view.base.BaseActivity
 import apps.jizzu.simpletodo.utils.PreferenceHelper
 import apps.jizzu.simpletodo.utils.gone
+import apps.jizzu.simpletodo.utils.toast
 import apps.jizzu.simpletodo.utils.visible
 import apps.jizzu.simpletodo.vm.SearchTasksViewModel
 import daio.io.dresscode.dressCodeStyleId
@@ -58,10 +59,23 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
                 showTaskDetailsActivity(task)
             }
         })
+
+        mAdapter.setTaskCompletionListener(object : RecyclerViewAdapter.TaskCompletionListener {
+            override fun onTaskStatusChanged(v: View, position: Int) {
+                val task = mAdapter.getTaskAtPosition(position)
+                task.taskStatus = task.taskStatus.not()
+                mViewModel.updateTask(task)
+                if (task.taskStatus) {
+                    toast(getString(R.string.complete_task_status))
+                } else {
+                    toast(getString(R.string.move_task_to_open))
+                }
+            }
+        })
     }
 
     private fun updateViewState(tasks: List<Task>) = if (tasks.isEmpty()) showEmptyView(false)
-        else showTaskList(tasks)
+    else showTaskList(tasks)
 
     private fun showEmptyView(isSearchFieldEmpty: Boolean) {
         mAdapter.updateData(arrayListOf())
@@ -97,7 +111,7 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener {
         searchText.setBackgroundResource(R.drawable.search_view_background)
         val view: View = searchView.findViewById(androidx.appcompat.R.id.search_plate)
 
-        when(dressCodeStyleId) {
+        when (dressCodeStyleId) {
             R.style.AppTheme_Light -> {
                 searchText.setHintTextColor(ContextCompat.getColor(this, R.color.black))
                 view.setBackgroundColor(ContextCompat.getColor(this, R.color.white))

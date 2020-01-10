@@ -79,7 +79,7 @@ class MainActivity : BaseActivity() {
         AlarmHelper.getInstance().init(applicationContext)
 
         mViewModel = createViewModel()
-        mViewModel.liveData.observe(this, Observer<List<Task>> { response -> updateViewState(response) })
+        mViewModel.allOpenTasksLiveData.observe(this, Observer<List<Task>> { response -> updateViewState(response) })
 
         PreferenceHelper.getInstance().init(applicationContext)
         mPreferenceHelper = PreferenceHelper.getInstance()
@@ -165,10 +165,64 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                deleteTask(viewHolder.adapterPosition)
+                if (direction == ItemTouchHelper.END) {
+                    completeTask(viewHolder.adapterPosition)
+                } else if (direction == ItemTouchHelper.START){
+                    deleteTask(viewHolder.adapterPosition)
+                }
             }
         })
         helper.attachToRecyclerView(mRecyclerView)
+    }
+
+    private fun completeTask(position: Int) {
+        val completedTask = mAdapter.getTaskAtPosition(position)
+        val isCompletedTaskHasLastPosition = completedTask.position == mAdapter.itemCount - 1
+        val alarmHelper = AlarmHelper.getInstance()
+        alarmHelper.removeAlarm(completedTask.timeStamp)
+        completedTask.taskStatus = completedTask.taskStatus.not()
+        mViewModel.updateTask(completedTask)
+        mAdapter.removeTask(position)
+        var isUndoClicked = false
+
+        mSnackbar = Snackbar.make(mRecyclerView, R.string.complete_task_status, Snackbar.LENGTH_LONG)
+        mSnackbar?.setAction(R.string.snackbar_undo) {
+            completedTask.taskStatus = completedTask.taskStatus.not()
+            mViewModel.saveTask(completedTask)
+            if (completedTask.date != 0L && completedTask.date > Calendar.getInstance().timeInMillis) {
+                alarmHelper.setAlarm(completedTask)
+            }
+            isUndoClicked = true
+
+            Handler().postDelayed({
+                val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                if (firstCompletelyVisibleItem != 0 && !RecyclerViewScrollListener.isShadowShown) {
+                    setToolbarShadow(0f, 10f)
+                    RecyclerViewScrollListener.isShadowShown = true
+                }
+            }, 100)
+        }
+
+        mSnackbar?.view?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(view: View) {
+                val firstCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                val lastCompletelyVisibleItem = (mRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+
+                if (firstCompletelyVisibleItem == 0 && lastCompletelyVisibleItem == mTaskList.size - 1 && RecyclerViewScrollListener.isShadowShown) {
+                    setToolbarShadow(10f, 0f)
+                    RecyclerViewScrollListener.isShadowShown = false
+                }
+            }
+
+            override fun onViewDetachedFromWindow(view: View) {
+                if (!isUndoClicked) {
+                    alarmHelper.removeNotification(completedTask.timeStamp, this@MainActivity)
+                    if (!isCompletedTaskHasLastPosition) recountTaskPositions()
+                }
+            }
+        })
+        mSnackbar?.anchorView = mFab
+        mSnackbar?.show()
     }
 
     private fun deleteTask(position: Int) {
@@ -465,6 +519,7 @@ class MainActivity : BaseActivity() {
         when (item.itemId) {
             android.R.id.home -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_search -> startActivity(Intent(this, SearchActivity::class.java))
+            R.id.action_view_completed_tasks -> startActivity(Intent(this, CompletedTasksActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
@@ -475,6 +530,12 @@ class MainActivity : BaseActivity() {
         mAdapter.setOnItemClickListener(object : RecyclerViewAdapter.ClickListener {
             override fun onTaskClick(v: View, position: Int) {
                 showTaskDetailsActivity(mAdapter.getTaskAtPosition(position))
+            }
+        })
+
+        mAdapter.setTaskCompletionListener(object : RecyclerViewAdapter.TaskCompletionListener {
+            override fun onTaskStatusChanged(v: View, position: Int) {
+                completeTask(position)
             }
         })
     }

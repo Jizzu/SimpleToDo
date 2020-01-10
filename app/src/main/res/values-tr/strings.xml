@@ -1,6 +1,7 @@
 <resources>
     <string name="simple_todo_title">S I M P L E \u0020\u0020 T O D O</string>
     <string name="empty_view_title">Hiç görev yok</string>
+    <string name="completed_tasks_title">Tamamlanan Görevler</string>
     <string name="empty_view_text">Yeni görevleri \n + tuşunu kullanarak ekleyebilirsiniz</string>
     <string name="search_view_empty_text">Belirli bir görev ara</string>
     <string name="search_view_not_found_text">Hiç görev bulunamadı :(</string>
@@ -158,4 +159,6 @@
     ///////////////<!-- Shortcuts -->///////////////
     <string name="shortcut_add_new_task">Yeni görev ekle</string>
     <string name="shortcut_search">Ara</string>
+    <string name="complete_task_status">Görev tamamlandı</string>
+    <string name="move_task_to_open">Görev Açık konumuna taşındı</string>
 </resources>

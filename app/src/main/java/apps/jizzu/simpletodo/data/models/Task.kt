@@ -34,17 +34,22 @@ class Task : Serializable {
     @NonNull
     var timeStamp: Long = 0
 
+    @ColumnInfo(name = "task_status")
+    @NonNull
+    var taskStatus: Boolean = false
+
     @Ignore
     constructor() {
         this.timeStamp = Date().time
     }
 
-    constructor(id: Long, title: String, note: String, date: Long, position: Int, timeStamp: Long) {
+    constructor(id: Long, title: String, note: String, date: Long, position: Int, timeStamp: Long, taskStatus: Boolean = false) {
         this.id = id
         this.title = title
         this.note = note
         this.date = date
         this.position = position
         this.timeStamp = timeStamp
+        this.taskStatus = taskStatus
     }
 }

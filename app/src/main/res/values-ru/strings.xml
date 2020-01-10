@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="empty_view_title">Нет задач</string>
+    <string name="completed_tasks_title">Завершенные задачи</string>
     <string name="empty_view_text">Создайте новые задачи \n с помощью кнопки +</string>
     <string name="search_view_empty_text">Введите поисковый запрос</string>
     <string name="search_view_not_found_text">Совпадения не найдены :(</string>
@@ -158,4 +159,6 @@
     ///////////////<!-- Shortcuts -->///////////////
     <string name="shortcut_add_new_task">Добавить задачу</string>
     <string name="shortcut_search">Поиск</string>
+    <string name="complete_task_status">Задача выполнена</string>
+    <string name="move_task_to_open">Задача перемещена в Открыть</string>
 </resources>

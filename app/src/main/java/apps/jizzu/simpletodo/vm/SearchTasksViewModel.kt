@@ -16,4 +16,6 @@ class SearchTasksViewModel(app: Application) : BaseViewModel(app) {
             MutableLiveData()
         }
     }
+
+    fun updateTask(task: Task) = repository.updateTask(task)
 }
